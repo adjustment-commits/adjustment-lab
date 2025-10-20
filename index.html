@@ -4,19 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>整 × adjustment-lab</title>
+
 <style>
 :root {
   --dark: #0d1117;
   --deep-green: #0b3d31;
   --chalk: #f8f8f8;
   --accent: #00ff99;
+  --fade: rgba(0,255,153,0.08);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background: url('https://adjustment-commits.github.io/assets/blackboard-texture.jpg') center/cover;
+  background: url('./assets/blackboard.jpg') center/cover no-repeat;
   color: var(--chalk);
   display: flex;
   flex-direction: column;
@@ -24,12 +26,12 @@ body {
   justify-content: center;
   height: 100vh;
   overflow: hidden;
-  transition: background 0.8s ease, color 0.6s ease;
+  transition: background 1s ease, color 0.8s ease;
 }
 
 h1 {
   font-size: 2.2rem;
-  margin-bottom: 0.4em;
+  margin: 0.3em 0 0.5em;
   text-align: center;
   letter-spacing: 0.05em;
 }
@@ -40,6 +42,14 @@ p {
   text-align: center;
   line-height: 1.8;
   max-width: 80%;
+  transition: color 0.8s ease;
+}
+
+#logo {
+  width: 140px;
+  height: auto;
+  margin-bottom: 1.2em;
+  transition: opacity 0.8s ease;
 }
 
 .toggle {
@@ -59,6 +69,13 @@ p {
   color: var(--dark);
 }
 
+a.more {
+  color: #ccc;
+  text-decoration: none;
+  margin-top: 1.2em;
+  display: inline-block;
+}
+
 footer {
   position: absolute;
   bottom: 15px;
@@ -67,49 +84,87 @@ footer {
   color: #aaa;
 }
 
+#grid {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: linear-gradient(var(--fade) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--fade) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0;
+  transition: opacity 1s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* LABモード */
 body.lab-mode {
   background: linear-gradient(180deg, var(--deep-green) 0%, #001f1a 100%);
   color: var(--accent);
 }
+
+body.lab-mode #grid {
+  opacity: 0.6;
+}
+
+body.lab-mode h1, body.lab-mode p {
+  color: var(--accent);
+}
+
+body.lab-mode .toggle {
+  border-color: #f1f5f9;
+  color: #f1f5f9;
+}
+
+body.lab-mode .toggle:hover {
+  background: #f1f5f9;
+  color: var(--deep-green);
+}
 </style>
 </head>
 
 <body>
+<div id="grid"></div>
+
+<img id="logo" src="./assets/logo-seii.png" alt="整ロゴ">
 <h1 id="title">整 - adjustment</h1>
-<p id="desc">
-  「整えることは、再現すること。」<br>
-  身体を導き、思考を育てる場。
-</p>
+<p id="desc">「整えることは、再現すること。」<br>身体を導き、思考を育てる場。</p>
 
 <button class="toggle" id="switchBtn">→ adjustment-labへ</button>
-
-<p style="margin-top:1.2em;">
-  <a href="./adjustment/index.html" style="color:#ccc;text-decoration:none;">詳しく見る</a>
-</p>
+<a class="more" id="linkMore" href="./adjustment/index.html">詳しく見る</a>
 
 <footer>© 2025 整 - adjustment / adjustment-lab</footer>
 
 <script>
 const btn = document.getElementById('switchBtn');
+const logo = document.getElementById('logo');
 const title = document.getElementById('title');
 const desc = document.getElementById('desc');
+const link = document.getElementById('linkMore');
 let mode = 'seii';
 
 btn.addEventListener('click', () => {
   document.body.classList.toggle('lab-mode');
+
   if (mode === 'seii') {
     mode = 'lab';
+    logo.src = './assets/logo-lab.png';
     title.textContent = 'adjustment-lab';
     desc.innerHTML = '設計し、再現性を創る。<br>HTML教材とトレーニング機材の開発所。';
     btn.textContent = '← 整 - adjustmentへ';
+    link.href = './lab/index.html';
+    link.textContent = '詳しく見る';
   } else {
     mode = 'seii';
+    logo.src = './assets/logo-seii.png';
     title.textContent = '整 - adjustment';
     desc.innerHTML = '「整えることは、再現すること。」<br>身体を導き、思考を育てる場。';
     btn.textContent = '→ adjustment-labへ';
+    link.href = './adjustment/index.html';
+    link.textContent = '詳しく見る';
   }
 });
 </script>
+
 </body>
 </html>
