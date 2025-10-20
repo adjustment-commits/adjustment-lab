@@ -3,98 +3,114 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>整 - adjustment｜原理原則の思考</title>
+<title>整 - adjustment｜体験する思考</title>
 
 <style>
 :root {
-  --chalk: #f8f8f8;
+  --bg: #0d1117;
+  --chalk: #f4f4f4;
   --accent: #00ff99;
-  --dark: #0d1117;
+  --sub: #888;
   font-family: 'Noto Sans JP', sans-serif;
 }
 
 body {
   margin: 0;
-  padding: 60px 20px 100px;
-  background: url('../assets/blackboard.jpg') center/cover no-repeat;
+  padding: 0;
+  background: var(--bg) url('../assets/blackboard.jpg') center/cover no-repeat;
   color: var(--chalk);
-  line-height: 1.9;
-  position: relative;
+  line-height: 1.8;
   overflow-x: hidden;
+  position: relative;
 }
 
-/* 黒板の暗幕 */
 body::before {
   content: "";
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.45);
+  top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.5);
   z-index: -1;
 }
 
+/* --- Header --- */
 header {
   text-align: center;
-  margin-bottom: 60px;
+  padding: 80px 20px 40px;
 }
-
-header h1 {
+h1 {
   font-size: 2rem;
   margin-bottom: 0.2em;
-  text-shadow: 0 0 8px rgba(0,0,0,0.5);
+  letter-spacing: 0.05em;
 }
-
-header p.sub {
-  color: #ccc;
+p.lead {
+  color: var(--sub);
   font-size: 1rem;
-  opacity: 0.9;
 }
 
+/* --- Sections --- */
 section {
-  max-width: 800px;
-  margin: 0 auto 80px;
+  max-width: 780px;
+  margin: 100px auto;
+  padding: 40px 30px;
   background: rgba(0,0,0,0.4);
-  padding: 30px 40px;
   border-left: 3px solid var(--accent);
-  border-radius: 6px;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 1.2s ease;
+  border-radius: 8px;
+  transition: background 0.3s;
 }
-
-section.visible {
-  opacity: 1;
-  transform: translateY(0);
+section:hover {
+  background: rgba(0,0,0,0.55);
 }
 
 section h2 {
   color: var(--accent);
-  font-size: 1.4rem;
-  margin-bottom: 0.5em;
-  letter-spacing: 0.05em;
+  font-size: 1.3rem;
+  margin-bottom: 1em;
 }
 
 section p {
-  color: var(--chalk);
   font-size: 1rem;
-  opacity: 0.95;
+  color: var(--chalk);
 }
 
+/* --- 体験ボタン --- */
+button.experience {
+  display: block;
+  margin: 40px auto 0;
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.5em 1.4em;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 1rem;
+}
+button.experience:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* --- Footer --- */
 footer {
   text-align: center;
-  margin-top: 80px;
-  font-size: 0.9rem;
   color: #aaa;
+  font-size: 0.85rem;
+  margin: 100px 0 40px;
 }
-
 footer a {
   color: var(--accent);
   text-decoration: none;
-  transition: 0.3s;
 }
 
-footer a:hover {
-  color: #fff;
+/* --- Animation --- */
+.fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+.fade.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
 </head>
@@ -102,50 +118,48 @@ footer a:hover {
 <body>
 <header>
   <h1>整 - adjustment</h1>
-  <p class="sub">原理原則に基づく思考体系</p>
+  <p class="lead">言葉ではなく、感覚で理解するための場所。</p>
 </header>
 
-<section class="thinking">
-  <h2>Thinking｜思考</h2>
-  <p>
-    整えることは、再現すること。<br>
-    感覚や動きは偶然ではなく、原理原則に従う設計の結果である。<br>
-    私たちは身体を観察し、因果を読み解き、再現性のある思考を築く。
-  </p>
+<section class="fade">
+  <h2>触れてみる</h2>
+  <p>力を入れずに、足裏を地面に預けてみる。<br>
+  どこに支えを感じる？ その瞬間に身体は、あなたに教えようとしている。</p>
+  <button class="experience" onclick="showMsg('身体は“考える”より先に、理解している。')">感じたことを記録</button>
 </section>
 
-<section class="guidance">
-  <h2>Guidance｜導き</h2>
-  <p>
-    導くとは、正解を与えることではない。<br>
-    観察し、問うことで、相手の中に答えを生じさせる。<br>
-    感覚を奪わず、理解を育てる。それが整の在り方である。
-  </p>
+<section class="fade">
+  <h2>感じてみる</h2>
+  <p>呼吸を止めずに骨盤を前へ送る。<br>
+  胸ではなく、背中の広がりを感じることができる？</p>
+  <button class="experience" onclick="showMsg('動きを見ずに、流れを感じる。')">理解した瞬間</button>
 </section>
 
-<section class="learning">
-  <h2>Learning｜学び</h2>
-  <p>
-    学びとは、経験の再構築。<br>
-    技術は真似ではなく、原理を体に写す作業。<br>
-    整えることは、思考を身体に宿すことそのものだ。
-  </p>
+<section class="fade">
+  <h2>導かれてみる</h2>
+  <p>正解を探さない。<br>
+  一度止まって、自分の中の「なぜ？」を聴く。<br>
+  それが導きの始まり。</p>
+  <button class="experience" onclick="showMsg('問いを持てる人が、動きを整える人になる。')">もう一度考える</button>
 </section>
 
 <footer>
-  <p><a href="../lab/index.html">→ adjustment-labへ（設計と再現の世界）</a></p>
+  <p><a href="../lab/index.html">→ adjustment-labへ（再現の設計へ進む）</a></p>
   <p><a href="../index.html" style="color:#ccc;">← トップへ戻る</a></p>
 </footer>
 
 <script>
-// フェードイン演出
-const sections = document.querySelectorAll("section");
+const fades = document.querySelectorAll('.fade');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if(entry.isIntersecting) entry.target.classList.add("visible");
+    if(entry.isIntersecting) entry.target.classList.add('visible');
   });
 }, {threshold: 0.2});
-sections.forEach(sec => observer.observe(sec));
+fades.forEach(f => observer.observe(f));
+
+function showMsg(text){
+  alert(text);
+}
 </script>
 
 </body>
