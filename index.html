@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>整 × adjustment-lab</title>
+<style>
+:root {
+  --dark: #0d1117;
+  --deep-green: #0b3d31;
+  --chalk: #f8f8f8;
+  --accent: #00ff99;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: url('https://adjustment-commits.github.io/assets/blackboard-texture.jpg') center/cover;
+  color: var(--chalk);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  transition: background 0.8s ease, color 0.6s ease;
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.4em;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+p {
+  font-size: 1rem;
+  opacity: 0.85;
+  text-align: center;
+  line-height: 1.8;
+  max-width: 80%;
+}
+
+.toggle {
+  margin-top: 2.5em;
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.6em 1.8em;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.4s ease;
+}
+
+.toggle:hover {
+  background: var(--accent);
+  color: var(--dark);
+}
+
+footer {
+  position: absolute;
+  bottom: 15px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+/* LABモード */
+body.lab-mode {
+  background: linear-gradient(180deg, var(--deep-green) 0%, #001f1a 100%);
+  color: var(--accent);
+}
+</style>
+</head>
+
+<body>
+<h1 id="title">整 - adjustment</h1>
+<p id="desc">
+  「整えることは、再現すること。」<br>
+  身体を導き、思考を育てる場。
+</p>
+
+<button class="toggle" id="switchBtn">→ adjustment-labへ</button>
+
+<p style="margin-top:1.2em;">
+  <a href="./adjustment/index.html" style="color:#ccc;text-decoration:none;">詳しく見る</a>
+</p>
+
+<footer>© 2025 整 - adjustment / adjustment-lab</footer>
+
+<script>
+const btn = document.getElementById('switchBtn');
+const title = document.getElementById('title');
+const desc = document.getElementById('desc');
+let mode = 'seii';
+
+btn.addEventListener('click', () => {
+  document.body.classList.toggle('lab-mode');
+  if (mode === 'seii') {
+    mode = 'lab';
+    title.textContent = 'adjustment-lab';
+    desc.innerHTML = '設計し、再現性を創る。<br>HTML教材とトレーニング機材の開発所。';
+    btn.textContent = '← 整 - adjustmentへ';
+  } else {
+    mode = 'seii';
+    title.textContent = '整 - adjustment';
+    desc.innerHTML = '「整えることは、再現すること。」<br>身体を導き、思考を育てる場。';
+    btn.textContent = '→ adjustment-labへ';
+  }
+});
+</script>
+</body>
+</html>
