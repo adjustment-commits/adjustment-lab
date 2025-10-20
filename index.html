@@ -8,7 +8,7 @@
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0b3d31">
 
-<!-- Service Worker -->
+<!-- ✅ Service Worker -->
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -28,9 +28,7 @@ if ("serviceWorker" in navigator) {
   --transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* ===============================
-   BASE LAYER
-================================= */
+/* ========== Base Layer ========== */
 body {
   margin: 0;
   padding: 0;
@@ -45,8 +43,6 @@ body {
   position: relative;
   transition: var(--transition);
 }
-
-/* 黒板トーンを落とすレイヤー */
 body::before {
   content: "";
   position: fixed;
@@ -57,7 +53,7 @@ body::before {
   transition: var(--transition);
 }
 
-/* 浮遊感のある微粒子エフェクト */
+/* ========== 粒子エフェクト ========== */
 #particles {
   position: fixed;
   top: 0; left: 0;
@@ -73,9 +69,7 @@ body::before {
   to {transform: translateY(-20px);}
 }
 
-/* ===============================
-   TYPOGRAPHY
-================================= */
+/* ========== Typography ========== */
 h1 {
   font-size: 2.6rem;
   margin: 0.4em 0 0.5em;
@@ -85,7 +79,6 @@ h1 {
   z-index: 2;
   transition: var(--transition);
 }
-
 p {
   font-size: 1.1rem;
   opacity: 0.95;
@@ -97,9 +90,7 @@ p {
   transition: var(--transition);
 }
 
-/* ===============================
-   LOGO
-================================= */
+/* ========== Logo ========== */
 #logo {
   width: 180px;
   height: auto;
@@ -109,9 +100,7 @@ p {
   transition: opacity 1s ease, transform 1s ease;
 }
 
-/* ===============================
-   BUTTONS
-================================= */
+/* ========== Button ========== */
 .toggle {
   margin-top: 2.5em;
   background: none;
@@ -130,7 +119,6 @@ p {
   color: var(--dark);
   transform: scale(1.05);
 }
-
 a.more {
   color: #ccc;
   text-decoration: none;
@@ -143,9 +131,7 @@ a.more:hover {
   color: var(--accent);
 }
 
-/* ===============================
-   FOOTER
-================================= */
+/* ========== Footer ========== */
 footer {
   position: absolute;
   bottom: 18px;
@@ -161,54 +147,40 @@ footer a {
   margin: 0 8px;
   transition: opacity 0.3s ease;
 }
-footer a:hover {
-  opacity: 0.8;
-}
+footer a:hover { opacity: 0.8; }
 
-/* ===============================
-   LAB MODE TRANSITION
-================================= */
+/* ========== LAB Mode ========== */
 body.lab-mode {
   background: linear-gradient(180deg, #002519 0%, #000f09 100%);
   color: var(--accent);
 }
-
-body.lab-mode::before {
-  background: rgba(0, 0, 0, 0.3);
-}
-
+body.lab-mode::before { background: rgba(0,0,0,0.3); }
 body.lab-mode #particles {
   opacity: 0.5;
   background-size: 80px 80px;
   filter: hue-rotate(100deg);
 }
-
 body.lab-mode h1, body.lab-mode p {
   color: var(--accent);
   text-shadow: 0 0 20px rgba(0,255,153,0.8);
 }
-
 body.lab-mode .toggle {
   border-color: #f1f5f9;
   color: #f1f5f9;
 }
-
 body.lab-mode .toggle:hover {
   background: #f1f5f9;
   color: var(--deep-green);
 }
 
-/* フェードアニメーション */
+/* ========== Fade Animation ========== */
 .fade {
   opacity: 0;
   transform: translateY(10px);
   animation: fadeIn 1.4s forwards ease-in-out;
 }
 @keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
