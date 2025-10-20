@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>adjustment-lab｜分離を体験する</title>
+
+<style>
+:root {
+  --bg: #0b3d31;
+  --panel: rgba(0,0,0,0.4);
+  --accent: #00ff99;
+  --text: #f8f8f8;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+header {
+  text-align: center;
+  padding: 80px 20px 40px;
+}
+h1 {
+  font-size: 2rem;
+  color: var(--accent);
+  margin-bottom: 0.3em;
+}
+p.sub {
+  color: #77ffcc;
+  font-size: 1rem;
+}
+
+/* --- Panels --- */
+section {
+  max-width: 800px;
+  margin: 60px auto;
+  background: var(--panel);
+  padding: 40px 30px;
+  border-left: 3px solid var(--accent);
+  border-radius: 10px;
+}
+
+/* --- Slider Area --- */
+.slider-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px 0;
+}
+label {
+  color: #ccc;
+  margin-bottom: 8px;
+}
+input[type="range"] {
+  width: 80%;
+  accent-color: var(--accent);
+}
+#bodyDisplay {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 30px;
+}
+.part {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+.part.active {
+  background: var(--accent);
+  color: #0b3d31;
+  font-weight: bold;
+}
+
+/* --- Buttons --- */
+button.action {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.5em 1.5em;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 20px;
+}
+button.action:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* --- Output Text --- */
+.output {
+  margin-top: 20px;
+  color: var(--accent);
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  color: #88ffcc;
+  font-size: 0.85rem;
+  margin: 100px 0 60px;
+}
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+<header>
+  <h1>分離を体験する</h1>
+  <p class="sub">順序が変わると、感覚が変わる。</p>
+</header>
+
+<section>
+  <h2>目的｜なぜ分離が必要か</h2>
+  <p>
+    分離とは、動きをバラバラにすることではなく、<br>
+    つながりの中で順序を理解すること。<br>
+    骨盤 → 胸郭 → 肩甲帯、この順序が崩れると再現性は失われる。
+  </p>
+</section>
+
+<section>
+  <h2>原理｜順序を触って確かめる</h2>
+  <p>スライダーを動かすと、各部位の順序が切り替わります。</p>
+
+  <div class="slider-area">
+    <label>動作の順序</label>
+    <input type="range" min="0" max="2" value="0" id="orderSlider" step="1">
+    <div id="bodyDisplay">
+      <div class="part" id="pelvis">骨盤</div>
+      <div class="part" id="thorax">胸郭</div>
+      <div class="part" id="scapula">肩甲</div>
+    </div>
+  </div>
+
+  <div class="output" id="outputText">骨盤が主導しています。</div>
+</section>
+
+<section>
+  <h2>感覚｜分離の瞬間を感じる</h2>
+  <p>下のボタンを押して、感覚の言葉を確認してみよう。</p>
+  <div style="text-align:center;">
+    <button class="action" onclick="feel()">感じてみる</button>
+    <div class="output" id="feelText"></div>
+  </div>
+</section>
+
+<section>
+  <h2>再現｜練習への落とし込み</h2>
+  <p>順序が理解できたら、次は再現。<br>
+  骨盤が先行した動きをどうトレーニングに変えるかを考えてみよう。</p>
+  <div style="text-align:center;">
+    <button class="action" onclick="showProgram()">再現する</button>
+    <div class="output" id="programText"></div>
+  </div>
+</section>
+
+<footer>
+  <p><a href="./index.html">← labトップへ戻る</a></p>
+  <p><a href="../adjustment/index.html">整 - adjustmentへ</a></p>
+</footer>
+
+<script>
+const slider = document.getElementById("orderSlider");
+const parts = [document.getElementById("pelvis"), document.getElementById("thorax"), document.getElementById("scapula")];
+const outputText = document.getElementById("outputText");
+
+slider.addEventListener("input", () => {
+  const val = parseInt(slider.value);
+  parts.forEach(p => p.classList.remove("active"));
+  if(val === 0){
+    parts[0].classList.add("active");
+    outputText.textContent = "骨盤が主導しています。";
+  } else if(val === 1){
+    parts[1].classList.add("active");
+    outputText.textContent = "胸郭が主導しています。";
+  } else {
+    parts[2].classList.add("active");
+    outputText.textContent = "肩甲帯が主導しています。";
+  }
+});
+
+function feel(){
+  const messages = [
+    "骨盤が動くとき、床との会話が始まる。",
+    "胸郭が動くとき、呼吸が流れ始める。",
+    "肩甲が動くとき、力が解放される。"
+  ];
+  const val = parseInt(slider.value);
+  document.getElementById("feelText").textContent = messages[val];
+}
+
+function showProgram(){
+  const val = parseInt(slider.value);
+  const programText = document.getElementById("programText");
+  if(val === 0){
+    programText.textContent = "→ ヒップイン・ブリッジ・下肢主導ドリルがおすすめ。";
+  } else if(val === 1){
+    programText.textContent = "→ ローテーションプレスや胸郭分離エクササイズを実施。";
+  } else {
+    programText.textContent = "→ 肩甲リード・上肢のリリースドリルで感覚を整える。";
+  }
+}
+</script>
+
+</body>
+</html>
