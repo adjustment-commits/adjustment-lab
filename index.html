@@ -53,7 +53,7 @@ body::before {
   transition: var(--transition);
 }
 
-/* ========== 粒子エフェクト ========== */
+/* 粒子エフェクト */
 #particles {
   position: fixed;
   top: 0; left: 0;
@@ -69,7 +69,7 @@ body::before {
   to {transform: translateY(-20px);}
 }
 
-/* ========== Typography ========== */
+/* Typography */
 h1 {
   font-size: 2.6rem;
   margin: 0.4em 0 0.5em;
@@ -90,7 +90,7 @@ p {
   transition: var(--transition);
 }
 
-/* ========== Logo ========== */
+/* Logo */
 #logo {
   width: 180px;
   height: auto;
@@ -100,7 +100,7 @@ p {
   transition: opacity 1s ease, transform 1s ease;
 }
 
-/* ========== Button ========== */
+/* Buttons */
 .toggle {
   margin-top: 2.5em;
   background: none;
@@ -131,7 +131,7 @@ a.more:hover {
   color: var(--accent);
 }
 
-/* ========== Footer ========== */
+/* Footer */
 footer {
   position: absolute;
   bottom: 18px;
@@ -149,7 +149,7 @@ footer a {
 }
 footer a:hover { opacity: 0.8; }
 
-/* ========== LAB Mode ========== */
+/* Lab Mode */
 body.lab-mode {
   background: linear-gradient(180deg, #002519 0%, #000f09 100%);
   color: var(--accent);
@@ -173,7 +173,7 @@ body.lab-mode .toggle:hover {
   color: var(--deep-green);
 }
 
-/* ========== Fade Animation ========== */
+/* Fade Animation */
 .fade {
   opacity: 0;
   transform: translateY(10px);
@@ -203,12 +203,19 @@ body.lab-mode .toggle:hover {
   © 2025 整 - adjustment / adjustment-lab
 </footer>
 
+<!-- ✅ Audio elements -->
+<audio id="sound-seii-to-lab" src="./assets/switch-seii-to-lab.mp3" preload="auto"></audio>
+<audio id="sound-lab-to-seii" src="./assets/switch-lab-to-seii.mp3" preload="auto"></audio>
+
 <script>
 const btn = document.getElementById('switchBtn');
 const logo = document.getElementById('logo');
 const title = document.getElementById('title');
 const desc = document.getElementById('desc');
 const link = document.getElementById('linkMore');
+const soundSeiiToLab = document.getElementById('sound-seii-to-lab');
+const soundLabToSeii = document.getElementById('sound-lab-to-seii');
+
 let mode = 'seii';
 
 btn.addEventListener('click', () => {
@@ -216,6 +223,8 @@ btn.addEventListener('click', () => {
 
   if (mode === 'seii') {
     mode = 'lab';
+    soundSeiiToLab.currentTime = 0;
+    soundSeiiToLab.play().catch(()=>{});
     logo.style.opacity = 0;
     setTimeout(() => {
       logo.src = './assets/logo-lab.png';
@@ -227,6 +236,8 @@ btn.addEventListener('click', () => {
     link.href = './lab/index.html';
   } else {
     mode = 'seii';
+    soundLabToSeii.currentTime = 0;
+    soundLabToSeii.play().catch(()=>{});
     logo.style.opacity = 0;
     setTimeout(() => {
       logo.src = './assets/logo-seii.png';
