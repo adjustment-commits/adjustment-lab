@@ -22,6 +22,7 @@ body {
   overflow-x: hidden;
 }
 
+/* --- Header --- */
 header {
   text-align: center;
   padding: 80px 20px 40px;
@@ -81,6 +82,42 @@ button.submit:hover {
   color: var(--bg);
 }
 
+/* --- Thanks Overlay --- */
+#thanks {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.92);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--accent);
+  font-size: 1.2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  z-index: 999;
+}
+#thanks.active {
+  opacity: 1;
+  pointer-events: all;
+}
+#thanks button {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.5em 1.2em;
+  border-radius: 4px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#thanks button:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
 /* --- Footer --- */
 footer {
   text-align: center;
@@ -101,7 +138,7 @@ footer a {
   <p class="sub">申し込み・お問い合わせ</p>
 </header>
 
-<form action="mailto:example@example.com" method="post" enctype="text/plain">
+<form id="contactForm" action="mailto:example@example.com" method="post" enctype="text/plain">
   <label for="name">お名前</label>
   <input type="text" id="name" name="お名前" required>
 
@@ -126,10 +163,26 @@ footer a {
   <button type="submit" class="submit">送信する</button>
 </form>
 
+<div id="thanks">
+  <p>送信が完了しました。</p>
+  <p>再現を体験してみよう。</p>
+  <button onclick="window.location.href='../lab/index.html'">→ adjustment-labへ</button>
+</div>
+
 <footer>
-  <p><a href="../lab/index.html">← 再現を体験する（labへ）</a></p>
-  <p><a href="../index.html">トップへ戻る</a></p>
+  <p><a href="../index.html">← トップへ戻る</a></p>
 </footer>
+
+<script>
+const form = document.getElementById('contactForm');
+const thanks = document.getElementById('thanks');
+
+form.addEventListener('submit', (e) => {
+  setTimeout(() => {
+    thanks.classList.add('active');
+  }, 800); // メール送信処理の後、少し遅延して表示
+});
+</script>
 
 </body>
 </html>
