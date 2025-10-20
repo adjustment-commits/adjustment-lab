@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>contact｜申し込み・お問い合わせ</title>
+
+<style>
+:root {
+  --bg: #0e1117;
+  --accent: #00ff99;
+  --text: #f8f8f8;
+  --panel: rgba(255,255,255,0.05);
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+header {
+  text-align: center;
+  padding: 80px 20px 40px;
+}
+h1 {
+  font-size: 1.8rem;
+  color: var(--accent);
+  margin-bottom: 0.3em;
+}
+p.sub {
+  color: #aaa;
+  font-size: 1rem;
+}
+
+/* --- Form Area --- */
+form {
+  max-width: 700px;
+  margin: 0 auto 100px;
+  padding: 40px 30px;
+  background: var(--panel);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+}
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+input, select, textarea {
+  width: 100%;
+  background: #1a1d24;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text);
+  font-size: 1rem;
+  padding: 10px 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+textarea { min-height: 120px; resize: vertical; }
+
+button.submit {
+  display: block;
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.6em 1.6em;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+button.submit:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  color: #888;
+  font-size: 0.9rem;
+  margin: 100px 0 40px;
+}
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+<header>
+  <h1>contact</h1>
+  <p class="sub">申し込み・お問い合わせ</p>
+</header>
+
+<form action="mailto:example@example.com" method="post" enctype="text/plain">
+  <label for="name">お名前</label>
+  <input type="text" id="name" name="お名前" required>
+
+  <label for="team">チーム名（任意）</label>
+  <input type="text" id="team" name="チーム名">
+
+  <label for="email">メールアドレス</label>
+  <input type="email" id="email" name="メールアドレス" required>
+
+  <label for="type">お問い合わせ種別</label>
+  <select id="type" name="お問い合わせ種別" required>
+    <option value="">選択してください</option>
+    <option value="パフォーマンス測定">パフォーマンス測定</option>
+    <option value="チームトレーナー契約">チームトレーナー契約</option>
+    <option value="パーソナルトレーニング">パーソナルトレーニング</option>
+    <option value="その他">その他</option>
+  </select>
+
+  <label for="message">内容</label>
+  <textarea id="message" name="内容" placeholder="ご希望・質問などをご記入ください"></textarea>
+
+  <button type="submit" class="submit">送信する</button>
+</form>
+
+<footer>
+  <p><a href="../lab/index.html">← 再現を体験する（labへ）</a></p>
+  <p><a href="../index.html">トップへ戻る</a></p>
+</footer>
+
+</body>
+</html>
