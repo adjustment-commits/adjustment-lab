@@ -7,6 +7,8 @@
 
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0b3d31">
+
+<!-- Service Worker -->
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -19,16 +21,20 @@ if ("serviceWorker" in navigator) {
 :root {
   --dark: #0d1117;
   --deep-green: #0b3d31;
-  --chalk: #f8f8f8;
+  --chalk: #fefefe;
   --accent: #00ff99;
-  --fade: rgba(0,255,153,0.08);
+  --fade: rgba(0,255,153,0.05);
   font-family: 'Noto Sans JP', sans-serif;
+  --transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* ===============================
+   BASE LAYER
+================================= */
 body {
   margin: 0;
   padding: 0;
-  background: url('./assets/blackboard.jpg') center/cover no-repeat;
+  background: url('./assets/blackboard.jpg') center/cover no-repeat fixed;
   color: var(--chalk);
   display: flex;
   flex-direction: column;
@@ -37,111 +43,149 @@ body {
   height: 100vh;
   overflow: hidden;
   position: relative;
-  transition: background 1s ease, color 0.8s ease;
+  transition: var(--transition);
 }
 
-/* 黒板を暗くする半透明レイヤー */
+/* 黒板トーンを落とすレイヤー */
 body::before {
   content: "";
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0,0,0,0.65);
   z-index: 0;
+  transition: var(--transition);
 }
 
+/* 浮遊感のある微粒子エフェクト */
+#particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(var(--fade) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.25;
+  animation: float 10s infinite alternate ease-in-out;
+  z-index: 0;
+}
+@keyframes float {
+  from {transform: translateY(0);}
+  to {transform: translateY(-20px);}
+}
+
+/* ===============================
+   TYPOGRAPHY
+================================= */
 h1 {
-  font-size: 2.2rem;
-  margin: 0.3em 0 0.5em;
+  font-size: 2.6rem;
+  margin: 0.4em 0 0.5em;
   text-align: center;
-  letter-spacing: 0.05em;
-  text-shadow: 0 0 8px rgba(0,0,0,0.4);
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 15px rgba(0,0,0,0.6);
+  z-index: 2;
+  transition: var(--transition);
 }
 
 p {
-  font-size: 1rem;
-  opacity: 0.9;
+  font-size: 1.1rem;
+  opacity: 0.95;
   text-align: center;
-  line-height: 1.8;
+  line-height: 1.9;
   max-width: 80%;
-  text-shadow: 0 0 6px rgba(0,0,0,0.4);
-  transition: color 0.8s ease;
+  text-shadow: 0 0 6px rgba(0,0,0,0.6);
+  z-index: 2;
+  transition: var(--transition);
 }
 
+/* ===============================
+   LOGO
+================================= */
 #logo {
-  width: 160px;
+  width: 180px;
   height: auto;
-  margin-bottom: 1.2em;
-  filter: drop-shadow(0 0 8px rgba(0,0,0,0.7));
-  z-index: 1;
-  transition: opacity 0.8s ease;
+  margin-bottom: 1.5em;
+  filter: drop-shadow(0 0 12px rgba(0,0,0,0.7));
+  z-index: 2;
+  transition: opacity 1s ease, transform 1s ease;
 }
 
+/* ===============================
+   BUTTONS
+================================= */
 .toggle {
   margin-top: 2.5em;
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
-  padding: 0.6em 1.8em;
-  font-size: 1rem;
+  padding: 0.7em 2.2em;
+  font-size: 1.05rem;
   cursor: pointer;
   border-radius: 4px;
-  transition: all 0.4s ease;
-  z-index: 1;
+  letter-spacing: 0.05em;
+  transition: all 0.5s ease;
+  z-index: 2;
 }
-
 .toggle:hover {
   background: var(--accent);
   color: var(--dark);
+  transform: scale(1.05);
 }
 
 a.more {
   color: #ccc;
   text-decoration: none;
-  margin-top: 1.2em;
+  margin-top: 1.3em;
   display: inline-block;
-  z-index: 1;
+  z-index: 2;
+  transition: color 0.4s ease;
+}
+a.more:hover {
+  color: var(--accent);
 }
 
+/* ===============================
+   FOOTER
+================================= */
 footer {
   position: absolute;
-  bottom: 15px;
+  bottom: 18px;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: #aaa;
-  z-index: 1;
+  z-index: 2;
+  letter-spacing: 0.03em;
+}
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+  margin: 0 8px;
+  transition: opacity 0.3s ease;
+}
+footer a:hover {
+  opacity: 0.8;
 }
 
-#grid {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-image: linear-gradient(var(--fade) 1px, transparent 1px),
-                    linear-gradient(90deg, var(--fade) 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0;
-  transition: opacity 1s ease;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* LABモード */
+/* ===============================
+   LAB MODE TRANSITION
+================================= */
 body.lab-mode {
-  background: linear-gradient(180deg, var(--deep-green) 0%, #001d15 100%);
+  background: linear-gradient(180deg, #002519 0%, #000f09 100%);
   color: var(--accent);
 }
 
 body.lab-mode::before {
-  background: rgba(0,0,0,0.25); /* 緑背景用に少し明るめ */
+  background: rgba(0, 0, 0, 0.3);
 }
 
-body.lab-mode #grid {
-  opacity: 0.6;
+body.lab-mode #particles {
+  opacity: 0.5;
+  background-size: 80px 80px;
+  filter: hue-rotate(100deg);
 }
 
 body.lab-mode h1, body.lab-mode p {
   color: var(--accent);
-  text-shadow: 0 0 12px rgba(0,255,153,0.5);
+  text-shadow: 0 0 20px rgba(0,255,153,0.8);
 }
 
 body.lab-mode .toggle {
@@ -153,23 +197,36 @@ body.lab-mode .toggle:hover {
   background: #f1f5f9;
   color: var(--deep-green);
 }
+
+/* フェードアニメーション */
+.fade {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 1.4s forwards ease-in-out;
+}
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>
 </head>
 
 <body>
-<div id="grid"></div>
+<div id="particles"></div>
 
-<img id="logo" src="./assets/logo-seii.png" alt="整ロゴ">
-<h1 id="title">整 - adjustment</h1>
-<p id="desc">「整えることは、再現すること。」<br>身体を導き、思考を育てる場。</p>
+<img id="logo" src="./assets/logo-seii.png" alt="整ロゴ" class="fade">
+<h1 id="title" class="fade">整 - adjustment</h1>
+<p id="desc" class="fade">「整えることは、再現すること。」<br>身体を導き、思考を育てる場。</p>
 
-<button class="toggle" id="switchBtn">→ adjustment-labへ</button>
-<a class="more" id="linkMore" href="./adjustment/index.html">詳しく見る</a>
+<button class="toggle fade" id="switchBtn">→ adjustment-labへ</button>
+<a class="more fade" id="linkMore" href="./adjustment/index.html">詳しく見る</a>
 
-<footer>
+<footer class="fade">
   <div style="margin-bottom:6px;">
-    <a href="https://www.threads.net/@hrsnsmt.15" target="_blank" style="color:#00ff99;text-decoration:none;margin-right:10px;">Threads</a>
-    <a href="https://www.instagram.com/hrsnsmt.15" target="_blank" style="color:#00ff99;text-decoration:none;">Instagram</a>
+    <a href="https://www.threads.net/@hrsnsmt.15" target="_blank">Threads</a> /
+    <a href="https://www.instagram.com/hrsnsmt.15" target="_blank">Instagram</a>
   </div>
   © 2025 整 - adjustment / adjustment-lab
 </footer>
@@ -187,20 +244,26 @@ btn.addEventListener('click', () => {
 
   if (mode === 'seii') {
     mode = 'lab';
-    logo.src = './assets/logo-lab.png';
+    logo.style.opacity = 0;
+    setTimeout(() => {
+      logo.src = './assets/logo-lab.png';
+      logo.style.opacity = 1;
+    }, 500);
     title.textContent = 'adjustment-lab';
     desc.innerHTML = '設計し、再現性を創る。<br>HTML教材とトレーニング機材の開発所。';
     btn.textContent = '← 整 - adjustmentへ';
     link.href = './lab/index.html';
-    link.textContent = '詳しく見る';
   } else {
     mode = 'seii';
-    logo.src = './assets/logo-seii.png';
+    logo.style.opacity = 0;
+    setTimeout(() => {
+      logo.src = './assets/logo-seii.png';
+      logo.style.opacity = 1;
+    }, 500);
     title.textContent = '整 - adjustment';
     desc.innerHTML = '「整えることは、再現すること。」<br>身体を導き、思考を育てる場。';
     btn.textContent = '→ adjustment-labへ';
     link.href = './adjustment/index.html';
-    link.textContent = '詳しく見る';
   }
 });
 </script>
