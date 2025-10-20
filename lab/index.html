@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>adjustment-lab｜再現を設計する</title>
 
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0b3d31">
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("../service-worker.js");
+}
+</script>
+
 <style>
 :root {
   --bg: #0b3d31;
