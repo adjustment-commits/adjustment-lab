@@ -143,6 +143,7 @@ questions.forEach(q => {
 });
 
 function showResult() {
+  localStorage.setItem("seiiScore", score);
   const r = document.getElementById("result");
   const title = document.getElementById("title");
   const msg = document.getElementById("message");
