@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>整 × adjustment-lab｜思考の地図</title>
+<title>整 × adjustment-lab</title>
 
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0b3d31">
@@ -17,177 +17,203 @@ if ("serviceWorker" in navigator) {
 
 <style>
 :root {
-  --bg: #0b3d31;
-  --text: #f8faf9;
+  --dark: #0d1117;
+  --green: #0b3d31;
+  --light: #f8faf9;
   --accent: #00b386;
-  --sub: #cfcfcf;
+  --fade: rgba(0,255,153,0.08);
   font-family: 'Noto Sans JP', sans-serif;
-  scroll-behavior: smooth;
+  transition: all 0.5s ease;
 }
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-}
-
-/* Hero Section */
-.hero {
-  position: relative;
-  height: 85vh;
+  padding: 0;
+  height: 100vh;
+  background: var(--dark);
+  color: var(--light);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  color: #e9ecef;
-  text-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  background: radial-gradient(circle at 30% 30%, #0f3025 0%, #071a15 100%);
-  background-image:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size: 40px 40px;
   overflow: hidden;
+  transition: background 1s ease, color 1s ease;
 }
 
-/* ロゴ透かし */
-.hero::before {
+/* 背景グリッド */
+body::before {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background: url('./assets/logo-lab.png') center/240px no-repeat;
-  opacity: 0.06;
-  z-index: 1;
+  background-image: linear-gradient(var(--fade) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--fade) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.25;
+  z-index: 0;
 }
 
-/* 黒幕 */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.4));
+/* ロゴ */
+#logo {
+  width: 140px;
+  margin-bottom: 1.2em;
   z-index: 2;
+  transition: opacity 0.8s ease;
+  filter: drop-shadow(0 0 6px rgba(0,0,0,0.6));
 }
 
-.hero-content {
-  position: relative;
-  z-index: 3;
-  padding: 0 20px;
-}
-
-.hero h1 {
-  font-size: 2.4rem;
-  margin: 0 0 0.5em;
-  letter-spacing: 0.05em;
-}
-
-.hero p {
-  font-size: 1.1rem;
-  margin: 0;
-  opacity: 0.9;
-}
-
-.scroll-down {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.6rem;
-  color: #00ffcc;
-  opacity: 0.8;
-  animation: bounce 1.8s infinite;
-  z-index: 3;
-}
-@keyframes bounce {
-  0%, 100% { transform: translate(-50%, 0); }
-  50% { transform: translate(-50%, -8px); }
-}
-
-/* Main Body */
-main {
+/* タイトル */
+h1 {
+  font-size: 2rem;
+  margin: 0.4em 0 0.3em;
   text-align: center;
-  padding: 80px 20px 100px;
-  background: #f8faf9;
-  color: #1a1a1a;
+  z-index: 2;
+  letter-spacing: 0.03em;
 }
-main h2 {
-  color: var(--accent);
-  font-size: 1.8rem;
-  margin-bottom: 0.6em;
-}
-main p {
-  color: var(--sub);
-  max-width: 680px;
-  margin: 0 auto 2.5em;
-  line-height: 1.9;
+p.desc {
+  font-size: 1rem;
+  color: #ccc;
+  margin: 0 0 2em;
+  text-align: center;
 }
 
-/* Buttons */
+/* トグルボタン */
 button.toggle {
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
   padding: 0.6em 1.6em;
   font-size: 1rem;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
   transition: 0.3s ease;
+  z-index: 2;
 }
 button.toggle:hover {
   background: var(--accent);
-  color: #fff;
+  color: var(--dark);
 }
 
-/* Footer */
+/* リンクボタン */
+nav {
+  margin-top: 2.8em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  z-index: 2;
+}
+nav a {
+  text-decoration: none;
+  color: var(--light);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 0.5em 1.4em;
+  font-size: 0.95rem;
+  transition: 0.3s ease;
+}
+nav a:hover {
+  background: var(--accent);
+  color: var(--dark);
+}
+
+/* labモード */
+body.lab-mode {
+  background: linear-gradient(180deg, var(--green) 0%, #001f1a 100%);
+  color: var(--accent);
+}
+body.lab-mode h1 {
+  color: var(--accent);
+  text-shadow: 0 0 10px rgba(0,255,153,0.4);
+}
+body.lab-mode p.desc {
+  color: #9fffd4;
+}
+body.lab-mode .toggle {
+  border-color: #fff;
+  color: #fff;
+}
+body.lab-mode .toggle:hover {
+  background: #fff;
+  color: var(--green);
+}
+body.lab-mode nav a {
+  border-color: #fff;
+  color: #fff;
+}
+body.lab-mode nav a:hover {
+  background: #fff;
+  color: var(--green);
+}
+
+/* フッター */
 footer {
+  position: absolute;
+  bottom: 20px;
+  font-size: 0.8rem;
+  color: #888;
   text-align: center;
-  color: #555;
-  font-size: 0.9rem;
-  padding: 60px 0 40px;
-  border-top: 1px solid rgba(0,0,0,0.06);
 }
 footer a {
   color: var(--accent);
   text-decoration: none;
+  margin: 0 6px;
 }
 footer a:hover {
   text-decoration: underline;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
-  .hero h1 { font-size: 1.9rem; }
-  .hero p { font-size: 0.95rem; }
+  h1 { font-size: 1.6rem; }
+  p.desc { font-size: 0.9rem; }
+  nav a { font-size: 0.85rem; padding: 0.45em 1.1em; }
 }
 </style>
 </head>
 
 <body>
+<img id="logo" src="./assets/logo-seii.png" alt="整ロゴ">
+<h1 id="title">整 - adjustment</h1>
+<p id="desc" class="desc">動きを理解し、再現を設計する。</p>
 
-<section class="hero">
-  <div class="hero-content">
-    <h1>整 × adjustment-lab</h1>
-    <p>思考を形にする、再現性の設計。</p>
-  </div>
-  <div class="scroll-down">↓</div>
-</section>
+<button class="toggle" id="switchBtn">→ adjustment-labへ</button>
 
-<main>
-  <h2>思考の地図へようこそ</h2>
-  <p>整えることは、再現すること。<br>
-  この地図は、あなたの思考と動きを導くためのガイドです。<br>
-  下のボタンから、それぞれの「整」と「lab」の世界へ進んでください。</p>
-
-  <button class="toggle" onclick="window.location.href='./intro.html'">→ 思考を進める</button>
-</main>
+<nav>
+  <a href="./adjustment/index.html">整を探る</a>
+  <a href="./lab/index.html">labで体験</a>
+  <a href="./products/index.html">productsを見る</a>
+</nav>
 
 <footer>
   <p>
     <a href="./legal.html">販売・利用規約</a>｜
-    <a href="./contact/index.html">お問い合わせ</a>｜
+    <a href="./contact/index.html">お問い合わせ</a>
   </p>
 </footer>
+
+<script>
+const btn = document.getElementById('switchBtn');
+const logo = document.getElementById('logo');
+const title = document.getElementById('title');
+const desc = document.getElementById('desc');
+let mode = 'seii';
+
+btn.addEventListener('click', () => {
+  document.body.classList.toggle('lab-mode');
+  if (mode === 'seii') {
+    mode = 'lab';
+    logo.src = './assets/logo-lab.png';
+    title.textContent = 'adjustment-lab';
+    desc.textContent = '思考を形にし、再現を科学する。';
+    btn.textContent = '← 整 - adjustmentへ';
+  } else {
+    mode = 'seii';
+    logo.src = './assets/logo-seii.png';
+    title.textContent = '整 - adjustment';
+    desc.textContent = '動きを理解し、再現を設計する。';
+    btn.textContent = '→ adjustment-labへ';
+  }
+});
+</script>
 
 </body>
 </html>
