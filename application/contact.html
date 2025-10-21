@@ -3,14 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>contact｜申し込み・お問い合わせ</title>
+<title>contact｜思考を共有する</title>
+
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#ffffff">
 
 <style>
 :root {
-  --bg: #0e1117;
-  --accent: #00ff99;
-  --text: #f8f8f8;
-  --panel: rgba(255,255,255,0.05);
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --accent: #00b386;
+  --sub: #555;
+  --line: rgba(0,0,0,0.08);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
@@ -18,32 +22,31 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.8;
-  overflow-x: hidden;
+  line-height: 1.9;
 }
 
-/* --- Header --- */
+/* Header */
 header {
   text-align: center;
   padding: 80px 20px 40px;
 }
 h1 {
-  font-size: 1.8rem;
-  color: var(--accent);
+  font-size: 2rem;
+  font-weight: 500;
   margin-bottom: 0.3em;
 }
 p.sub {
-  color: #aaa;
+  color: var(--sub);
   font-size: 1rem;
 }
 
-/* --- Form Area --- */
+/* Form Area */
 form {
-  max-width: 700px;
+  max-width: 720px;
   margin: 0 auto 100px;
   padding: 40px 30px;
-  background: var(--panel);
-  border-left: 3px solid var(--accent);
+  background: #fafafa;
+  border: 1px solid var(--line);
   border-radius: 8px;
 }
 label {
@@ -54,8 +57,8 @@ label {
 }
 input, select, textarea {
   width: 100%;
-  background: #1a1d24;
-  border: 1px solid rgba(255,255,255,0.1);
+  background: #fff;
+  border: 1px solid var(--line);
   color: var(--text);
   font-size: 1rem;
   padding: 10px 12px;
@@ -73,27 +76,27 @@ button.submit {
   padding: 0.6em 1.6em;
   font-size: 1rem;
   cursor: pointer;
-  border-radius: 4px;
-  margin: 0 auto;
-  transition: all 0.3s ease;
+  border-radius: 3px;
+  margin: 20px auto 0;
+  transition: 0.3s ease;
 }
 button.submit:hover {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
 }
 
-/* --- Thanks Overlay --- */
+/* Thanks Overlay */
 #thanks {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0,0,0,0.92);
+  background: rgba(255,255,255,0.96);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: var(--accent);
-  font-size: 1.2rem;
+  color: var(--text);
+  font-size: 1.1rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease;
@@ -109,19 +112,19 @@ button.submit:hover {
   color: var(--accent);
   padding: 0.5em 1.2em;
   border-radius: 4px;
-  margin-top: 20px;
+  margin-top: 24px;
   cursor: pointer;
   transition: 0.3s;
 }
 #thanks button:hover {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
 }
 
-/* --- Footer --- */
+/* Footer */
 footer {
   text-align: center;
-  color: #888;
+  color: var(--sub);
   font-size: 0.9rem;
   margin: 100px 0 40px;
 }
@@ -129,13 +132,17 @@ footer a {
   color: var(--accent);
   text-decoration: none;
 }
+footer a:hover {
+  text-decoration: underline;
+}
 </style>
 </head>
 
 <body>
+
 <header>
   <h1>contact</h1>
-  <p class="sub">申し込み・お問い合わせ</p>
+  <p class="sub">思考を共有し、現場を変える対話へ。</p>
 </header>
 
 <form id="contactForm" action="mailto:example@example.com" method="post" enctype="text/plain">
@@ -148,7 +155,7 @@ footer a {
   <label for="email">メールアドレス</label>
   <input type="email" id="email" name="メールアドレス" required>
 
-  <label for="type">お問い合わせ種別</label>
+  <label for="type">ご相談の内容</label>
   <select id="type" name="お問い合わせ種別" required>
     <option value="">選択してください</option>
     <option value="パフォーマンス測定">パフォーマンス測定</option>
@@ -158,15 +165,15 @@ footer a {
   </select>
 
   <label for="message">内容</label>
-  <textarea id="message" name="内容" placeholder="ご希望・質問などをご記入ください"></textarea>
+  <textarea id="message" name="内容" placeholder="ご希望や課題、現場で感じていることをお聞かせください。"></textarea>
 
   <button type="submit" class="submit">送信する</button>
 </form>
 
 <div id="thanks">
   <p>送信が完了しました。</p>
-  <p>再現を体験してみよう。</p>
-  <button onclick="window.location.href='../lab/index.html'">→ adjustment-labへ</button>
+  <p>次の思考へ、共に進みましょう。</p>
+  <button onclick="window.location.href='../index.html'">トップへ戻る</button>
 </div>
 
 <footer>
@@ -180,7 +187,7 @@ const thanks = document.getElementById('thanks');
 form.addEventListener('submit', (e) => {
   setTimeout(() => {
     thanks.classList.add('active');
-  }, 800); // メール送信処理の後、少し遅延して表示
+  }, 800);
 });
 </script>
 
