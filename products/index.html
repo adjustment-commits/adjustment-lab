@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LITE教材｜整 × adjustment-lab</title>
+<title>教材一覧｜整 × adjustment-lab</title>
 
 <style>
 :root {
@@ -28,7 +28,7 @@ header {
 }
 h1 {
   color: var(--accent);
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   margin-bottom: 10px;
 }
 p.sub {
@@ -36,31 +36,52 @@ p.sub {
   margin: 0;
 }
 
-section {
-  max-width: 800px;
-  margin: 60px auto;
+/* Cards */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.card {
   background: #fff;
   border: 1px solid rgba(0,0,0,0.05);
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  padding: 40px 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 30px 25px;
+  text-align: center;
+  transition: 0.3s ease;
 }
-h2 {
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.card h2 {
   color: var(--accent);
-  font-size: 1.3rem;
-  margin-bottom: 1em;
+  font-size: 1.4rem;
+  margin-bottom: 0.6em;
 }
-p {
-  margin-bottom: 1.2em;
+.card p {
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 1.4em;
+  line-height: 1.8;
 }
-
+.price {
+  background: rgba(0,179,134,0.05);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 8px 0;
+  margin-bottom: 1.4em;
+  font-weight: bold;
+}
 button {
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
   padding: 0.6em 1.6em;
   border-radius: 3px;
-  margin-top: 20px;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -69,15 +90,7 @@ button:hover {
   color: #fff;
 }
 
-.price-box {
-  border: 1px solid var(--accent);
-  border-radius: 8px;
-  padding: 20px;
-  background: rgba(0,179,134,0.05);
-  text-align: center;
-  margin: 30px 0;
-}
-
+/* Footer */
 footer {
   text-align: center;
   color: #555;
@@ -93,59 +106,35 @@ footer a {
 
 <body>
 <header>
-  <h1>LITE教材</h1>
-  <p class="sub">「整う思考」を体験する、最初の一歩。</p>
+  <h1>教材一覧</h1>
+  <p class="sub">あなたの「整える思考」に合った入口を選ぼう。</p>
 </header>
 
-<section>
-  <h2>この教材について</h2>
-  <p>
-    LITE教材は、整 × lab の哲学を“体験”として理解するための入門教材です。<br>
-    HTML形式で提供され、スマホ・PCどちらでも閲覧可能。<br>
-    オフラインでも利用できるため、現場・自宅・移動中を問わず思考の整理が行えます。
-  </p>
-</section>
-
-<section>
-  <h2>構成内容</h2>
-  <p>全10ドリル構成（感覚・思考・動作を結ぶ設計）。</p>
-  <ul style="text-align:left; max-width:700px; margin:0 auto; line-height:1.8;">
-    <li>Lesson 01：整うとは何か</li>
-    <li>Lesson 02：観察の技術</li>
-    <li>Lesson 03：動きに思考を与える</li>
-    <li>Lesson 04：回内・回外の理解</li>
-    <li>Lesson 05：骨盤∞運動への導入</li>
-  </ul>
-  <p style="color:#555; font-size:0.95rem; margin-top:10px;">※購入者は将来的なアップデート版も無料で利用可能です。</p>
-</section>
-
-<section>
-  <h2>価格とプラン</h2>
-  <div class="price-box">
-    <p><strong>■ 永久利用版</strong><br>5,000円（税込）</p>
-    <p><strong>■ 1週間お試し版</strong><br>1,500円（税込）</p>
+<div class="products">
+  <div class="card">
+    <h2>LITE教材</h2>
+    <p>「整うとは何か」を体験する入門教材。<br>
+    思考と感覚をつなげ、再現性の基礎を学ぶ。</p>
+    <div class="price">5,000円（税込）</div>
+    <button onclick="location.href='./lite.html'">詳細を見る</button>
   </div>
-  <p>決済後、自動返信メールにて教材URLと利用ガイドをお送りします。</p>
-  <button onclick="window.open('https://example.com/lite-purchase', '_blank')">購入ページへ進む</button>
-</section>
 
-<section>
-  <h2>対象者</h2>
-  <p>
-    ・動きの「再現性」を高めたい選手・指導者<br>
-    ・身体の内側から変化を引き出したいトレーナー<br>
-    ・“整う”という概念を学びたい教育者・施術家
-  </p>
-</section>
+  <div class="card">
+    <h2>STANDARD教材</h2>
+    <p>「再現性を設計する」ための本教材。<br>
+    DRIVE・SPLIT FLOW・TORQUE COREの三構造で学ぶ。</p>
+    <div class="price">50,000円（税込）</div>
+    <button onclick="location.href='./standard.html'">詳細を見る</button>
+  </div>
+</div>
 
-<section>
-  <h2>安心して始めるために</h2>
-  <p>
-    整 × adjustment-labでは、購入後もフォローを重視しています。<br>
-    理解が難しい場合は、フォームからご相談ください。<br>
-    あなたに合うステップを一緒に見つけます。
+<section style="max-width:800px; margin:80px auto 0; text-align:center;">
+  <h2 style="color:var(--accent); font-size:1.3rem;">まずはLITEから始めるのがおすすめ</h2>
+  <p style="color:var(--sub);">
+    LITE教材で哲学を“体験”し、理解が深まったタイミングでSTANDARDへ進むと、<br>
+    学びが構造として身体に残ります。
   </p>
-  <button onclick="window.location.href='../contact/index.html'">問い合わせる</button>
+  <button onclick="location.href='./lite.html'">LITE教材へ</button>
 </section>
 
 <footer>
