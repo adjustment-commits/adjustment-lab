@@ -90,6 +90,30 @@ button:hover {
   color: #fff;
 }
 
+/* Table */
+.compare {
+  max-width: 900px;
+  margin: 80px auto 0;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.95rem;
+}
+.compare th, .compare td {
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 12px 10px;
+  text-align: center;
+}
+.compare th {
+  background: rgba(0,179,134,0.1);
+  color: var(--text);
+}
+.compare td {
+  background: #fff;
+}
+.compare tr:nth-child(even) td {
+  background: #f5f8f7;
+}
+
 /* Footer */
 footer {
   text-align: center;
@@ -128,13 +152,54 @@ footer a {
   </div>
 </div>
 
+<h2 style="text-align:center; color:var(--accent); margin-top:100px;">LITEとSTANDARDの比較</h2>
+
+<table class="compare">
+  <tr>
+    <th>項目</th>
+    <th>LITE教材</th>
+    <th>STANDARD教材</th>
+  </tr>
+  <tr>
+    <td>目的</td>
+    <td>「整うとは何か」を体験し、思考を育てる</td>
+    <td>再現性を設計し、現場で使える構造を学ぶ</td>
+  </tr>
+  <tr>
+    <td>構成</td>
+    <td>全10ドリル（感覚・思考・動作の導入）</td>
+    <td>DRIVE／SPLIT FLOW／TORQUE COREの3体系</td>
+  </tr>
+  <tr>
+    <td>形式</td>
+    <td>HTML教材（オフライン可）</td>
+    <td>HTML＋図解スライド＋PDF進行ガイド</td>
+  </tr>
+  <tr>
+    <td>アップデート</td>
+    <td>無料（同一URLで自動反映）</td>
+    <td>無料（専用アクセスコード付き）</td>
+  </tr>
+  <tr>
+    <td>対象者</td>
+    <td>整う感覚を理解したい選手・指導者</td>
+    <td>再現性を設計したいトレーナー・教育者</td>
+  </tr>
+  <tr>
+    <td>価格（税込）</td>
+    <td>5,000円</td>
+    <td>50,000円（LITE購入者割引あり）</td>
+  </tr>
+</table>
+
 <section style="max-width:800px; margin:80px auto 0; text-align:center;">
-  <h2 style="color:var(--accent); font-size:1.3rem;">まずはLITEから始めるのがおすすめ</h2>
+  <h2 style="color:var(--accent); font-size:1.3rem;">どちらからでも“整う”は始まる。</h2>
   <p style="color:var(--sub);">
-    LITE教材で哲学を“体験”し、理解が深まったタイミングでSTANDARDへ進むと、<br>
-    学びが構造として身体に残ります。
+    「感覚で理解したいならLITE」「構造で導きたいならSTANDARD」。<br>
+    自分のフェーズに合わせて選択してください。
   </p>
   <button onclick="location.href='./lite.html'">LITE教材へ</button>
+  <button style="margin-left:10px;" onclick="location.href='./standard.html'">STANDARD教材へ</button>
 </section>
 
 <footer>
