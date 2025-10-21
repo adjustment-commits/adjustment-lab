@@ -3,168 +3,159 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>整 - adjustment｜体験する思考</title>
+<title>整 - adjustment｜思考する身体をつくる</title>
 
 <link rel="manifest" href="../manifest.json">
-<meta name="theme-color" content="#0b3d31">
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("../service-worker.js");
-}
-</script>
+<meta name="theme-color" content="#f8faf9">
 
 <style>
 :root {
-  --bg: #0d1117;
-  --chalk: #f4f4f4;
-  --accent: #00ff99;
-  --sub: #888;
+  --bg: #f8faf9;
+  --text: #1a1a1a;
+  --accent: #00b386;
+  --sub: #555;
+  --line: rgba(0,0,0,0.06);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
 body {
   margin: 0;
-  padding: 0;
-  background: var(--bg) url('../assets/blackboard.jpg') center/cover no-repeat;
-  color: var(--chalk);
-  line-height: 1.8;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.9;
   overflow-x: hidden;
-  position: relative;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  top:0; left:0; width:100%; height:100%;
-  background: rgba(0,0,0,0.5);
-  z-index: -1;
-}
-
-/* --- Header --- */
+/* Header */
 header {
   text-align: center;
   padding: 80px 20px 40px;
 }
 h1 {
   font-size: 2rem;
-  margin-bottom: 0.2em;
-  letter-spacing: 0.05em;
+  font-weight: 500;
+  margin-bottom: 0.3em;
 }
 p.lead {
   color: var(--sub);
   font-size: 1rem;
 }
 
-/* --- Sections --- */
+/* Section */
 section {
-  max-width: 780px;
+  max-width: 800px;
   margin: 100px auto;
   padding: 40px 30px;
-  background: rgba(0,0,0,0.4);
-  border-left: 3px solid var(--accent);
+  background: #fff;
+  border: 1px solid var(--line);
   border-radius: 8px;
-  transition: background 0.3s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
-section:hover {
-  background: rgba(0,0,0,0.55);
-}
-
 section h2 {
   color: var(--accent);
-  font-size: 1.3rem;
+  font-weight: 500;
   margin-bottom: 1em;
 }
-
 section p {
+  color: var(--text);
   font-size: 1rem;
-  color: var(--chalk);
 }
 
-/* --- 体験ボタン --- */
+/* Button */
 button.experience {
   display: block;
   margin: 40px auto 0;
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
-  padding: 0.5em 1.4em;
-  border-radius: 4px;
+  padding: 0.6em 1.6em;
+  border-radius: 3px;
   cursor: pointer;
-  transition: 0.3s;
-  font-size: 1rem;
+  transition: 0.3s ease;
 }
 button.experience:hover {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
 }
 
-/* --- Footer --- */
+/* Gallery */
+.gallery {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+.gallery img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  transition: 0.3s;
+}
+.gallery img:hover {
+  transform: scale(1.02);
+}
+
+/* Footer */
 footer {
   text-align: center;
-  color: #aaa;
-  font-size: 0.85rem;
+  color: var(--sub);
+  font-size: 0.9rem;
   margin: 100px 0 40px;
 }
 footer a {
   color: var(--accent);
   text-decoration: none;
 }
-
-/* --- Animation --- */
-.fade {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s ease;
-}
-.fade.visible {
-  opacity: 1;
-  transform: translateY(0);
+footer a:hover {
+  text-decoration: underline;
 }
 </style>
 </head>
 
 <body>
+
 <header>
   <h1>整 - adjustment</h1>
-  <p class="lead">言葉ではなく、感覚で理解するための場所。</p>
+  <p class="lead">思考する身体をつくる場所。<br>感覚を観察し、動きを理解する。</p>
 </header>
 
-<section class="fade">
-  <h2>触れてみる</h2>
-  <p>力を入れずに、足裏を地面に預けてみる。<br>
-  どこに支えを感じる？ その瞬間に身体は、あなたに教えようとしている。</p>
-  <button class="experience" onclick="showMsg('身体は“考える”より先に、理解している。')">感じたことを記録</button>
+<section>
+  <h2>観察する</h2>
+  <p>足裏の重さ、呼吸の流れ、骨盤の角度。<br>
+  動きを“感じる”前に、まず“観る”ことから始めよう。<br>
+  身体は常に情報を出している。私たちはそれを読む訓練をする。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/adjustment/manual.jpg" alt="徒手調整">
+    <img src="../assets/gallery/adjustment/treadmill.jpg" alt="トレッドミル調整">
+  </div>
+  <button class="experience" onclick="showMsg('観察は、理解の第一歩である。')">記録する</button>
 </section>
 
-<section class="fade">
-  <h2>感じてみる</h2>
-  <p>呼吸を止めずに骨盤を前へ送る。<br>
-  胸ではなく、背中の広がりを感じることができる？</p>
-  <button class="experience" onclick="showMsg('動きを見ずに、流れを感じる。')">理解した瞬間</button>
+<section>
+  <h2>考える</h2>
+  <p>「なぜこの順番で動くのか？」<br>
+  骨盤、胸郭、肩甲。順序を意識したとき、動作の理解が始まる。<br>
+  その考えは、再現性という形に変わっていく。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/adjustment/band.jpg" alt="リリースドリル">
+  </div>
+  <button class="experience" onclick="showMsg('考えることは、再現性を生む。')">思考を記す</button>
 </section>
 
-<section class="fade">
-  <h2>導かれてみる</h2>
-  <p>正解を探さない。<br>
-  一度止まって、自分の中の「なぜ？」を聴く。<br>
-  それが導きの始まり。</p>
-  <button class="experience" onclick="showMsg('問いを持てる人が、動きを整える人になる。')">もう一度考える</button>
+<section>
+  <h2>つなげる</h2>
+  <p>整えるとは、身体と頭を切り離さないこと。<br>
+  動作を理解する思考が、次の動作を導く。<br>
+  理解が深まるほど、身体は静かに整っていく。</p>
+  <button class="experience" onclick="showMsg('理解は、次の動きへの地図になる。')">次へ進む</button>
 </section>
 
 <footer>
-  <p><a href="../lab/index.html">→ adjustment-labへ（再現の設計へ進む）</a></p>
-  <p><a href="../index.html" style="color:#ccc;">← トップへ戻る</a></p>
+  <p><a href="../lab/index.html">→ adjustment-labへ進む</a></p>
+  <p><a href="../index.html">← トップへ戻る</a></p>
 </footer>
 
 <script>
-const fades = document.querySelectorAll('.fade');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, {threshold: 0.2});
-fades.forEach(f => observer.observe(f));
-
 function showMsg(text){
   alert(text);
 }
