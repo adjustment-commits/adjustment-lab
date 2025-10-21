@@ -3,204 +3,188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>教材一覧｜整 × adjustment-lab</title>
+<title>adjustment-lab｜プロダクト一覧</title>
 
 <style>
 :root {
   --bg: #f8faf9;
   --text: #1a1a1a;
   --accent: #00b386;
-  --sub: #555;
+  --sub: #666;
+  --line: rgba(0,0,0,0.06);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
+/* -------------------------------
+   Base
+-------------------------------- */
 body {
+  margin: 0;
   background: var(--bg);
   color: var(--text);
-  margin: 0;
   line-height: 1.9;
-  padding: 40px 20px 100px;
+  overflow-x: hidden;
 }
 
 header {
   text-align: center;
-  margin-bottom: 60px;
+  padding: 80px 20px 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1.5s ease forwards;
 }
 h1 {
+  font-size: 2rem;
   color: var(--accent);
-  font-size: 1.9rem;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 p.sub {
   color: var(--sub);
-  margin: 0;
+  font-size: 1rem;
 }
 
-/* Cards */
+/* -------------------------------
+   Product Grid
+-------------------------------- */
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  max-width: 900px;
-  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 40px;
+  max-width: 1000px;
+  margin: 60px auto 100px;
+  padding: 0 20px;
 }
+
 .card {
   background: #fff;
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  padding: 30px 25px;
-  text-align: center;
-  transition: 0.3s ease;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  transform: translateY(40px);
+  opacity: 0;
+  animation: fadeUp 1s ease forwards;
+}
+.card:nth-child(2) {
+  animation-delay: 0.4s;
 }
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
 }
-.card h2 {
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card-content {
+  padding: 24px 24px 36px;
+}
+.card-content h2 {
   color: var(--accent);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   margin-bottom: 0.6em;
+  letter-spacing: 0.02em;
 }
-.card p {
+.card-content p {
+  color: var(--sub);
   font-size: 0.95rem;
-  color: var(--text);
-  margin-bottom: 1.4em;
+  margin-bottom: 1.8em;
   line-height: 1.8;
 }
-.price {
-  background: rgba(0,179,134,0.05);
-  border: 1px solid var(--accent);
-  border-radius: 6px;
-  padding: 8px 0;
-  margin-bottom: 1.4em;
-  font-weight: bold;
-}
+
 button {
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
   padding: 0.6em 1.6em;
-  border-radius: 3px;
+  border-radius: 4px;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 button:hover {
   background: var(--accent);
   color: #fff;
 }
 
-/* Table */
-.compare {
-  max-width: 900px;
-  margin: 80px auto 0;
-  border-collapse: collapse;
-  width: 100%;
-  font-size: 0.95rem;
-}
-.compare th, .compare td {
-  border: 1px solid rgba(0,0,0,0.08);
-  padding: 12px 10px;
-  text-align: center;
-}
-.compare th {
-  background: rgba(0,179,134,0.1);
-  color: var(--text);
-}
-.compare td {
-  background: #fff;
-}
-.compare tr:nth-child(even) td {
-  background: #f5f8f7;
-}
-
-/* Footer */
+/* -------------------------------
+   Footer
+-------------------------------- */
 footer {
   text-align: center;
-  color: #555;
+  padding: 60px 20px;
+  color: var(--sub);
   font-size: 0.9rem;
-  margin-top: 80px;
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
 footer a {
   color: var(--accent);
   text-decoration: none;
+  margin: 0 8px;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* -------------------------------
+   Animation
+-------------------------------- */
+@keyframes fadeIn {
+  to {opacity: 1; transform: translateY(0);}
+}
+@keyframes fadeUp {
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* -------------------------------
+   Responsive
+-------------------------------- */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+  .card-content {
+    padding: 20px;
+  }
+  button {
+    width: 100%;
+  }
 }
 </style>
 </head>
 
 <body>
 <header>
-  <h1>教材一覧</h1>
-  <p class="sub">あなたの「整える思考」に合った入口を選ぼう。</p>
+  <h1>adjustment-lab｜プロダクト一覧</h1>
+  <p class="sub">思考から再現へ。あなたに合った教材を選択してください。</p>
 </header>
 
-<div class="products">
+<main class="products">
+  <!-- LITE -->
   <div class="card">
-    <h2>LITE教材</h2>
-    <p>「整うとは何か」を体験する入門教材。<br>
-    思考と感覚をつなげ、再現性の基礎を学ぶ。</p>
-    <div class="price">5,000円（税込）</div>
-    <button onclick="location.href='./lite.html'">詳細を見る</button>
+    <img src="../assets/products/lite-thumb.jpg" alt="LITE教材サムネイル">
+    <div class="card-content">
+      <h2>LITE 教材</h2>
+      <p>整 × lab の哲学を“体験”として理解するための入門教材。<br>
+      HTML形式で提供され、いつでもどこでも利用可能です。</p>
+      <button onclick="window.location.href='./lite.html'">詳細を見る</button>
+    </div>
   </div>
 
+  <!-- STANDARD -->
   <div class="card">
-    <h2>STANDARD教材</h2>
-    <p>「再現性を設計する」ための本教材。<br>
-    DRIVE・SPLIT FLOW・TORQUE COREの三構造で学ぶ。</p>
-    <div class="price">50,000円（税込）</div>
-    <button onclick="location.href='./standard.html'">詳細を見る</button>
+    <img src="../assets/products/standard-thumb.jpg" alt="STANDARD教材サムネイル">
+    <div class="card-content">
+      <h2>STANDARD 教材</h2>
+      <p>理論構造と再現性を体系化した実践教材。<br>
+      現場導入を想定した“再現設計”の全プロセスを学びます。</p>
+      <button onclick="window.location.href='./standard.html'">詳細を見る</button>
+    </div>
   </div>
-</div>
-
-<h2 style="text-align:center; color:var(--accent); margin-top:100px;">LITEとSTANDARDの比較</h2>
-
-<table class="compare">
-  <tr>
-    <th>項目</th>
-    <th>LITE教材</th>
-    <th>STANDARD教材</th>
-  </tr>
-  <tr>
-    <td>目的</td>
-    <td>「整うとは何か」を体験し、思考を育てる</td>
-    <td>再現性を設計し、現場で使える構造を学ぶ</td>
-  </tr>
-  <tr>
-    <td>構成</td>
-    <td>全10ドリル（感覚・思考・動作の導入）</td>
-    <td>DRIVE／SPLIT FLOW／TORQUE COREの3体系</td>
-  </tr>
-  <tr>
-    <td>形式</td>
-    <td>HTML教材（オフライン可）</td>
-    <td>HTML＋図解スライド＋PDF進行ガイド</td>
-  </tr>
-  <tr>
-    <td>アップデート</td>
-    <td>無料（同一URLで自動反映）</td>
-    <td>無料（専用アクセスコード付き）</td>
-  </tr>
-  <tr>
-    <td>対象者</td>
-    <td>整う感覚を理解したい選手・指導者</td>
-    <td>再現性を設計したいトレーナー・教育者</td>
-  </tr>
-  <tr>
-    <td>価格（税込）</td>
-    <td>5,000円</td>
-    <td>50,000円（LITE購入者割引あり）</td>
-  </tr>
-</table>
-
-<section style="max-width:800px; margin:80px auto 0; text-align:center;">
-  <h2 style="color:var(--accent); font-size:1.3rem;">どちらからでも“整う”は始まる。</h2>
-  <p style="color:var(--sub);">
-    「感覚で理解したいならLITE」「構造で導きたいならSTANDARD」。<br>
-    自分のフェーズに合わせて選択してください。
-  </p>
-  <button onclick="location.href='./lite.html'">LITE教材へ</button>
-  <button style="margin-left:10px;" onclick="location.href='./standard.html'">STANDARD教材へ</button>
-</section>
+</main>
 
 <footer>
   <p>
@@ -209,5 +193,6 @@ footer a {
     <a href="../index.html">トップへ戻る</a>
   </p>
 </footer>
+
 </body>
 </html>
