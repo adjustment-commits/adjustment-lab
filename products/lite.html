@@ -5,88 +5,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LITE教材｜整 × adjustment-lab</title>
 
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#f8faf9">
 <style>
-:root {
-  --bg: #f8faf9;
-  --text: #1a1a1a;
-  --accent: #00b386;
-  --sub: #555;
-  font-family: 'Noto Sans JP', sans-serif;
+:root{
+  --bg:#f8faf9;--text:#1a1a1a;--accent:#00b386;--sub:#666;--line:rgba(0,0,0,0.05);
+  font-family:'Noto Sans JP',sans-serif;
 }
+body{margin:0;background:var(--bg);color:var(--text);line-height:1.8;overflow-x:hidden;}
+header{text-align:center;padding:60px 20px 30px;}
+header h1{font-size:1.8rem;margin:0 0 .4em;color:var(--accent);}
+header p{color:var(--sub);margin:0;font-size:.95rem;}
+.hero{width:100%;max-width:1000px;margin:20px auto;border-radius:8px;overflow:hidden;}
+.hero img{width:100%;height:auto;display:block;}
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  margin: 0;
-  line-height: 1.9;
-  padding: 40px 20px 100px;
-}
+main{max-width:800px;margin:40px auto 80px;padding:0 20px;}
+section{background:#fff;border:1px solid var(--line);border-radius:10px;
+  padding:30px 25px;margin-bottom:40px;box-shadow:0 4px 12px rgba(0,0,0,0.03);}
+section h2{color:var(--accent);font-size:1.2rem;margin-bottom:0.6em;}
+section p{margin:0 0 1em;color:var(--text);font-size:.96rem;}
+ul{padding-left:18px;color:var(--text);margin:0 0 1em;}
+li{margin-bottom:.6em;}
 
-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
-h1 {
-  color: var(--accent);
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-}
-p.sub {
-  color: var(--sub);
-  margin: 0;
-}
+.price-box{border:1px solid var(--accent);border-radius:8px;background:rgba(0,179,134,0.05);
+  padding:18px;text-align:center;margin:24px 0;}
+button{display:block;width:100%;max-width:300px;margin:14px auto 0;padding:0.7em 1em;
+  border:1px solid var(--accent);background:none;color:var(--accent);
+  font-size:1rem;border-radius:4px;cursor:pointer;transition:0.3s;}
+button:hover{background:var(--accent);color:#fff;}
 
-section {
-  max-width: 800px;
-  margin: 60px auto;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  padding: 40px 30px;
-}
-h2 {
-  color: var(--accent);
-  font-size: 1.3rem;
-  margin-bottom: 1em;
-}
-p {
-  margin-bottom: 1.2em;
-}
+footer{text-align:center;color:#777;font-size:.9rem;margin:100px 0 40px;}
+footer a{color:var(--accent);text-decoration:none;}
+footer a:hover{text-decoration:underline;}
 
-button {
-  background: none;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 0.6em 1.6em;
-  border-radius: 3px;
-  margin-top: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-button:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-.price-box {
-  border: 1px solid var(--accent);
-  border-radius: 8px;
-  padding: 20px;
-  background: rgba(0,179,134,0.05);
-  text-align: center;
-  margin: 30px 0;
-}
-
-footer {
-  text-align: center;
-  color: #555;
-  font-size: 0.9rem;
-  margin-top: 80px;
-}
-footer a {
-  color: var(--accent);
-  text-decoration: none;
+@media(max-width:768px){
+  header h1{font-size:1.6rem;}
+  section{padding:22px 18px;}
 }
 </style>
 </head>
@@ -94,66 +48,57 @@ footer a {
 <body>
 <header>
   <h1>LITE教材</h1>
-  <p class="sub">「整う思考」を体験する、最初の一歩。</p>
+  <p>「整う感覚」を理解し、再現の第一歩を踏み出す。</p>
 </header>
 
-<section>
-  <h2>この教材について</h2>
-  <p>
-    LITE教材は、整 × lab の哲学を“体験”として理解するための入門教材です。<br>
-    HTML形式で提供され、スマホ・PCどちらでも閲覧可能。<br>
-    オフラインでも利用できるため、現場・自宅・移動中を問わず思考の整理が行えます。
-  </p>
-</section>
+<div class="hero">
+  <img src="./images/lite-thumb.jpg" alt="LITE教材サムネイル">
+</div>
 
-<section>
-  <h2>構成内容</h2>
-  <p>全10ドリル構成（感覚・思考・動作を結ぶ設計）。</p>
-  <ul style="text-align:left; max-width:700px; margin:0 auto; line-height:1.8;">
-    <li>Lesson 01：整うとは何か</li>
-    <li>Lesson 02：観察の技術</li>
-    <li>Lesson 03：動きに思考を与える</li>
-    <li>Lesson 04：回内・回外の理解</li>
-    <li>Lesson 05：骨盤∞運動への導入</li>
-  </ul>
-  <p style="color:#555; font-size:0.95rem; margin-top:10px;">※購入者は将来的なアップデート版も無料で利用可能です。</p>
-</section>
+<main>
+  <section>
+    <h2>概要</h2>
+    <p>LITE教材は、整 × lab の哲学を“体験”として理解するための入門版。  
+    HTML形式で提供され、スマホ・PCどちらでも利用可能。  
+    オフラインでも閲覧でき、現場でもすぐに使える構成です。</p>
+  </section>
 
-<section>
-  <h2>価格とプラン</h2>
-  <div class="price-box">
-    <p><strong>■ 永久利用版</strong><br>5,000円（税込）</p>
-    <p><strong>■ 1週間お試し版</strong><br>1,500円（税込）</p>
-  </div>
-  <p>決済後、自動返信メールにて教材URLと利用ガイドをお送りします。</p>
-  <button onclick="window.open('https://example.com/lite-purchase', '_blank')">購入ページへ進む</button>
-</section>
+  <section>
+    <h2>内容構成</h2>
+    <ul>
+      <li>Lesson 01：整うとは何か</li>
+      <li>Lesson 02：観察の技術</li>
+      <li>Lesson 03：動きに思考を与える</li>
+      <li>Lesson 04：回内・回外の理解</li>
+      <li>Lesson 05：骨盤∞運動への導入</li>
+    </ul>
+    <p>※購入者は将来的なアップデート版も無料で利用可能です。</p>
+  </section>
 
-<section>
-  <h2>対象者</h2>
-  <p>
-    ・動きの「再現性」を高めたい選手・指導者<br>
-    ・身体の内側から変化を引き出したいトレーナー<br>
-    ・“整う”という概念を学びたい教育者・施術家
-  </p>
-</section>
+  <section>
+    <h2>価格</h2>
+    <div class="price-box">
+      <p><strong>永久利用版：</strong>5,000円（税込）</p>
+      <p><strong>1週間お試し版：</strong>1,500円（税込）</p>
+    </div>
+    <p>決済後、自動返信メールにて教材URLと利用ガイドをお送りします。</p>
+    <button onclick="window.open('https://example.com/lite-purchase','_blank')">購入ページへ進む</button>
+  </section>
 
-<section>
-  <h2>安心して始めるために</h2>
-  <p>
-    整 × adjustment-labでは、購入後もフォローを重視しています。<br>
-    理解が難しい場合は、フォームからご相談ください。<br>
-    あなたに合うステップを一緒に見つけます。
-  </p>
-  <button onclick="window.location.href='../contact/index.html'">問い合わせる</button>
-</section>
+  <section>
+    <h2>サポート</h2>
+    <p>購入後もフォローアップを重視しています。  
+    理解に不安がある場合は、お問い合わせフォームよりご相談ください。</p>
+    <button onclick="window.location.href='../contact/index.html'">問い合わせる</button>
+  </section>
+</main>
 
 <footer>
   <p>
     <a href="../legal.html">販売・利用規約</a>｜
-    <a href="../contact/index.html">お問い合わせ</a>｜
     <a href="../index.html">トップへ戻る</a>
   </p>
 </footer>
+
 </body>
 </html>
