@@ -3,244 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LITE診断｜あなたに合うアプローチを見つける</title>
+<title>LITE教材診断｜adjustment-lab</title>
 
 <style>
 :root {
-  --bg: #ffffff;
+  --bg: #f8faf9;
   --text: #1a1a1a;
   --accent: #00b386;
   --sub: #555;
-  --line: rgba(0,0,0,0.08);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
 body {
-  margin: 0;
   background: var(--bg);
   color: var(--text);
+  margin: 0;
   line-height: 1.9;
-}
-
-/* Header */
-header {
+  padding: 40px 20px 100px;
   text-align: center;
-  padding: 60px 20px 20px;
 }
 h1 {
-  font-size: 1.8rem;
   color: var(--accent);
+  font-size: 1.8rem;
+  margin-bottom: 10px;
 }
 p.sub {
   color: var(--sub);
-  font-size: 1rem;
+  margin-bottom: 30px;
 }
 
-/* Form */
-form {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 30px;
-  background: #fafafa;
-  border: 1px solid var(--line);
+.box {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.05);
   border-radius: 8px;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 40px 30px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
-label {
-  display: block;
-  margin-bottom: 6px;
-  color: var(--accent);
-  font-size: 0.95rem;
-}
-select, textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  font-size: 1rem;
-  margin-bottom: 20px;
-}
+
 button {
-  display: block;
-  margin: 20px auto 0;
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
   padding: 0.6em 1.6em;
-  font-size: 1rem;
-  cursor: pointer;
   border-radius: 3px;
-  transition: 0.3s ease;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 button:hover {
   background: var(--accent);
   color: #fff;
 }
-
-/* Results */
-#result {
-  max-width: 800px;
-  margin: 60px auto;
-  padding: 40px 30px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  display: none;
-}
-#result h2 {
-  color: var(--accent);
-  font-size: 1.4rem;
-  margin-bottom: 0.6em;
-}
-#result p {
-  color: var(--text);
-  margin-bottom: 1em;
-}
-.suggestion {
-  margin-bottom: 30px;
-}
-.links button {
-  margin: 10px 8px;
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  color: var(--sub);
-  font-size: 0.9rem;
-  margin: 100px 0 40px;
-}
-footer a {
-  color: var(--accent);
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
-}
 </style>
 </head>
 
 <body>
+<h1>LITE教材診断</h1>
+<p class="sub">あなたに合うアプローチを自動判定します。</p>
 
-<header>
-  <h1>LITE診断</h1>
-  <p class="sub">あなたの現状に最も合うアプローチを提案します。</p>
-</header>
-
-<form id="diagnosisForm">
-  <label>あなたの立場を教えてください。</label>
-  <select id="role" required>
-    <option value="">選択してください</option>
-    <option value="player">選手</option>
-    <option value="coach">指導者</option>
-    <option value="trainer">トレーナー</option>
-    <option value="team">チーム運営者</option>
-  </select>
-
-  <label>今の課題に近いものを選んでください。</label>
-  <select id="issue" required>
-    <option value="">選択してください</option>
-    <option value="pain">痛みや違和感がある</option>
-    <option value="stability">フォームや安定性が課題</option>
-    <option value="output">出力やスピードを高めたい</option>
-    <option value="teaching">チーム全体で理論を共有したい</option>
-    <option value="learning">新しい考え方や教材を探している</option>
-  </select>
-
-  <label>あなたの目的に最も近いものを選んでください。</label>
-  <select id="goal" required>
-    <option value="">選択してください</option>
-    <option value="understand">動きを理解したい</option>
-    <option value="improve">パフォーマンスを上げたい</option>
-    <option value="educate">選手やチームに伝えたい</option>
-    <option value="recover">身体を回復させたい</option>
-  </select>
-
-  <button type="submit">診断する</button>
-</form>
-
-<div id="result">
-  <div class="suggestion" id="mainSuggestion"></div>
-  <div class="suggestion" id="secondarySuggestion"></div>
-  <div class="suggestion" id="externalSuggestion"></div>
-  <div class="links" id="actionLinks"></div>
+<div class="box" id="resultBox">
+  <h2 id="title"></h2>
+  <p id="message"></p>
+  <div id="actions"></div>
 </div>
 
-<footer>
-  <p><a href="../lab/index.html">← labへ戻る</a></p>
-</footer>
-
 <script>
-document.getElementById("diagnosisForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+const score = parseFloat(localStorage.getItem("seiiScore")) || 0;
+const title = document.getElementById("title");
+const msg = document.getElementById("message");
+const act = document.getElementById("actions");
 
-  const role = document.getElementById("role").value;
-  const issue = document.getElementById("issue").value;
-  const goal = document.getElementById("goal").value;
-
-  let main = "";
-  let secondary = "";
-  let external = "";
-  let links = "";
-
-  // メイン提案
-  if (issue === "stability" || issue === "output") {
-    main = "<h2>あなたに最もマッチするのは LITE教材 です。</h2><p>動作理解と再現性を整える導入プログラムです。HTML教材としてすぐに使えます。</p>";
-    secondary = "<h2>関連提案</h2><p>チーム全体で理論を共有したい場合は <strong>STANDARD教材</strong>、<br>体の使い方を深く学びたい場合は <strong>CUSTOM教材</strong> が適しています。</p>";
-    external = "<h2>他の選択肢</h2><p>痛みや疲労が強い場合は、医療機関での評価を優先してください。</p>";
-    links = `
-      <button onclick="window.location.href='../lab/products.html'">LITE教材を見る</button>
-      <button onclick="window.location.href='../lab/products.html#standard'">STANDARD教材を見る</button>
-      <button onclick="window.location.href='../medical.html'">医療機関を探す</button>
-    `;
-  }
-  else if (issue === "teaching" || goal === "educate") {
-    main = "<h2>あなたにマッチするのは STANDARD教材 です。</h2><p>チーム全体の再現性を育てる指導・共有用教材。<br>現場での説明や導入にも使いやすい構成です。</p>";
-    secondary = "<h2>関連提案</h2><p>個別選手の動きを深く分析したい場合は <strong>CUSTOM教材</strong> を、<br>感覚教育を重視するなら <strong>PROTOTYPE機材</strong> も検討できます。</p>";
-    external = "<h2>他の選択肢</h2><p>チーム内で意見が分かれる場合は、まず <strong>対話セッション</strong> で整理するのがおすすめです。</p>";
-    links = `
-      <button onclick="window.location.href='../lab/products.html#standard'">STANDARD教材を見る</button>
-      <button onclick="window.location.href='../lab/products.html#custom'">CUSTOM教材を見る</button>
-      <button onclick="window.location.href='../contact/index.html'">対話セッションを申し込む</button>
-    `;
-  }
-  else if (issue === "pain" || goal === "recover") {
-    main = "<h2>まずは医療的サポートが必要です。</h2><p>痛みやしびれがある場合は、adjustment-labの介入よりも<br><strong>医療機関での評価・治療</strong>を優先してください。</p>";
-    secondary = "<h2>今後の提案</h2><p>回復後は再発予防のため、<strong>LITE教材</strong>で動作理解を整えるのがおすすめです。</p>";
-    external = "<h2>他のサポート</h2><p>信頼できる医療機関・理学療法士・連携トレーナーを紹介します。</p>";
-    links = `
-      <button onclick="window.location.href='../medical.html'">医療機関を探す</button>
-      <button onclick="window.location.href='../lab/products.html'">LITE教材を見る</button>
-      <button onclick="window.location.href='../partners.html'">連携トレーナーを見る</button>
-    `;
-  }
-  else {
-    main = "<h2>あなたに合うのは CUSTOM教材 です。</h2><p>目的・レベルに応じて、HTML教材・可視化ページを完全カスタム設計します。</p>";
-    secondary = "<h2>関連提案</h2><p>思考の整理を重視する場合は <strong>対話セッション</strong>、<br>動作実験を行いたい場合は <strong>PROTOTYPEシリーズ</strong> が適しています。</p>";
-    external = "<h2>他の選択肢</h2><p>まず方向性を確認したい方は、<strong>整 - adjustment</strong>ページで基礎理念をご覧ください。</p>";
-    links = `
-      <button onclick="window.location.href='../lab/products.html#custom'">CUSTOM教材を見る</button>
-      <button onclick="window.location.href='../lab/products.html#prototype'">PROTOTYPEを見る</button>
-      <button onclick="window.location.href='../adjustment/index.html'">整の理念を見る</button>
-    `;
-  }
-
-  document.getElementById("mainSuggestion").innerHTML = main;
-  document.getElementById("secondarySuggestion").innerHTML = secondary;
-  document.getElementById("externalSuggestion").innerHTML = external;
-  document.getElementById("actionLinks").innerHTML = links;
-  document.getElementById("result").style.display = "block";
-  window.scrollTo({ top: document.getElementById("result").offsetTop, behavior: "smooth" });
-});
+if (score >= 6) {
+  title.textContent = "あなたはすでに整 × lab の思考に深く共鳴しています。";
+  msg.innerHTML = "LITE教材は導入済みレベルです。<br>次は本教材で構造的な再現性を設計していきましょう。";
+  act.innerHTML = `
+    <button onclick="location.href='../products/standard.html'">STANDARD教材を見る</button>
+    <button onclick="location.href='../adjustment/index.html'">整の哲学を再確認する</button>
+  `;
+} else if (score >= 3.5) {
+  title.textContent = "いまの段階ではLITE教材が最も効果的です。";
+  msg.innerHTML = "感覚と理解を結び直すプロセスを、LITE教材を通して体験できます。<br>まずはここから始めましょう。";
+  act.innerHTML = `
+    <button onclick="location.href='../products/lite.html'">LITE教材を申し込む</button>
+    <button onclick="location.href='../contact/index.html'">相談してみる</button>
+  `;
+} else {
+  title.textContent = "思考を整える準備期間です。";
+  msg.innerHTML = "今はまだ外からの情報より、自分の内側を観察する時期かもしれません。<br>一度こちらを読んで整理してみましょう。";
+  act.innerHTML = `
+    <button onclick="location.href='../adjustment/index.html'">整の哲学を読む</button>
+    <button onclick="location.href='../contact/index.html'">サポートを受ける</button>
+  `;
+}
 </script>
 
-<footer>
-  <p style="text-align:center; color:#555; font-size:0.9rem; margin-top:60px;">
-    <a href="../legal.html" style="color:#00b386; text-decoration:none;">販売・利用規約</a>｜
-    <a href="../contact/index.html" style="color:#00b386; text-decoration:none;">お問い合わせ</a>｜
-    <a href="../index.html" style="color:#00b386; text-decoration:none;">トップへ戻る</a>
-  </p>
-</footer>  
-
+<footer style="text-align:center; color:#555; font-size:0.9rem; margin-top:80px;">
+  <a href="../legal.html" style="color:#00b386; text-decoration:none;">販売・利用規約</a>｜
+  <a href="../contact/index.html" style="color:#00b386; text-decoration:none;">お問い合わせ</a>｜
+  <a href="../index.html" style="color:#00b386; text-decoration:none;">トップへ戻る</a>
+</footer>
 </body>
 </html>
