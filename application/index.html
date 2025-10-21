@@ -3,22 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>application｜測定・契約・パーソナル</title>
+<title>application｜思考を現場へつなぐ</title>
 
 <link rel="manifest" href="../manifest.json">
-<meta name="theme-color" content="#0b3d31">
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("../service-worker.js");
-}
-</script>
+<meta name="theme-color" content="#f6f9fa">
 
 <style>
 :root {
-  --bg: #0e1117;
-  --accent: #00ff99;
-  --text: #f8f8f8;
-  --panel: rgba(255,255,255,0.05);
+  --bg: #f6f9fa;
+  --text: #1a1a1a;
+  --accent: #00b386;
+  --sub: #555;
+  --line: rgba(0,0,0,0.06);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
@@ -26,180 +22,141 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.8;
-  overflow-x: hidden;
+  line-height: 1.9;
 }
 
-/* --- Header --- */
+/* Header */
 header {
   text-align: center;
-  padding: 80px 20px 60px;
+  padding: 80px 20px 40px;
 }
 h1 {
-  font-size: 1.8rem;
-  color: var(--accent);
+  font-size: 2rem;
+  font-weight: 500;
   margin-bottom: 0.3em;
 }
 p.sub {
-  color: #aaa;
+  color: var(--sub);
   font-size: 1rem;
 }
 
-/* --- Option Cards --- */
-section.options {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  max-width: 1000px;
-  margin: 0 auto 80px;
-  padding: 0 20px;
-}
-.card {
-  flex: 1 1 300px;
-  background: var(--panel);
-  border-left: 3px solid var(--accent);
+/* Section */
+section {
+  max-width: 800px;
+  margin: 100px auto;
+  padding: 40px 30px;
+  background: #fff;
+  border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 30px 25px;
-  transition: 0.3s;
-  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
-.card:hover {
-  background: rgba(0,255,153,0.08);
-  transform: translateY(-4px);
-}
-.card h2 {
+section h2 {
   color: var(--accent);
-  font-size: 1.2rem;
-  margin-bottom: 0.5em;
+  font-weight: 500;
+  margin-bottom: 1em;
 }
-.card p {
+section p {
   color: var(--text);
-  font-size: 0.95rem;
-  opacity: 0.9;
+  font-size: 1rem;
 }
 
-/* --- Detail Area --- */
-.detail {
-  max-width: 780px;
-  margin: 0 auto 100px;
-  padding: 40px 30px;
-  background: rgba(255,255,255,0.05);
-  border-left: 3px solid var(--accent);
-  border-radius: 8px;
-  display: none;
+/* Gallery */
+.gallery {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
 }
-.detail.active {
-  display: block;
+.gallery img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  transition: 0.3s;
 }
-.detail h3 {
-  color: var(--accent);
-  font-size: 1.1rem;
-  margin-bottom: 0.6em;
+.gallery img:hover {
+  transform: scale(1.02);
 }
-.detail ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1em;
-}
-.detail li {
-  margin: 0.4em 0;
-  color: #ddd;
-  font-size: 0.95rem;
-}
+
+/* Button */
 button.action {
+  display: block;
+  margin: 40px auto 0;
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
-  padding: 0.5em 1.4em;
-  border-radius: 4px;
+  padding: 0.6em 1.6em;
+  border-radius: 3px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 button.action:hover {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
 }
 
-/* --- Footer --- */
+/* Footer */
 footer {
   text-align: center;
-  margin: 100px 0 40px;
-  color: #888;
+  color: var(--sub);
   font-size: 0.9rem;
+  margin: 100px 0 40px;
 }
 footer a {
   color: var(--accent);
   text-decoration: none;
 }
+footer a:hover {
+  text-decoration: underline;
+}
 </style>
 </head>
 
 <body>
+
 <header>
   <h1>application</h1>
-  <p class="sub">現場の測定・契約・パーソナルサポート</p>
+  <p class="sub">思考を現場へ。再現性を共有する。</p>
 </header>
 
-<section class="options">
-  <div class="card" onclick="showDetail('measure')">
-    <h2>パフォーマンス測定</h2>
-    <p>Rapsodo / BLAST / 光電管 / VBTなどを用いて<br>選手の特性を数値化。結果から逆算して設計。</p>
+<section>
+  <h2>実装する</h2>
+  <p>考えたことを、現場の動きに落とし込む。<br>
+  理論を体で試し、手で確かめる。<br>
+  再現性とは、思考を実行へ変える技術である。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/application/team-training.jpg" alt="チーム練習">
+    <img src="../assets/gallery/application/measurement.jpg" alt="測定風景">
   </div>
-  <div class="card" onclick="showDetail('contract')">
-    <h2>チームトレーナー契約</h2>
-    <p>チーム単位での継続サポート。<br>試合帯同・強化計画・再現性トレーニングを提供。</p>
-  </div>
-  <div class="card" onclick="showDetail('personal')">
-    <h2>パーソナルトレーニング</h2>
-    <p>目的別の個別指導。<br>フォーム・体力・思考・習慣を“整える”時間。</p>
-  </div>
+  <button class="action" onclick="showMsg('実践が、思考を確かな形に変える。')">現場で試す</button>
 </section>
 
-<!-- Detail Sections -->
-<div id="measure" class="detail">
-  <h3>パフォーマンス測定</h3>
-  <ul>
-    <li>◉ Rapsodo：投球データ（回転・軌道・出力）</li>
-    <li>◉ BLAST：スイング軌道・インパクト解析</li>
-    <li>◉ 光電管・VBT：加速度・反応・速度評価</li>
-    <li>◉ VO₂maxテスト・心拍測定</li>
-  </ul>
-  <p>→ 数値だけで終わらず、「再現する力」を一緒に設計します。</p>
-  <button class="action" onclick="window.location.href='../lab/index.html'">体験してから申し込む</button>
-</div>
+<section>
+  <h2>共有する</h2>
+  <p>個人の思考をチームで共有する。<br>
+  言葉と数値を合わせ、理解を揃える。<br>
+  コミュニケーションが、再現の制度を高める。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/application/team-photo.jpg" alt="チーム集合写真">
+  </div>
+  <button class="action" onclick="showMsg('共有が、組織の再現性を育てる。')">共有を記録</button>
+</section>
 
-<div id="contract" class="detail">
-  <h3>チームトレーナー契約</h3>
-  <ul>
-    <li>◉ 試合・遠征帯同</li>
-    <li>◉ トレーニング・メディカル・測定一括支援</li>
-    <li>◉ チーム課題分析と強化計画の設計</li>
-  </ul>
-  <p>→ チームに合わせた「育成設計」を共同で構築します。</p>
-  <button class="action" onclick="window.location.href='./contact.html'">相談・見積もり</button>
-</div>
-
-<div id="personal" class="detail">
-  <h3>パーソナルトレーニング</h3>
-  <ul>
-    <li>◉ 評価 → 分析 → 実践まで一貫サポート</li>
-    <li>◉ 身体の内側から動かすアプローチ</li>
-    <li>◉ フィジカル × 思考 × 習慣の統合</li>
-  </ul>
-  <p>→ “整えることは再現すること”。</p>
-  <button class="action" onclick="window.location.href='./contact.html'">予約・問い合わせ</button>
-</div>
+<section>
+  <h2>接続する</h2>
+  <p>整える・考える・実行する。<br>
+  その流れを一つの循環として設計する。<br>
+  現場と知がつながるとき、進化が始まる。</p>
+  <button class="action" onclick="showMsg('接続こそが、adjustmentの本質である。')">次の思考へ</button>
+</section>
 
 <footer>
+  <p><a href="../contact.html">→ contact（申し込み・問い合わせ）へ</a></p>
   <p><a href="../index.html">← トップへ戻る</a></p>
 </footer>
 
 <script>
-function showDetail(id){
-  document.querySelectorAll('.detail').forEach(d => d.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo({top: document.getElementById(id).offsetTop - 40, behavior: 'smooth'});
+function showMsg(text){
+  alert(text);
 }
 </script>
 
