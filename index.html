@@ -15,90 +15,51 @@ if ("serviceWorker" in navigator) {
 }
 </script>
 
-<style>
 :root {
-  --bg: #0d1117;
-  --text: #f5f5f5;
+  --bg: #f8faf9;
+  --text: #1a1a1a;
   --accent: #00b386;
+  --sub: #555;
+  --line: rgba(0,0,0,0.06);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
-/* 基本構造 */
 body {
   margin: 0;
   padding: 0;
   background: var(--bg);
   color: var(--text);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
   line-height: 1.9;
 }
 
-/* ロゴ */
-#logo {
-  width: 140px;
-  margin-bottom: 1.5em;
-}
-
-/* タイトル・説明 */
-h1 {
-  font-size: 2.2rem;
+h1, h2 {
   font-weight: 500;
-  margin: 0.2em 0 0.4em;
-}
-p {
-  font-size: 1rem;
-  text-align: center;
-  color: #ddd;
-  margin: 0 0 1.5em;
+  color: var(--text);
 }
 
-/* 切替ボタン */
-button.toggle {
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
   padding: 0.6em 1.6em;
-  font-size: 1rem;
   border-radius: 3px;
   cursor: pointer;
   transition: 0.3s ease;
 }
-button.toggle:hover {
+
+button:hover {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
 }
-
-/* ナビゲーション */
-nav {
-  position: absolute;
-  bottom: 40px;
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-nav a {
-  text-decoration: none;
-  color: var(--text);
-  border-bottom: 1px solid transparent;
-  transition: 0.3s;
-}
-nav a:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-/* 切替スタイル（labモード） */
-body.lab {
-  --bg: #071e16;
-  --text: #e8fdf4;
-  --accent: #10b981;
-}
-</style>
 </head>
 
 <body>
