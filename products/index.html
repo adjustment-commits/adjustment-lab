@@ -3,195 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>adjustment-lab｜プロダクト一覧</title>
+<title>adjustment-lab｜教材一覧</title>
 
 <style>
 :root {
   --bg: #f8faf9;
   --text: #1a1a1a;
   --accent: #00b386;
-  --sub: #666;
-  --line: rgba(0,0,0,0.06);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
-/* -------------------------------
-   Base
--------------------------------- */
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
   line-height: 1.9;
-  overflow-x: hidden;
+  padding: 40px 20px 80px;
 }
 
 header {
   text-align: center;
-  padding: 80px 20px 40px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 1.5s ease forwards;
+  margin-bottom: 60px;
 }
 h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: var(--accent);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 p.sub {
-  color: var(--sub);
+  color: #555;
   font-size: 1rem;
 }
 
-/* -------------------------------
-   Product Grid
--------------------------------- */
+/* --- Cards --- */
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 40px;
   max-width: 1000px;
-  margin: 60px auto 100px;
-  padding: 0 20px;
+  margin: 0 auto;
 }
 
 .card {
   background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
-  transform: translateY(40px);
-  opacity: 0;
-  animation: fadeUp 1s ease forwards;
-}
-.card:nth-child(2) {
-  animation-delay: 0.4s;
+  transition: transform 0.3s ease;
 }
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-  transition: 0.3s ease;
 }
 .card img {
   width: 100%;
   height: auto;
   display: block;
 }
-
 .card-content {
-  padding: 24px 24px 36px;
+  padding: 24px 20px 30px;
 }
 .card-content h2 {
-  color: var(--accent);
   font-size: 1.3rem;
+  color: var(--accent);
   margin-bottom: 0.6em;
-  letter-spacing: 0.02em;
 }
 .card-content p {
-  color: var(--sub);
   font-size: 0.95rem;
-  margin-bottom: 1.8em;
-  line-height: 1.8;
+  color: #333;
+  margin-bottom: 1.2em;
 }
-
-button {
+.card-content button {
+  display: block;
+  margin: 0 auto;
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
-  padding: 0.6em 1.6em;
-  border-radius: 4px;
-  font-size: 0.95rem;
+  padding: 0.5em 1.4em;
+  border-radius: 3px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
-button:hover {
+.card-content button:hover {
   background: var(--accent);
   color: #fff;
 }
 
-/* -------------------------------
-   Footer
--------------------------------- */
+/* --- Footer --- */
 footer {
   text-align: center;
-  padding: 60px 20px;
-  color: var(--sub);
+  margin-top: 80px;
+  color: #555;
   font-size: 0.9rem;
-  border-top: 1px solid rgba(0,0,0,0.05);
 }
 footer a {
   color: var(--accent);
   text-decoration: none;
-  margin: 0 8px;
-}
-footer a:hover {
-  text-decoration: underline;
-}
-
-/* -------------------------------
-   Animation
--------------------------------- */
-@keyframes fadeIn {
-  to {opacity: 1; transform: translateY(0);}
-}
-@keyframes fadeUp {
-  to {opacity: 1; transform: translateY(0);}
-}
-
-/* -------------------------------
-   Responsive
--------------------------------- */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 1.6rem;
-  }
-  .card-content {
-    padding: 20px;
-  }
-  button {
-    width: 100%;
-  }
 }
 </style>
 </head>
 
 <body>
+
 <header>
-  <h1>adjustment-lab｜プロダクト一覧</h1>
-  <p class="sub">思考から再現へ。あなたに合った教材を選択してください。</p>
+  <h1>教材一覧</h1>
+  <p class="sub">整 × adjustment-lab の教材ラインナップ</p>
 </header>
 
-<main class="products">
+<div class="products">
+
   <!-- LITE -->
   <div class="card">
-    <img src="../assets/products/lite-thumb.jpg" alt="LITE教材サムネイル">
+    <img src="../assets/thumbs/lite-thumb.jpg" alt="LITE教材サムネイル">
     <div class="card-content">
       <h2>LITE 教材</h2>
-      <p>整 × lab の哲学を“体験”として理解するための入門教材。<br>
-      HTML形式で提供され、いつでもどこでも利用可能です。</p>
-      <button onclick="window.location.href='./lite.html'">詳細を見る</button>
+      <p>思考と感覚をつなぐ、整の入門編。<br>まずは“整う”を体験する。</p>
+      <button onclick="location.href='lite.html'">詳細を見る</button>
     </div>
   </div>
 
   <!-- STANDARD -->
   <div class="card">
-    <img src="../assets/products/standard-thumb.jpg" alt="STANDARD教材サムネイル">
+    <img src="../assets/thumbs/standard-thumb.jpg" alt="STANDARD教材サムネイル">
     <div class="card-content">
       <h2>STANDARD 教材</h2>
-      <p>理論構造と再現性を体系化した実践教材。<br>
-      現場導入を想定した“再現設計”の全プロセスを学びます。</p>
-      <button onclick="window.location.href='./standard.html'">詳細を見る</button>
+      <p>理論構造と再現性の設計。<br>思考を実践へ落とし込む中級プログラム。</p>
+      <button onclick="location.href='standard.html'">詳細を見る</button>
     </div>
   </div>
-</main>
+
+</div>
 
 <footer>
-  <p>
-    <a href="../legal.html">販売・利用規約</a>｜
-    <a href="../contact/index.html">お問い合わせ</a>｜
-    <a href="../index.html">トップへ戻る</a>
-  </p>
+  <p><a href="../index.html">← トップページへ戻る</a></p>
 </footer>
 
 </body>
