@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>intro｜整 × adjustment-lab</title>
+<title>思想フィルター｜整 × adjustment-lab</title>
 
 <style>
 :root {
@@ -11,7 +11,6 @@
   --text: #1a1a1a;
   --accent: #00b386;
   --sub: #555;
-  --line: rgba(0,0,0,0.06);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
@@ -20,225 +19,160 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  padding-bottom: 100px;
+  padding: 40px 20px 100px;
+  text-align: center;
 }
 
-/* Header */
-header {
-  text-align: center;
-  padding: 60px 20px 30px;
-}
 h1 {
-  font-size: 1.8rem;
   color: var(--accent);
-  margin-bottom: 0.4em;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
 }
 p.sub {
   color: var(--sub);
-  font-size: 1rem;
-  margin-bottom: 0;
+  margin-bottom: 40px;
 }
 
-/* Section */
-section {
-  max-width: 800px;
+.question {
   background: #fff;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(0,0,0,0.05);
   border-radius: 8px;
-  padding: 30px 30px 20px;
-  margin: 30px 0;
+  max-width: 700px;
+  margin: 0 auto 30px;
+  padding: 30px 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
-section h2 {
+.question h2 {
   color: var(--accent);
-  font-size: 1.2rem;
-  margin-bottom: 0.5em;
-}
-section p {
+  font-size: 1.1rem;
   margin-bottom: 1em;
 }
-
-/* Form */
-form {
-  max-width: 800px;
-  margin-top: 20px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 30px;
-}
-label {
-  display: block;
-  margin-bottom: 6px;
-  color: var(--accent);
-  font-size: 0.95rem;
-}
-select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  font-size: 1rem;
-  margin-bottom: 20px;
-  background: #fdfdfd;
-}
 button {
-  display: block;
-  margin: 20px auto 0;
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
-  padding: 0.6em 1.6em;
-  font-size: 1rem;
-  border-radius: 3px;
+  padding: 0.5em 1.5em;
+  border-radius: 4px;
+  margin: 6px;
   cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: 0.3s;
 }
 button:hover {
   background: var(--accent);
   color: #fff;
 }
 
-/* Result */
 #result {
   display: none;
-  max-width: 800px;
+  max-width: 700px;
   margin: 40px auto;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 8px;
   padding: 40px 30px;
-  text-align: center;
+  border: 1px solid rgba(0,0,0,0.05);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
-#result h2 {
+#result h3 {
   color: var(--accent);
-  font-size: 1.4rem;
-  margin-bottom: 0.8em;
+  font-size: 1.3rem;
+  margin-bottom: 1em;
 }
 #result p {
-  color: var(--text);
+  margin-bottom: 1.5em;
 }
 #result button {
-  margin-top: 20px;
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  color: var(--sub);
-  font-size: 0.9rem;
-  margin-top: 60px;
-}
-footer a {
-  color: var(--accent);
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
+  margin-top: 10px;
 }
 </style>
 </head>
 
 <body>
-<header>
-  <h1>思考フィルター</h1>
-  <p class="sub">この場所が、あなたの考え方に合うかを確かめよう。</p>
-</header>
+<h1>思想フィルター</h1>
+<p class="sub">あなたの「整う力」と「再現する力」の方向を確認します。</p>
 
-<section>
-  <h2>concept｜整えるとは</h2>
-  <p>「整える」とは、単に体を整えることではなく、<br>
-  動きと理解を結びつけ、再現性を育てること。<br>
-  整 × adjustment-lab は、“思考する身体”を育てる場所です。</p>
-</section>
+<div id="quiz">
+  <div class="question" data-value="1">
+    <h2>Q1. 結果よりもプロセスを観察する方が重要だと思う。</h2>
+    <button>はい</button>
+    <button>どちらとも言えない</button>
+    <button>いいえ</button>
+  </div>
 
-<form id="introForm">
-  <label>「整える」と聞いて、あなたが最も近いと思うものは？</label>
-  <select id="q1" required>
-    <option value="">選択してください</option>
-    <option value="muscle">筋肉や関節を調整すること</option>
-    <option value="balance">姿勢やバランスを整えること</option>
-    <option value="reproduce">動作と理解を再現できるようにすること</option>
-  </select>
+  <div class="question" data-value="2">
+    <h2>Q2. 身体の変化は「外から作る」より「内から育つ」と考えている。</h2>
+    <button>はい</button>
+    <button>どちらとも言えない</button>
+    <button>いいえ</button>
+  </div>
 
-  <label>トレーニングで大切にしているものは？</label>
-  <select id="q2" required>
-    <option value="">選択してください</option>
-    <option value="power">出力・パワー</option>
-    <option value="habit">継続・習慣</option>
-    <option value="flow">理解と順序の再現性</option>
-  </select>
-
-  <label>あなたの目的に最も近いのは？</label>
-  <select id="q3" required>
-    <option value="">選択してください</option>
-    <option value="fix">動きを修正すること</option>
-    <option value="develop">技術を磨くこと</option>
-    <option value="understand">自分で動きを理解し、整えること</option>
-  </select>
-
-  <button type="submit">結果を見る</button>
-</form>
-
-<div id="result">
-  <h2 id="resultTitle"></h2>
-  <p id="resultText"></p>
-  <div id="actionButtons"></div>
+  <div class="question" data-value="3">
+    <h2>Q3. 指導とは教えることではなく、導くことだと思う。</h2>
+    <button>はい</button>
+    <button>どちらとも言えない</button>
+    <button>いいえ</button>
+  </div>
 </div>
 
-<footer>
-  <p><a href="./index.html">← トップへ戻る</a></p>
-</footer>
+<div id="result">
+  <h3 id="title"></h3>
+  <p id="message"></p>
+  <div id="buttons"></div>
+</div>
 
 <script>
-document.getElementById("introForm").addEventListener("submit", function(e){
-  e.preventDefault();
+let score = 0;
+const questions = document.querySelectorAll(".question");
+questions.forEach(q => {
+  const buttons = q.querySelectorAll("button");
+  buttons.forEach(b => {
+    b.addEventListener("click", () => {
+      const val = q.dataset.value;
+      if (b.textContent === "はい") score += parseInt(val);
+      else if (b.textContent === "どちらとも言えない") score += parseInt(val) / 2;
+      q.style.display = "none";
 
-  const q1 = document.getElementById("q1").value;
-  const q2 = document.getElementById("q2").value;
-  const q3 = document.getElementById("q3").value;
-
-  let score = 0;
-  if (q1 === "reproduce") score++;
-  if (q2 === "flow") score++;
-  if (q3 === "understand") score++;
-
-  let title = "";
-  let text = "";
-  let buttons = "";
-
-  if (score === 3) {
-    title = "あなたの考え方は adjustment-lab と完全に一致しています。";
-    text = "理解・再現・順序を重視するあなたには、LITE診断がおすすめです。";
-    buttons = '<button onclick="window.location.href=\'./lab/lite-form.html\'">→ LITE診断へ進む</button>';
-  } else if (score === 2) {
-    title = "多くの考え方が共通しています。";
-    text = "一部の考えを整理すれば、より高い再現性が得られます。<br>まずは整の哲学を読んでみましょう。";
-    buttons = '<button onclick="window.location.href=\'./adjustment/index.html\'">整の哲学を読む</button> <button onclick="window.location.href=\'./lab/lite-form.html\'">LITE診断へ進む</button>';
-  } else {
-    title = "方向性が少し異なるようです。";
-    text = "現時点では、adjustment-labよりも医療機関や他のトレーナーのサポートが有効かもしれません。";
-    buttons = '<button onclick="window.location.href=\'./medical.html\'">医療・専門家を探す</button> <button onclick="window.location.href=\'./partners.html\'">他トレーナーを見る</button>';
-  }
-
-  document.getElementById("resultTitle").innerHTML = title;
-  document.getElementById("resultText").innerHTML = text;
-  document.getElementById("actionButtons").innerHTML = buttons;
-  document.getElementById("result").style.display = "block";
-  window.scrollTo({ top: document.getElementById("result").offsetTop, behavior: "smooth" });
+      if ([...questions].every(qq => qq.style.display === "none")) showResult();
+    });
+  });
 });
+
+function showResult() {
+  const result = document.getElementById("result");
+  const title = document.getElementById("title");
+  const msg = document.getElementById("message");
+  const btns = document.getElementById("buttons");
+
+  result.style.display = "block";
+
+  if (score >= 5) {
+    title.textContent = "あなたの思考は、整 × lab の哲学と強く共鳴しています。";
+    msg.innerHTML = "自らの感覚を信じ、動きの意味を探る段階にあります。<br>再現性を設計する準備が整いました。";
+    btns.innerHTML = `
+      <button onclick="location.href='./lab/index.html'">adjustment-labへ進む</button>
+      <button onclick="location.href='./adjustment/index.html'">整の哲学を読む</button>
+    `;
+  } else if (score >= 3) {
+    title.textContent = "方向性は近いですが、まだ整理の途中です。";
+    msg.innerHTML = "いまは思考と感覚を結び直す時期にあります。<br>まずはLITE教材で、自分のリズムを見つけましょう。";
+    btns.innerHTML = `
+      <button onclick="location.href='./lab/lite-form.html'">LITE教材を体験する</button>
+      <button onclick="location.href='./adjustment/index.html'">整の哲学を読む</button>
+    `;
+  } else {
+    title.textContent = "いまは別の段階にいるようです。";
+    msg.innerHTML = "それは悪いことではありません。<br>理解は、整う準備ができたときに自然に始まります。<br>必要であれば一度ご相談ください。";
+    btns.innerHTML = `
+      <button onclick="location.href='./lab/lite-form.html'">LITE教材を体験する</button>
+      <button onclick="location.href='./contact/index.html'">相談してみる</button>
+    `;
+  }
+}
 </script>
 
-  <footer>
-  <p style="text-align:center; color:#555; font-size:0.9rem; margin-top:60px;">
-    <a href="../legal.html" style="color:#00b386; text-decoration:none;">販売・利用規約</a>｜
-    <a href="../contact/index.html" style="color:#00b386; text-decoration:none;">お問い合わせ</a>｜
-    <a href="../index.html" style="color:#00b386; text-decoration:none;">トップへ戻る</a>
-  </p>
+<footer style="text-align:center; color:#555; font-size:0.9rem; margin-top:80px;">
+  <a href="./legal.html" style="color:#00b386; text-decoration:none;">販売・利用規約</a>｜
+  <a href="./contact/index.html" style="color:#00b386; text-decoration:none;">お問い合わせ</a>｜
+  <a href="./index.html" style="color:#00b386; text-decoration:none;">トップへ戻る</a>
 </footer>
 
 </body>
