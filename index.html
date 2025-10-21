@@ -6,7 +6,7 @@
 <title>整 × adjustment-lab</title>
 
 <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#0b3d31">
+<meta name="theme-color" content="#0d1117">
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -17,117 +17,62 @@ if ("serviceWorker" in navigator) {
 
 <style>
 :root {
-  --dark: #0d1117;
-  --deep-green: #0b3d31;
-  --chalk: #f8f8f8;
-  --accent: #00ff99;
-  --fade: rgba(0,255,153,0.08);
+  --bg: #0d1117;
+  --text: #f5f5f5;
+  --accent: #00b386;
   font-family: 'Noto Sans JP', sans-serif;
 }
 
+/* 基本構造 */
 body {
   margin: 0;
   padding: 0;
-  background: url('./assets/blackboard.jpg') center/cover no-repeat;
-  color: var(--chalk);
+  background: var(--bg);
+  color: var(--text);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  overflow-x: hidden;
-  transition: background 1s ease, color 0.8s ease;
+  line-height: 1.9;
 }
 
-/* 暗幕 */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.45);
-  z-index: 0;
-}
-
+/* ロゴ */
 #logo {
-  width: 150px;
-  margin-bottom: 1.2em;
-  filter: drop-shadow(0 0 8px rgba(0,0,0,0.7));
-  z-index: 1;
-  transition: opacity 0.8s ease;
+  width: 140px;
+  margin-bottom: 1.5em;
 }
 
+/* タイトル・説明 */
 h1 {
   font-size: 2.2rem;
-  margin: 0.3em 0 0.5em;
-  text-align: center;
-  text-shadow: 0 0 8px rgba(0,0,0,0.4);
+  font-weight: 500;
+  margin: 0.2em 0 0.4em;
 }
-
 p {
   font-size: 1rem;
   text-align: center;
-  line-height: 1.8;
-  opacity: 0.9;
-  max-width: 80%;
-  z-index: 1;
+  color: #ddd;
+  margin: 0 0 1.5em;
 }
 
-.toggle {
-  margin-top: 2.5em;
+/* 切替ボタン */
+button.toggle {
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
-  padding: 0.6em 1.8em;
+  padding: 0.6em 1.6em;
   font-size: 1rem;
+  border-radius: 3px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.4s ease;
-  z-index: 1;
+  transition: 0.3s ease;
 }
-.toggle:hover {
+button.toggle:hover {
   background: var(--accent);
-  color: var(--dark);
+  color: var(--bg);
 }
 
-#grid {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-image: linear-gradient(var(--fade) 1px, transparent 1px),
-                    linear-gradient(90deg, var(--fade) 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0;
-  transition: opacity 1s ease;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* LABモード */
-body.lab-mode {
-  background: linear-gradient(180deg, var(--deep-green) 0%, #001f1a 100%);
-  color: var(--accent);
-}
-body.lab-mode::before {
-  background: rgba(0,0,0,0.25);
-}
-body.lab-mode #grid {
-  opacity: 0.6;
-}
-body.lab-mode h1, body.lab-mode p {
-  color: var(--accent);
-  text-shadow: 0 0 12px rgba(0,255,153,0.5);
-}
-body.lab-mode .toggle {
-  border-color: #f1f5f9;
-  color: #f1f5f9;
-}
-body.lab-mode .toggle:hover {
-  background: #f1f5f9;
-  color: var(--deep-green);
-}
-
-/* 下部導線エリア */
+/* ナビゲーション */
 nav {
   position: absolute;
   bottom: 40px;
@@ -137,28 +82,29 @@ nav {
   justify-content: center;
 }
 nav a {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid var(--accent);
-  border-radius: 4px;
-  color: var(--chalk);
   text-decoration: none;
-  padding: 0.5em 1.4em;
-  font-size: 0.95rem;
-  transition: all 0.3s;
+  color: var(--text);
+  border-bottom: 1px solid transparent;
+  transition: 0.3s;
 }
 nav a:hover {
-  background: var(--accent);
-  color: var(--dark);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* 切替スタイル（labモード） */
+body.lab {
+  --bg: #071e16;
+  --text: #e8fdf4;
+  --accent: #10b981;
 }
 </style>
 </head>
 
 <body>
-<div id="grid"></div>
-
 <img id="logo" src="./assets/logo-seii.png" alt="整ロゴ">
 <h1 id="title">整 - adjustment</h1>
-<p id="desc">「整えることは、再現すること。」<br>身体を導き、思考を育てる場。</p>
+<p id="desc">整えることは、再現すること。<br>身体を導き、思考を育てる場。</p>
 
 <button class="toggle" id="switchBtn">→ adjustment-labへ</button>
 
@@ -170,13 +116,14 @@ nav a:hover {
 
 <script>
 const btn = document.getElementById('switchBtn');
-const logo = document.getElementById('logo');
-const title = document.getElementById('title');
-const desc = document.getElementById('desc');
 let mode = 'seii';
 
 btn.addEventListener('click', () => {
-  document.body.classList.toggle('lab-mode');
+  document.body.classList.toggle('lab');
+  const title = document.getElementById('title');
+  const desc = document.getElementById('desc');
+  const logo = document.getElementById('logo');
+
   if (mode === 'seii') {
     mode = 'lab';
     logo.src = './assets/logo-lab.png';
@@ -187,7 +134,7 @@ btn.addEventListener('click', () => {
     mode = 'seii';
     logo.src = './assets/logo-seii.png';
     title.textContent = '整 - adjustment';
-    desc.innerHTML = '「整えることは、再現すること。」<br>身体を導き、思考を育てる場。';
+    desc.innerHTML = '整えることは、再現すること。<br>身体を導き、思考を育てる場。';
     btn.textContent = '→ adjustment-labへ';
   }
 });
