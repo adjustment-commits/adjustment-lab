@@ -3,22 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>adjustment-lab｜再現を設計する</title>
+<title>adjustment-lab｜思考を形にする</title>
 
 <link rel="manifest" href="../manifest.json">
-<meta name="theme-color" content="#0b3d31">
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("../service-worker.js");
-}
-</script>
+<meta name="theme-color" content="#eef7f3">
 
 <style>
 :root {
-  --bg: #0b3d31;
-  --accent: #00ff99;
-  --text: #f8f8f8;
-  --panel: rgba(0,0,0,0.4);
+  --bg: #eef7f3;
+  --text: #1a1a1a;
+  --accent: #00b386;
+  --sub: #555;
+  --line: rgba(0,0,0,0.06);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
@@ -26,164 +22,147 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.8;
-  overflow-x: hidden;
+  line-height: 1.9;
 }
 
+/* Header */
 header {
   text-align: center;
-  padding: 80px 20px 60px;
+  padding: 80px 20px 40px;
 }
 h1 {
   font-size: 2rem;
-  color: var(--accent);
+  font-weight: 500;
   margin-bottom: 0.3em;
+  color: var(--text);
 }
 p.sub {
-  color: #77ffcc;
+  color: var(--sub);
   font-size: 1rem;
 }
 
-/* --- Interactive Panels --- */
+/* Section */
 section {
   max-width: 800px;
-  margin: 60px auto;
-  background: var(--panel);
+  margin: 100px auto;
   padding: 40px 30px;
-  border-radius: 10px;
-  border-left: 3px solid var(--accent);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+section h2 {
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 1em;
+}
+section p {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+/* Gallery */
+.gallery {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+.gallery img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--line);
   transition: 0.3s;
 }
-section:hover {
-  background: rgba(0,255,153,0.08);
+.gallery img:hover {
+  transform: scale(1.02);
 }
 
-/* --- Sliders / Buttons --- */
-.slider-box {
-  margin: 30px 0;
-  text-align: center;
-}
-
-label {
-  display: block;
-  color: #ccc;
-  margin-bottom: 8px;
-}
-
-input[type="range"] {
-  width: 80%;
-  height: 6px;
-  border-radius: 3px;
-  outline: none;
-  background: #222;
-  accent-color: var(--accent);
-}
-
-.output {
-  margin-top: 10px;
-  font-size: 1.2rem;
-  color: var(--accent);
-}
-
+/* Button */
 button.action {
+  display: block;
+  margin: 40px auto 0;
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
-  padding: 0.5em 1.5em;
-  border-radius: 4px;
+  padding: 0.6em 1.6em;
+  border-radius: 3px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 button.action:hover {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
 }
 
+/* Footer */
 footer {
   text-align: center;
-  margin: 100px 0 60px;
-  font-size: 0.85rem;
-  color: #88ffcc;
+  color: var(--sub);
+  font-size: 0.9rem;
+  margin: 100px 0 40px;
 }
 footer a {
   color: var(--accent);
   text-decoration: none;
 }
+footer a:hover {
+  text-decoration: underline;
+}
 </style>
 </head>
 
 <body>
+
 <header>
-  <h1>adjustment-l-lab</h1>
-  <p class="sub">再現を設計する。体験を数値化する。</p>
+  <h1>adjustment-lab</h1>
+  <p class="sub">思考を形にする。再現を設計する。</p>
 </header>
 
 <section>
-  <h2>出力を感じる</h2>
-  <p>このスライダーは、力の発揮と脱力の切り替えを表現しています。<br>
-  ゆっくり動かして、どのタイミングで“抜ける”かを見つけてみよう。</p>
-  <div class="slider-box">
-    <label>出力バランス</label>
-    <input type="range" min="0" max="100" value="50" id="power">
-    <div class="output" id="powerOutput">50%</div>
+  <h2>観察する</h2>
+  <p>動作を“見る”ことから、理解は始まる。<br>
+  骨盤、胸郭、肩甲、それぞれのタイミングを整理し、流れを読む。<br>
+  観察の精度が、再現の精度を決める。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/lab/mbthrow.jpg" alt="MBスロー実験">
+    <img src="../assets/gallery/lab/glide.jpg" alt="滑走ドリル">
   </div>
+  <button class="action" onclick="showMsg('観察の積み重ねが、再現を可能にする。')">観察を記録</button>
 </section>
 
 <section>
-  <h2>タイミングを合わせる</h2>
-  <p>「骨盤 → 胸郭 → 腕」の順に連動しているかを可視化するモデルです。<br>
-  下のボタンを押してリズムを感じてください。</p>
-  <div style="text-align:center;">
-    <button class="action" id="syncBtn">▶︎ 再生</button>
-    <div id="syncStatus" class="output">Ready</div>
+  <h2>分析する</h2>
+  <p>動作を数値に変換する。<br>
+  出力、タイミング、リズム。  
+  それらを比較・検証し、パターンとして理解する。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/lab/rapsodo.jpg" alt="投球解析">
+    <img src="../assets/gallery/lab/jump.jpg" alt="RSI測定">
   </div>
+  <button class="action" onclick="showMsg('思考は、数値を超えて動作を理解する。')">分析を記す</button>
 </section>
 
 <section>
   <h2>再現する</h2>
-  <p>感覚を動きに落とすための実験。<br>
-  3秒間、静止した状態から力を出すとき、どこが先に動く？</p>
-  <div style="text-align:center;">
-    <button class="action" onclick="alert('意識ではなく、順番を観察して。')">記録する</button>
+  <p>理解したことを動きに戻す。<br>
+  動作の順序を整理し、同じ条件で再び再現できるかを確かめる。<br>
+  思考と実践がつながる瞬間に、技術は安定する。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/lab/sprint.jpg" alt="スプリント測定">
   </div>
+  <button class="action" onclick="showMsg('再現性は、思考の完成形である。')">検証を記録</button>
 </section>
 
 <footer>
-  <p><a href="../adjustment/index.html">← 整 - adjustmentへ戻る</a></p>
-  <p><a href="../index.html">トップへ</a></p>
+  <p><a href="../application/index.html">→ 現場と契約へ進む</a></p>
+  <p><a href="../index.html">← トップへ戻る</a></p>
 </footer>
 
 <script>
-const power = document.getElementById('power');
-const powerOutput = document.getElementById('powerOutput');
-power.addEventListener('input', () => {
-  powerOutput.textContent = power.value + "%";
-});
-
-const syncBtn = document.getElementById('syncBtn');
-const syncStatus = document.getElementById('syncStatus');
-let playing = false;
-syncBtn.addEventListener('click', () => {
-  if (!playing) {
-    playing = true;
-    syncBtn.textContent = "■ 停止";
-    let i = 0;
-    const seq = ["骨盤", "胸郭", "腕"];
-    const timer = setInterval(() => {
-      syncStatus.textContent = seq[i];
-      syncStatus.style.color = "#00ff99";
-      i++;
-      if (i >= seq.length) {
-        clearInterval(timer);
-        setTimeout(() => {
-          syncStatus.textContent = "Complete";
-          syncBtn.textContent = "▶︎ 再生";
-          playing = false;
-        }, 600);
-      }
-    }, 600);
-  }
-});
+function showMsg(text){
+  alert(text);
+}
 </script>
 
 </body>
