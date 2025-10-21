@@ -3,49 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>intro｜整 × adjustment-lab の考え方</title>
+<title>intro｜整 × adjustment-lab</title>
 
 <style>
 :root {
-  --bg: #ffffff;
+  --bg: #f8faf9;
   --text: #1a1a1a;
   --accent: #00b386;
   --sub: #555;
+  --line: rgba(0,0,0,0.06);
   font-family: 'Noto Sans JP', sans-serif;
 }
+
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
   line-height: 1.9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding-bottom: 100px;
 }
 
 /* Header */
 header {
   text-align: center;
-  padding: 60px 20px 20px;
+  padding: 60px 20px 30px;
 }
 h1 {
   font-size: 1.8rem;
   color: var(--accent);
+  margin-bottom: 0.4em;
 }
 p.sub {
   color: var(--sub);
   font-size: 1rem;
+  margin-bottom: 0;
 }
 
 /* Section */
 section {
   max-width: 800px;
-  margin: 40px auto;
-  padding: 30px;
-  background: #fafafa;
+  background: #fff;
+  border: 1px solid var(--line);
   border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.08);
+  padding: 30px 30px 20px;
+  margin: 30px 0;
 }
 section h2 {
   color: var(--accent);
   font-size: 1.2rem;
+  margin-bottom: 0.5em;
 }
 section p {
   margin-bottom: 1em;
@@ -54,11 +65,11 @@ section p {
 /* Form */
 form {
   max-width: 800px;
-  margin: 60px auto;
-  padding: 30px;
+  margin-top: 20px;
   background: #fff;
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid var(--line);
   border-radius: 8px;
+  padding: 30px;
 }
 label {
   display: block;
@@ -69,10 +80,11 @@ label {
 select {
   width: 100%;
   padding: 10px;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid var(--line);
   border-radius: 4px;
   font-size: 1rem;
   margin-bottom: 20px;
+  background: #fdfdfd;
 }
 button {
   display: block;
@@ -82,9 +94,9 @@ button {
   color: var(--accent);
   padding: 0.6em 1.6em;
   font-size: 1rem;
-  cursor: pointer;
   border-radius: 3px;
-  transition: 0.3s;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 button:hover {
   background: var(--accent);
@@ -95,11 +107,11 @@ button:hover {
 #result {
   display: none;
   max-width: 800px;
-  margin: 60px auto;
-  padding: 40px 30px;
+  margin: 40px auto;
   background: #fff;
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid var(--line);
   border-radius: 8px;
+  padding: 40px 30px;
   text-align: center;
 }
 #result h2 {
@@ -107,7 +119,9 @@ button:hover {
   font-size: 1.4rem;
   margin-bottom: 0.8em;
 }
-#result p { color: var(--text); }
+#result p {
+  color: var(--text);
+}
 #result button {
   margin-top: 20px;
 }
@@ -117,53 +131,54 @@ footer {
   text-align: center;
   color: var(--sub);
   font-size: 0.9rem;
-  margin: 80px 0 40px;
+  margin-top: 60px;
 }
 footer a {
   color: var(--accent);
   text-decoration: none;
 }
-footer a:hover { text-decoration: underline; }
+footer a:hover {
+  text-decoration: underline;
+}
 </style>
 </head>
 
 <body>
-
 <header>
-  <h1>整 × adjustment-lab</h1>
-  <p class="sub">この場所の哲学と、あなたの考え方が重なるかを確かめよう。</p>
+  <h1>思想フィルター</h1>
+  <p class="sub">この場所が、あなたの考え方に合うかを確かめよう。</p>
 </header>
 
 <section>
-  <h2>concept｜整えるとは？</h2>
-  <p>私たちは「整えることは再現すること」と考えています。<br>
-  一時的な変化ではなく、思考と動作の再現性を育てること。<br>
-  そのために、理解・観察・順序を大切にします。</p>
+  <h2>concept｜整えるとは</h2>
+  <p>「整える」とは、単に体を整えることではなく、<br>
+  動きと理解を結びつけ、再現性を育てること。<br>
+  整 × adjustment-lab は、“思考する身体”を育てる場所です。</p>
 </section>
 
 <form id="introForm">
-  <label>あなたが「整える」と聞いて最も近いと思う考え方は？</label>
+  <label>「整える」と聞いて、あなたが最も近いと思うものは？</label>
   <select id="q1" required>
     <option value="">選択してください</option>
     <option value="muscle">筋肉や関節を調整すること</option>
-    <option value="balance">姿勢や重心を整えること</option>
-    <option value="reproduce">動作や思考を再現できるようにすること</option>
+    <option value="balance">姿勢やバランスを整えること</option>
+    <option value="reproduce">動作と理解を再現できるようにすること</option>
   </select>
 
-  <label>トレーニングで最も大切だと思うのは？</label>
+  <label>トレーニングで大切にしているものは？</label>
   <select id="q2" required>
     <option value="">選択してください</option>
     <option value="power">出力・パワー</option>
-    <option value="habit">継続・習慣化</option>
-    <option value="flow">理解と連動の再現性</option>
+    <option value="habit">継続・習慣</option>
+    <option value="flow">理解と順序の再現性</option>
   </select>
 
-  <label>あなたの指導・取り組みの目的に最も近いのは？</label>
+  <label>あなたの目的に最も近いのは？</label>
   <select id="q3" required>
     <option value="">選択してください</option>
     <option value="fix">動きを修正すること</option>
     <option value="develop">技術を磨くこと</option>
-    <option value="understand">動きを理解して自分で整えること</option>
+    <option value="understand">自分で動きを理解し、整えること</option>
   </select>
 
   <button type="submit">結果を見る</button>
@@ -176,7 +191,7 @@ footer a:hover { text-decoration: underline; }
 </div>
 
 <footer>
-  <p><a href="./index.html">トップへ戻る</a></p>
+  <p><a href="./index.html">← トップへ戻る</a></p>
 </footer>
 
 <script>
@@ -197,16 +212,16 @@ document.getElementById("introForm").addEventListener("submit", function(e){
   let buttons = "";
 
   if (score === 3) {
-    title = "あなたの考え方はadjustment-labと完全に一致しています。";
+    title = "あなたの考え方は adjustment-lab と完全に一致しています。";
     text = "理解・再現・順序を重視するあなたには、LITE診断がおすすめです。";
     buttons = '<button onclick="window.location.href=\'./lab/lite-form.html\'">→ LITE診断へ進む</button>';
   } else if (score === 2) {
-    title = "多くの考えが共通しています。";
-    text = "一部アプローチの方向性を整理することで、より高い再現性が得られます。";
+    title = "多くの考え方が共通しています。";
+    text = "一部の考えを整理すれば、より高い再現性が得られます。<br>まずは整の哲学を読んでみましょう。";
     buttons = '<button onclick="window.location.href=\'./adjustment/index.html\'">整の哲学を読む</button> <button onclick="window.location.href=\'./lab/lite-form.html\'">LITE診断へ進む</button>';
   } else {
     title = "方向性が少し異なるようです。";
-    text = "現在の段階では、adjustment-labのアプローチよりも別の専門家・医療機関でのサポートが効果的かもしれません。";
+    text = "現時点では、adjustment-labよりも医療機関や他のトレーナーのサポートが有効かもしれません。";
     buttons = '<button onclick="window.location.href=\'./medical.html\'">医療・専門家を探す</button> <button onclick="window.location.href=\'./partners.html\'">他トレーナーを見る</button>';
   }
 
