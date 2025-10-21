@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>intro｜整 × adjustment-lab の考え方</title>
+
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --accent: #00b386;
+  --sub: #555;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.9;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 60px 20px 20px;
+}
+h1 {
+  font-size: 1.8rem;
+  color: var(--accent);
+}
+p.sub {
+  color: var(--sub);
+  font-size: 1rem;
+}
+
+/* Section */
+section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+section h2 {
+  color: var(--accent);
+  font-size: 1.2rem;
+}
+section p {
+  margin-bottom: 1em;
+}
+
+/* Form */
+form {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 8px;
+}
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+button {
+  display: block;
+  margin: 20px auto 0;
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.6em 1.6em;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Result */
+#result {
+  display: none;
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 40px 30px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 8px;
+  text-align: center;
+}
+#result h2 {
+  color: var(--accent);
+  font-size: 1.4rem;
+  margin-bottom: 0.8em;
+}
+#result p { color: var(--text); }
+#result button {
+  margin-top: 20px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  color: var(--sub);
+  font-size: 0.9rem;
+  margin: 80px 0 40px;
+}
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+footer a:hover { text-decoration: underline; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>整 × adjustment-lab</h1>
+  <p class="sub">この場所の哲学と、あなたの考え方が重なるかを確かめよう。</p>
+</header>
+
+<section>
+  <h2>concept｜整えるとは？</h2>
+  <p>私たちは「整えることは再現すること」と考えています。<br>
+  一時的な変化ではなく、思考と動作の再現性を育てること。<br>
+  そのために、理解・観察・順序を大切にします。</p>
+</section>
+
+<form id="introForm">
+  <label>あなたが「整える」と聞いて最も近いと思う考え方は？</label>
+  <select id="q1" required>
+    <option value="">選択してください</option>
+    <option value="muscle">筋肉や関節を調整すること</option>
+    <option value="balance">姿勢や重心を整えること</option>
+    <option value="reproduce">動作や思考を再現できるようにすること</option>
+  </select>
+
+  <label>トレーニングで最も大切だと思うのは？</label>
+  <select id="q2" required>
+    <option value="">選択してください</option>
+    <option value="power">出力・パワー</option>
+    <option value="habit">継続・習慣化</option>
+    <option value="flow">理解と連動の再現性</option>
+  </select>
+
+  <label>あなたの指導・取り組みの目的に最も近いのは？</label>
+  <select id="q3" required>
+    <option value="">選択してください</option>
+    <option value="fix">動きを修正すること</option>
+    <option value="develop">技術を磨くこと</option>
+    <option value="understand">動きを理解して自分で整えること</option>
+  </select>
+
+  <button type="submit">結果を見る</button>
+</form>
+
+<div id="result">
+  <h2 id="resultTitle"></h2>
+  <p id="resultText"></p>
+  <div id="actionButtons"></div>
+</div>
+
+<footer>
+  <p><a href="./index.html">トップへ戻る</a></p>
+</footer>
+
+<script>
+document.getElementById("introForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const q1 = document.getElementById("q1").value;
+  const q2 = document.getElementById("q2").value;
+  const q3 = document.getElementById("q3").value;
+
+  let score = 0;
+  if (q1 === "reproduce") score++;
+  if (q2 === "flow") score++;
+  if (q3 === "understand") score++;
+
+  let title = "";
+  let text = "";
+  let buttons = "";
+
+  if (score === 3) {
+    title = "あなたの考え方はadjustment-labと完全に一致しています。";
+    text = "理解・再現・順序を重視するあなたには、LITE診断がおすすめです。";
+    buttons = '<button onclick="window.location.href=\'./lab/lite-form.html\'">→ LITE診断へ進む</button>';
+  } else if (score === 2) {
+    title = "多くの考えが共通しています。";
+    text = "一部アプローチの方向性を整理することで、より高い再現性が得られます。";
+    buttons = '<button onclick="window.location.href=\'./adjustment/index.html\'">整の哲学を読む</button> <button onclick="window.location.href=\'./lab/lite-form.html\'">LITE診断へ進む</button>';
+  } else {
+    title = "方向性が少し異なるようです。";
+    text = "現在の段階では、adjustment-labのアプローチよりも別の専門家・医療機関でのサポートが効果的かもしれません。";
+    buttons = '<button onclick="window.location.href=\'./medical.html\'">医療・専門家を探す</button> <button onclick="window.location.href=\'./partners.html\'">他トレーナーを見る</button>';
+  }
+
+  document.getElementById("resultTitle").innerHTML = title;
+  document.getElementById("resultText").innerHTML = text;
+  document.getElementById("actionButtons").innerHTML = buttons;
+  document.getElementById("result").style.display = "block";
+  window.scrollTo({ top: document.getElementById("result").offsetTop, behavior: "smooth" });
+});
+</script>
+
+</body>
+</html>
