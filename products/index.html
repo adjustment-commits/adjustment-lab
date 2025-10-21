@@ -11,6 +11,7 @@
   --text: #1a1a1a;
   --accent: #00b386;
   --sub: #666;
+  --shadow: 0 6px 18px rgba(0,0,0,0.08);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
@@ -22,94 +23,117 @@ body {
   overflow-x: hidden;
 }
 
+/* Header */
 header {
   text-align: center;
   padding: 80px 20px 40px;
 }
-
 h1 {
   font-size: 2rem;
   color: var(--accent);
   margin-bottom: 8px;
 }
-
 p.sub {
   color: var(--sub);
 }
 
+/* Grid Layout */
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 40px;
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 60px auto 100px;
   padding: 0 20px;
 }
 
+/* Card */
 .card {
   background: #fff;
   border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
-  transition: 0.3s;
-  transform: translateY(0);
+  box-shadow: var(--shadow);
+  transition: all 0.35s ease;
+  position: relative;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+  border-color: var(--accent);
 }
 
+/* Thumbnail */
 .card img {
   width: 100%;
   display: block;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
+/* Content */
 .card-content {
-  padding: 24px 24px 36px;
+  padding: 28px 24px 40px;
+  text-align: center;
 }
 
 .card-content h2 {
   color: var(--accent);
-  font-size: 1.3rem;
-  margin-bottom: 0.6em;
+  font-size: 1.35rem;
+  margin-bottom: 0.5em;
+  letter-spacing: 0.03em;
 }
 
 .card-content p {
   color: var(--sub);
-  margin-bottom: 1.4em;
+  font-size: 0.97rem;
+  margin-bottom: 1.6em;
+  line-height: 1.8;
 }
 
+/* Button */
 button {
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
-  padding: 0.6em 1.6em;
-  border-radius: 3px;
+  padding: 0.6em 1.8em;
+  border-radius: 4px;
   cursor: pointer;
   transition: 0.3s ease;
+  font-size: 0.95rem;
 }
-
 button:hover {
   background: var(--accent);
   color: #fff;
 }
 
+/* Sub caption below button */
+.card-content small {
+  display: block;
+  color: #999;
+  font-size: 0.82rem;
+  margin-top: 10px;
+}
+
+/* Footer */
 footer {
   text-align: center;
   color: var(--sub);
   font-size: 0.9rem;
   margin: 100px 0 40px;
 }
-
 footer a {
   color: var(--accent);
   text-decoration: none;
 }
-
 footer a:hover {
   text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 { font-size: 1.7rem; }
+  .card-content { padding: 22px 18px 36px; }
 }
 </style>
 </head>
@@ -127,8 +151,9 @@ footer a:hover {
     <img src="./images/lite-thumb.jpg" alt="LITE教材サムネイル">
     <div class="card-content">
       <h2>LITE教材</h2>
-      <p>思考の原点と整う感覚を体験する。HTML形式の入門教材。</p>
+      <p>思考の原点と整う感覚を体験する。<br>現場導入のためのミニマル構成。</p>
       <button onclick="window.location.href='./lite.html'">詳細を見る</button>
+      <small>入門・10ドリル構成｜5,000円</small>
     </div>
   </div>
 
@@ -137,8 +162,9 @@ footer a:hover {
     <img src="./images/standard-thumb.jpg" alt="STANDARD教材サムネイル">
     <div class="card-content">
       <h2>STANDARD教材</h2>
-      <p>理論構造 × 再現性の設計。整×lab の全体系を理解する。</p>
+      <p>理論構造 × 再現性の設計。<br>整×labの本質を理解するスタンダード版。</p>
       <button onclick="window.location.href='./standard.html'">詳細を見る</button>
+      <small>全体系・実践特化｜50,000円</small>
     </div>
   </div>
 
@@ -151,5 +177,6 @@ footer a:hover {
     <a href="../index.html">トップへ戻る</a>
   </p>
 </footer>
+
 </body>
 </html>
