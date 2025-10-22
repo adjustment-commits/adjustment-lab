@@ -14,13 +14,16 @@
   --line: rgba(0,0,0,0.06);
   font-family: 'Noto Sans JP', sans-serif;
 }
+
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
   line-height: 1.9;
   padding: 40px 20px 100px;
+  font-size: 1rem;
 }
+
 h1, h2 {
   text-align: center;
   color: var(--accent);
@@ -28,21 +31,27 @@ h1, h2 {
 h1 {
   font-size: 1.6rem;
   margin-bottom: 40px;
+  line-height: 1.5;
 }
 h2 {
   font-size: 1.2rem;
   margin: 60px 0 20px;
+  border-left: 4px solid var(--accent);
+  padding-left: 10px;
 }
+
 section {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 850px;
+  margin: 0 auto 60px;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 30px 30px 10px;
+  padding: 30px 28px 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
 }
+
 p, li {
-  font-size: 0.90rem;
+  font-size: 0.96rem;
 }
 ul {
   padding-left: 1.4em;
@@ -62,10 +71,53 @@ th {
   width: 35%;
   color: var(--accent);
   background: #f3f7f5;
+  font-weight: 600;
 }
 tr:last-child td, tr:last-child th {
   border-bottom: none;
 }
+
+/* ✅ スマホ最適化（カード型変換） */
+@media (max-width: 768px) {
+  body {
+    font-size: 0.95rem;
+    line-height: 2.0;
+    padding: 24px 14px 80px;
+  }
+  section {
+    padding: 22px 18px;
+  }
+  h1 {
+    font-size: 1.4rem;
+  }
+  h2 {
+    font-size: 1.05rem;
+    margin: 40px 0 16px;
+  }
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+  }
+  th {
+    background: none;
+    color: var(--accent);
+    font-weight: bold;
+    padding: 8px 0 2px;
+    border: none;
+  }
+  td {
+    padding: 0 0 14px;
+    border: none;
+    border-bottom: 1px solid var(--line);
+  }
+  tr {
+    margin-bottom: 18px;
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
 footer {
   text-align: center;
   color: var(--sub);
@@ -85,7 +137,7 @@ footer a:hover { text-decoration: underline; }
 
 <section>
   <h2>第1条｜目的</h2>
-  <p>本規約は「整 − adjustment」および<br>「adjustment-lab」（以下「当サイト」）が提供するデジタル教材・トレーニングプログラムの利用条件を定めるものです。</p>
+  <p>本規約は「整 − adjustment」および「adjustment-lab」（以下「当サイト」）が提供するデジタル教材・トレーニングプログラムの利用条件を定めるものです。</p>
 
   <h2>第2条｜利用対象と範囲</h2>
   <p>当サイトは、身体教育・運動理解・再現性育成を目的としたコンテンツを提供します。医療行為、治療、診断、処方を目的としたものではありません。</p>
@@ -127,15 +179,11 @@ footer a:hover { text-decoration: underline; }
   </tr>
   <tr>
     <th>連絡先</th>
-    <td>
-      メール：contact@adjustment-lab.jp（仮）<br>
-      ※迅速な対応のため、お問い合わせはフォームよりお願いいたします。
-    </td>
+    <td>メール：contact@adjustment-lab.jp（仮）<br>※迅速な対応のため、お問い合わせはフォームよりお願いいたします。</td>
   </tr>
   <tr>
     <th>販売価格</th>
-    <td>各ページに税込価格を明記しています。<br>
-    例：LITE教材 5,000円、STANDARD教材 50,000円 等。</td>
+    <td>各ページに税込価格を明記しています。<br>例：LITE教材 5,000円、STANDARD教材 50,000円 等。</td>
   </tr>
   <tr>
     <th>商品代金以外の必要料金</th>
@@ -155,22 +203,15 @@ footer a:hover { text-decoration: underline; }
   </tr>
   <tr>
     <th>返品・キャンセルについて</th>
-    <td>
-      デジタルコンテンツの特性上、購入後の返品・返金は原則お受けしておりません。<br>
-      ただし、重大な不具合・誤配信などの場合は速やかに対応いたします。
-    </td>
+    <td>デジタルコンテンツの特性上、購入後の返品・返金は原則お受けしておりません。<br>ただし、重大な不具合・誤配信などの場合は速やかに対応いたします。</td>
   </tr>
   <tr>
     <th>動作環境</th>
-    <td>スマートフォンまたはPCのブラウザ（最新版）で動作確認済み。<br>
-    推奨環境：Google Chrome, Safari。</td>
+    <td>スマートフォンまたはPCのブラウザ（最新版）で動作確認済み。<br>推奨環境：Google Chrome, Safari。</td>
   </tr>
   <tr>
     <th>表現及び商品に関する注意書き</th>
-    <td>
-      本教材は、身体教育・運動理解を目的とした学習プログラムです。<br>
-      医療行為や治療を目的とするものではなく、効果を保証するものではありません。
-    </td>
+    <td>本教材は、身体教育・運動理解を目的とした学習プログラムです。<br>医療行為や治療を目的とするものではなく、効果を保証するものではありません。</td>
   </tr>
   </table>
 </section>
