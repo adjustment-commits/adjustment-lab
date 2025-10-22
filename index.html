@@ -25,7 +25,7 @@ if ("serviceWorker" in navigator) {
   font-family: 'Noto Sans JP', sans-serif;
 }
 
-/* Base */
+/* ===== Base ===== */
 body {
   margin: 0;
   padding: 0;
@@ -37,35 +37,33 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: background 0.8s ease, color 0.8s ease;
+  transition: background 0.8s ease, color 0.8s ease, filter 0.8s ease;
 }
 
-/* Background grid */
+/* 背景グリッド */
 body::before {
-  background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
   background-size: 32px 32px;
   opacity: 0.25;
+  z-index: 0;
 }
 
-/* ロゴに軽い浮遊アニメーション */
+/* ロゴ浮遊アニメーション */
 #logo {
   animation: float 4s ease-in-out infinite;
+  z-index: 2;
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-4px); }
 }
 
-/* モード切替時のフェード */
-body {
-  transition: background 0.8s ease, color 0.8s ease, filter 0.8s ease;
-}
-body.lab-mode {
-  filter: brightness(1.1);
-}
-
-/* Title */
+/* ===== Title ===== */
 h1 {
   font-size: 2rem;
   margin: 0.3em 0 0.4em;
@@ -80,7 +78,7 @@ p.desc {
   text-align: center;
 }
 
-/* Toggle button */
+/* ===== Toggle button ===== */
 button.toggle {
   background: none;
   border: 1px solid var(--accent);
@@ -90,19 +88,21 @@ button.toggle {
   border-radius: 4px;
   cursor: pointer;
   transition: 0.3s ease;
+  z-index: 2;
 }
 button.toggle:hover {
   background: var(--accent);
   color: #fff;
 }
 
-/* Nav */
+/* ===== Nav ===== */
 nav {
   margin-top: 2.4em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
+  z-index: 2;
 }
 nav a {
   text-decoration: none;
@@ -118,10 +118,11 @@ nav a:hover {
   color: #fff;
 }
 
-/* Lab mode */
+/* ===== Lab mode ===== */
 body.lab-mode {
   background: #0b3d31;
   color: #f8faf9;
+  filter: brightness(1.05);
 }
 body.lab-mode h1 { color: var(--accent); }
 body.lab-mode p.desc { color: #aaffdd; }
@@ -142,13 +143,14 @@ body.lab-mode button.toggle:hover {
   color: #0b3d31;
 }
 
-/* Footer */
+/* ===== Footer ===== */
 footer {
   position: absolute;
   bottom: 20px;
   font-size: 0.85rem;
   color: #888;
   text-align: center;
+  z-index: 2;
 }
 footer a {
   color: var(--accent);
@@ -157,7 +159,7 @@ footer a {
 }
 footer a:hover { text-decoration: underline; }
 
-/* Responsive */
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
   h1 { font-size: 1.6rem; }
   p.desc { font-size: 0.9rem; }
