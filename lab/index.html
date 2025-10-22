@@ -3,19 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>adjustment-lab｜再現性を科学するトレーニング設計</title>
+<title>adjustment-lab｜再現性を科学する実験場</title>
+
 <link rel="manifest" href="../manifest.json">
-<meta name="theme-color" content="#f8faf9">
+<meta name="theme-color" content="#0b3d31">
+
 <style>
 :root {
-  --bg: #f8faf9;
-  --text: #1a1a1a;
+  --bg: #0b3d31;
+  --text: #f1f5f9;
   --accent: #00b386;
-  --sub: #555;
+  --card: #102e26;
+  --sub: #a5b5a9;
   font-family: 'Noto Sans JP', sans-serif;
 }
 
-/* ====== Base ====== */
 body {
   margin: 0;
   background: var(--bg);
@@ -24,17 +26,16 @@ body {
   overflow-x: hidden;
 }
 
-/* ====== Hero ====== */
+/* --- Hero --- */
 .hero {
   position: relative;
-  height: 70vh;
-  background: url('../assets/hero-lab.svg') center/cover no-repeat;
+  height: 75vh;
+  background: url('../assets/lab-hero.png') center/cover no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #0b3d31;
   overflow: hidden;
 }
 
@@ -42,24 +43,24 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255,255,255,0.35);
+  background: rgba(0,0,0,0.4);
+  z-index: 1;
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
 }
-
-.hero-content h1 {
-  font-size: 2.2rem;
+.hero h1 {
+  font-size: 2.4rem;
   margin-bottom: 0.4em;
-  color: #0b3d31;
+  color: var(--accent);
 }
-
-.hero-content p {
+.hero p {
   font-size: 1.1rem;
-  color: #333;
+  color: var(--text);
   margin-bottom: 1.6em;
+  opacity: 0.9;
 }
 
 .cta {
@@ -68,7 +69,6 @@ body {
   gap: 16px;
   flex-wrap: wrap;
 }
-
 .cta button {
   background: none;
   border: 1px solid var(--accent);
@@ -84,14 +84,14 @@ body {
   color: #fff;
 }
 
-/* ====== Section ====== */
+/* --- Sections --- */
 section {
-  max-width: 850px;
-  margin: 80px auto;
+  max-width: 900px;
+  margin: 100px auto;
   padding: 40px 30px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  background: var(--card);
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
 section h2 {
   color: var(--accent);
@@ -101,25 +101,51 @@ section h2 {
 section p {
   color: var(--text);
   font-size: 1rem;
+  opacity: 0.9;
 }
 
-/* ====== Gallery ====== */
-.gallery {
-  margin-top: 30px;
+/* --- Projects --- */
+.projects {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
 }
-.gallery img {
-  width: 100%;
-  border-radius: 6px;
+.project-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 24px;
+  transition: 0.3s;
+  text-align: left;
+}
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+.project-card h3 {
+  color: var(--accent);
+  margin-bottom: 0.4em;
+}
+.project-card p {
+  font-size: 0.95rem;
+  color: var(--sub);
+  line-height: 1.6;
+}
+.project-card a {
+  display: inline-block;
+  margin-top: 1em;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-bottom: 1px solid transparent;
   transition: 0.3s;
 }
-.gallery img:hover {
-  transform: scale(1.02);
+.project-card a:hover {
+  border-color: var(--accent);
 }
 
-/* ====== Footer ====== */
+/* --- Footer --- */
 footer {
   text-align: center;
   color: var(--sub);
@@ -133,49 +159,72 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 1.9rem; }
+  .hero p { font-size: 1rem; }
+  section { margin: 60px 20px; padding: 30px 20px; }
+}
 </style>
 </head>
 
 <body>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-content">
     <h1>adjustment-lab</h1>
-    <p>再現性を科学し、動作の理論構造を設計する。</p>
+    <p>思考を形にし、再現を科学する。</p>
     <div class="cta">
-      <button onclick="window.location.href='../products/index.html'">教材を見る</button>
-      <button onclick="window.location.href='../application/index.html'">チーム導入</button>
+      <button onclick="window.location.href='../products/index.html'">教材を探す</button>
+      <button onclick="window.location.href='../index.html'">整へ戻る</button>
     </div>
   </div>
 </section>
 
+<!-- SECTION 1 -->
 <section>
-  <h2>理論を現場で検証する</h2>
-  <p>「adjustment-lab」は、整で得た感覚を数値・理論・構造として再現する場。<br>
-  トレーニング理論と実測データを統合し、現場に適応する仕組みを構築します。</p>
+  <h2>身体の整を「データ」で再現する。</h2>
+  <p>adjustment-labは、身体の“整うプロセス”を数値化・視覚化し、再現可能な教材として発信する実験場です。  
+  現場で得られた気づきを、データと設計に落とし込みます。</p>
 </section>
 
+<!-- SECTION 2 -->
 <section>
-  <h2>実験的アプローチ</h2>
-  <p>動作分析、VBT（速度トレーニング）、スプリント・出力測定などを用い、<br>
-  パフォーマンスの裏にあるメカニズムをデータで証明していく。</p>
-  <div class="gallery">
-    <img src="../assets/gallery/lab/data.jpg" alt="データ分析">
-    <img src="../assets/gallery/lab/sprint.jpg" alt="スプリント計測">
-    <img src="../assets/gallery/lab/vbt.jpg" alt="VBT計測">
+  <h2>現在進行中のプロジェクト</h2>
+  <div class="projects">
+    <div class="project-card">
+      <h3>VO₂max × Pitchers</h3>
+      <p>投手の最大酸素摂取量を可視化し、持久系と出力系のバランスを再構築。</p>
+      <a href="../projects/vo2max-pitchers.html">詳しく見る →</a>
+    </div>
+    <div class="project-card">
+      <h3>骨盤∞ドリル</h3>
+      <p>骨盤と胸郭の連動を再現する“∞運動”を軸にした運動制御トレーニング。</p>
+      <a href="../projects/pelvis-infinity.html">詳しく見る →</a>
+    </div>
+    <div class="project-card">
+      <h3>滑走メソッド</h3>
+      <p>重心移動と股関節駆動を統合した滑走型ムーブメントの開発と実装。</p>
+      <a href="../projects/glide-method.html">詳しく見る →</a>
+    </div>
   </div>
 </section>
 
+<!-- SECTION 3 -->
 <section style="text-align:center;">
-  <h2>現場と研究をつなぐ</h2>
-  <p>選手の「感覚」と「結果」を結ぶ構造を設計し、<br>
-  チーム・個人が自立的に再現できる環境をつくる。</p>
-  <div class="cta">
-    <button onclick="window.location.href='../products/lite.html'">LITE教材</button>
-    <button onclick="window.location.href='../products/standard.html'">STANDARD教材</button>
+  <h2>共有と進化</h2>
+  <p>「整」で得た理論を「lab」で検証し、  
+  新しいトレーニング体系へと発展させていく。  
+  adjustment-labは、現場の知を科学に変える場所です。</p>
+  <div class="cta" style="margin-top:30px;">
+    <button onclick="window.location.href='../contact/index.html'">問い合わせる</button>
+    <button onclick="window.location.href='../index.html'">トップへ戻る</button>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <p>
     <a href="../legal.html">販売・利用規約</a>｜
