@@ -164,7 +164,7 @@ footer small {
 
 
 <!-- ✅ LITE共通フッター -->
-<link rel="stylesheet" href="../assets/footer-lite.css">
+<link rel="stylesheet" href="../../assets/footer-lite.css">
 <div id="footer"></div>
 
 <script>
