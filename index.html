@@ -152,6 +152,24 @@ body.lab-mode button.toggle:hover {
   color: #0b3d31;
 }
 
+/* 事業説明ブロック */
+#intro {
+  text-align: center;
+  max-width: 720px;
+  margin-bottom: 2em;
+  line-height: 1.8;
+}
+#intro p {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 1.2em;
+}
+
+/* labモード時のカラー変更 */
+body.lab-mode #intro p {
+  color: #b7ffe2; /* 明るいミント色でコントラスト良好 */
+}
+
 /* Footer */
 footer {
   margin-top: clamp(40px, 6vh, 80px);
@@ -181,14 +199,14 @@ footer a:hover { text-decoration: underline; }
 <p id="desc" class="desc">アスリート専門トレーナー。<br>動きを理解し、再現を設計する。</p>
 
 <!-- 事業説明 -->
-<section id="intro" style="text-align:center; max-width:720px; margin-bottom:2em; line-height:1.8;">
-  <p style="font-size:0.95rem; color:#444; margin-bottom:0.6em;">
-    |整【アジャストメント】|<br><strong>アスリート専門のパーソナルトレーニング・チーム契約・測定サポート</strong><br>を行う現場型サービスです。<br>
+<section id="intro">
+  <p>
+    <strong>|整【アジャストメント】|</strong><br><strong>アスリート専門のパーソナルトレーニング・チーム契約・測定サポート</strong><br>を行う現場型サービスです。<br>
     現場で培った再現性のあるメソッドを、<br>科学的に設計し競技パフォーマンスを高めます。
   </p><br>
 
   <p style="font-size:0.95rem; color:#444;">
-    |adjustment-lab<br>|<strong>トレーニング管理アプリ</strong>と<strong>HTML教材</strong>を開発・販売するデジタル開発拠点です。<br>
+   <strong>|adjustment-lab</strong><br><br>|<strong>トレーニング管理アプリ</strong>と<strong>HTML教材</strong>を開発・販売するデジタル開発拠点です。<br>
     「整【アジャストメント】」で生まれた理論を学び・使える形に変換します。
   </p>
 </section>  
