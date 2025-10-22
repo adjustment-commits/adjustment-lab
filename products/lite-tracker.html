@@ -132,10 +132,17 @@ footer {
 <h3>📊 トレーニンググラフ</h3>
 <canvas id="trainingChart"></canvas>
 
-<footer>
-  <p>© 2025 adjustment-lab | LITE tracker</p>
-</footer>
+<!-- ✅ LITE共通フッター -->
+<link rel="stylesheet" href="../assets/footer-lite.css">
+<div id="footer"></div>
 
+<script>
+  fetch("../assets/footer-lite.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer").innerHTML = data;
+    });
+</script>
 <script>
 const form = document.getElementById('trainingForm');
 const recordsDiv = document.getElementById('records');
