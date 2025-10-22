@@ -67,7 +67,8 @@ section p {
   gap: 18px;
 }
 .gallery img {
-  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   border-radius: 6px;
   border: 1px solid var(--line);
   transition: 0.3s;
