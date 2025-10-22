@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LITE-D｜切り返しスピード ― 変化に反応できる構造</title>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#f8faf9">
+
+<style>
+:root {
+  --bg: #f8faf9;
+  --text: #1a1a1a;
+  --accent: #00b386;
+  --sub: #555;
+  --line: rgba(0,0,0,0.06);
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.9;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 60px 20px 40px;
+}
+h1 {
+  font-size: 1.8rem;
+  color: var(--accent);
+  margin-bottom: 0.3em;
+}
+p.sub {
+  color: var(--sub);
+  font-size: 1rem;
+}
+
+/* Section */
+section {
+  max-width: 850px;
+  margin: 80px auto;
+  padding: 40px 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+section h2 {
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 1em;
+}
+section p {
+  color: var(--text);
+  font-size: 1rem;
+  margin-bottom: 1.2em;
+}
+
+/* Gallery */
+.gallery {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+.gallery img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  transition: 0.3s;
+}
+.gallery img:hover {
+  transform: scale(1.02);
+}
+
+/* CTA Button */
+button.back {
+  display: block;
+  margin: 60px auto 0;
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.7em 1.8em;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button.back:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  color: var(--sub);
+  font-size: 0.9rem;
+  margin: 100px 0 40px;
+}
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>LITE-D｜切り返しスピード ― 変化に反応できる構造</h1>
+  <p class="sub">速さは筋力ではなく「方向転換の設計」で決まる。</p>
+</header>
+
+<section>
+  <h2>1. 切り返しの本質は「反転の準備」</h2>
+  <p>素早く反応するためには“止める”ではなく“受ける”構造が必要。<br>
+  骨盤と胸郭の分離が生まれると、身体は進行方向を自在に切り替えられる。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/adjustment/sprint-time.jpg" alt="方向転換動作解析">
+    <img src="../assets/gallery/adjustment/treadmill.jpg" alt="切り返しトレーニング">
+  </div>
+</section>
+
+<section>
+  <h2>2. 「力を出す」より「力を流す」</h2>
+  <p>力を溜め込むと切り返しは遅くなる。<br>
+  筋肉ではなく、関節の遊びと骨格の連鎖でリズムを変える。<br>
+  軸を中心に動きを反転させるイメージが重要。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/adjustment/field.jpg" alt="動きの反転軸">
+    <img src="../assets/gallery/adjustment/band.jpg" alt="分離操作ドリル">
+  </div>
+</section>
+
+<section>
+  <h2>3. 切り返しの速さは「静けさ」で決まる</h2>
+  <p>一瞬の停止を挟まないこと。<br>
+  動作が連続して流れるほど、神経系が余分な補正を行わず、<br>
+  切り返しが自動化される。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/adjustment/manual.jpg" alt="身体制御ドリル">
+  </div>
+</section>
+
+<button class="back" onclick="window.location.href='../products/index.html'">← products一覧へ戻る</button>
+
+<footer>
+  <p>
+    <a href="../legal.html">販売・利用規約</a>｜
+    <a href="../contact/index.html">お問い合わせ</a>｜
+    <a href="../index.html">トップへ戻る</a>
+  </p>
+</footer>
+
+</body>
+</html>
