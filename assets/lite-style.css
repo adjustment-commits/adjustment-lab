@@ -1,0 +1,27 @@
+.gallery img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: 0.3s;
+}
+.gallery img:hover {
+  transform: scale(1.02);
+}
+
+button.next {
+  display: block;
+  margin: 40px auto 0;
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.7em 1.6em;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button.next:hover {
+  background: var(--accent);
+  color: #fff;
+}
