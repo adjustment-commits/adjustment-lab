@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>adjustment-lab｜Training LITE</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<header>
+  <h1>Training LITE</h1>
+  <p>自分で設定し、実行し、記録する。</p>
+</header>
+
+<main>
+  <section class="form-section">
+    <h2>トレーニング入力</h2>
+    <form id="trainingForm">
+      <label>目標名</label>
+      <input type="text" id="goal" placeholder="例：下半身の安定性を高める" required>
+
+      <label>種目</label>
+      <input type="text" id="exercise" placeholder="例：スクワット" required>
+
+      <label>強度（kg / 回数）</label>
+      <input type="text" id="intensity" placeholder="例：80kg × 8回">
+
+      <label>時間（秒 / 分）</label>
+      <input type="text" id="duration" placeholder="例：45秒 × 3セット">
+
+      <button type="submit">記録する</button>
+    </form>
+  </section>
+
+  <section class="log-section">
+    <h2>記録一覧</h2>
+    <ul id="logList"></ul>
+  </section>
+
+  <section class="progress-section">
+    <h2>達成状況</h2>
+    <div class="progress-container">
+      <div id="progressBar"></div>
+    </div>
+    <p id="progressText">達成率：0%</p>
+  </section>
+
+  <section class="calendar-section">
+    <h2>カレンダー</h2>
+    <div id="calendar"></div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 adjustment-lab｜整う思考を、現場で再現する。</p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
