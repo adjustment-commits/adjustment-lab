@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <!-- background -->
+  <rect width="1280" height="720" fill="#ffffff"/>
+
+  <!-- subtle grid -->
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#00b386" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#00b386" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#grid)"/>
+
+  <!-- soft radial tint -->
+  <radialGradient id="rad" cx="25%" cy="25%" r="70%">
+    <stop offset="0%" stop-color="#00b386" stop-opacity="0.10"/>
+    <stop offset="100%" stop-color="#00b386" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1280" height="720" fill="url(#rad)"/>
+
+  <!-- axes (light) -->
+  <g stroke="#9fdcc7" stroke-opacity="0.35" stroke-width="1">
+    <line x1="80" y1="360" x2="1200" y2="360"/>
+    <line x1="640" y1="80" x2="640" y2="640"/>
+  </g>
+
+  <!-- wave -->
+  <path d="M80,460 C240,380 420,540 640,460 C860,380 1040,540 1200,460"
+        fill="none" stroke="#00b386" stroke-opacity="0.35" stroke-width="2"/>
+
+  <!-- molecules (nodes + links) -->
+  <g stroke="#00b386" stroke-opacity="0.45" fill="#00b386" fill-opacity="0.08">
+    <line x1="1010" y1="180" x2="1070" y2="230"/>
+    <line x1="1070" y1="230" x2="1140" y2="200"/>
+    <circle cx="1010" cy="180" r="10"/>
+    <circle cx="1070" cy="230" r="12"/>
+    <circle cx="1140" cy="200" r="9"/>
+  </g>
+
+  <!-- subtle circle geometry -->
+  <circle cx="640" cy="360" r="180" fill="none" stroke="#00b386" stroke-opacity="0.14" stroke-width="1.5"/>
+  <circle cx="640" cy="360" r="120" fill="none" stroke="#00b386" stroke-opacity="0.10" stroke-width="1"/>
+
+  <!-- brand title -->
+  <g font-family="Noto Sans JP, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+     text-anchor="middle">
+    <text x="640" y="290" font-size="32" fill="#00b386">整 - adjustment</text>
+  </g>
+</svg>
