@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LITE 01｜アスリートに備えたい「体の基準」</title>
-<link rel="stylesheet" href="./lite-style.css">
 <meta name="theme-color" content="#f8faf9">
+<link rel="stylesheet" href="./lite-style.css">
 
-  <style>
+<style>
 :root {
   --bg: #f8faf9;
   --text: #1a1a1a;
@@ -24,22 +24,37 @@ body {
   padding-bottom: 60px;
 }
 
-/* Header */
-header {
+/* ===== Hero Section ===== */
+.hero {
+  background: #f3f7f5;
+  padding: 80px 20px 60px;
   text-align: center;
-  padding: 80px 20px 40px;
-}
-header h1 {
-  font-size: 1.9rem;
-  color: var(--accent);
-  margin-bottom: 0.4em;
-}
-header p.sub {
-  color: var(--sub);
-  font-size: 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
-/* Section */
+.hero-content {
+  max-width: 850px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 40px 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+.hero-content h1 {
+  font-size: clamp(1.5rem, 4vw, 2.2rem); /* 画面サイズで可変 */
+  color: var(--accent);
+  margin-bottom: 0.6em;
+  line-height: 1.4;
+  word-break: keep-all; /* 改行制御 */
+}
+
+.hero-content p {
+  font-size: 1rem;
+  color: var(--sub);
+}
+
+/* ===== Section ===== */
 section {
   max-width: 850px;
   margin: 60px auto;
@@ -59,7 +74,7 @@ section p {
   font-size: 1rem;
 }
 
-/* CTA */
+/* ===== CTA ===== */
 .cta {
   display: flex;
   justify-content: center;
@@ -81,7 +96,7 @@ section p {
   color: #fff;
 }
 
-/* Footer */
+/* ===== Footer ===== */
 footer {
   text-align: center;
   color: var(--sub);
@@ -94,40 +109,22 @@ footer a {
 }
 footer a:hover { text-decoration: underline; }
 
-/* Hero Section（タイトルブロック） */
-.hero {
-  background: #f3f7f5;
-  padding: 80px 20px 60px;
-  text-align: center;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: clamp(1.4rem, 5vw, 1.9rem);
+  }
+  section {
+    margin: 40px 16px;
+    padding: 30px 20px;
+  }
 }
-
-.hero-content {
-  max-width: 850px;
-  margin: 0 auto;
-  background: #fff;
-  border-radius: 8px;
-  padding: 40px 30px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-}
-
-.hero-content h1 {
-  font-size: 1.8rem;
-  color: var(--accent);
-  margin-bottom: 0.6em;
-  line-height: 1.4;
-}
-
-.hero-content p {
-  font-size: 1rem;
-  color: var(--sub);
-}    
 </style>
-
 </head>
 
 <body>
 
+<!-- ===== Heroタイトル ===== -->
 <section class="hero">
   <div class="hero-content">
     <h1>LITE 01｜アスリートに備えたい「体の基準」</h1>
@@ -135,6 +132,7 @@ footer a:hover { text-decoration: underline; }
   </div>
 </section>
 
+<!-- ===== 本文 ===== -->
 <section>
   <h2>なぜ「体の基準」が必要なのか？</h2>
   <p>アスリートの多くが“感覚”で動いているが、その感覚には再現性がない。<br>
@@ -155,10 +153,14 @@ footer a:hover { text-decoration: underline; }
   2. 呼吸を止めずに3秒キープ。<br>
   3. 骨盤・胸郭・頭が一直線に保てるか。<br><br>
   ※感じた歪みを「戻す」のが整える第一歩。</p>
-  <button class="next" onclick="window.location.href='./lite02.html'">次へ進む →</button>
+
+  <div class="cta">
+    <button onclick="window.location.href='./02.html'">次へ進む →</button>
+    <button onclick="window.location.href='../index.html'">LITE一覧へ戻る</button>
+  </div>
 </section>
 
-<!-- ✅ LITE共通フッター -->
+<!-- ===== 共通フッター ===== -->
 <link rel="stylesheet" href="../assets/footer-lite.css">
 <div id="footer"></div>
 
@@ -169,5 +171,6 @@ footer a:hover { text-decoration: underline; }
       document.getElementById("footer").innerHTML = data;
     });
 </script>
+
 </body>
 </html>
