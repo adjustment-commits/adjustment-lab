@@ -225,19 +225,18 @@ footer a:hover { text-decoration: underline; }
 
 <link rel="stylesheet" href="../assets/footer.css">
 
-<script>
-fetch("../assets/footer.html")
-  .then(response => response.text())
-  .then(data => {
-    // footer.html の中身を統合
-    document.getElementById("footer").insertAdjacentHTML("beforeend", data);
+<!-- ===== 共通フッター ===== -->
+<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
+<div id="footer"></div>
 
-    // ページタイトルの同期（footer.html に id="page-title" がある前提）
-    const pageTitle = document.title.replace("｜", " | ");
-    const titleElement = document.getElementById("page-title");
-    if (titleElement) titleElement.textContent = pageTitle;
-  });
+<script>
+fetch("/adjustment-lab/assets/footer-lite.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer").innerHTML = data;
+    });
 </script>
+
   
 </body>
 </html>
