@@ -28,17 +28,17 @@ if ("serviceWorker" in navigator) {
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
+  min-height: 100vh; /* height → min-height に変更 */
   background: var(--bg);
   color: var(--text);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  justify-content: flex-start; /* 中央固定を解除して自然な流れに */
   transition: background 0.8s ease, color 0.8s ease, filter 0.8s ease;
+  overflow-x: hidden; /* 横だけ隠す */
 }
-
+  
 /* 背景グリッド */
 body::before {
   content: "";
@@ -61,6 +61,18 @@ body::before {
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-4px); }
+}
+
+/* ==== 修正: クリック要素を前面に出す ==== */
+#logo,
+h1,
+p,
+section,
+button,
+nav,
+footer {
+  position: relative;
+  z-index: 2;
 }
 
 /* Title & Desc */
@@ -142,8 +154,7 @@ body.lab-mode button.toggle:hover {
 
 /* Footer */
 footer {
-  position: absolute;
-  bottom: 20px;
+  margin-top: clamp(40px, 6vh, 80px);
   font-size: 0.85rem;
   color: #888;
   text-align: center;
@@ -172,12 +183,12 @@ footer a:hover { text-decoration: underline; }
 <!-- 事業説明 -->
 <section id="intro" style="text-align:center; max-width:720px; margin-bottom:2em; line-height:1.8;">
   <p style="font-size:0.95rem; color:#444; margin-bottom:0.6em;">
-    整【アジャストメント】<br><strong>アスリート専門のパーソナルトレーニング・チーム契約・測定サポート</strong><br>を行う現場型サービスです。<br>
+    |整【アジャストメント】|<br><strong>アスリート専門のパーソナルトレーニング・チーム契約・測定サポート</strong><br>を行う現場型サービスです。<br>
     現場で培った再現性のあるメソッドを、<br>科学的に設計し競技パフォーマンスを高めます。
   </p><br>
 
   <p style="font-size:0.95rem; color:#444;">
-    adjustment-lab<br><strong>トレーニング管理アプリ</strong>と<strong>HTML教材</strong>を開発・販売するデジタル開発拠点です。<br>
+    |adjustment-lab<br>|<strong>トレーニング管理アプリ</strong>と<strong>HTML教材</strong>を開発・販売するデジタル開発拠点です。<br>
     「整【アジャストメント】」で生まれた理論を学び・使える形に変換します。
   </p>
 </section>  
@@ -185,8 +196,8 @@ footer a:hover { text-decoration: underline; }
 <button class="toggle" id="switchBtn">→ adjustment-labへ</button>
 
 <nav id="navLinks">
-  <a href="../adjustment/index.html">整【アジャストメント】を探る</a>
-  <a href="../products/index.html">productsを見る</a>
+  <a href="./adjustment/index.html">整【アジャストメント】を探る</a>
+  <a href="./products/index.html">productsを見る</a>
 </nav>
 
 <footer>
@@ -217,9 +228,9 @@ btn.addEventListener('click', () => {
     const links = navLinks.querySelectorAll('a');
     if (links.length === 2) {
       links[0].textContent = 'labを体験';
-      links[0].setAttribute('href', '../lab/index.html');
+      links[0].setAttribute('href', './lab/index.html');
       links[1].textContent = 'productsを見る';
-      links[1].setAttribute('href', '../products/index.html');
+      links[1].setAttribute('href', './products/index.html');
     }
 
   } else {
@@ -232,9 +243,9 @@ btn.addEventListener('click', () => {
     const links = navLinks.querySelectorAll('a');
     if (links.length === 2) {
       links[0].textContent = '整【アジャストメント】を探る';
-      links[0].setAttribute('href', '../adjustment/index.html');
+      links[0].setAttribute('href', './adjustment/index.html');
       links[1].textContent = 'productsを見る';
-      links[1].setAttribute('href', '../products/index.html');
+      links[1].setAttribute('href', './products/index.html');
     }
   }
 });
