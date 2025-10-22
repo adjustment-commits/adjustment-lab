@@ -3,18 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>整 - adjustment｜思考する身体をつくる</title>
-
+<title>整 - adjustment｜アスリート専門トレーナー</title>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#f8faf9">
-
 <style>
 :root {
   --bg: #f8faf9;
   --text: #1a1a1a;
   --accent: #00b386;
   --sub: #555;
-  --line: rgba(0,0,0,0.06);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
@@ -23,33 +20,53 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.9;
-  overflow-x: hidden;
 }
 
-/* Header */
-header {
+/* --- Hero --- */
+.hero {
   text-align: center;
-  padding: 80px 20px 40px;
+  padding: 100px 20px 60px;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f9f7 100%);
 }
-h1 {
-  font-size: 2rem;
-  font-weight: 500;
+.hero h1 {
+  font-size: 2.2rem;
+  color: var(--accent);
   margin-bottom: 0.3em;
 }
-p.lead {
+.hero p.lead {
   color: var(--sub);
+  font-size: 1.1rem;
+  margin-bottom: 2em;
+}
+.cta {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.cta button {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.7em 1.6em;
+  border-radius: 4px;
   font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.cta button:hover {
+  background: var(--accent);
+  color: #fff;
 }
 
-/* Section */
+/* --- Philosophy --- */
 section {
-  max-width: 800px;
-  margin: 100px auto;
+  max-width: 850px;
+  margin: 80px auto;
   padding: 40px 30px;
   background: #fff;
-  border: 1px solid var(--line);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
 }
 section h2 {
   color: var(--accent);
@@ -61,41 +78,23 @@ section p {
   font-size: 1rem;
 }
 
-/* Button */
-button.experience {
-  display: block;
-  margin: 40px auto 0;
-  background: none;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 0.6em 1.6em;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-button.experience:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-/* Gallery */
+/* --- Gallery --- */
 .gallery {
-  margin-top: 40px;
+  margin-top: 30px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 18px;
+  gap: 16px;
 }
 .gallery img {
   width: 100%;
   border-radius: 6px;
-  border: 1px solid var(--line);
   transition: 0.3s;
 }
 .gallery img:hover {
   transform: scale(1.02);
 }
 
-/* Footer */
+/* --- Footer --- */
 footer {
   text-align: center;
   color: var(--sub);
@@ -113,59 +112,49 @@ footer a:hover {
 </head>
 
 <body>
+  <section class="hero">
+    <h1>整 - adjustment</h1>
+    <p class="lead">野球選手・アスリート専門トレーナー<br>身体を“整える”から“再現する”へ。</p>
+    <div class="cta">
+      <button onclick="window.location.href='../contact/index.html'">パーソナル依頼</button>
+      <button onclick="window.location.href='../application/index.html'">チーム契約</button>
+    </div>
+  </section>
 
-<header>
-  <h1>整 - adjustment</h1>
-  <p class="lead">思考する身体をつくる場所。<br>感覚を観察し、動きを理解する。</p>
-</header>
+  <section>
+    <h2>整えるとは、動きを理解すること。</h2>
+    <p>「整 - adjustment」は、身体を“直す”場所ではなく、<br>
+    動きを“再現する力”を取り戻す場所。<br>
+    感覚・構造・出力を結び、再現性のあるパフォーマンスを設計します。</p>
+  </section>
 
-<section>
-  <h2>観察する</h2>
-  <p>足裏の重さ、呼吸の流れ、骨盤の角度。<br>
-  動きを“感じる”前に、まず“観る”ことから始めよう。<br>
-  身体は常に情報を出している。私たちはそれを読む訓練をする。</p>
-  <div class="gallery">
-    <img src="../assets/gallery/adjustment/manual.jpg" alt="徒手調整">
-    <img src="../assets/gallery/adjustment/treadmill.jpg" alt="トレッドミル調整">
-  </div>
-  <button class="experience" onclick="showMsg('観察は、理解の第一歩である。')">記録する</button>
-</section>
+  <section>
+    <h2>現場での実践</h2>
+    <p>社会人野球チームやアスリート個人への帯同・サポートを実施。<br>
+    動作分析、フィジカルトレーニング、再発防止設計まで一貫対応。</p>
+    <div class="gallery">
+      <img src="../assets/gallery/adjustment/manual.jpg" alt="徒手調整">
+      <img src="../assets/gallery/adjustment/treadmill.jpg" alt="トレッドミル調整">
+      <img src="../assets/gallery/adjustment/band.jpg" alt="リリースドリル">
+    </div>
+  </section>
 
-<section>
-  <h2>考える</h2>
-  <p>「なぜこの順番で動くのか？」<br>
-  骨盤、胸郭、肩甲。順序を意識したとき、動作の理解が始まる。<br>
-  その考えは、再現性という形に変わっていく。</p>
-  <div class="gallery">
-    <img src="../assets/gallery/adjustment/band.jpg" alt="リリースドリル">
-  </div>
-  <button class="experience" onclick="showMsg('考えることは、再現性を生む。')">思考を記す</button>
-</section>
+  <section style="text-align:center;">
+    <h2>あなたの現場を“整える”</h2>
+    <p>チーム単位でも、個人単位でも。<br>
+    現場から再現性を設計し、成長を加速させます。</p>
+    <div class="cta">
+      <button onclick="window.location.href='../contact/index.html'">相談する</button>
+      <button onclick="window.location.href='../lab/index.html'">labを見る</button>
+    </div>
+  </section>
 
-<section>
-  <h2>つなげる</h2>
-  <p>整えるとは、身体と頭を切り離さないこと。<br>
-  動作を理解する思考が、次の動作を導く。<br>
-  理解が深まるほど、身体は静かに整っていく。</p>
-  <button class="experience" onclick="showMsg('理解は、次の動きへの地図になる。')">次へ進む</button>
-</section>
-
-<footer>
-  <p><a href="../lab/index.html">→ adjustment-labへ進む</a></p>
-  <p><a href="../index.html">← トップへ戻る</a></p>
-
-  <p style="text-align:center; color:#555; font-size:0.9rem; margin-top:60px;">
-    <a href="../legal.html" style="color:#00b386; text-decoration:none;">販売・利用規約</a>｜
-    <a href="../contact/index.html" style="color:#00b386; text-decoration:none;">お問い合わせ</a>｜
-    <a href="../index.html" style="color:#00b386; text-decoration:none;">トップへ戻る</a>
-  </p>
-</footer>
-
-<script>
-function showMsg(text){
-  alert(text);
-}
-</script>
-
+  <footer>
+    <p>
+      <a href="../legal.html">販売・利用規約</a>｜
+      <a href="../contact/index.html">お問い合わせ</a>｜
+      <a href="../index.html">トップへ戻る</a>
+    </p>
+  </footer>
 </body>
 </html>
