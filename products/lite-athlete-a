@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LITE-A｜アスリートに備えたい体の基準</title>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#f8faf9">
+
+<style>
+:root {
+  --bg: #f8faf9;
+  --text: #1a1a1a;
+  --accent: #00b386;
+  --sub: #555;
+  --line: rgba(0,0,0,0.06);
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.9;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 60px 20px 40px;
+}
+h1 {
+  font-size: 1.8rem;
+  color: var(--accent);
+  margin-bottom: 0.3em;
+}
+p.sub {
+  color: var(--sub);
+  font-size: 1rem;
+}
+
+/* Section */
+section {
+  max-width: 850px;
+  margin: 80px auto;
+  padding: 40px 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+section h2 {
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 1em;
+}
+section p {
+  color: var(--text);
+  font-size: 1rem;
+  margin-bottom: 1.2em;
+}
+
+/* Gallery */
+.gallery {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+.gallery img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  transition: 0.3s;
+}
+.gallery img:hover {
+  transform: scale(1.02);
+}
+
+/* CTA Button */
+button.back {
+  display: block;
+  margin: 60px auto 0;
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.7em 1.8em;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button.back:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  color: var(--sub);
+  font-size: 0.9rem;
+  margin: 100px 0 40px;
+}
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>LITE-A｜アスリートに備えたい「体の基準」</h1>
+  <p class="sub">ニュートラルを知ることで、すべての動きが整い始める。</p>
+</header>
+
+<section>
+  <h2>1. 基準を知る</h2>
+  <p>あなたの「立ち姿勢」は、力を出すための準備になっているか？<br>
+  体の基準とは、力を入れていないのに安定している状態。<br>
+  骨盤が立ち、胸郭が自然に浮き、首の力が抜けた立位がその第一歩だ。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/adjustment/manual.jpg" alt="姿勢評価">
+    <img src="../assets/gallery/adjustment/treadmill.jpg" alt="立位チェック">
+  </div>
+</section>
+
+<section>
+  <h2>2. 重心を感じる</h2>
+  <p>「どこに体重があるか」を感じるだけで、姿勢は変化する。<br>
+  足裏の内外・前後を意識し、骨盤と頭のバランスを取る。<br>
+  体は重力の中で最も効率的に安定を取る場所を見つけ出す。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/adjustment/band.jpg" alt="重心コントロール">
+  </div>
+</section>
+
+<section>
+  <h2>3. 姿勢を作る</h2>
+  <p>体の基準を再現するとは、いつでも戻れる姿勢を作ること。<br>
+  無意識の中で整うことこそが、最高のパフォーマンス状態である。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/adjustment/field.jpg" alt="姿勢づくり">
+  </div>
+</section>
+
+<button class="back" onclick="window.location.href='../products/index.html'">← products一覧へ戻る</button>
+
+<footer>
+  <p>
+    <a href="../legal.html">販売・利用規約</a>｜
+    <a href="../contact/index.html">お問い合わせ</a>｜
+    <a href="../index.html">トップへ戻る</a>
+  </p>
+</footer>
+
+</body>
+</html>
