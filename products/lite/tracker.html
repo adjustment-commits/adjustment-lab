@@ -133,11 +133,11 @@ footer {
 <canvas id="trainingChart"></canvas>
 
 <!-- ✅ LITE共通フッター -->
-<link rel="stylesheet" href="../assets/footer-lite.css">
+<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 <div id="footer"></div>
 
 <script>
-  fetch("../assets/footer-lite.html")
+  fetch("/adjustment-lab/assets/footer-lite.html")
     .then(response => response.text())
     .then(data => {
       document.getElementById("footer").innerHTML = data;
