@@ -16,17 +16,15 @@
 }
 
 body {
-  line-break: strict;
-  hanging-punctuation: allow-end;
-  text-wrap: pretty;
-
   margin: 0;
   background: var(--bg);
   color: var(--text);
   line-height: 1.9;
   padding: 40px 20px 100px;
+  text-wrap: pretty;
 }
-  
+
+/* ===== 見出し ===== */
 h1, h2 {
   text-align: center;
   color: var(--accent);
@@ -41,8 +39,10 @@ h2 {
   margin: 60px 0 20px;
   border-left: 4px solid var(--accent);
   padding-left: 10px;
+  text-align: left;
 }
 
+/* ===== コンテナ ===== */
 section {
   max-width: 850px;
   margin: 0 auto 60px;
@@ -59,6 +59,8 @@ p, li {
 ul {
   padding-left: 1.4em;
 }
+
+/* ===== テーブル ===== */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -80,11 +82,10 @@ tr:last-child td, tr:last-child th {
   border-bottom: none;
 }
 
-/* ✅ スマホ最適化（カード型変換） */
+/* ===== スマホ最適化 ===== */
 @media (max-width: 768px) {
   body {
     font-size: 0.95rem;
-    line-height: 2.0;
     padding: 24px 14px 80px;
   }
   section {
@@ -121,17 +122,20 @@ tr:last-child td, tr:last-child th {
   }
 }
 
+/* ===== フッター ===== */
 footer {
   text-align: center;
   color: var(--sub);
   font-size: 0.9rem;
-  margin-top: 60px;
+  margin-top: 80px;
 }
 footer a {
   color: var(--accent);
   text-decoration: none;
 }
-footer a:hover { text-decoration: underline; }
+footer a:hover {
+  text-decoration: underline;
+}
 </style>
 </head>
 
@@ -172,71 +176,32 @@ footer a:hover { text-decoration: underline; }
   <h2>特定商取引法に基づく表記</h2>
 
   <table>
-  <tr>
-    <th>販売事業者名</th>
-    <td>整 − adjustment / adjustment-lab（代表：西本 裕）</td>
-  </tr>
-  <tr>
-    <th>所在地</th>
-    <td>富山県射水市（詳細はご請求時に開示します）</td>
-  </tr>
-  <tr>
-    <th>連絡先</th>
-    <td>メール：contact@adjustment-lab.jp（仮）<br>※迅速な対応のため、お問い合わせはフォームよりお願いいたします。</td>
-  </tr>
-  <tr>
-    <th>販売価格</th>
-    <td>各ページに税込価格を明記しています。<br>例：LITE教材 5,000円、STANDARD教材 50,000円 等。</td>
-  </tr>
-  <tr>
-    <th>商品代金以外の必要料金</th>
-    <td>インターネット接続費・通信費などの実費はお客様負担となります。</td>
-  </tr>
-  <tr>
-    <th>お支払い方法</th>
-    <td>クレジットカード決済、銀行振込（法人契約のみ対応）。</td>
-  </tr>
-  <tr>
-    <th>お支払い時期</th>
-    <td>各決済画面に記載の時期に準じます。</td>
-  </tr>
-  <tr>
-    <th>引き渡し時期</th>
-    <td>決済完了後、即時またはメールにて教材URLをお送りします。</td>
-  </tr>
-  <tr>
-    <th>返品・キャンセルについて</th>
-    <td>デジタルコンテンツの特性上、購入後の返品・返金は原則お受けしておりません。<br>ただし、重大な不具合・誤配信などの場合は速やかに対応いたします。</td>
-  </tr>
-  <tr>
-    <th>動作環境</th>
-    <td>スマートフォンまたはPCのブラウザ（最新版）で動作確認済み。<br>推奨環境：Google Chrome, Safari。</td>
-  </tr>
-  <tr>
-    <th>表現及び商品に関する注意書き</th>
-    <td>本教材は、身体教育・運動理解を目的とした学習プログラムです。<br>医療行為や治療を目的とするものではなく、効果を保証するものではありません。</td>
-  </tr>
+    <tr><th>販売事業者名</th><td>整 − adjustment / adjustment-lab（代表：西本 裕）</td></tr>
+    <tr><th>所在地</th><td>富山県射水市（詳細はご請求時に開示します）</td></tr>
+    <tr><th>連絡先</th><td>メール：contact@adjustment-lab.jp（仮）<br>※迅速な対応のため、お問い合わせはフォームよりお願いいたします。</td></tr>
+    <tr><th>販売価格</th><td>各ページに税込価格を明記しています。<br>例：LITE教材 5,000円、STANDARD教材 50,000円 等。</td></tr>
+    <tr><th>商品代金以外の必要料金</th><td>インターネット接続費・通信費などの実費はお客様負担となります。</td></tr>
+    <tr><th>お支払い方法</th><td>クレジットカード決済、銀行振込（法人契約のみ対応）。</td></tr>
+    <tr><th>お支払い時期</th><td>各決済画面に記載の時期に準じます。</td></tr>
+    <tr><th>引き渡し時期</th><td>決済完了後、即時またはメールにて教材URLをお送りします。</td></tr>
+    <tr><th>返品・キャンセルについて</th><td>デジタルコンテンツの特性上、購入後の返品・返金は原則お受けしておりません。<br>ただし、重大な不具合・誤配信などの場合は速やかに対応いたします。</td></tr>
+    <tr><th>動作環境</th><td>スマートフォンまたはPCのブラウザ（最新版）で動作確認済み。<br>推奨環境：Google Chrome, Safari。</td></tr>
+    <tr><th>表現及び商品に関する注意書き</th><td>本教材は、身体教育・運動理解を目的とした学習プログラムです。<br>医療行為や治療を目的とするものではなく、効果を保証するものではありません。</td></tr>
   </table>
 </section>
 
-<footer id="footer">
-  <p><a href="./index.html">← トップへ戻る</a></p>
+<footer>
+  <p><a href="/adjustment-lab/index.html">← トップへ戻る</a></p>
 </footer>
 
-<link rel="stylesheet" href="../assets/footer.css">
-
-<!-- ===== 共通フッター ===== -->
+<!-- ✅ 共通フッター -->
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
-<div id="footer"></div>
-
+<div id="footer-area"></div>
 <script>
 fetch("/adjustment-lab/assets/footer-lite.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("footer").innerHTML = data;
-    });
+  .then(r => r.text())
+  .then(d => document.getElementById("footer-area").innerHTML = d);
 </script>
 
-  
 </body>
 </html>
