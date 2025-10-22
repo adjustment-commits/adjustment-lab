@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LITEトレーニング管理｜adjustment-lab</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+  --accent: #00b386;
+  --bg: #f8faf9;
+  --text: #1a1a1a;
+  --sub: #666;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  padding: 20px;
+  line-height: 1.7;
+}
+header {
+  text-align: center;
+  padding: 10px 0 20px;
+}
+h1 {
+  font-size: 1.4rem;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+p.sub { color: var(--sub); font-size: 0.9rem; }
+
+/* フォーム */
+form {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 24px;
+}
+label {
+  display: block;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+input, select, button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  margin-top: 14px;
+}
+button:hover { opacity: 0.9; }
+
+/* 一覧 */
+#records {
+  margin-top: 24px;
+}
+.record {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+.record small { color: var(--sub); }
+button.delete {
+  background: none;
+  border: none;
+  color: #c00;
+  font-size: 0.8rem;
+  float: right;
+}
+
+/* グラフ */
+canvas {
+  margin-top: 20px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px;
+}
+footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--sub);
+  margin-top: 50px;
+}
+</style>
+</head>
+
+<body>
+<header>
+  <h1>LITEトレーニング管理</h1>
+  <p class="sub">目標・強度・時間・回数を記録しよう。</p>
+</header>
+
+<form id="trainingForm">
+  <label>日付</label>
+  <input type="date" id="date" required>
+
+  <label>種目</label>
+  <input type="text" id="exercise" placeholder="例：スクワット" required>
+
+  <label>重量（kg）</label>
+  <input type="number" id="weight" min="0" step="0.5">
+
+  <label>回数（rep）</label>
+  <input type="number" id="reps" min="0" step="1">
+
+  <label>RPE（主観的強度 1〜10）</label>
+  <input type="number" id="rpe" min="1" max="10" required>
+
+  <label>時間（分）</label>
+  <input type="number" id="minutes" min="0" step="1">
+
+  <button type="submit">記録を追加</button>
+</form>
+
+<h3>📅 記録一覧</h3>
+<div id="records"></div>
+
+<h3>📊 トレーニンググラフ</h3>
+<canvas id="trainingChart"></canvas>
+
+<footer>
+  <p>© 2025 adjustment-lab | LITE tracker</p>
+</footer>
+
+<script>
+const form = document.getElementById('trainingForm');
+const recordsDiv = document.getElementById('records');
+const chartCanvas = document.getElementById('trainingChart');
+let records = JSON.parse(localStorage.getItem('trainingRecords') || '[]');
+
+// グラフ描画
+let chart;
+function updateChart() {
+  const labels = [...new Set(records.map(r => r.exercise))];
+  const totals = labels.map(ex => {
+    const subset = records.filter(r => r.exercise === ex);
+    return subset.reduce((sum, r) => sum + (Number(r.weight || 0) * Number(r.reps || 0)), 0);
+  });
+  if (chart) chart.destroy();
+  chart = new Chart(chartCanvas, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: '総負荷量 (kg×rep)',
+        data: totals,
+        backgroundColor: '#00b386'
+      }]
+    },
+    options: { responsive: true, scales: { y: { beginAtZero: true } } }
+  });
+}
+
+// 記録表示
+function renderRecords() {
+  recordsDiv.innerHTML = '';
+  records.sort((a,b) => new Date(b.date) - new Date(a.date));
+  records.forEach((r, i) => {
+    const div = document.createElement('div');
+    div.className = 'record';
+    div.innerHTML = `
+      <strong>${r.exercise}</strong>　
+      <small>${r.date}</small>
+      <button class="delete" onclick="deleteRecord(${i})">削除</button><br>
+      ${r.weight || 0}kg × ${r.reps || 0}rep ｜ RPE${r.rpe} ｜ ${r.minutes || 0}分
+    `;
+    recordsDiv.appendChild(div);
+  });
+  updateChart();
+}
+
+// 削除
+function deleteRecord(i) {
+  records.splice(i, 1);
+  localStorage.setItem('trainingRecords', JSON.stringify(records));
+  renderRecords();
+}
+
+// 追加
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const newRecord = {
+    date: date.value,
+    exercise: exercise.value,
+    weight: weight.value,
+    reps: reps.value,
+    rpe: rpe.value,
+    minutes: minutes.value
+  };
+  records.push(newRecord);
+  localStorage.setItem('trainingRecords', JSON.stringify(records));
+  form.reset();
+  renderRecords();
+});
+
+renderRecords();
+</script>
+</body>
+</html>
