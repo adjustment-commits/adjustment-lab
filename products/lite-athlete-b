@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LITE-B｜スプリント ― 速さは構造で作る</title>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#f8faf9">
+
+<style>
+:root {
+  --bg: #f8faf9;
+  --text: #1a1a1a;
+  --accent: #00b386;
+  --sub: #555;
+  --line: rgba(0,0,0,0.06);
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.9;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 60px 20px 40px;
+}
+h1 {
+  font-size: 1.8rem;
+  color: var(--accent);
+  margin-bottom: 0.3em;
+}
+p.sub {
+  color: var(--sub);
+  font-size: 1rem;
+}
+
+/* Section */
+section {
+  max-width: 850px;
+  margin: 80px auto;
+  padding: 40px 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+section h2 {
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 1em;
+}
+section p {
+  color: var(--text);
+  font-size: 1rem;
+  margin-bottom: 1.2em;
+}
+
+/* Gallery */
+.gallery {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+.gallery img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  transition: 0.3s;
+}
+.gallery img:hover {
+  transform: scale(1.02);
+}
+
+/* CTA Button */
+button.back {
+  display: block;
+  margin: 60px auto 0;
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.7em 1.8em;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button.back:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  color: var(--sub);
+  font-size: 0.9rem;
+  margin: 100px 0 40px;
+}
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>LITE-B｜スプリント ― 速さは構造で作る</h1>
+  <p class="sub">筋力ではなく、構造の整いがスピードを決める。</p>
+</header>
+
+<section>
+  <h2>1. 速さの原理を理解する</h2>
+  <p>スプリントは「脚を速く動かす運動」ではなく、<br>
+  「重心を前に進める構造的な連鎖」である。<br>
+  骨盤の滑走と胸郭の回旋が連動することで、地面を押さずに進める。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/adjustment/field.jpg" alt="スプリント姿勢">
+    <img src="../assets/gallery/adjustment/rc-sprint.jpg" alt="接地バランス">
+  </div>
+</section>
+
+<section>
+  <h2>2. 骨盤で走る</h2>
+  <p>速い選手ほど「脚」ではなく「骨盤」を使って走っている。<br>
+  骨盤が前方へ滑ると、脚は勝手に前へ振り出される。<br>
+  ヒップインの感覚は、推進力を作る“エンジン”そのものだ。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/adjustment/cmj.jpg" alt="骨盤滑走">
+    <img src="../assets/gallery/adjustment/manual.jpg" alt="ヒップイン操作">
+  </div>
+</section>
+
+<section>
+  <h2>3. リズムと反射を育てる</h2>
+  <p>スピードは出力よりも「反応の速さ」で決まる。<br>
+  反射を引き出すためには、硬い接地ではなく“しなやかな切り返し”。<br>
+  脚を鍛えるより、全身の協調を整える方が速くなる。</p>
+  <div class="gallery">
+    <img src="../assets/gallery/adjustment/sprint-time.jpg" alt="スプリント測定">
+  </div>
+</section>
+
+<button class="back" onclick="window.location.href='../products/index.html'">← products一覧へ戻る</button>
+
+<footer>
+  <p>
+    <a href="../legal.html">販売・利用規約</a>｜
+    <a href="../contact/index.html">お問い合わせ</a>｜
+    <a href="../index.html">トップへ戻る</a>
+  </p>
+</footer>
+
+</body>
+</html>
