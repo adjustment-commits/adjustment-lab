@@ -25,6 +25,7 @@ body {
 
 /* --- Hero (スライド背景) --- */
 .hero {
+  filter: brightness(1.05) contrast(0.95) saturate(0.9);
   position: relative;
   height: 75vh;
   overflow: hidden;
@@ -34,21 +35,21 @@ body {
   text-align: center;
   color: #fff;
 }
-
-/* --- Hero Overlay (追記) --- */
+  
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.55); /* ←暗さの調整：0.4〜0.6が目安 */
+  background: rgba(0,0,0,0.35); /* ← 元の0.55から0.35に変更 */
   z-index: 1;
   transition: background 0.8s ease;
 }
+
 .hero-content {
   position: relative;
   z-index: 2;
-  background: rgba(0, 0, 0, 0.45); /* 半透明の黒い帯 */
+  background: rgba(0, 0, 0, 0.55); /* ← ここは少し濃く（帯の方でコントラスト確保） */
   padding: 30px 40px;
-  border-radius: 8px; /* 少し丸みをつけて柔らかく */
+  border-radius: 8px;
   max-width: 80%;
 }
 
