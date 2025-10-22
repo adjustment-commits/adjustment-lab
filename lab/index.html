@@ -3,53 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>adjustment-lab｜思考を形にする</title>
-
+<title>adjustment-lab｜再現性を科学するトレーニング設計</title>
 <link rel="manifest" href="../manifest.json">
-<meta name="theme-color" content="#eef7f3">
-
+<meta name="theme-color" content="#f8faf9">
 <style>
 :root {
-  --bg: #eef7f3;
+  --bg: #f8faf9;
   --text: #1a1a1a;
   --accent: #00b386;
   --sub: #555;
-  --line: rgba(0,0,0,0.06);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
+/* ====== Base ====== */
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
   line-height: 1.9;
+  overflow-x: hidden;
 }
 
-/* Header */
-header {
+/* ====== Hero ====== */
+.hero {
+  position: relative;
+  height: 70vh;
+  background: url('../assets/hero-lab.svg') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 80px 20px 40px;
-}
-h1 {
-  font-size: 2rem;
-  font-weight: 500;
-  margin-bottom: 0.3em;
-  color: var(--text);
-}
-p.sub {
-  color: var(--sub);
-  font-size: 1rem;
+  color: #0b3d31;
+  overflow: hidden;
 }
 
-/* Section */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.35);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.4em;
+  color: #0b3d31;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 1.6em;
+}
+
+.cta {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cta button {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.7em 1.6em;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.cta button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ====== Section ====== */
 section {
-  max-width: 800px;
-  margin: 100px auto;
+  max-width: 850px;
+  margin: 80px auto;
   padding: 40px 30px;
   background: #fff;
-  border: 1px solid var(--line);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
 }
 section h2 {
   color: var(--accent);
@@ -61,41 +103,23 @@ section p {
   font-size: 1rem;
 }
 
-/* Gallery */
+/* ====== Gallery ====== */
 .gallery {
   margin-top: 30px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 18px;
+  gap: 16px;
 }
 .gallery img {
   width: 100%;
   border-radius: 6px;
-  border: 1px solid var(--line);
   transition: 0.3s;
 }
 .gallery img:hover {
   transform: scale(1.02);
 }
 
-/* Button */
-button.action {
-  display: block;
-  margin: 40px auto 0;
-  background: none;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 0.6em 1.6em;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-button.action:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-/* Footer */
+/* ====== Footer ====== */
 footer {
   text-align: center;
   color: var(--sub);
@@ -114,62 +138,51 @@ footer a:hover {
 
 <body>
 
-<header>
-  <h1>adjustment-lab</h1>
-  <p class="sub">思考を形にする。再現を設計する。</p>
-</header>
-
-<section>
-  <h2>観察する</h2>
-  <p>動作を“見る”ことから、理解は始まる。<br>
-  骨盤、胸郭、肩甲、それぞれのタイミングを整理し、流れを読む。<br>
-  観察の精度が、再現の精度を決める。</p>
-  <div class="gallery">
-    <img src="../assets/gallery/lab/mbthrow.jpg" alt="MBスロー実験">
-    <img src="../assets/gallery/lab/glide.jpg" alt="滑走ドリル">
+<section class="hero">
+  <div class="hero-content">
+    <h1>adjustment-lab</h1>
+    <p>再現性を科学し、動作の理論構造を設計する。</p>
+    <div class="cta">
+      <button onclick="window.location.href='../products/index.html'">教材を見る</button>
+      <button onclick="window.location.href='../application/index.html'">チーム導入</button>
+    </div>
   </div>
-  <button class="action" onclick="showMsg('観察の積み重ねが、再現を可能にする。')">観察を記録</button>
 </section>
 
 <section>
-  <h2>分析する</h2>
-  <p>動作を数値に変換する。<br>
-  出力、タイミング、リズム。  
-  それらを比較・検証し、パターンとして理解する。</p>
-  <div class="gallery">
-    <img src="../assets/gallery/lab/rapsodo.jpg" alt="投球解析">
-    <img src="../assets/gallery/lab/jump.jpg" alt="RSI測定">
-  </div>
-  <button class="action" onclick="showMsg('思考は、数値を超えて動作を理解する。')">分析を記す</button>
+  <h2>理論を現場で検証する</h2>
+  <p>「adjustment-lab」は、整で得た感覚を数値・理論・構造として再現する場。<br>
+  トレーニング理論と実測データを統合し、現場に適応する仕組みを構築します。</p>
 </section>
 
 <section>
-  <h2>再現する</h2>
-  <p>理解したことを動きに戻す。<br>
-  動作の順序を整理し、同じ条件で再び再現できるかを確かめる。<br>
-  思考と実践がつながる瞬間に、技術は安定する。</p>
+  <h2>実験的アプローチ</h2>
+  <p>動作分析、VBT（速度トレーニング）、スプリント・出力測定などを用い、<br>
+  パフォーマンスの裏にあるメカニズムをデータで証明していく。</p>
   <div class="gallery">
-    <img src="../assets/gallery/lab/sprint.jpg" alt="スプリント測定">
+    <img src="../assets/gallery/lab/data.jpg" alt="データ分析">
+    <img src="../assets/gallery/lab/sprint.jpg" alt="スプリント計測">
+    <img src="../assets/gallery/lab/vbt.jpg" alt="VBT計測">
   </div>
-  <button class="action" onclick="showMsg('再現性は、思考の完成形である。')">検証を記録</button>
+</section>
+
+<section style="text-align:center;">
+  <h2>現場と研究をつなぐ</h2>
+  <p>選手の「感覚」と「結果」を結ぶ構造を設計し、<br>
+  チーム・個人が自立的に再現できる環境をつくる。</p>
+  <div class="cta">
+    <button onclick="window.location.href='../products/lite.html'">LITE教材</button>
+    <button onclick="window.location.href='../products/standard.html'">STANDARD教材</button>
+  </div>
 </section>
 
 <footer>
-  <p><a href="../application/index.html">→ 現場と契約へ進む</a></p>
-  <p><a href="../index.html">← トップへ戻る</a></p>
-
-  <p style="text-align:center; color:#555; font-size:0.9rem; margin-top:60px;">
-    <a href="../legal.html" style="color:#00b386; text-decoration:none;">販売・利用規約</a>｜
-    <a href="../contact/index.html" style="color:#00b386; text-decoration:none;">お問い合わせ</a>｜
-    <a href="../index.html" style="color:#00b386; text-decoration:none;">トップへ戻る</a>
+  <p>
+    <a href="../legal.html">販売・利用規約</a>｜
+    <a href="../contact/index.html">お問い合わせ</a>｜
+    <a href="../index.html">トップへ戻る</a>
   </p>
 </footer>
-
-<script>
-function showMsg(text){
-  alert(text);
-}
-</script>
 
 </body>
 </html>
