@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>adjustment-lab｜LITE教材一覧</title>
+<title>LITEシリーズ一覧｜adjustment-lab</title>
+
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#f8faf9">
 
 <style>
 :root {
@@ -18,81 +21,74 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.9;
+  line-height: 1.8;
 }
 
-/* Header */
 header {
   text-align: center;
-  padding: 60px 20px 20px;
-}
-h1 {
-  font-size: 1.9rem;
-  color: var(--accent);
-  margin-bottom: 6px;
-}
-p.sub {
-  color: var(--sub);
-  font-size: 0.95rem;
+  padding: 80px 20px 40px;
 }
 
-/* Grid Layout */
+h1 {
+  font-size: 2rem;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+p.sub {
+  color: var(--sub);
+  font-size: 1rem;
+}
+
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
   max-width: 1000px;
-  margin: 50px auto 100px;
+  margin: 60px auto 100px;
   padding: 0 20px;
 }
 
-/* Card */
 .card {
   background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 12px;
   overflow: hidden;
-  transition: all 0.35s ease;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  transition: 0.3s;
 }
-
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
 }
-
-/* Thumbnail */
 .card img {
+  width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }
-
-/* Content */
 .card-content {
-  padding: 20px 18px 30px;
-  text-align: center;
+  padding: 24px;
 }
 .card-content h2 {
-  word-break: keep-all;
-  white-space: normal;
-  line-height: 1.5;
+  color: var(--accent);
+  font-size: 1.2rem;
+  margin-bottom: 0.4em;
+  line-height: 1.4;
 }
 .card-content p {
   color: var(--sub);
-  font-size: 0.9rem;
-  margin-bottom: 1.3em;
+  font-size: 0.95rem;
+  margin-bottom: 1.6em;
 }
 
-/* Button */
 button {
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
-  padding: 0.55em 1.4em;
-  border-radius: 4px;
+  padding: 0.6em 1.4em;
+  border-radius: 3px;
   cursor: pointer;
-  transition: 0.3s ease;
-  font-size: 0.9rem;
+  transition: 0.3s;
 }
 button:hover {
   background: var(--accent);
@@ -103,8 +99,8 @@ button:hover {
 footer {
   text-align: center;
   color: var(--sub);
-  font-size: 0.85rem;
-  margin: 80px 0 40px;
+  font-size: 0.9rem;
+  margin: 100px 0 40px;
 }
 footer a {
   color: var(--accent);
@@ -113,113 +109,107 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
-
-/* Responsive */
-@media (max-width: 600px) {
-  h1 { font-size: 1.6rem; }
-  .products { gap: 20px; }
-  .card-content h2 { font-size: 1rem; }
-}
 </style>
 </head>
 
 <body>
+
 <header>
-  <h1>LITEシリーズ一覧</h1>
-  <p class="sub">思考を“体で理解する”ための導入教材</p>
+  <h1>LITEシリーズ｜adjustment-lab</h1>
+  <p class="sub">野球選手とアスリートのための基礎構築シリーズ。<br>整うことで、再現性が生まれる。</p>
 </header>
 
 <div class="products">
 
-  <!-- 01〜05 -->
+  <!-- 野球選手向け 01〜05 -->
   <div class="card">
-    <img src="../assets/thumbnails/lite-01.png" alt="#01 Thumbnail">
+    <img src="../assets/thumbnails/lite-01.jpg" alt="体の基準">
     <div class="card-content">
-      <h2>#01 The Standard of the Body</h2>
+      <h2>#01｜The Standard of the Body</h2>
       <p>アスリートに備わるべき“体の基準”を学ぶ。</p>
       <button onclick="window.location.href='./lite/01.html'">詳細を見る</button>
     </div>
   </div>
 
   <div class="card">
-    <img src="../assets/thumbnails/lite-02.png" alt="#02 Thumbnail">
+    <img src="../assets/thumbnails/lite-02.jpg" alt="姿勢バランス">
     <div class="card-content">
-      <h2>#02 Balanced Posture for Baseball Players</h2>
+      <h2>#02｜Balanced Posture for Baseball Players</h2>
       <p>野球選手に共通する“整う姿勢”を体感する。</p>
       <button onclick="window.location.href='./lite/02.html'">詳細を見る</button>
     </div>
   </div>
 
   <div class="card">
-    <img src="../assets/thumbnails/lite-03.png" alt="#03 Thumbnail">
+    <img src="../assets/thumbnails/lite-03.jpg" alt="投手の出力連鎖">
     <div class="card-content">
-      <h2>#03 Power Sequence for Pitchers</h2>
+      <h2>#03｜Power Sequence for Pitchers</h2>
       <p>投手のための“力の順番”を再構築する。</p>
       <button onclick="window.location.href='./lite/03.html'">詳細を見る</button>
     </div>
   </div>
 
   <div class="card">
-    <img src="../assets/thumbnails/lite-04.png" alt="#04 Thumbnail">
+    <img src="../assets/thumbnails/lite-04.jpg" alt="ヒップイン">
     <div class="card-content">
-      <h2>#04 Feel the Hip-In</h2>
+      <h2>#04｜Feel the Hip-In</h2>
       <p>ヒップインを“感じる”ための動作原理を学ぶ。</p>
       <button onclick="window.location.href='./lite/04.html'">詳細を見る</button>
     </div>
   </div>
 
   <div class="card">
-    <img src="../assets/thumbnails/lite-05.png" alt="#05 Thumbnail">
+    <img src="../assets/thumbnails/lite-05.jpg" alt="呼吸">
     <div class="card-content">
-      <h2>#05 Breathing for Reproducibility</h2>
+      <h2>#05｜Breathing for Reproducibility</h2>
       <p>再現性を支える“呼吸”の整え方を知る。</p>
       <button onclick="window.location.href='./lite/05.html'">詳細を見る</button>
     </div>
   </div>
 
-  <!-- A〜E -->
+  <!-- アスリート向け A〜E -->
   <div class="card">
-    <img src="../assets/thumbnails/lite-A.png" alt="#A Thumbnail">
+    <img src="../assets/thumbnails/lite-A.jpg" alt="体の基準">
     <div class="card-content">
-      <h2>#A Athletic Standards</h2>
-      <p>全アスリートが持つべき身体機能の基準を学ぶ。</p>
-      <button onclick="window.location.href='./lite/A.html'">詳細を見る</button>
+      <h2>#A｜アスリートに備えたい「体の基準」</h2>
+      <p>すべての競技に共通する“基準の軸”。姿勢・重心・呼吸を整える導入編。</p>
+      <button onclick="window.location.href='./lite/athlete-a.html'">詳細を見る</button>
     </div>
   </div>
 
   <div class="card">
-    <img src="../assets/thumbnails/lite-B.png" alt="#B Thumbnail">
+    <img src="../assets/thumbnails/lite-B.jpg" alt="スプリント">
     <div class="card-content">
-      <h2>#B Sprint Mechanics</h2>
-      <p>スプリント動作の構造を理解し、出力を最大化。</p>
-      <button onclick="window.location.href='./lite/B.html'">詳細を見る</button>
+      <h2>#B｜スプリント ― 滑走するスピード</h2>
+      <p>地面を押すよりも“滑らせる”。走るという動きの本質を再設計。</p>
+      <button onclick="window.location.href='./lite/athlete-b.html'">詳細を見る</button>
     </div>
   </div>
 
   <div class="card">
-    <img src="../assets/thumbnails/lite-C.png" alt="#C Thumbnail">
+    <img src="../assets/thumbnails/lite-C.jpg" alt="ジャンプ力">
     <div class="card-content">
-      <h2>#C Jump Power</h2>
-      <p>ジャンプ動作の本質を掘り下げ、爆発的パワーを育てる。</p>
-      <button onclick="window.location.href='./lite/C.html'">詳細を見る</button>
+      <h2>#C｜ジャンプ力 ― 地反力を扱う</h2>
+      <p>高く跳ぶ力は、沈む力から生まれる。反射・タイミング・剛性の調律。</p>
+      <button onclick="window.location.href='./lite/athlete-c.html'">詳細を見る</button>
     </div>
   </div>
 
   <div class="card">
-    <img src="../assets/thumbnails/lite-D.png" alt="#D Thumbnail">
+    <img src="../assets/thumbnails/lite-D.jpg" alt="切り返しスピード">
     <div class="card-content">
-      <h2>#D Cutting Speed</h2>
-      <p>反復横跳び動作を通じて“切り返し”の速さを鍛える。</p>
-      <button onclick="window.location.href='./lite/D.html'">詳細を見る</button>
+      <h2>#D｜切り返しスピード ― 接地を制する</h2>
+      <p>一瞬の重心移動を制御する。力より速さ、速さより精度。</p>
+      <button onclick="window.location.href='./lite/athlete-d.html'">詳細を見る</button>
     </div>
   </div>
 
   <div class="card">
-    <img src="../assets/thumbnails/lite-E.png" alt="#E Thumbnail">
+    <img src="../assets/thumbnails/lite-E.jpg" alt="コンディショニング">
     <div class="card-content">
-      <h2>#E Conditioning Design</h2>
-      <p>疲労回復・再現性・安定を設計するコンディショニング理論。</p>
-      <button onclick="window.location.href='./lite/E.html'">詳細を見る</button>
+      <h2>#E｜コンディショニング ― 回復をデザインする</h2>
+      <p>“休む”ではなく“戻す”。神経系のリセットと再構築のメソッド。</p>
+      <button onclick="window.location.href='./lite/athlete-e.html'">詳細を見る</button>
     </div>
   </div>
 
