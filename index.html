@@ -13,13 +13,13 @@
   --bg: #f8faf9;
   --text: #1a1a1a;
   --accent: #00b386;
-  --gray: #555;
+  --gray: #666;
   font-family: 'Noto Sans JP', sans-serif;
 }
 
-/* Base */
 body {
   margin: 0;
+  padding: 0;
   height: 100vh;
   background: var(--bg);
   color: var(--text);
@@ -27,11 +27,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  transition: background 0.6s ease, color 0.6s ease;
+  transition: background 0.8s ease, color 0.8s ease;
 }
 
-/* 背景グリッド */
+/* Grid */
 body::before {
   content: "";
   position: fixed;
@@ -40,109 +39,51 @@ body::before {
                     linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
   background-size: 32px 32px;
   opacity: 0.25;
-  z-index: 0;
 }
 
-/* ロゴ */
-#logo {
-  width: 140px;
-  margin-bottom: 1.5em;
-  z-index: 2;
-}
+/* Logo */
+#logo { width: 140px; margin-bottom: 1.2em; animation: float 4s ease-in-out infinite; }
+@keyframes float { 0%,100% {transform:translateY(0);} 50%{transform:translateY(-4px);} }
 
-/* タイトル・説明 */
-h1 {
-  font-size: 2rem;
-  margin: 0.3em 0 0.4em;
-  letter-spacing: 0.03em;
-  z-index: 2;
-}
-p.desc {
-  font-size: 1rem;
-  color: var(--gray);
-  margin-bottom: 2em;
-  z-index: 2;
-}
+/* Title */
+h1 { font-size: 2rem; margin: 0.3em 0 0.4em; text-align: center; letter-spacing: 0.03em; }
+p.desc { font-size: 1rem; color: var(--gray); margin-bottom: 2em; text-align: center; }
 
-/* 切替ボタン */
+/* Toggle */
 button.toggle {
-  background: none;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 0.6em 1.6em;
-  font-size: 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: 0.3s ease;
-  z-index: 2;
+  background: none; border: 1px solid var(--accent); color: var(--accent);
+  padding: 0.6em 1.6em; border-radius: 4px; cursor: pointer; transition: 0.3s;
 }
-button.toggle:hover {
-  background: var(--accent);
-  color: #fff;
-}
+button.toggle:hover { background: var(--accent); color: #fff; }
 
-/* ナビゲーション */
-nav {
-  margin-top: 2.4em;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  z-index: 2;
-}
+/* Nav */
+nav { margin-top: 2.4em; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 nav a {
-  text-decoration: none;
-  color: var(--text);
-  border: 1px solid var(--accent);
-  border-radius: 4px;
-  padding: 0.5em 1.4em;
-  font-size: 0.95rem;
-  transition: 0.3s ease;
+  text-decoration: none; color: var(--text);
+  border: 1px solid var(--accent); border-radius: 4px;
+  padding: 0.5em 1.4em; font-size: 0.95rem; transition: 0.3s;
 }
-nav a:hover {
-  background: var(--accent);
-  color: #fff;
-}
+nav a:hover { background: var(--accent); color: #fff; }
 
-/* Labモード */
-body.lab-mode {
-  background: #0b3d31;
-  color: #f8faf9;
-}
+/* Lab mode */
+body.lab-mode { background: #0b3d31; color: #f8faf9; }
 body.lab-mode h1 { color: var(--accent); }
 body.lab-mode p.desc { color: #aaffdd; }
-body.lab-mode nav a {
-  border-color: #fff;
-  color: #fff;
-}
-body.lab-mode nav a:hover {
-  background: #fff;
-  color: #0b3d31;
-}
-body.lab-mode button.toggle {
-  border-color: #fff;
-  color: #fff;
-}
-body.lab-mode button.toggle:hover {
-  background: #fff;
-  color: #0b3d31;
-}
+body.lab-mode nav a { border-color: #fff; color: #fff; }
+body.lab-mode nav a:hover { background: #fff; color: #0b3d31; }
+body.lab-mode button.toggle { border-color: #fff; color: #fff; }
+body.lab-mode button.toggle:hover { background: #fff; color: #0b3d31; }
 
 /* Footer */
-footer {
-  position: absolute;
-  bottom: 20px;
-  font-size: 0.85rem;
-  color: #888;
-  text-align: center;
-  width: 100%;
-}
-footer a {
-  color: var(--accent);
-  text-decoration: none;
-  margin: 0 6px;
-}
+footer { position: absolute; bottom: 20px; font-size: 0.85rem; color: #888; text-align: center; }
+footer a { color: var(--accent); text-decoration: none; margin: 0 6px; }
 footer a:hover { text-decoration: underline; }
+
+@media (max-width: 768px) {
+  h1 { font-size: 1.6rem; }
+  p.desc { font-size: 0.9rem; }
+  nav a { font-size: 0.85rem; padding: 0.45em 1.1em; }
+}
 </style>
 </head>
 
@@ -153,9 +94,8 @@ footer a:hover { text-decoration: underline; }
 
 <button class="toggle" id="switchBtn">→ adjustment-labへ</button>
 
-<nav>
+<nav id="navLinks">
   <a href="./adjustment/index.html">整を探る</a>
-  <a href="./lab/index.html">labで体験</a>
   <a href="./products/index.html">productsを見る</a>
 </nav>
 
@@ -171,6 +111,7 @@ const btn = document.getElementById('switchBtn');
 const logo = document.getElementById('logo');
 const title = document.getElementById('title');
 const desc = document.getElementById('desc');
+const nav = document.getElementById('navLinks');
 let mode = 'seii';
 
 btn.addEventListener('click', () => {
@@ -181,14 +122,23 @@ btn.addEventListener('click', () => {
     title.textContent = 'adjustment-lab';
     desc.textContent = '思考を形にし、再現を科学する。';
     btn.textContent = '← 整 - adjustmentへ';
+    nav.innerHTML = `
+      <a href="./lab/index.html">labを体験</a>
+      <a href="./products/index.html">productsを見る</a>
+    `;
   } else {
     mode = 'seii';
     logo.src = './assets/logo-seii.png';
     title.textContent = '整 - adjustment';
     desc.textContent = '動きを理解し、再現を設計する。';
     btn.textContent = '→ adjustment-labへ';
+    nav.innerHTML = `
+      <a href="./adjustment/index.html">整を探る</a>
+      <a href="./products/index.html">productsを見る</a>
+    `;
   }
 });
 </script>
+
 </body>
 </html>
