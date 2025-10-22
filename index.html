@@ -245,6 +245,14 @@ let mode = 'seii';
 const introSeii = document.getElementById('intro-seii');
 const introLab = document.getElementById('intro-lab');
 
+/* ✅ 画像を事前読み込み */
+const preloadImages = ['./assets/logo-lab.png', './assets/logo-seii.png'];
+preloadImages.forEach(src => {
+  const img = new Image();
+  img.src = src;
+});
+
+/* ✅ フェード切り替え関数 */
 function fadeSwitch(hideEl, showEl) {
   hideEl.style.opacity = '0';
   hideEl.style.transform = 'translateY(8px)';
@@ -255,15 +263,26 @@ function fadeSwitch(hideEl, showEl) {
       showEl.style.opacity = '1';
       showEl.style.transform = 'translateY(0)';
     }, 50);
-  }, 300);
+  }, 250);
 }
 
+/* ✅ ロゴ切り替えを即座に＋滑らかに */
+function switchLogo(newSrc) {
+  logo.style.transition = 'opacity 0.2s ease';
+  logo.style.opacity = '0';
+  setTimeout(() => {
+    logo.src = newSrc;
+    logo.style.opacity = '1';
+  }, 80); // ← 150 → 80に短縮でレスポンス向上
+}
+
+/* ✅ トグル本体 */
 btn.addEventListener('click', () => {
   document.body.classList.toggle('lab-mode');
 
   if (mode === 'seii') {
     mode = 'lab';
-    logo.src = './assets/logo-lab.png';
+    switchLogo('./assets/logo-lab.png');
     title.textContent = 'adjustment-lab';
     desc.innerHTML = '再現性を科学し、現場へつなぐ。<br>整う思考を、デジタルで。';
     btn.textContent = '← 整【アジャストメント】へ';
@@ -273,11 +292,9 @@ btn.addEventListener('click', () => {
     links[0].textContent = 'labを体験';
     links[0].setAttribute('href', './lab/index.html');
     links[1].textContent = 'productsを見る';
-    links[1].setAttribute('href', './products/index.html');
-  } 
-  else {
+  } else {
     mode = 'seii';
-    logo.src = './assets/logo-seii.png';
+    switchLogo('./assets/logo-seii.png');
     title.textContent = '整【アジャストメント】';
     desc.innerHTML = 'アスリート専門トレーナー。<br>動きを理解し、再現を設計する。';
     btn.textContent = '→ adjustment-labへ';
@@ -287,7 +304,6 @@ btn.addEventListener('click', () => {
     links[0].textContent = '整【アジャストメント】を探る';
     links[0].setAttribute('href', './adjustment/index.html');
     links[1].textContent = 'productsを見る';
-    links[1].setAttribute('href', './products/index.html');
   }
 });
 </script>
