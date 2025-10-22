@@ -169,11 +169,24 @@ footer a:hover { text-decoration: underline; }
 <h1 id="title">整【アジャストメント】</h1>
 <p id="desc" class="desc">アスリート専門トレーナー。<br>動きを理解し、再現を設計する。</p>
 
+<!-- 事業説明 -->
+<section id="intro" style="text-align:center; max-width:720px; margin-bottom:2em; line-height:1.8;">
+  <p style="font-size:0.95rem; color:#444; margin-bottom:0.6em;">
+    整【アジャストメント】は、<strong>アスリート専門のパーソナルトレーニング・チーム契約・測定サポート</strong>を行う現場型サービスです。<br>
+    現場で培った再現性のあるメソッドを、科学的に設計し、競技パフォーマンスを高めます。
+  </p>
+
+  <p style="font-size:0.95rem; color:#444;">
+    adjustment-labは、<strong>トレーニング管理アプリ</strong>と<strong>HTML教材</strong>を開発・販売するデジタル開発拠点です。<br>
+    「整」で生まれた理論を、誰もが学び・使える形に変換します。
+  </p>
+</section>  
+
 <button class="toggle" id="switchBtn">→ adjustment-labへ</button>
 
 <nav id="navLinks">
-  <a href="../adjustment/index.html">整【アジャストメント】を探る</a>
-  <a href="../products/index.html">productsを見る</a>
+  <a href="./adjustment/index.html">整【アジャストメント】を探る</a>
+  <a href="./products/index.html">productsを見る</a>
 </nav>
 
 <footer>
@@ -194,7 +207,6 @@ let mode = 'seii';
 btn.addEventListener('click', () => {
   document.body.classList.toggle('lab-mode');
 
-  // モード切替
   if (mode === 'seii') {
     mode = 'lab';
     logo.src = './assets/logo-lab.png';
@@ -202,13 +214,13 @@ btn.addEventListener('click', () => {
     desc.innerHTML = '再現性を科学し、現場へつなぐ。<br>整う思考を、デジタルで。';
     btn.textContent = '← 整【アジャストメント】へ';
 
-    // aタグを直接操作（innerHTMLを使わない）
     const links = navLinks.querySelectorAll('a');
     if (links.length === 2) {
-    links[0].textContent = 'labを体験';
-    links[0].setAttribute('href', './lab/index.html');
-    links[1].textContent = 'productsを見る';
-    links[1].setAttribute('href', './products/index.html');
+      links[0].textContent = 'labを体験';
+      links[0].setAttribute('href', './lab/index.html');
+      links[1].textContent = 'productsを見る';
+      links[1].setAttribute('href', './products/index.html');
+    }
 
   } else {
     mode = 'seii';
@@ -218,10 +230,12 @@ btn.addEventListener('click', () => {
     btn.textContent = '→ adjustment-labへ';
 
     const links = navLinks.querySelectorAll('a');
-    links[0].textContent = '整【アジャストメント】を探る';
-    links[0].setAttribute('href', '../adjustment/index.html');
-    links[1].textContent = 'productsを見る';
-    links[1].setAttribute('href', './products/index.html');
+    if (links.length === 2) {
+      links[0].textContent = '整【アジャストメント】を探る';
+      links[0].setAttribute('href', './adjustment/index.html');
+      links[1].textContent = 'productsを見る';
+      links[1].setAttribute('href', './products/index.html');
+    }
   }
 });
 </script>
