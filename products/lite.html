@@ -167,30 +167,16 @@ footer a:hover {
 
 </div>
 
-<footer>
-  <p>
-    <a href="../legal.html">販売・利用規約</a>｜
-    <a href="../contact/index.html">お問い合わせ</a>｜
-    <a href="../index.html">トップへ戻る</a>
-  </p>
-</footer>
-
-<!-- ✅ footer.html を埋め込む場所 -->
+<!-- ✅ LITE共通フッター -->
+<link rel="stylesheet" href="../assets/footer-lite.css">
 <div id="footer"></div>
 
-<!-- ✅ CSS を下に移動 -->
-<link rel="stylesheet" href="../assets/footer.css">
-
-<!-- ✅ JS は最後に独立して配置 -->
 <script>
-  fetch("../assets/footer.html")
+  fetch("../assets/footer-lite.html")
     .then(response => response.text())
     .then(data => {
       document.getElementById("footer").innerHTML = data;
-      const pageTitle = document.title.replace("｜", " | ");
-      document.getElementById("page-title").textContent = pageTitle;
     });
 </script>
-
 </body>
 </html>
