@@ -65,18 +65,24 @@ body {
   flex-wrap: wrap;
 }
 .cta button {
-  background: none;
+  background: var(--accent);       /* ← 縁だけではなく中も塗る */
   border: 1px solid var(--accent);
-  color: var(--accent);
+  color: #fff;                     /* ← 白文字に変更 */
   padding: 0.7em 1.6em;
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s;
 }
+
+.cta button:nth-child(2) {
+  background: #008c6b; /* var(--accent)より少し濃い */
+  border-color: #008c6b;
+}
+
 .cta button:hover {
-  background: var(--accent);
-  color: #fff;
+  background: transparent;         /* ← ホバーで透けるように反転 */
+  color: var(--accent);
 }
 
 /* --- Sections --- */
