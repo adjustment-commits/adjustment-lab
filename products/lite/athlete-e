@@ -151,7 +151,7 @@ footer a:hover {
   </div>
 </section>
 
-<button class="back" onclick="window.location.href='../products/index.html'">← products一覧へ戻る</button>
+<button class="back" onclick="window.location.href='../../products/index.html'">← products一覧へ戻る</button>
 
 <!-- ✅ LITE共通フッター -->
 <link rel="stylesheet" href="../assets/footer-lite.css">
