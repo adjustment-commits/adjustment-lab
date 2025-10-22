@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>整 - adjustment｜アスリート専門トレーナー</title>
+<title>整【アジャストメント】｜アスリート専門トレーナー</title>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#f8faf9">
 
@@ -21,50 +21,58 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.9;
-  overflow-x: hidden;
 }
 
-/* --- Hero --- */
+/* --- Hero (スライド背景) --- */
 .hero {
   position: relative;
   height: 75vh;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
 }
-.hero img {
+
+.hero-slide {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  background-size: cover;
+  background-position: center;
   opacity: 0;
-  transition: opacity 1.5s ease;
+  animation: slideShow 18s infinite;
 }
-.hero img.active {
-  opacity: 1;
+.hero-slide:nth-child(1) { background-image: url('../assets/gallery/adjustment/manual.jpg'); animation-delay: 0s; }
+.hero-slide:nth-child(2) { background-image: url('../assets/gallery/adjustment/treadmill.jpg'); animation-delay: 6s; }
+.hero-slide:nth-child(3) { background-image: url('../assets/gallery/adjustment/field.jpg'); animation-delay: 12s; }
+
+@keyframes slideShow {
+  0%, 20% { opacity: 1; }
+  33%, 100% { opacity: 0; }
 }
+
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(255,255,255,0.4);
+  background: rgba(0,0,0,0.35);
   z-index: 1;
 }
+
 .hero-content {
   position: relative;
   z-index: 2;
-  color: #0b3d31;
-  text-align: center;
-  top: 50%;
-  transform: translateY(-50%);
 }
-.hero-content h1 {
-  font-size: 2.2rem;
+
+.hero h1 {
+  font-size: 2.4rem;
   margin-bottom: 0.4em;
 }
-.hero-content p {
+.hero p {
   font-size: 1.1rem;
-  color: #222;
-  margin-bottom: 1.6em;
+  margin-bottom: 1.5em;
 }
+
 .cta {
   display: flex;
   justify-content: center;
@@ -135,21 +143,28 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 1.8rem; }
+  .hero p { font-size: 0.95rem; }
+}
 </style>
 </head>
 
 <body>
 
-<!-- Hero -->
 <section class="hero">
-  <img src="../assets/gallery/adjustment/manual.jpg" class="active" alt="徒手調整">
-  <img src="../assets/gallery/adjustment/treadmill.jpg" alt="トレッドミル調整">
-  <img src="../assets/gallery/adjustment/band.jpg" alt="屋外トレーニング">
+  <div class="hero-slide"></div>
+  <div class="hero-slide"></div>
+  <div class="hero-slide"></div>
   <div class="hero-overlay"></div>
 
+<section class="hero" id="hero">
   <div class="hero-content">
-    <h1>整 - adjustment</h1>
-    <p>野球選手・アスリート専門トレーナー<br>身体を“整える”から“再現する”へ。</p>
+    <h1>整【アジャストメント】</h1>
+    <p>野球選手・アスリート専門トレーナー</p>
+    <p class="lead">身体を“整える”から“再現する”へ。</p>
     <div class="cta">
       <button onclick="window.location.href='../contact/index.html'">パーソナル依頼</button>
       <button onclick="window.location.href='../application/index.html'">チーム契約</button>
@@ -157,10 +172,38 @@ footer a:hover {
   </div>
 </section>
 
-<!-- Main Sections -->
+<script>
+const hero = document.getElementById('hero');
+
+// スライドに使う画像リスト（必要なだけ追加OK）
+const slides = [
+  "../assets/gallery/adjustment/manual.jpg",
+  "../assets/gallery/adjustment/treadmill.jpg",
+  "../assets/gallery/adjustment/band.jpg",
+  "../assets/gallery/adjustment/team.jpg",
+  "../assets/gallery/adjustment/rc-pitcher.jpg",
+  "../assets/gallery/adjustment/rc-batter.jpg",
+  "../assets/gallery/adjustment/cmj.jpg",
+  "../assets/gallery/adjustment/rc-sprint.jpg",
+  "../assets/gallery/adjustment/enode.jpg",
+  "../assets/gallery/adjustment/rapsodo.jpg",
+  "../assets/gallery/adjustment/sprint-time.jpg",
+  "../assets/gallery/adjustment/k-o-h.jpg",
+];
+
+let index = 0;
+function changeBackground() {
+  hero.style.background = `url('${slides[index]}') center/cover no-repeat`;
+  hero.style.transition = "background 1s ease-in-out";
+  index = (index + 1) % slides.length;
+}
+changeBackground();
+setInterval(changeBackground, 4500); // 4.5秒ごとに切り替え
+</script>
+
 <section>
   <h2>整えるとは、動きを理解すること。</h2>
-  <p>「整 - adjustment」は、身体を“直す”場所ではなく、<br>
+  <p>「整【アジャストメント】」は、身体を“直す”場所ではなく、<br>
   動きを“再現する力”を取り戻す場所。<br>
   感覚・構造・出力を結び、再現性のあるパフォーマンスを設計します。</p>
 </section>
@@ -193,16 +236,6 @@ footer a:hover {
     <a href="../index.html">トップへ戻る</a>
   </p>
 </footer>
-
-<script>
-const slides = document.querySelectorAll('.hero img');
-let index = 0;
-setInterval(() => {
-  slides[index].classList.remove('active');
-  index = (index + 1) % slides.length;
-  slides[index].classList.add('active');
-}, 4500);
-</script>
 
 </body>
 </html>
