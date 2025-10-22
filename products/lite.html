@@ -71,8 +71,9 @@ p.sub {
 }
 .card-content h2 {
   color: var(--accent);
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   margin-bottom: 0.4em;
+  line-height: 1.4;
 }
 .card-content p {
   color: var(--sub);
@@ -115,53 +116,100 @@ footer a:hover {
 
 <header>
   <h1>LITEシリーズ｜adjustment-lab</h1>
-  <p class="sub">基礎を“整える”ことで、再現性が生まれる。<br>思考と身体を結ぶ5つのテーマ。</p>
+  <p class="sub">野球選手とアスリートのための基礎構築シリーズ。<br>整うことで、再現性が生まれる。</p>
 </header>
 
 <div class="products">
 
+  <!-- 野球選手向け 01〜05 -->
+  <div class="card">
+    <img src="../assets/thumbnails/lite-01.png" alt="体の基準">
+    <div class="card-content">
+      <h2>#01｜The Standard of the Body</h2>
+      <p>アスリートに備わるべき“体の基準”を学ぶ。</p>
+      <button onclick="window.location.href='./lite/01.html'">詳細を見る</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="../assets/thumbnails/lite-02.jpg" alt="姿勢バランス">
+    <div class="card-content">
+      <h2>#02｜Balanced Posture for Baseball Players</h2>
+      <p>野球選手に共通する“整う姿勢”を体感する。</p>
+      <button onclick="window.location.href='./lite/02.html'">詳細を見る</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="../assets/thumbnails/lite-03.jpg" alt="投手の出力連鎖">
+    <div class="card-content">
+      <h2>#03｜Power Sequence for Pitchers</h2>
+      <p>投手のための“力の順番”を再構築する。</p>
+      <button onclick="window.location.href='./lite/03.html'">詳細を見る</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="../assets/thumbnails/lite-04.jpg" alt="ヒップイン">
+    <div class="card-content">
+      <h2>#04｜Feel the Hip-In</h2>
+      <p>ヒップインを“感じる”ための動作原理を学ぶ。</p>
+      <button onclick="window.location.href='./lite/04.html'">詳細を見る</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="../assets/thumbnails/lite-05.jpg" alt="呼吸">
+    <div class="card-content">
+      <h2>#05｜Breathing for Reproducibility</h2>
+      <p>再現性を支える“呼吸”の整え方を知る。</p>
+      <button onclick="window.location.href='./lite/05.html'">詳細を見る</button>
+    </div>
+  </div>
+
+  <!-- アスリート向け A〜E -->
   <div class="card">
     <img src="../assets/thumbnails/lite-A.jpg" alt="体の基準">
     <div class="card-content">
-      <h2>A｜アスリートに備えたい「体の基準」</h2>
-      <p>すべての競技に共通する“基準の軸”。<br>姿勢・重心・呼吸を整える導入編。</p>
-      <button onclick="window.location.href='./lite-a.html'">詳細を見る</button>
+      <h2>#A｜アスリートに備えたい「体の基準」</h2>
+      <p>すべての競技に共通する“基準の軸”。姿勢・重心・呼吸を整える導入編。</p>
+      <button onclick="window.location.href='./lite/athlete-a.html'">詳細を見る</button>
     </div>
   </div>
 
   <div class="card">
     <img src="../assets/thumbnails/lite-B.jpg" alt="スプリント">
     <div class="card-content">
-      <h2>B｜スプリント ― 滑走するスピード</h2>
-      <p>地面を押すよりも“滑らせる”。<br>走るという動きの本質を再設計。</p>
-      <button onclick="window.location.href='./lite-b.html'">詳細を見る</button>
+      <h2>#B｜スプリント ― 滑走するスピード</h2>
+      <p>地面を押すよりも“滑らせる”。走るという動きの本質を再設計。</p>
+      <button onclick="window.location.href='./lite/athlete-b.html'">詳細を見る</button>
     </div>
   </div>
 
   <div class="card">
     <img src="../assets/thumbnails/lite-C.jpg" alt="ジャンプ力">
     <div class="card-content">
-      <h2>C｜ジャンプ力 ― 地反力を扱う</h2>
-      <p>高く跳ぶ力は、沈む力から生まれる。<br>反射・タイミング・剛性の調律。</p>
-      <button onclick="window.location.href='./lite-c.html'">詳細を見る</button>
+      <h2>#C｜ジャンプ力 ― 地反力を扱う</h2>
+      <p>高く跳ぶ力は、沈む力から生まれる。反射・タイミング・剛性の調律。</p>
+      <button onclick="window.location.href='./lite/athlete-c.html'">詳細を見る</button>
     </div>
   </div>
 
   <div class="card">
     <img src="../assets/thumbnails/lite-D.jpg" alt="切り返しスピード">
     <div class="card-content">
-      <h2>D｜切り返しスピード ― 接地を制する</h2>
-      <p>一瞬の重心移動を制御する。<br>力より速さ、速さより精度。</p>
-      <button onclick="window.location.href='./lite-d.html'">詳細を見る</button>
+      <h2>#D｜切り返しスピード ― 接地を制する</h2>
+      <p>一瞬の重心移動を制御する。力より速さ、速さより精度。</p>
+      <button onclick="window.location.href='./lite/athlete-d.html'">詳細を見る</button>
     </div>
   </div>
 
   <div class="card">
     <img src="../assets/thumbnails/lite-E.jpg" alt="コンディショニング">
     <div class="card-content">
-      <h2>E｜コンディショニング ― 回復をデザインする</h2>
-      <p>“休む”ではなく“戻す”。<br>神経系のリセットと再構築のメソッド。</p>
-      <button onclick="window.location.href='./lite-e.html'">詳細を見る</button>
+      <h2>#E｜コンディショニング ― 回復をデザインする</h2>
+      <p>“休む”ではなく“戻す”。神経系のリセットと再構築のメソッド。</p>
+      <button onclick="window.location.href='./lite/athlete-e.html'">詳細を見る</button>
     </div>
   </div>
 
