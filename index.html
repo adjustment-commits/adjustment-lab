@@ -7,6 +7,7 @@
 
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#f8faf9">
+
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -28,17 +29,17 @@ if ("serviceWorker" in navigator) {
 body {
   margin: 0;
   padding: 0;
-  min-height: 100vh; /* height → min-height に変更 */
+  min-height: 100vh;
   background: var(--bg);
   color: var(--text);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* 中央固定を解除して自然な流れに */
+  justify-content: flex-start;
   transition: background 0.8s ease, color 0.8s ease, filter 0.8s ease;
-  overflow-x: hidden; /* 横だけ隠す */
+  overflow-x: hidden;
 }
-  
+
 /* 背景グリッド */
 body::before {
   content: "";
@@ -63,14 +64,8 @@ body::before {
   50% { transform: translateY(-4px); }
 }
 
-/* ==== 修正: クリック要素を前面に出す ==== */
-#logo,
-h1,
-p,
-section,
-button,
-nav,
-footer {
+/* ==== 前面に出す ==== */
+#logo, h1, p, section, button, nav, footer {
   position: relative;
   z-index: 2;
 }
@@ -163,8 +158,6 @@ body.lab-mode button.toggle:hover {
   font-size: 0.95rem;
   color: #444;
   margin-bottom: 1.2em;
-}
-#intro p {
   transition: opacity 0.5s ease;
   opacity: 1;
 }
@@ -174,9 +167,7 @@ body.lab-mode button.toggle:hover {
 }
 
 /* labモード時のカラー変更 */
-body.lab-mode #intro p {
-  color: #ffffff; 
-}
+body.lab-mode #intro p { color: #ffffff; }
 
 /* Footer */
 footer {
@@ -214,7 +205,6 @@ footer a:hover { text-decoration: underline; }
     現場で培った再現性のあるメソッドを、<br>
     科学的に設計し競技パフォーマンスを高めます。
   </p><br>
-
   <p id="intro-lab" style="display:none;">
     トレーニング管理アプリとHTML教材を<br>開発・販売するデジタル開発拠点です。<br>
     「整【アジャストメント】」で生まれた理論を<br>学び、使える形に変換します。
@@ -229,10 +219,9 @@ footer a:hover { text-decoration: underline; }
 </nav>
 
 <footer>
-  <p>
-    <a href="./legal.html">販売・利用規約</a>｜
-    <a href="./contact/index.html">お問い合わせ</a>
-  </p>
+  <p><a href="./legal.html">販売・利用規約</a>｜
+  <a href="./contact/index.html">お問い合わせ</a><br>
+  <small>© 2025 adjustment-lab</small></p>
 </footer>
 
 <script>
@@ -245,14 +234,12 @@ let mode = 'seii';
 const introSeii = document.getElementById('intro-seii');
 const introLab = document.getElementById('intro-lab');
 
-/* ✅ 画像を事前読み込み */
 const preloadImages = ['./assets/logo-lab.png', './assets/logo-seii.png'];
 preloadImages.forEach(src => {
   const img = new Image();
   img.src = src;
 });
 
-/* ✅ フェード切り替え関数 */
 function fadeSwitch(hideEl, showEl) {
   hideEl.style.opacity = '0';
   hideEl.style.transform = 'translateY(8px)';
@@ -266,17 +253,15 @@ function fadeSwitch(hideEl, showEl) {
   }, 250);
 }
 
-/* ✅ ロゴ切り替えを即座に＋滑らかに */
 function switchLogo(newSrc) {
   logo.style.transition = 'opacity 0.2s ease';
   logo.style.opacity = '0';
   setTimeout(() => {
     logo.src = newSrc;
     logo.style.opacity = '1';
-  }, 80); // ← 150 → 80に短縮でレスポンス向上
+  }, 80);
 }
 
-/* ✅ トグル本体 */
 btn.addEventListener('click', () => {
   document.body.classList.toggle('lab-mode');
 
