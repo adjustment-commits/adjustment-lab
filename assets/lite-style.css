@@ -9,7 +9,11 @@
   transform: scale(1.02);
 }
 
-button.next {
+/* =============================
+   Buttons
+   ============================= */
+button.next,
+button.back {
   display: block;
   margin: 40px auto 0;
   background: none;
@@ -21,7 +25,9 @@ button.next {
   cursor: pointer;
   transition: 0.3s;
 }
-button.next:hover {
+
+button.next:hover,
+button.back:hover {
   background: var(--accent);
   color: #fff;
 }
