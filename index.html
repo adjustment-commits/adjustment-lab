@@ -172,7 +172,7 @@ footer a:hover { text-decoration: underline; }
 <button class="toggle" id="switchBtn">→ adjustment-labへ</button>
 
 <nav id="navLinks">
-  <a href="./adjustment/index.html">整を探る</a>
+  <a href="./adjustment/index.html">整【アジャストメント】を探る</a>
   <a href="./products/index.html">productsを見る</a>
 </nav>
 
@@ -194,27 +194,35 @@ let mode = 'seii';
 btn.addEventListener('click', () => {
   document.body.classList.toggle('lab-mode');
 
+  // モード切替
   if (mode === 'seii') {
     mode = 'lab';
     logo.src = './assets/logo-lab.png';
     title.textContent = 'adjustment-lab';
     desc.innerHTML = '再現性を科学し、現場へつなぐ。<br>整う思考を、デジタルで。';
     btn.textContent = '← 整【アジャストメント】へ';
-    navLinks.innerHTML = `
-      <a href="./lab/index.html">labを体験</a>
-      <a href="./products/index.html">productsを見る</a>`;
+
+    // aタグを直接操作（innerHTMLを使わない）
+    const links = navLinks.querySelectorAll('a');
+    links[0].textContent = 'labを体験';
+    links[0].setAttribute('href', './lab/index.html');
+    links[1].textContent = 'productsを見る';
+    links[1].setAttribute('href', './products/index.html');
+
   } else {
     mode = 'seii';
     logo.src = './assets/logo-seii.png';
     title.textContent = '整【アジャストメント】';
     desc.innerHTML = 'アスリート専門トレーナー。<br>動きを理解し、再現を設計する。';
     btn.textContent = '→ adjustment-labへ';
-    navLinks.innerHTML = `
-      <a href="./adjustment/index.html">整を探る</a>
-      <a href="./products/index.html">productsを見る</a>`;
+
+    const links = navLinks.querySelectorAll('a');
+    links[0].textContent = '整【アジャストメント】を探る';
+    links[0].setAttribute('href', './adjustment/index.html');
+    links[1].textContent = 'productsを見る';
+    links[1].setAttribute('href', './products/index.html');
   }
 });
 </script>
-
 </body>
 </html>
