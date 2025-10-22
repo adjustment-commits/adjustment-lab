@@ -170,6 +170,7 @@ body.lab-mode button.toggle:hover {
 }
 #intro p[style*="display: none"] {
   opacity: 0;
+  transform: translateY(8px);
 }
 
 /* labモード時のカラー変更 */
@@ -246,6 +247,19 @@ let mode = 'seii';
 const introSeii = document.getElementById('intro-seii');
 const introLab = document.getElementById('intro-lab');
 
+function fadeSwitch(hideEl, showEl) {
+  hideEl.style.opacity = '0';
+  hideEl.style.transform = 'translateY(8px)';
+  setTimeout(() => {
+    hideEl.style.display = 'none';
+    showEl.style.display = 'block';
+    setTimeout(() => {
+      showEl.style.opacity = '1';
+      showEl.style.transform = 'translateY(0)';
+    }, 50);
+  }, 300);
+}
+
 btn.addEventListener('click', () => {
   document.body.classList.toggle('lab-mode');
 
@@ -255,8 +269,7 @@ btn.addEventListener('click', () => {
     title.textContent = 'adjustment-lab';
     desc.innerHTML = '再現性を科学し、現場へつなぐ。<br>整う思考を、デジタルで。';
     btn.textContent = '← 整【アジャストメント】へ';
-    introSeii.style.display = 'none';
-    introLab.style.display = 'block';
+    fadeSwitch(introSeii, introLab);
 
     const links = navLinks.querySelectorAll('a');
     links[0].textContent = 'labを体験';
@@ -270,8 +283,7 @@ btn.addEventListener('click', () => {
     title.textContent = '整【アジャストメント】';
     desc.innerHTML = 'アスリート専門トレーナー。<br>動きを理解し、再現を設計する。';
     btn.textContent = '→ adjustment-labへ';
-    introSeii.style.display = 'block';
-    introLab.style.display = 'none';
+    fadeSwitch(introLab, introSeii);
 
     const links = navLinks.querySelectorAll('a');
     links[0].textContent = '整【アジャストメント】を探る';
