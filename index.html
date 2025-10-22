@@ -42,22 +42,27 @@ body {
 
 /* Background grid */
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0.4;
-  z-index: 0;
+  background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.25;
 }
 
-/* Logo */
+/* ロゴに軽い浮遊アニメーション */
 #logo {
-  width: 140px;
-  margin-bottom: 1.2em;
-  z-index: 2;
-  transition: opacity 0.8s ease;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* モード切替時のフェード */
+body {
+  transition: background 0.8s ease, color 0.8s ease, filter 0.8s ease;
+}
+body.lab-mode {
+  filter: brightness(1.1);
 }
 
 /* Title */
