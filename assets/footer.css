@@ -1,0 +1,14 @@
+.global-footer {
+  text-align: center;
+  padding: 24px 0 40px;
+  color: #777;
+  font-size: 0.85rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background: #f8faf9;
+  margin-top: 60px;
+}
+
+.global-footer span {
+  color: #00b386;
+  font-weight: 500;
+}
