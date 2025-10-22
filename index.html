@@ -164,6 +164,13 @@ body.lab-mode button.toggle:hover {
   color: #444;
   margin-bottom: 1.2em;
 }
+#intro p {
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+#intro p[style*="display: none"] {
+  opacity: 0;
+}
 
 /* labモード時のカラー変更 */
 body.lab-mode #intro p {
@@ -200,16 +207,20 @@ footer a:hover { text-decoration: underline; }
 
 <!-- 事業説明 -->
 <section id="intro">
-  <p>
-    <strong>|整【アジャストメント】|</strong><br>アスリート専門のパーソナルトレーニング・<br>チーム契約・測定サポートを行う<br>現場型サービスです。<br>
-    現場で培った再現性のあるメソッドを、<br>科学的に設計し競技パフォーマンスを高めます。
+  <p id="intro-seii">
+    <strong>|整【アジャストメント】|</strong><br>
+    アスリート専門のパーソナルトレーニング・<br>
+    チーム契約・測定サポートを行う<br>現場型サービスです。<br>
+    現場で培った再現性のあるメソッドを、<br>
+    科学的に設計し競技パフォーマンスを高めます。
   </p><br>
 
-  <p>
-   <strong>|adjustment-lab|</strong><br>トレーニング管理アプリとHTML教材を<br>開発・販売するデジタル開発拠点です。<br>
+  <p id="intro-lab" style="display:none;">
+    <strong>|adjustment-lab|</strong><br>
+    トレーニング管理アプリとHTML教材を<br>開発・販売するデジタル開発拠点です。<br>
     「整【アジャストメント】」で生まれた理論を<br>学び、使える形に変換します。
   </p>
-</section>  
+</section> 
 
 <button class="toggle" id="switchBtn">→ adjustment-labへ</button>
 
@@ -232,6 +243,8 @@ const title = document.getElementById('title');
 const desc = document.getElementById('desc');
 const navLinks = document.getElementById('navLinks');
 let mode = 'seii';
+const introSeii = document.getElementById('intro-seii');
+const introLab = document.getElementById('intro-lab');
 
 btn.addEventListener('click', () => {
   document.body.classList.toggle('lab-mode');
@@ -242,29 +255,29 @@ btn.addEventListener('click', () => {
     title.textContent = 'adjustment-lab';
     desc.innerHTML = '再現性を科学し、現場へつなぐ。<br>整う思考を、デジタルで。';
     btn.textContent = '← 整【アジャストメント】へ';
+    introSeii.style.display = 'none';
+    introLab.style.display = 'block';
 
     const links = navLinks.querySelectorAll('a');
-    if (links.length === 2) {
-      links[0].textContent = 'labを体験';
-      links[0].setAttribute('href', './lab/index.html');
-      links[1].textContent = 'productsを見る';
-      links[1].setAttribute('href', './products/index.html');
-    }
-
-  } else {
+    links[0].textContent = 'labを体験';
+    links[0].setAttribute('href', './lab/index.html');
+    links[1].textContent = 'productsを見る';
+    links[1].setAttribute('href', './products/index.html');
+  } 
+  else {
     mode = 'seii';
     logo.src = './assets/logo-seii.png';
     title.textContent = '整【アジャストメント】';
     desc.innerHTML = 'アスリート専門トレーナー。<br>動きを理解し、再現を設計する。';
     btn.textContent = '→ adjustment-labへ';
+    introSeii.style.display = 'block';
+    introLab.style.display = 'none';
 
     const links = navLinks.querySelectorAll('a');
-    if (links.length === 2) {
-      links[0].textContent = '整【アジャストメント】を探る';
-      links[0].setAttribute('href', './adjustment/index.html');
-      links[1].textContent = 'productsを見る';
-      links[1].setAttribute('href', './products/index.html');
-    }
+    links[0].textContent = '整【アジャストメント】を探る';
+    links[0].setAttribute('href', './adjustment/index.html');
+    links[1].textContent = 'productsを見る';
+    links[1].setAttribute('href', './products/index.html');
   }
 });
 </script>
