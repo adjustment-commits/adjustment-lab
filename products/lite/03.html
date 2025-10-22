@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LITE 03｜投手のための“力の順番”</title>
-
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#f8faf9">
 
@@ -14,6 +13,7 @@
   --text: #1a1a1a;
   --accent: #00b386;
   --sub: #555;
+  --line: rgba(0,0,0,0.06);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
@@ -22,90 +22,133 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.9;
-  padding-bottom: 60px;
 }
 
-/* Header */
-header {
+/* === Hero Section === */
+.hero {
+  background: #f3f7f5;
+  padding: 80px 20px 70px;
   text-align: center;
-  padding: 80px 20px 40px;
-}
-header h1 {
-  font-size: 1.9rem;
-  color: var(--accent);
-  margin-bottom: 0.4em;
-}
-header p.sub {
-  color: var(--sub);
-  font-size: 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
-/* Section */
+.hero-content {
+  display: inline-block;
+  background: #fff;
+  padding: 50px 40px 45px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  max-width: 850px;
+}
+
+.hero-content h1 {
+  font-size: 2.1rem;
+  color: var(--accent);
+  margin-bottom: 0.5em;
+  line-height: 1.4;
+}
+
+.hero-content p.sub {
+  font-size: 1.05rem;
+  color: var(--sub);
+}
+
+/* === Section === */
 section {
   max-width: 850px;
-  margin: 60px auto;
-  padding: 40px 30px;
+  margin: 70px auto;
+  padding: 45px 35px;
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
+
 section h2 {
   color: var(--accent);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 500;
   margin-bottom: 1em;
 }
+
 section p {
-  color: var(--text);
   font-size: 1rem;
+  margin-bottom: 1.2em;
 }
 
-/* CTA */
+/* === CTA === */
 .cta {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 16px;
   margin-top: 40px;
 }
+
 .cta button {
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
-  padding: 0.7em 1.6em;
+  padding: 0.7em 1.8em;
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s;
 }
+
 .cta button:hover {
   background: var(--accent);
   color: #fff;
 }
 
-/* Footer */
+/* === Footer === */
 footer {
   text-align: center;
-  color: var(--sub);
-  font-size: 0.9rem;
-  margin: 100px 0 40px;
+  color: #666;
+  font-size: 0.85rem;
+  margin: 80px 0 40px;
+  line-height: 1.6;
 }
+
 footer a {
-  color: var(--accent);
+  color: #00b386;
   text-decoration: none;
+  transition: 0.3s ease;
 }
+
 footer a:hover { text-decoration: underline; }
+
+footer small {
+  display: block;
+  margin-top: 6px;
+  color: #999;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 40px 25px;
+  }
+  .hero-content h1 {
+    font-size: 1.7rem;
+  }
+  .hero-content p.sub {
+    font-size: 0.95rem;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>LITE 03｜投手のための“力の順番”</h1>
-  <p class="sub">出力よりも、出力の「順番」を整える。</p>
-</header>
+<section class="hero">
+  <div class="hero-content">
+    <h1>LITE 03｜投手のための“力の順番”</h1>
+    <p class="sub">出力よりも、出力の「順番」を整える。</p>
+  </div>
+</section>
 
 <section>
-  <h2>力の順番が崩れると、投球は乱れる</h2>
+  <h2>1. 力の順番が崩れると、投球は乱れる</h2>
   <p>
     投手の投球フォームで最も重要なのは「どこから動き出すか」。<br>
     骨盤→胸郭→上肢の順に力が伝わることで、無理のない加速が生まれる。<br>
@@ -114,7 +157,7 @@ footer a:hover { text-decoration: underline; }
 </section>
 
 <section>
-  <h2>下半身の“先行”が上半身を解放する</h2>
+  <h2>2. 下半身の“先行”が上半身を解放する</h2>
   <p>
     力の流れを整えるためには、下半身主導の感覚が欠かせない。<br>
     股関節の内旋と骨盤の滑走が「トリガー」となり、<br>
@@ -124,7 +167,7 @@ footer a:hover { text-decoration: underline; }
 </section>
 
 <section>
-  <h2>整【アジャストメント】式トレーニング</h2>
+  <h2>3. 整【アジャストメント】式トレーニング</h2>
   <p>
     本教材では、ヒップイン・回内トリガー・内腹斜筋の連動を基軸に、<br>
     力の順番を再現するための基礎ドリルを収録。<br>
@@ -137,7 +180,6 @@ footer a:hover { text-decoration: underline; }
   </div>
 </section>
 
-<!-- ✅ LITE共通フッター -->
 <link rel="stylesheet" href="../../assets/footer-lite.css">
 <div id="footer"></div>
 
