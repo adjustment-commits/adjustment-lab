@@ -35,27 +35,10 @@ body {
   color: #fff;
 }
 
-.hero-slide {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  animation: slideShow 18s infinite;
-}
-.hero-slide:nth-child(1) { background-image: url('../assets/gallery/adjustment/manual.jpg'); animation-delay: 0s; }
-.hero-slide:nth-child(2) { background-image: url('../assets/gallery/adjustment/treadmill.jpg'); animation-delay: 6s; }
-.hero-slide:nth-child(3) { background-image: url('../assets/gallery/adjustment/field.jpg'); animation-delay: 12s; }
-
-@keyframes slideShow {
-  0%, 20% { opacity: 1; }
-  33%, 100% { opacity: 0; }
-}
-
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0,0,0,0.45);
   z-index: 1;
 }
 
@@ -64,11 +47,11 @@ body {
   z-index: 2;
 }
 
-.hero h1 {
+.hero-content h1 {
   font-size: 2.4rem;
   margin-bottom: 0.4em;
 }
-.hero p {
+.hero-content p {
   font-size: 1.1rem;
   margin-bottom: 1.5em;
 }
@@ -95,7 +78,7 @@ body {
 }
 
 /* --- Sections --- */
-section {
+section.content {
   max-width: 850px;
   margin: 80px auto;
   padding: 40px 30px;
@@ -103,12 +86,12 @@ section {
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.03);
 }
-section h2 {
+section.content h2 {
   color: var(--accent);
   font-weight: 500;
   margin-bottom: 1em;
 }
-section p {
+section.content p {
   color: var(--text);
   font-size: 1rem;
 }
@@ -146,21 +129,16 @@ footer a:hover {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .hero h1 { font-size: 1.8rem; }
-  .hero p { font-size: 0.95rem; }
+  .hero-content h1 { font-size: 1.8rem; }
+  .hero-content p { font-size: 0.95rem; }
 }
 </style>
 </head>
 
 <body>
 
-<section class="hero">
-  <div class="hero-slide"></div>
-  <div class="hero-slide"></div>
-  <div class="hero-slide"></div>
-  <div class="hero-overlay"></div>
-
 <section class="hero" id="hero">
+  <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1>整【アジャストメント】</h1>
     <p>野球選手・アスリート専門トレーナー</p>
@@ -173,9 +151,8 @@ footer a:hover {
 </section>
 
 <script>
+// スライドショー設定
 const hero = document.getElementById('hero');
-
-// スライドに使う画像リスト（必要なだけ追加OK）
 const slides = [
   "../assets/gallery/adjustment/manual.jpg",
   "../assets/gallery/adjustment/treadmill.jpg",
@@ -184,7 +161,7 @@ const slides = [
   "../assets/gallery/adjustment/rc-pitcher.jpg",
   "../assets/gallery/adjustment/rc-batter.jpg",
   "../assets/gallery/adjustment/cmj.jpg",
-  "../assets/gallery/adjustment/rc-sprint.jpg",
+  "../assets/gallery/adjustment/sprint.jpg",
   "../assets/gallery/adjustment/enode.jpg",
   "../assets/gallery/adjustment/rapsodo.jpg",
   "../assets/gallery/adjustment/sprint-time.jpg",
@@ -198,17 +175,17 @@ function changeBackground() {
   index = (index + 1) % slides.length;
 }
 changeBackground();
-setInterval(changeBackground, 4500); // 4.5秒ごとに切り替え
+setInterval(changeBackground, 4500);
 </script>
 
-<section>
+<section class="content">
   <h2>整えるとは、動きを理解すること。</h2>
   <p>「整【アジャストメント】」は、身体を“直す”場所ではなく、<br>
   動きを“再現する力”を取り戻す場所。<br>
   感覚・構造・出力を結び、再現性のあるパフォーマンスを設計します。</p>
 </section>
 
-<section>
+<section class="content">
   <h2>現場での実践</h2>
   <p>社会人野球チームやアスリート個人への帯同・サポートを実施。<br>
   動作分析、フィジカルトレーニング、再発防止設計まで一貫対応。</p>
@@ -219,7 +196,7 @@ setInterval(changeBackground, 4500); // 4.5秒ごとに切り替え
   </div>
 </section>
 
-<section style="text-align:center;">
+<section class="content" style="text-align:center;">
   <h2>あなたの現場を“整える”</h2>
   <p>チーム単位でも、個人単位でも。<br>
   現場から再現性を設計し、成長を加速させます。</p>
