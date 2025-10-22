@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>整【アジャストメント】 × adjustment-lab｜アスリート専門トレーナー</title>
+<title>整【アジャストメント】 × adjustment-lab</title>
 
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#f8faf9">
-
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -21,72 +20,65 @@ if ("serviceWorker" in navigator) {
   --bg: #f8faf9;
   --text: #1a1a1a;
   --accent: #00b386;
-  --gray: #666;
-  --green: #0b3d31;
+  --gray: #555;
   font-family: 'Noto Sans JP', sans-serif;
 }
 
 /* Base */
 body {
   margin: 0;
+  padding: 0;
+  height: 100vh;
   background: var(--bg);
   color: var(--text);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  text-align: center;
-  overflow-x: hidden;
-  transition: background 0.8s ease, color 0.8s ease;
+  overflow: hidden;
+  transition: background 0.8s ease, color 0.8s ease, filter 0.8s ease;
 }
 
-/* Background grid */
+/* 背景グリッド */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
-  background-size: 32px 32px;
-  opacity: 0.25;
+  background-image: linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.3;
   z-index: 0;
 }
 
-/* ロゴ */
+/* Logo */
 #logo {
-  width: 120px;
-  margin-bottom: 1.2em;
+  width: 140px;
+  margin-bottom: 1.4em;
   animation: float 4s ease-in-out infinite;
+  z-index: 2;
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-4px); }
 }
 
-/* Title */
+/* Title & Desc */
 h1 {
   font-size: 2rem;
-  margin: 0.2em 0 0.4em;
+  margin: 0.3em 0 0.4em;
+  text-align: center;
   letter-spacing: 0.03em;
 }
 p.desc {
   font-size: 1rem;
   color: var(--gray);
-  margin: 0 0 1.8em;
+  margin: 0 0 2em;
+  text-align: center;
   line-height: 1.8;
 }
 
-/* Catch */
-p.catch {
-  font-size: 1rem;
-  color: #333;
-  margin: 1.2em auto 2em;
-  line-height: 1.9;
-  max-width: 700px;
-}
-
-/* Toggle button */
+/* CTA Button */
 button.toggle {
   background: none;
   border: 1px solid var(--accent);
@@ -96,15 +88,15 @@ button.toggle {
   border-radius: 4px;
   cursor: pointer;
   transition: 0.3s ease;
+  margin-bottom: 1.5em;
 }
 button.toggle:hover {
   background: var(--accent);
   color: #fff;
 }
 
-/* CTA */
+/* Nav Buttons */
 nav {
-  margin-top: 2.2em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -115,7 +107,7 @@ nav a {
   color: var(--text);
   border: 1px solid var(--accent);
   border-radius: 4px;
-  padding: 0.5em 1.4em;
+  padding: 0.6em 1.4em;
   font-size: 0.95rem;
   transition: 0.3s ease;
 }
@@ -124,30 +116,20 @@ nav a:hover {
   color: #fff;
 }
 
-/* Intro */
-.intro {
-  max-width: 800px;
-  margin: 60px auto 0;
-  padding: 0 20px;
-  color: #444;
-  line-height: 1.9;
-}
-
 /* Lab mode */
 body.lab-mode {
-  background: var(--green);
+  background: #0b3d31;
   color: #f8faf9;
 }
 body.lab-mode h1 { color: var(--accent); }
-body.lab-mode p.desc { color: #9fffd4; }
-body.lab-mode p.catch { color: #ddffef; }
+body.lab-mode p.desc { color: #b7ffe2; }
 body.lab-mode nav a {
   border-color: #fff;
   color: #fff;
 }
 body.lab-mode nav a:hover {
   background: #fff;
-  color: var(--green);
+  color: #0b3d31;
 }
 body.lab-mode button.toggle {
   border-color: #fff;
@@ -155,7 +137,7 @@ body.lab-mode button.toggle {
 }
 body.lab-mode button.toggle:hover {
   background: #fff;
-  color: var(--green);
+  color: #0b3d31;
 }
 
 /* Footer */
@@ -175,74 +157,59 @@ footer a:hover { text-decoration: underline; }
 
 /* Responsive */
 @media (max-width: 768px) {
-  h1 { font-size: 1.7rem; }
-  p.desc, p.catch { font-size: 0.95rem; }
+  h1 { font-size: 1.6rem; }
+  p.desc { font-size: 0.9rem; }
   nav a { font-size: 0.85rem; padding: 0.45em 1.1em; }
 }
 </style>
 </head>
 
 <body>
-  <img id="logo" src="./assets/logo-seii.png" alt="整ロゴ">
-  <h1 id="title">整 - adjustment</h1>
-  <p id="desc" class="desc">動きを理解し、再現を設計する。</p>
+<img id="logo" src="./assets/logo-seii.png" alt="整ロゴ">
+<h1 id="title">整【アジャストメント】</h1>
+<p id="desc" class="desc">アスリート専門トレーナー。<br>動きを理解し、再現を設計する。</p>
 
-  <p class="catch" id="catch">
-    野球選手・アスリート専門トレーナー。<br>
-    「整【アジャストメント】 × adjustment-lab」は現場で結果を出す“再現性の設計所”です。
+<button class="toggle" id="switchBtn">→ adjustment-labへ</button>
+
+<nav id="navLinks">
+  <a href="./adjustment/index.html">整を探る</a>
+  <a href="./products/index.html">productsを見る</a>
+</nav>
+
+<footer>
+  <p>
+    <a href="./legal.html">販売・利用規約</a>｜
+    <a href="./contact/index.html">お問い合わせ</a>
   </p>
-
-  <button class="toggle" id="switchBtn">→ adjustment-labへ</button>
-
-  <nav id="navLinks">
-    <a href="./adjustment/index.html">整を探る</a>
-    <a href="./products/index.html">productsを見る</a>
-  </nav>
-
-  <section class="intro">
-    <p>
-      「整【アジャストメント】」では個人・チームの身体を整え、<br>
-      「lab」では動きと思考を再現性ある形に落とし込みます。<br>
-      現場に根ざしたトレーニングとデザインを提供しています。
-    </p>
-  </section>
-
-  <footer>
-    <p>
-      <a href="./legal.html">販売・利用規約</a>｜
-      <a href="./contact/index.html">お問い合わせ</a>
-    </p>
-  </footer>
+</footer>
 
 <script>
 const btn = document.getElementById('switchBtn');
 const logo = document.getElementById('logo');
 const title = document.getElementById('title');
 const desc = document.getElementById('desc');
-const catchText = document.getElementById('catch');
-const nav = document.getElementById('navLinks');
+const navLinks = document.getElementById('navLinks');
 let mode = 'seii';
 
 btn.addEventListener('click', () => {
   document.body.classList.toggle('lab-mode');
+
   if (mode === 'seii') {
     mode = 'lab';
     logo.src = './assets/logo-lab.png';
     title.textContent = 'adjustment-lab';
-    desc.textContent = '思考を形にし、再現を科学する。';
-    catchText.innerHTML = 'トレーニング×デザイン。<br>「adjustment-lab」は再現性を科学するプロジェクトベースのラボです。';
-    btn.textContent = '← 整 - adjustmentへ';
-    nav.innerHTML = `
+    desc.innerHTML = '再現性を科学し、現場へつなぐ。<br>整う思考を、デジタルで。';
+    btn.textContent = '← 整【アジャストメント】へ';
+    navLinks.innerHTML = `
       <a href="./lab/index.html">labを体験</a>
       <a href="./products/index.html">productsを見る</a>`;
   } else {
     mode = 'seii';
     logo.src = './assets/logo-seii.png';
-    title.textContent = '整 - adjustment';
-    desc.textContent = '動きを理解し、再現を設計する。';
-    catchText.innerHTML = '野球選手・アスリート専門トレーナー。<br>「整【アジャストメント】 × adjustment-lab」は現場で結果を出す“再現性の設計所”です。';
+    title.textContent = '整【アジャストメント】';
+    desc.innerHTML = 'アスリート専門トレーナー。<br>動きを理解し、再現を設計する。';
     btn.textContent = '→ adjustment-labへ';
-    nav.innerHTML = `
+    navLinks.innerHTML = `
       <a href="./adjustment/index.html">整を探る</a>
       <a href="./products/index.html">productsを見る</a>`;
   }
