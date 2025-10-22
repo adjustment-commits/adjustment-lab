@@ -1,0 +1,23 @@
+footer {
+  text-align: center;
+  color: #666;
+  font-size: 0.85rem;
+  margin: 80px 0 40px;
+  line-height: 1.6;
+}
+
+footer a {
+  color: #00b386;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer small {
+  display: block;
+  margin-top: 6px;
+  color: #999;
+}
