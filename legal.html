@@ -219,8 +219,25 @@ footer a:hover { text-decoration: underline; }
   </table>
 </section>
 
-<footer>
+<footer id="footer">
   <p><a href="./index.html">← トップへ戻る</a></p>
 </footer>
+
+<link rel="stylesheet" href="../assets/footer.css">
+
+<script>
+fetch("../assets/footer.html")
+  .then(response => response.text())
+  .then(data => {
+    // footer.html の中身を統合
+    document.getElementById("footer").insertAdjacentHTML("beforeend", data);
+
+    // ページタイトルの同期（footer.html に id="page-title" がある前提）
+    const pageTitle = document.title.replace("｜", " | ");
+    const titleElement = document.getElementById("page-title");
+    if (titleElement) titleElement.textContent = pageTitle;
+  });
+</script>
+  
 </body>
 </html>
