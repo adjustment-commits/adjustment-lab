@@ -172,21 +172,21 @@ footer a:hover { text-decoration: underline; }
 <!-- 事業説明 -->
 <section id="intro" style="text-align:center; max-width:720px; margin-bottom:2em; line-height:1.8;">
   <p style="font-size:0.95rem; color:#444; margin-bottom:0.6em;">
-    整【アジャストメント】は、<strong>アスリート専門のパーソナルトレーニング・チーム契約・測定サポート</strong>を行う現場型サービスです。<br>
-    現場で培った再現性のあるメソッドを、科学的に設計し、競技パフォーマンスを高めます。
-  </p>
+    整【アジャストメント】<br><strong>アスリート専門のパーソナルトレーニング・チーム契約・測定サポート</strong><br>を行う現場型サービスです。<br>
+    現場で培った再現性のあるメソッドを、<br>科学的に設計し競技パフォーマンスを高めます。
+  </p><br>
 
   <p style="font-size:0.95rem; color:#444;">
-    adjustment-labは、<strong>トレーニング管理アプリ</strong>と<strong>HTML教材</strong>を開発・販売するデジタル開発拠点です。<br>
-    「整」で生まれた理論を、誰もが学び・使える形に変換します。
+    adjustment-lab<br><strong>トレーニング管理アプリ</strong>と<strong>HTML教材</strong>を開発・販売するデジタル開発拠点です。<br>
+    「整【アジャストメント】」で生まれた理論を学び・使える形に変換します。
   </p>
 </section>  
 
 <button class="toggle" id="switchBtn">→ adjustment-labへ</button>
 
 <nav id="navLinks">
-  <a href="./adjustment/index.html">整【アジャストメント】を探る</a>
-  <a href="./products/index.html">productsを見る</a>
+  <a href="../adjustment/index.html">整【アジャストメント】を探る</a>
+  <a href="../products/index.html">productsを見る</a>
 </nav>
 
 <footer>
@@ -217,9 +217,9 @@ btn.addEventListener('click', () => {
     const links = navLinks.querySelectorAll('a');
     if (links.length === 2) {
       links[0].textContent = 'labを体験';
-      links[0].setAttribute('href', './lab/index.html');
+      links[0].setAttribute('href', '../lab/index.html');
       links[1].textContent = 'productsを見る';
-      links[1].setAttribute('href', './products/index.html');
+      links[1].setAttribute('href', '../products/index.html');
     }
 
   } else {
@@ -232,9 +232,9 @@ btn.addEventListener('click', () => {
     const links = navLinks.querySelectorAll('a');
     if (links.length === 2) {
       links[0].textContent = '整【アジャストメント】を探る';
-      links[0].setAttribute('href', './adjustment/index.html');
+      links[0].setAttribute('href', '../adjustment/index.html');
       links[1].textContent = 'productsを見る';
-      links[1].setAttribute('href', './products/index.html');
+      links[1].setAttribute('href', '../products/index.html');
     }
   }
 });
