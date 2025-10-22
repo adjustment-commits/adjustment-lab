@@ -24,20 +24,41 @@ body {
 
 /* --- Hero --- */
 .hero {
+  position: relative;
+  height: 70vh;
+  background: url('../assets/adjustment-hero.svg') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 100px 20px 60px;
-  background: linear-gradient(180deg, #ffffff 0%, #f3f9f7 100%);
+  color: #0b3d31;
+  overflow: hidden;
 }
-.hero h1 {
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.4);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content h1 {
   font-size: 2.2rem;
-  color: var(--accent);
-  margin-bottom: 0.3em;
+  margin-bottom: 0.4em;
+  color: #0b3d31;
 }
-.hero p.lead {
-  color: var(--sub);
+.hero-content p {
   font-size: 1.1rem;
-  margin-bottom: 2em;
+  color: #333;
+  margin-bottom: 1.6em;
 }
+
 .cta {
   display: flex;
   justify-content: center;
@@ -59,7 +80,7 @@ body {
   color: #fff;
 }
 
-/* --- Philosophy --- */
+/* --- Sections --- */
 section {
   max-width: 850px;
   margin: 80px auto;
@@ -112,12 +133,15 @@ footer a:hover {
 </head>
 
 <body>
+
   <section class="hero">
-    <h1>整 - adjustment</h1>
-    <p class="lead">野球選手・アスリート専門トレーナー<br>身体を“整える”から“再現する”へ。</p>
-    <div class="cta">
-      <button onclick="window.location.href='../contact/index.html'">パーソナル依頼</button>
-      <button onclick="window.location.href='../application/index.html'">チーム契約</button>
+    <div class="hero-content">
+      <h1>整 - adjustment</h1>
+      <p class="lead">野球選手・アスリート専門トレーナー<br>身体を“整える”から“再現する”へ。</p>
+      <div class="cta">
+        <button onclick="window.location.href='../contact/index.html'">パーソナル依頼</button>
+        <button onclick="window.location.href='../application/index.html'">チーム契約</button>
+      </div>
     </div>
   </section>
 
@@ -156,5 +180,6 @@ footer a:hover {
       <a href="../index.html">トップへ戻る</a>
     </p>
   </footer>
+
 </body>
 </html>
