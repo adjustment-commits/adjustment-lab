@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>adjustment-lab｜HTML構成ガイドライン</title>
+<meta name="theme-color" content="#f8faf9">
+<link rel="manifest" href="../manifest.json">
+<style>
+:root {
+  --bg: #f8faf9;
+  --text: #1a1a1a;
+  --accent: #00b386;
+  --sub: #555;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.9;
+  padding-bottom: 60px;
+}
+
+header {
+  background: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding: 60px 20px;
+  text-align: center;
+}
+header h1 {
+  color: var(--accent);
+  font-size: 1.8rem;
+  margin-bottom: 0.4em;
+}
+header p {
+  color: var(--sub);
+  font-size: 1rem;
+}
+
+section {
+  max-width: 880px;
+  margin: 50px auto;
+  padding: 40px 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+h2 {
+  color: var(--accent);
+  font-size: 1.2rem;
+  margin-bottom: 0.6em;
+  border-left: 4px solid var(--accent);
+  padding-left: 10px;
+}
+code, pre {
+  background: #f3f7f5;
+  color: #0d261f;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+}
+pre {
+  overflow-x: auto;
+  padding: 12px 16px;
+}
+ul {
+  text-align: left;
+  margin-left: 1.2em;
+}
+footer {
+  text-align: center;
+  color: var(--sub);
+  font-size: 0.85rem;
+  margin: 100px 0 40px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>adjustment-lab｜HTML構成ガイドライン</h1>
+  <p>全教材・製品ページを統一設計で構築するための基本ルール</p>
+</header>
+
+<section>
+  <h2>1. ディレクトリ構造</h2>
+  <pre><code>/products/
+│
+├── index.html          ← LITE＋STANDARD 全シリーズ一覧
+│
+├── lite/               ← LITE教材（買い切り）
+│    ├── index.html     ← A〜E ハブ（カウンセリング直結）
+│    ├── A.html
+│    ├── B.html
+│    ├── C.html
+│    ├── D.html
+│    └── E.html
+│
+└── standard/           ← STANDARD教材（記録・分析付き）
+     ├── index.html
+     └── A.html ... etc
+</code></pre>
+</section>
+
+<section>
+  <h2>2. 共通設定</h2>
+  <p>全ページに以下の設定を共通使用。</p>
+  <pre><code>&lt;link rel="manifest" href="../manifest.json"&gt;
+&lt;meta name="theme-color" content="#f8faf9"&gt;
+
+:root {
+  --bg: #f8faf9;
+  --text: #1a1a1a;
+  --accent: #00b386;
+  --sub: #666;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+</code></pre>
+
+  <p>フッターは共通ファイルを読み込み：</p>
+  <pre><code>&lt;link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css"&gt;
+&lt;div id="footer"&gt;&lt;/div&gt;
+&lt;script&gt;
+fetch("/adjustment-lab/assets/footer-lite.html")
+  .then(res =&gt; res.text())
+  .then(data =&gt; document.getElementById("footer").innerHTML = data);
+&lt;/script&gt;
+</code></pre>
+</section>
+
+<section>
+  <h2>3. ページ構成テンプレート</h2>
+  <ul>
+    <li><code>&lt;section class="hero"&gt;</code>：タイトル・サブテキスト</li>
+    <li><code>&lt;section&gt;</code>：理解パート・ドリルなど本文</li>
+    <li><code>&lt;section class="actions"&gt;</code>：購入導線・戻るボタン</li>
+    <li><code>&lt;footer&gt;</code>：共通読込</li>
+  </ul>
+  <p>各教材（A〜E・01〜05）はこの4ブロックを基礎構成とする。</p>
+</section>
+
+<section>
+  <h2>4. 導線ルール</h2>
+  <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+    <tr style="background:#f3f7f5;"><th align="left">From</th><th align="left">To</th><th align="left">内容</th></tr>
+    <tr><td>/products/index.html</td><td>/products/lite/index.html</td><td>▶ アスリート向けLITEを見る</td></tr>
+    <tr><td>/products/lite/index.html</td><td>/products/index.html</td><td>← LITEシリーズ全体へ戻る</td></tr>
+    <tr><td>/products/lite/index.html</td><td>/products/lite/A.html</td><td>各教材「詳細を見る」ボタン</td></tr>
+    <tr><td>/products/lite/A.html</td><td>/products/counseling/index.html</td><td>「カウンセリングに戻る」ボタン</td></tr>
+    <tr><td>/products/lite/A.html</td><td>外部ストア</td><td>LITE購入・STANDARDアップグレード</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>5. HTML生成時の指定文</h2>
+  <p>新規ページ生成時には、必ず以下を依頼文の冒頭に記載する：</p>
+  <pre><code>「既存構成（/products配下）を維持して、
+既存のmanifest・footer・色設定を共通利用する形で生成してください。」</code></pre>
+  <p>これによりChatGPTが新規フォルダを作らず、
+既存構造を前提としたHTMLを出力する。</p>
+</section>
+
+<section>
+  <h2>6. 補足メモ</h2>
+  <ul>
+    <li><strong>LITEシリーズ：</strong> 単体買い切り教材。A〜E、01〜05。</li>
+    <li><strong>STANDARDシリーズ：</strong> LITEの発展版（全10種目＋記録機能）。</li>
+    <li><strong>manifest.json：</strong> すべてのPWA設定を統合。</li>
+    <li><strong>footer-lite.html：</strong> ブランド統一のフッター。</li>
+    <li><strong>相対パス：</strong> ルート相対（/adjustment-lab/...）で統一。</li>
+  </ul>
+</section>
+
+<footer>
+  <p>© 2025 adjustment-lab｜HTML構成ガイドライン v1.0</p>
+</footer>
+
+</body>
+</html>
