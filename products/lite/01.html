@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>LITE 01｜アスリートに備えたい「体の基準」</title>
 <meta name="theme-color" content="#f8faf9">
 <link rel="stylesheet" href="./lite-style.css">
@@ -42,15 +42,14 @@ body {
 }
 
 .hero-content h1 {
-  font-size: clamp(1.5rem, 4vw, 2.2rem); /* 画面サイズで可変 */
+  font-size: clamp(1.6rem, 6vw, 2.4rem);
   color: var(--accent);
   margin-bottom: 0.6em;
   line-height: 1.4;
-  word-break: keep-all; /* 改行制御 */
+  word-break: keep-all;
 }
-
 .hero-content p {
-  font-size: 1rem;
+  font-size: clamp(0.95rem, 3.8vw, 1.05rem);
   color: var(--sub);
 }
 
