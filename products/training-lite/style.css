@@ -100,8 +100,7 @@ li {
   height: 16px;
   width: 0%;
   background: var(--accent);
-  border-radius: 10px;
-  transition: width 0.4s ease;
+  border-radius: 10px;transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 #progressText {
   color: var(--gray);
@@ -130,7 +129,6 @@ li {
 
 /* Footer */
 footer {
-  position: fixed;
   bottom: 0;
   width: 100%;
   background: #fff;
@@ -140,3 +138,21 @@ footer {
   border-top: 1px solid #ddd;
   padding: 12px 0;
 }
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+  header p {
+    font-size: 0.9rem;
+  }
+  section {
+    margin: 16px auto;
+    padding: 20px;
+  }
+  button {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+}
+
