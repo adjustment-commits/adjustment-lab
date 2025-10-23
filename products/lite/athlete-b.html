@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>LITE-B｜スプリント ― 速さは構造で作る</title>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#f8faf9">
@@ -42,15 +42,16 @@ body {
 }
 
 .hero-content h1 {
-  font-size: 2.2rem;
+  font-size: clamp(1.6rem, 6vw, 2.4rem);
   color: var(--accent);
-  margin-bottom: 0.5em;
+  margin-bottom: 0.6em;
   line-height: 1.4;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+  word-break: keep-all;
 }
 
 .hero-content p.sub {
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 3.8vw, 1.05rem);
   color: var(--sub);
 }
 
@@ -143,11 +144,13 @@ footer small {
   .hero-content {
     padding: 40px 25px;
   }
-  .hero-content h1 {
-    font-size: 1.7rem;
+   .gallery {
+    grid-template-columns: 1fr;
   }
-  .hero-content p.sub {
-    font-size: 0.95rem;
+}
+@media (max-width: 480px) {
+  .gallery img {
+    aspect-ratio: auto;
   }
 }
 </style>
