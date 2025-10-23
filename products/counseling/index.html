@@ -3,217 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LITE診断カウンセリング｜adjustment-lab</title>
-<meta name="theme-color" content="#f8faf9">
-<link rel="manifest" href="../../manifest.json">
-
-<style>
-:root {
-  --bg: #f8faf9;
-  --text: #1a1a1a;
-  --accent: #00b386;
-  --sub: #666;
-  font-family: 'Noto Sans JP', sans-serif;
-}
-body {
-  background: var(--bg);
-  color: var(--text);
-  margin: 0;
-  padding: 40px 20px 100px;
-  line-height: 1.8;
-}
-
-/* Header */
-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
-h1 {
-  color: var(--accent);
-  font-size: 1.8rem;
-  margin-bottom: 0.3em;
-}
-p.sub {
-  color: var(--sub);
-  font-size: 1rem;
-}
-
-/* Form */
-form {
-  max-width: 700px;
-  margin: 0 auto;
-  background: #fff;
-  padding: 40px 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-.question {
-  margin-bottom: 32px;
-}
-.question h2 {
-  font-size: 1.1rem;
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-label {
-  display: block;
-  margin: 6px 0;
-  cursor: pointer;
-}
-input[type="radio"] {
-  margin-right: 6px;
-}
-button {
-  display: block;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 0.7em 1.6em;
-  font-size: 1rem;
-  border-radius: 4px;
-  margin: 30px auto 0;
-  cursor: pointer;
-  transition: 0.3s;
-}
-button:hover {
-  opacity: 0.85;
-}
-
-/* Result */
-#result {
-  display: none;
-  max-width: 700px;
-  margin: 60px auto;
-  background: #fff;
-  padding: 40px 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  text-align: center;
-}
-#result h2 {
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-#result a {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: bold;
-}
-#result a:hover {
-  text-decoration: underline;
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  color: var(--sub);
-  font-size: 0.9rem;
-  margin-top: 100px;
-}
-footer a {
-  color: var(--accent);
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
-}
-</style>
+<title>カウンセリング｜adjustment-lab</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header>
-  <h1>LITE診断カウンセリング</h1>
-  <p class="sub">あなたに合った“整う教材”を見つけよう。</p>
+  <h1>adjustment-lab カウンセリング</h1>
+  <p>あなたに合ったトレーニング教材を5つの質問から提案します。</p>
 </header>
 
-<form id="counselingForm">
-  <div class="question">
-    <h2>① 得意分野を選んでください</h2>
-    <label><input type="radio" name="q1" value="power"> パワー・出力系（投手・スラッガー）</label>
-    <label><input type="radio" name="q1" value="mobility"> 柔軟・可動系（野手・俊敏系）</label>
-    <label><input type="radio" name="q1" value="stability"> 安定・再現系（守備・精度系）</label>
+<main>
+  <div class="card-container">
+
+    <!-- Q1 -->
+    <div class="card active" data-step="1">
+      <h2>① あなたの得意分野は？</h2>
+      <button class="option" data-value="投手">投手</button>
+      <button class="option" data-value="打者">打者</button>
+      <button class="option" data-value="走塁・守備">走塁・守備</button>
+      <button class="option" data-value="フィジカル">フィジカル（体づくり）</button>
+    </div>
+
+    <!-- Q2 -->
+    <div class="card" data-step="2">
+      <h2>② 現在どんな課題がありますか？</h2>
+      <button class="option" data-value="安定感がない">動きが安定しない</button>
+      <button class="option" data-value="出力不足">出力を上げたい</button>
+      <button class="option" data-value="柔軟性が足りない">柔軟性を高めたい</button>
+      <button class="option" data-value="疲労・回復">疲労が抜けにくい</button>
+    </div>
+
+    <!-- Q3 -->
+    <div class="card" data-step="3">
+      <h2>③ 今、必要だと感じているのは？</h2>
+      <button class="option" data-value="姿勢">姿勢や基準の整え</button>
+      <button class="option" data-value="出力">出力やスピード</button>
+      <button class="option" data-value="リズム">リズムや反応</button>
+      <button class="option" data-value="呼吸">呼吸・回復</button>
+    </div>
+
+    <!-- Q4 -->
+    <div class="card" data-step="4">
+      <h2>④ 理想の状態に一番近いのは？</h2>
+      <button class="option" data-value="再現性">毎回同じ動きを再現できる</button>
+      <button class="option" data-value="爆発力">一瞬で最大出力を出せる</button>
+      <button class="option" data-value="しなやかさ">軽く速く動ける</button>
+      <button class="option" data-value="疲れにくい">疲れずに続けられる</button>
+    </div>
+
+    <!-- Q5 -->
+    <div class="card" data-step="5">
+      <h2>⑤ どんなサポートを希望しますか？</h2>
+      <button class="option" data-value="自分で学びたい">教材で学びたい（LITE）</button>
+      <button class="option" data-value="記録したい">トレーニング記録もつけたい（STANDARD）</button>
+      <button class="option" data-value="個別に相談したい">オンライン or 対面セッション</button>
+    </div>
+
+    <!-- 結果画面 -->
+    <div class="card result-card" data-step="6">
+      <h2>あなたにおすすめの教材は…</h2>
+      <p id="resultText">診断中...</p>
+      <button id="goToLite">▶ LITE教材を見に行く</button>
+      <button id="restart">もう一度診断する</button>
+    </div>
+
   </div>
-
-  <div class="question">
-    <h2>② 現在の課題に近いものを選んでください</h2>
-    <label><input type="radio" name="q2" value="posture"> 姿勢やバランスの崩れ</label>
-    <label><input type="radio" name="q2" value="sequence"> 力の伝わり方が不安定</label>
-    <label><input type="radio" name="q2" value="sprint"> 動き出しや反応が遅い</label>
-  </div>
-
-  <div class="question">
-    <h2>③ どんな要素を強化したいですか？</h2>
-    <label><input type="radio" name="q3" value="breath"> 呼吸や軸の整え</label>
-    <label><input type="radio" name="q3" value="hipin"> 下半身主導の連動</label>
-    <label><input type="radio" name="q3" value="conditioning"> 回復・コンディショニング</label>
-  </div>
-
-  <div class="question">
-    <h2>④ あなたの目指すプレー像に近いものを選んでください</h2>
-    <label><input type="radio" name="q4" value="pitcher"> 投手として安定した出力を出したい</label>
-    <label><input type="radio" name="q4" value="fielder"> 野手として動き出しを鋭くしたい</label>
-    <label><input type="radio" name="q4" value="allround"> 全体的に動きを整えたい</label>
-  </div>
-
-  <div class="question">
-    <h2>⑤ 現在のトレーニング環境を教えてください</h2>
-    <label><input type="radio" name="q5" value="home"> 自宅中心（道具少なめ）</label>
-    <label><input type="radio" name="q5" value="gym"> ジム・屋内環境あり</label>
-    <label><input type="radio" name="q5" value="team"> チーム練習と併用している</label>
-  </div>
-
-  <button type="button" onclick="showResult()">診断結果を見る</button>
-</form>
-
-<div id="result"></div>
+</main>
 
 <footer>
-  <p><a href="../../index.html">← トップページへ戻る</a></p>
+  <p>© 2025 adjustment-lab｜Counseling System</p>
 </footer>
 
-<script>
-function showResult() {
-  const q1 = document.querySelector('input[name="q1"]:checked');
-  const q2 = document.querySelector('input[name="q2"]:checked');
-  const q3 = document.querySelector('input[name="q3"]:checked');
-  const q4 = document.querySelector('input[name="q4"]:checked');
-  const q5 = document.querySelector('input[name="q5"]:checked');
-
-  if (!q1 || !q2 || !q3 || !q4 || !q5) {
-    alert("すべての質問に回答してください。");
-    return;
-  }
-
-  let recommendation = "";
-
-  if (q2.value === "posture") recommendation = "LITE 02｜野球選手に共通する“整う姿勢”";
-  else if (q2.value === "sequence") recommendation = "LITE 03｜投手のための“力の順番”";
-  else if (q2.value === "sprint") recommendation = "LITE B｜スプリント ― 滑走するスピード";
-  else if (q3.value === "hipin") recommendation = "LITE 04｜動きを“感じる”ヒップイン入門";
-  else if (q3.value === "breath") recommendation = "LITE 05｜再現性を生む“呼吸”の整え方";
-  else if (q3.value === "conditioning") recommendation = "LITE E｜コンディショニング ― 回復をデザインする";
-  else recommendation = "LITE A｜アスリートに備えたい“体の基準”";
-
-  const linkMap = {
-    "LITE 02｜野球選手に共通する“整う姿勢”": "../lite/02.html",
-    "LITE 03｜投手のための“力の順番”": "../lite/03.html",
-    "LITE 04｜動きを“感じる”ヒップイン入門": "../lite/04.html",
-    "LITE 05｜再現性を生む“呼吸”の整え方": "../lite/05.html",
-    "LITE B｜スプリント ― 滑走するスピード": "../lite/athlete-b.html",
-    "LITE E｜コンディショニング ― 回復をデザインする": "../lite/athlete-e.html",
-    "LITE A｜アスリートに備えたい“体の基準”": "../lite/athlete-a.html"
-  };
-
-  const resultDiv = document.getElementById("result");
-  resultDiv.innerHTML = `
-    <h2>あなたにおすすめの教材は</h2>
-    <p><a href="${linkMap[recommendation]}">${recommendation}</a></p>
-  `;
-  resultDiv.style.display = "block";
-  resultDiv.scrollIntoView({ behavior: "smooth" });
-}
-</script>
-
+<script src="main.js"></script>
 </body>
 </html>
