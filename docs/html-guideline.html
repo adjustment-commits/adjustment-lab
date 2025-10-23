@@ -119,25 +119,15 @@ footer {
   font-family: 'Noto Sans JP', sans-serif;
 }
 </code></pre>
-  <p>全ページで共通のフッターを読み込む：</p>
-<pre><code>&lt;link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css"&gt;
+
+  <p>フッターは共通ファイルを読み込み：</p>
+  <pre><code>&lt;link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css"&gt;
 &lt;div id="footer"&gt;&lt;/div&gt;
 &lt;script&gt;
 fetch("/adjustment-lab/assets/footer-lite.html")
   .then(res =&gt; res.text())
   .then(data =&gt; document.getElementById("footer").innerHTML = data);
 &lt;/script&gt;
-</code></pre>
-  
-  <p>SNSリンクはフッターに統一挿入：</p>
-<pre><code>&lt;div class="sns-links"&gt;
-  &lt;a href="https://www.instagram.com/hrsnsmt.15" target="_blank"&gt;
-    &lt;img src="/adjustment-lab/assets/icons/instagram.svg" alt="Instagram"&gt;
-  &lt;/a&gt;
-  &lt;a href="https://www.threads.net/@hrsnsmt.15" target="_blank"&gt;
-    &lt;img src="/adjustment-lab/assets/icons/threads.svg" alt="Threads"&gt;
-  &lt;/a&gt;
-&lt;/div&gt;
 </code></pre>
 </section>
 
@@ -149,7 +139,6 @@ fetch("/adjustment-lab/assets/footer-lite.html")
     <li><code>&lt;section class="actions"&gt;</code>：購入導線・戻るボタン</li>
     <li><code>&lt;footer&gt;</code>：共通読込</li>
   </ul>
-  <p>各教材（A〜E・01〜05）はこの4ブロックを基礎構成とする。</p>
 </section>
 
 <section>
@@ -169,8 +158,6 @@ fetch("/adjustment-lab/assets/footer-lite.html")
   <p>新規ページ生成時には、必ず以下を依頼文の冒頭に記載する：</p>
   <pre><code>「既存構成（/products配下）を維持して、
 既存のmanifest・footer・色設定を共通利用する形で生成してください。」</code></pre>
-  <p>これによりChatGPTが新規フォルダを作らず、
-既存構造を前提としたHTMLを出力する。</p>
 </section>
 
 <section>
@@ -184,8 +171,51 @@ fetch("/adjustment-lab/assets/footer-lite.html")
   </ul>
 </section>
 
+<section>
+  <h2>7. フッター仕様（SNSリンク含む）</h2>
+  <p>全ページで共通のフッターを読み込み、SNSリンクを統一配置：</p>
+  <pre><code>&lt;footer&gt;
+  &lt;p&gt;
+    © 2025 adjustment-lab&lt;br&gt;
+    &lt;a href="/adjustment-lab/legal.html"&gt;販売・利用規約&lt;/a&gt;｜
+    &lt;a href="/adjustment-lab/contact/index.html"&gt;お問い合わせ&lt;/a&gt;&lt;br&gt;
+    &lt;small&gt;Produced by 整【アジャストメント】&lt;/small&gt;
+  &lt;/p&gt;
+
+  &lt;div class="sns-links"&gt;
+    &lt;a href="https://www.instagram.com/hrsnsmt.15" target="_blank"&gt;
+      &lt;img src="/adjustment-lab/assets/icons/instagram.svg" alt="Instagram"&gt;
+    &lt;/a&gt;
+    &lt;a href="https://www.threads.net/@hrsnsmt.15" target="_blank"&gt;
+      &lt;img src="/adjustment-lab/assets/icons/threads.svg" alt="Threads"&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;
+</code></pre>
+
+  <p>CSS設定：</p>
+  <pre><code>.sns-links {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+.sns-links img {
+  width: 22px;
+  height: 22px;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: 0.3s ease;
+}
+.sns-links img:hover {
+  filter: none;
+  opacity: 1;
+  transform: scale(1.08);
+}</code></pre>
+</section>
+
 <footer>
-  <p>© 2025 adjustment-lab｜HTML構成ガイドライン v1.0</p>
+  <p>© 2025 adjustment-lab｜HTML構成ガイドライン <strong>v1.1</strong></p>
 </footer>
 
 </body>
