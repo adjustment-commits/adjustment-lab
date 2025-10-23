@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>LITE 02｜野球選手に共通する“整う姿勢”</title>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#f8faf9">
@@ -42,17 +42,19 @@ body {
 }
 
 .hero-content h1 {
-  font-size: 2.1rem;
+  font-size: clamp(1.6rem, 6vw, 2.4rem);
   color: var(--accent);
-  margin-bottom: 0.5em;
+  margin-bottom: 0.6em;
   line-height: 1.4;
+  word-break: keep-all;
+  letter-spacing: 0.03em; /* これを入れると視認性UP */
 }
 
 .hero-content p.sub {
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 3.8vw, 1.05rem);
   color: var(--sub);
 }
-
+  
 /* === Section === */
 section {
   max-width: 850px;
