@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>LITE-E｜コンディショニング ― 回復をデザインする</title>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#f8faf9">
@@ -143,11 +143,13 @@ footer small {
   .hero-content {
     padding: 40px 25px;
   }
-  .hero-content h1 {
-    font-size: 1.7rem;
+  .gallery {
+    grid-template-columns: 1fr;
   }
-  .hero-content p.sub {
-    font-size: 0.95rem;
+}
+@media (max-width: 480px) {
+  .gallery img {
+    aspect-ratio: auto;
   }
 }
 </style>
