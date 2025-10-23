@@ -4,7 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>カウンセリング｜adjustment-lab</title>
+
 <link rel="stylesheet" href="style.css">
+<!-- ✅ PWA設定 -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00b386">
+<link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Counseling">
+
 </head>
 
 <body>
@@ -77,5 +87,15 @@
 </footer>
 
 <script src="main.js"></script>
+
+<!-- ✅ Service Worker登録 -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log('Service Worker registered'));
+  });
+}
+
 </body>
 </html>
