@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>LITE 05｜再現性を生む“呼吸”の整え方</title>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#f8faf9">
@@ -43,14 +43,16 @@ body {
 }
 
 .hero-content h1 {
-  font-size: 2rem;
+  font-size: clamp(1.6rem, 6vw, 2.4rem);
   color: var(--accent);
-  margin-bottom: 0.5em;
+  margin-bottom: 0.6em;
   line-height: 1.4;
+  word-break: keep-all;
+  letter-spacing: 0.03em;
 }
 
 .hero-content p {
-  font-size: 1rem;
+  font-size: clamp(0.95rem, 3.8vw, 1.05rem);
   color: var(--sub);
 }
 
@@ -149,13 +151,7 @@ footer a:hover {
   .hero-content {
     padding: 40px 25px;
   }
-  .hero-content h1 {
-    font-size: 1.7rem;
-  }
-  .hero-content p {
-    font-size: 0.95rem;
-  }
-}
+ 
 </style>
 </head>
 
