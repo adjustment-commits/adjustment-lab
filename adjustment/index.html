@@ -218,6 +218,32 @@ setInterval(changeBackground, 4500);
   </div>
 </section>
 
+<!-- ===== ホームへ戻るボタン ===== -->
+<div class="back-home">
+  <button onclick="window.location.href='/adjustment-lab/index.html'">← ホームへ戻る</button>
+</div>
+
+<style>
+.back-home {
+  text-align: center;
+  margin: 80px 0 40px;
+}
+.back-home button {
+  background: none;
+  border: 1px solid #00b386;
+  color: #00b386;
+  padding: 0.7em 1.6em;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.back-home button:hover {
+  background: #00b386;
+  color: #fff;
+}
+</style>
+  
 <!-- ===== 共通フッター ===== -->
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 <div id="footer"></div>
