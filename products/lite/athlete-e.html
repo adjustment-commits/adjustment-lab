@@ -169,8 +169,8 @@ footer small {
 
 <section class="hero">
   <div class="hero-content">
-    <h1>LITE-E｜コンディショニング ― 回復をデザインする</h1>
-    <p class="sub">「休めば良い」ではなく「整えるための休息」へ。</p>
+    <h1>LITE-E｜<br>コンディショニング<br> ― 回復をデザインする</h1>
+    <p class="sub">「休めば良い」ではなく<br>「整えるための休息」へ。</p>
   </div>
 </section>
 
@@ -187,9 +187,9 @@ footer small {
 
 <section>
   <h2>2. 「休む」ではなく「戻す」</h2>
-  <p>ただ休むだけでは、動きの再現性は戻らない。<br>
-  呼吸、骨盤、胸郭を正しいリズムで動かし、<br>
-  出力前の基準状態（ゼロポジション）に戻すことで、再現性は蘇る。</p>
+  <p>ただ休むだけでは動きの再現性は戻らない。<br>
+  呼吸、骨盤、胸郭を正しいリズムで動かし、
+  出力前の基準状態（ゼロポジション）に戻すことで再現性は蘇る。</p>
   <div class="gallery">
     <img src="../assets/gallery/adjustment/treadmill.jpg" alt="整う歩行ドリル">
     <img src="../assets/gallery/adjustment/field.jpg" alt="回復系アクティブトレーニング">
@@ -197,7 +197,7 @@ footer small {
 </section>
 
 <section>
-  <h2>3. コンディショニングとは「次への準備」</h2>
+  <h2>3. コンディショニングとは<br>「次への準備」</h2>
   <p>身体を休ませながら、次の出力に備える。<br>
   そのためには、“休む構造”と“出す構造”を切り替える能力が鍵となる。<br>
   「動ける休息」を設計できる者が、長期で戦える。</p>
@@ -207,15 +207,28 @@ footer small {
 </section>
 
 <div class="cta">
-  <button onclick="window.location.href='../standard/01.html'">対応する10種目を見る</button>
+  <button onclick="window.location.href='/lite/E.html'">対応する10種目を見る</button>
   <button onclick="window.location.href='../index.html'">← LITE一覧へ戻る</button>
 </div>
 
+<main>
+<section class="actions">
+    <h2>購入・アップグレード</h2>
+    <button class="buy-btn" onclick="window.open('https://adjustment-commits.github.io/store/liteE.html', '_blank')">
+      🔰 LITE版を購入（¥5,000）
+    </button>
+    <button class="upgrade-btn" onclick="window.open('https://adjustment-commits.github.io/store/standard01.html', '_blank')">
+      🚀 STANDARD版にアップグレード（記録・分析付き）
+    </button>
+    <button class="back-btn" onclick="window.location.href='../counseling/index.html'">◀ カウンセリングに戻る</button>
+  </section>
+</main>
+  
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 <div id="footer"></div>
 
 <script>
- fetch("/adjustment-lab/assets/footer-lite.html")
+  fetch("/adjustment-lab/assets/footer-lite.html")
     .then(response => response.text())
     .then(data => {
       document.getElementById("footer").innerHTML = data;
