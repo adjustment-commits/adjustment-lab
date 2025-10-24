@@ -214,7 +214,31 @@ footer a:hover { text-decoration: underline; }
     トレーニング管理アプリとHTML教材を<br>開発・販売するデジタル開発拠点です。<br>
     「整【アジャストメント】」で生まれた理論を<br>学び、使える形に変換します。
   </p>
-</section> 
+</section>
+
+<section id="purpose-lab" style="display:none; text-align:center; max-width:700px; margin-top:40px; line-height:1.8;">
+  <p style="font-size:0.95rem; color:#555; margin-top:12px;">
+  現場に行かなくても、あなたの思考とトレーニングをアップデートできる。<br>
+  すべての教材と設計は、実際のアスリート支援から生まれています。
+</p>
+  <p style="font-size:1rem; color:#333;">
+    あなたの努力を、再現できる構造に変える。<br>
+    <span style="color:#00b386; font-weight:500;">adjustment-lab</span>は、<br>
+    現場の思考をそのまま形にした「使える教材とトレーニング設計」です。
+  </p>
+  <button style="
+    background:#00b386;
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    padding:0.7em 1.6em;
+    margin-top:18px;
+    font-size:1rem;
+    cursor:pointer;
+  " onclick="window.location.href='./products/index.html'">
+    商品一覧を見る
+  </button>
+</section>
 
 <button class="toggle" id="switchBtn">→ adjustment-labへ</button>
 
@@ -234,6 +258,7 @@ const logo = document.getElementById('logo');
 const title = document.getElementById('title');
 const desc = document.getElementById('desc');
 const navLinks = document.getElementById('navLinks');
+const purposeLab = document.getElementById('purpose-lab');
 let mode = 'seii';
 const introSeii = document.getElementById('intro-seii');
 const introLab = document.getElementById('intro-lab');
@@ -277,6 +302,11 @@ btn.addEventListener('click', () => {
     btn.textContent = '← 整【アジャストメント】へ';
     fadeSwitch(introSeii, introLab);
 
+    // lab専用セクションをフェードイン
+    purposeLab.style.display = 'block';
+    purposeLab.style.opacity = '0';
+    setTimeout(() => (purposeLab.style.opacity = '1'), 200);
+
     const links = navLinks.querySelectorAll('a');
     links[0].textContent = 'labを体験';
     links[0].setAttribute('href', './lab/index.html');
@@ -288,11 +318,15 @@ btn.addEventListener('click', () => {
     btn.textContent = '→ adjustment-labへ';
     fadeSwitch(introLab, introSeii);
 
+    // labセクションを非表示
+    purposeLab.style.display = 'none';
+
     const links = navLinks.querySelectorAll('a');
     links[0].textContent = '整【アジャストメント】を探る';
     links[0].setAttribute('href', './adjustment/index.html');
   }
 });
 </script>
+  
 </body>
 </html>
