@@ -214,7 +214,7 @@ footer a:hover {
 </section>
 
 <div class="cta">
-  <button onclick="window.location.href='../standard/04.html'">対応する10種目を見る</button>
+  <button onclick="window.location.href='/lite/D.html'">対応する10種目を見る</button>
   <button onclick="window.location.href='../index.html'">← LITE一覧へ戻る</button>
 </div>
 </section>
@@ -222,7 +222,7 @@ footer a:hover {
 <main>
   <section class="actions">
     <h2>購入・アップグレード</h2>
-    <button class="buy-btn" onclick="window.open('https://adjustment-commits.github.io/store/lite01.html', '_blank')">
+    <button class="buy-btn" onclick="window.open('https://adjustment-commits.github.io/store/liteD.html', '_blank')">
       🔰 LITE版を購入（¥5,000）
     </button>
     <button class="upgrade-btn" onclick="window.open('https://adjustment-commits.github.io/store/standard01.html', '_blank')">
@@ -232,23 +232,11 @@ footer a:hover {
   </section>
 </main>
 
-<!-- ===== 共通フッター ===== -->
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 <div id="footer"></div>
 
 <script>
-fetch("/adjustment-lab/assets/footer-lite.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("footer").innerHTML = data;
-    });
-</script>
-
-</body>
-</html>
-
-<script>
-  fetch("/adjustment-lab/assets/footer-lite.html")
+ fetch("/adjustment-lab/assets/footer-lite.html")
     .then(response => response.text())
     .then(data => {
       document.getElementById("footer").innerHTML = data;
