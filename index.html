@@ -7,10 +7,14 @@
 
 <link rel="manifest" href="./manifest.json">
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
-<script>
-fetch("/adjustment-lab/assets/footer-lite.html")
+
+
 <meta name="theme-color" content="#f8faf9">
+
+<script>
+fetch("/adjustment-lab/assets/footer-lite.html");
 </script>
+  
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -83,14 +87,13 @@ h1 {
   letter-spacing: 0.03em;
 }
 p.desc {
-  font-size: 1rem;
-  color: #222;
-  text-transform: uppercase;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  padding-bottom: 1em;
-  margin-bottom: 2.5em;
+  color: #333; /* 通常モード：暗めのグレー */
+  transition: color 0.3s ease;
+}
+
+/* labモード時は白に */
+body.lab-mode p.desc {
+  color: #e5fff3; /* 明るい緑がかった白 */
 }
 
 /* CTA Button */
@@ -204,10 +207,10 @@ footer a:hover { text-decoration: underline; }
 <img id="logo" src="./assets/logo-seii.svg" alt="整ロゴ">
 <h1 id="title">整【アジャストメント】</h1>
 
- <p class="desc" style="font-size:1rem; color:#333;">
-Structural design<br>for tough athletes.
-</p> 
-
+<p id="desc" class="desc" style="font-size:1rem;">
+  Structural design<br>for tough athletes.
+</p>
+  
 <!-- 事業説明 -->
 <section id="intro">
   <p id="intro-seii">
