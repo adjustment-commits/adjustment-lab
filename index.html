@@ -219,8 +219,7 @@ footer a:hover { text-decoration: underline; }
 <button class="toggle" id="switchBtn">→ adjustment-labへ</button>
 
 <nav id="navLinks">
-  <a href="./adjustment/index.html">動きの設計図を覗く</a>
-  <a href="./products/index.html">productsを見る</a>
+  <a href="./adjustment/index.html">整【アジャストメント】を探る</a>
 </nav>
 
 <footer>
@@ -280,8 +279,7 @@ btn.addEventListener('click', () => {
 
     const links = navLinks.querySelectorAll('a');
     links[0].textContent = 'labを体験';
-    links[0].setAttribute('href', './lab/index.html');
-    links[1].textContent = 'productsを見る';
+    links[0].setAttribute('href', './lab/index.html');見る';
   } else {
     mode = 'seii';
     switchLogo('./assets/logo-seii.png');
@@ -293,7 +291,6 @@ btn.addEventListener('click', () => {
     const links = navLinks.querySelectorAll('a');
     links[0].textContent = '整【アジャストメント】を探る';
     links[0].setAttribute('href', './adjustment/index.html');
-    links[1].textContent = 'productsを見る';
   }
 });
 </script>
