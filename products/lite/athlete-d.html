@@ -106,23 +106,41 @@ section p {
   transform: scale(1.02);
 }
 
-/* === CTA === */
-button.back {
-  display: block;
-  margin: 70px auto 0;
+.cta {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 60px auto 80px; /* ← 各ページで統一 */
+  text-align: center;
+}
+
+.cta button {
   background: none;
   border: 1px solid var(--accent);
   color: var(--accent);
-  padding: 0.7em 1.8em;
+  padding: 0.7em 1.6em;
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease;
+  min-width: 180px; /* ← 幅を統一してズレ防止 */
 }
 
-button.back:hover {
+.cta button:hover {
   background: var(--accent);
   color: #fff;
+}
+
+@media (max-width: 600px) {
+  .cta {
+    flex-direction: column;
+    gap: 12px;
+    margin: 40px auto 60px;
+  }
+  .cta button {
+    width: 80%;
+    margin: 0 auto;
+  }
 }
 
 /* === Footer === */
