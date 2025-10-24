@@ -58,9 +58,10 @@ body::before {
 /* Logo */
 #logo {
   width: 140px;
-  margin-top: 40px;       /* ← 上部に余白を追加 */
-  margin-bottom: 1.6em;   /* ← 下の間隔も微調整 */
+  margin-top: 40px;
+  margin-bottom: 1.6em;
   animation: float 4s ease-in-out infinite;
+  transition: margin 0.5s ease;  /* ← 切り替え時のなめらかさ */
   z-index: 2;
 }
 @keyframes float {
