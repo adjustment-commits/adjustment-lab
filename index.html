@@ -220,7 +220,7 @@ footer a:hover { text-decoration: underline; }
 </head>
 
 <body>
-  <img id="logo" src="./assets/logo-seii.png" alt="整ロゴ">
+  <img id="logo" src="./assets/logo-sei.png" alt="整ロゴ">
   <h1 id="title">整【アジャストメント】</h1>
 
   <p id="desc" class="desc">
@@ -230,7 +230,7 @@ footer a:hover { text-decoration: underline; }
   <!-- ===== メインコンテンツ ===== -->
   <main>
     <section id="intro">
-      <p id="intro-seii">
+      <p id="intro-sei">
         アスリート専門の<br>
         パーソナルトレーニング、<br>
         チーム契約・測定サポートを<br>
@@ -305,10 +305,10 @@ footer a:hover { text-decoration: underline; }
   const introSeii = document.getElementById('intro-seii');
   const introLab = document.getElementById('intro-lab');
 
-  let mode = 'seii';
+  let mode = 'sei';
 
   // 画像を事前読み込み
-  const preloadImages = ['./assets/logo-lab.svg', './assets/logo-seii.svg'];
+  const preloadImages = ['./assets/logo-lab.png', './assets/logo-sei.svg'];
   preloadImages.forEach(src => {
     const img = new Image();
     img.src = src;
@@ -346,9 +346,9 @@ footer a:hover { text-decoration: underline; }
     setTimeout(() => {
       if (mode === 'seii') {
         mode = 'lab';
-        switchLogo('./assets/logo-lab.svg');
+        switchLogo('./assets/logo-lab.png');
         title.textContent = 'adjustment-lab';
-        desc.innerHTML = '再現性を科学し、現場へつなぐ。<br>整う思考を、デジタルで。';
+        desc.innerHTML = '再現性を科学し現場へつなぐ。<br>整う思考をデジタルで。';
         btn.textContent = '← 整【アジャストメント】へ';
         fadeSwitch(introSeii, introLab);
 
@@ -358,8 +358,8 @@ footer a:hover { text-decoration: underline; }
         links[0].textContent = 'labを体験';
         links[0].setAttribute('href', './lab/index.html');
       } else {
-        mode = 'seii';
-        switchLogo('./assets/logo-seii.svg');
+        mode = 'sei';
+        switchLogo('./assets/logo-sei.svg');
         title.textContent = '整【アジャストメント】';
         desc.innerHTML = 'Structural design<br>for tough athletes.';
         btn.textContent = '→ adjustment-labへ';
