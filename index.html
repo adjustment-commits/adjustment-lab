@@ -297,13 +297,13 @@ footer a:hover { text-decoration: underline; }
 
   <!-- ===== JSスクリプト ===== -->
   <script>
-  const btn = document.getElementById('switchBtn');
+   const btn = document.getElementById('switchBtn');
   const logo = document.getElementById('logo');
   const title = document.getElementById('title');
   const desc = document.getElementById('desc');
   const navLinks = document.getElementById('navLinks');
   const purposeLab = document.getElementById('purpose-lab');
-  const introSeii = document.getElementById('intro-seii');
+  const introSei = document.getElementById('intro-sei'); // ←ここ修正！
   const introLab = document.getElementById('intro-lab');
 
   let mode = 'sei';
@@ -315,7 +315,6 @@ footer a:hover { text-decoration: underline; }
     img.src = src;
   });
 
-  // 要素切替フェード関数
   function fadeSwitch(hideEl, showEl) {
     hideEl.style.opacity = '0';
     hideEl.style.transform = 'translateY(8px)';
@@ -329,7 +328,6 @@ footer a:hover { text-decoration: underline; }
     }, 250);
   }
 
-  // ロゴ切替
   function switchLogo(newSrc) {
     logo.style.transition = 'opacity 0.2s ease';
     logo.style.opacity = '0';
@@ -339,22 +337,20 @@ footer a:hover { text-decoration: underline; }
     }, 80);
   }
 
-  // メイン切替処理
   btn.addEventListener('click', () => {
     document.body.classList.toggle('lab-mode');
     desc.style.opacity = '0';
 
     setTimeout(() => {
-      if (mode === 'seii') {
+      if (mode === 'sei') {  // ← 'seii'ではなく'sei'
         mode = 'lab';
         switchLogo('./assets/logo-lab.png');
         title.textContent = 'adjustment-lab';
         desc.innerHTML = '再現性を科学し現場へつなぐ。<br>整う思考をデジタルで。';
         btn.textContent = '← 整【アジャストメント】へ';
-        fadeSwitch(introSeii, introLab);
+        fadeSwitch(introSei, introLab); // ←ここも修正！
 
         purposeLab.classList.add('visible');
-
         const links = navLinks.querySelectorAll('a');
         links[0].textContent = 'labを体験';
         links[0].setAttribute('href', './lab/index.html');
@@ -364,10 +360,9 @@ footer a:hover { text-decoration: underline; }
         title.textContent = '整【アジャストメント】';
         desc.innerHTML = 'Structural design<br>for tough athletes.';
         btn.textContent = '→ adjustment-labへ';
-        fadeSwitch(introLab, introSeii);
+        fadeSwitch(introLab, introSei); // ←修正済み
 
         purposeLab.classList.remove('visible');
-
         const links = navLinks.querySelectorAll('a');
         links[0].textContent = '整【アジャストメント】を探る';
         links[0].setAttribute('href', './adjustment/index.html');
