@@ -84,13 +84,14 @@ section p {
   font-size: 1rem;
 }
 
-/* ===== CTA ===== */
 .cta {
   display: flex;
   justify-content: center;
   gap: 16px;
-  margin-top: 40px;
+  margin: 60px auto 80px; /* ← 各ページで統一 */
+  text-align: center;
 }
+
 .cta button {
   background: none;
   border: 1px solid var(--accent);
@@ -99,11 +100,25 @@ section p {
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease;
+  min-width: 180px; /* ← 幅を統一してズレ防止 */
 }
+
 .cta button:hover {
   background: var(--accent);
   color: #fff;
+}
+
+@media (max-width: 600px) {
+  .cta {
+    flex-direction: column;
+    gap: 12px;
+    margin: 40px auto 60px;
+  }
+  .cta button {
+    width: 80%;
+    margin: 0 auto;
+  }
 }
 
 /* ===== Footer ===== */
@@ -169,10 +184,12 @@ footer a:hover { text-decoration: underline; }
   3. 骨盤・胸郭・頭が一直線に保てるか。<br><br>
   ※感じた歪みを「戻す」のが整える第一歩。</p>
 
+<!-- ✅ CTAブロック（sectionの外に統一） -->
 <div class="cta">
   <button onclick="window.location.href='/lite/A.html'">対応する10種目を見る</button>
   <button onclick="window.location.href='../index.html'">← LITE一覧へ戻る</button>
 </div>
+  
 </section>
   
 <main>
