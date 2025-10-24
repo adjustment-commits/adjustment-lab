@@ -112,7 +112,7 @@ button.toggle {
   border-radius: 4px;
   cursor: pointer;
   transition: 0.3s ease;
-  margin-top: 0.5em;    /* ← 追加：ボタン上のスペースを少し */
+  margin-top: 0.8em;    /* ← 追加：ボタン上のスペースを少し */
   margin-bottom: 1em;   /* ← 1.5em → 1em に調整 */
 }
 button.toggle:hover {
@@ -217,6 +217,21 @@ footer a:hover { text-decoration: underline; }
   h1 { font-size: 1.4rem; }
   p.desc { font-size: 0.85rem; }
 }
+
+/* ===== 整モード用 ===== */
+body:not(.lab-mode) main {
+  margin-bottom: 0.8em;  /* ← 整モードの下余白を縮める */
+}
+
+/* ===== labモード用 ===== */
+body.lab-mode #purpose-lab {
+  margin-bottom: 2.2em; /* ← labモードのボタン下に少し余裕を追加 */
+}
+@media (max-width: 480px) {
+  body:not(.lab-mode) main { margin-bottom: 0.5em; }
+  body.lab-mode #purpose-lab { margin-bottom: 1.8em; }
+}
+  
 </style>
 </head>
 
