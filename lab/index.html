@@ -75,7 +75,7 @@ body {
 
 /* ---------- Section ---------- */
 section {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 100px auto;
   padding: 0 24px;
 }
@@ -91,44 +91,48 @@ section p {
   opacity: 0.9;
 }
 
-/* ---------- Projects ---------- */
-.projects {
+/* ---------- Products ---------- */
+.products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
   margin-top: 40px;
 }
-.project-card {
+.product-card {
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 26px;
+  text-align: center;
   transition: 0.3s;
 }
-.project-card:hover {
+.product-card:hover {
   box-shadow: 0 8px 20px rgba(0,0,0,0.06);
   transform: translateY(-4px);
 }
-.project-card h3 {
+.product-card h3 {
   color: var(--accent);
   font-size: 1.1rem;
   margin-bottom: 0.6em;
 }
-.project-card p {
+.product-card p {
   color: var(--sub);
   font-size: 0.95rem;
   line-height: 1.7;
+  margin-bottom: 1em;
 }
-.project-card a {
+.product-card a {
   display: inline-block;
-  margin-top: 1em;
-  color: var(--accent);
+  color: #fff;
+  background: var(--accent);
+  padding: 8px 16px;
+  border-radius: 4px;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
+  font-size: 0.9rem;
   transition: 0.3s;
 }
-.project-card a:hover {
-  border-color: var(--accent);
+.product-card a:hover {
+  opacity: 0.8;
 }
 
 /* ---------- Message ---------- */
@@ -148,21 +152,6 @@ section p {
   line-height: 1.9;
 }
 
-/* ---------- Footer ---------- */
-footer {
-  text-align: center;
-  color: var(--sub);
-  font-size: 0.9rem;
-  margin: 100px 0 40px;
-}
-footer a {
-  color: var(--accent);
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
-}
-
 @media (max-width: 768px) {
   .hero h1 { font-size: 1.8rem; }
   .hero p { font-size: 0.95rem; }
@@ -176,44 +165,49 @@ footer a:hover {
 <!-- HERO -->
 <section class="hero">
   <h1>adjustment-lab</h1>
-  <p>思考を形にし、再現を科学する。</p>
+  <p>思考を形にし、再現を科学する。<br>ここは“整”の理論を教材として実装する実験場です。</p>
   <div class="cta">
-    <button onclick="window.location.href='../products/lite.html'">教材を探す</button>
-    <button onclick="window.location.href='../index.html'">整へ戻る</button>
+    <button onclick="window.location.href='../products/lite.html'">教材一覧を見る</button>
+    <button onclick="window.location.href='../index.html'">整サイトへ戻る</button>
   </div>
 </section>
 
 <!-- SECTION 1 -->
 <section>
-  <h2>身体の整をデータで再現する。</h2>
-  <p>adjustment-labは、身体の“整うプロセス”をデータ化し、<br>
-  科学的な再現性として体系化する実験場です。<br>
-  現場で得られた知見を構造化し、トレーニング教材へと還元します。</p>
-</section>
+  <h2>トレーニング教材一覧</h2>
+  <p>adjustment-labでは、目的別に整理されたトレーニング教材を販売しています。<br>
+  興味のあるカテゴリを選び、内容を確認して購入できます。</p>
 
-<!-- SECTION 2 -->
-<section>
-  <h2>進行中のプロジェクト</h2>
-  <div class="projects">
-    <div class="project-card">
-      <h3>VO₂max × Pitchers</h3>
-      <p>投手の持久系と出力系のバランスを再構築し、<br>最大酸素摂取量をトレーニング設計に組み込む。</p>
-      <a href="../projects/vo2max-pitchers.html">詳しく見る →</a>
+  <div class="products">
+    <div class="product-card">
+      <h3>Lite 教材シリーズ</h3>
+      <p>基礎10種目を軸に構成されたトレーニング教材。<br>野球選手・一般アスリート別に展開。</p>
+      <a href="../products/lite.html">詳しく見る</a>
     </div>
-    <div class="project-card">
-      <h3>骨盤∞ドリル</h3>
-      <p>骨盤と胸郭の連動を“∞運動”として定義し、<br>再現性を高める基礎ドリルとして展開。</p>
-      <a href="../projects/pelvis-infinity.html">詳しく見る →</a>
+    <div class="product-card">
+      <h3>Standard 教材</h3>
+      <p>個別カウンセリングを経て構成される上位版プログラム。<br>目的に応じたカスタマイズが可能。</p>
+      <a href="../products/standard.html">詳しく見る</a>
     </div>
-    <div class="project-card">
-      <h3>滑走メソッド</h3>
-      <p>地面反力と重心移動の同期をテーマに、<br>滑走型ムーブメントの理論と実践を統合。</p>
-      <a href="../projects/glide-method.html">詳しく見る →</a>
+    <div class="product-card">
+      <h3>Tracker（記録管理）</h3>
+      <p>トレーニング実施を可視化し、日々の進捗を記録。<br>Lite教材と連携可能。</p>
+      <a href="../products/lite/tracker.html">詳しく見る</a>
+    </div>
+    <div class="product-card">
+      <h3>Training Lite（運用版）</h3>
+      <p>チームや個人で利用できる進行管理システム。<br>Lite教材のオプションとして導入可能。</p>
+      <a href="../products/lite/training-lite/index.html">詳しく見る</a>
+    </div>
+    <div class="product-card">
+      <h3>VO₂max資料</h3>
+      <p>最大酸素摂取量を中心とした体力評価と設計指針。<br>競技別に応用可能な研究資料。</p>
+      <a href="../products/vo2max.html">詳しく見る</a>
     </div>
   </div>
 </section>
 
-<!-- SECTION 3 -->
+<!-- SECTION 2 -->
 <section class="message">
   <h2>整の知を、科学へ。</h2>
   <p>「整」で生まれた理論を「lab」で検証し、<br>
@@ -221,8 +215,7 @@ footer a:hover {
   adjustment-labは、思考と現場をつなぐ研究の場です。</p>
 </section>
 
-<!-- ✅ LITE共通フッター -->
-<link rel="stylesheet" href="../assets/footer-lite.css">
+<!-- ✅ フッター -->
 <div id="footer"></div>
 <script>
   fetch("../assets/footer-lite.html")
