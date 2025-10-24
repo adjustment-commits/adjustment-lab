@@ -5,20 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>整【アジャストメント】 × adjustment-lab</title>
 
+<!-- ===== Manifest / PWA ===== -->
 <link rel="manifest" href="./manifest.json">
-<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
-
-
 <meta name="theme-color" content="#f8faf9">
 
+<!-- ===== 共通CSS / フッター読み込み ===== -->
+<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
+
 <script>
-fetch("/adjustment-lab/assets/footer-lite.html");
+fetch("/adjustment-lab/assets/footer-lite.html")
+  .then(res => res.text())
+  .then(html => {
+    const footer = document.querySelector('footer');
+    if (footer) footer.innerHTML = html;
+  });
 </script>
-  
+
+<!-- ===== Service Worker ===== -->
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js");
+    navigator.serviceWorker.register("/service-worker.js");
   });
 }
 </script>
@@ -32,7 +39,7 @@ if ("serviceWorker" in navigator) {
   font-family: 'Noto Sans JP', sans-serif;
 }
 
-/* Base */
+/* === Base === */
 body {
   margin: 0;
   padding: 0;
@@ -59,13 +66,13 @@ body::before {
   z-index: 0;
 }
 
-/* Logo */
+/* ===== Logo ===== */
 #logo {
   width: 140px;
   margin-top: 40px;
   margin-bottom: 1.6em;
   animation: float 4s ease-in-out infinite;
-  transition: margin 0.5s ease;  /* ← 切り替え時のなめらかさ */
+  transition: margin 0.5s ease, opacity 0.3s ease;
   z-index: 2;
 }
 @keyframes float {
@@ -73,13 +80,13 @@ body::before {
   50% { transform: translateY(-4px); }
 }
 
-/* ==== 前面に出す ==== */
+/* 共通z-index */
 #logo, h1, p, section, button, nav, footer {
   position: relative;
   z-index: 2;
 }
 
-/* Title & Desc */
+/* ===== Title / Desc ===== */
 h1 {
   font-size: 2rem;
   margin: 0.3em 0 0.4em;
@@ -87,16 +94,15 @@ h1 {
   letter-spacing: 0.03em;
 }
 p.desc {
-  color: #333; /* 通常モード：暗めのグレー */
-  transition: color 0.3s ease;
+  color: #333;
+  font-size: 1rem;
+  transition: color 0.3s ease, opacity 0.4s ease;
 }
-
-/* labモード時は白に */
 body.lab-mode p.desc {
-  color: #e5fff3; /* 明るい緑がかった白 */
+  color: #e5fff3;
 }
 
-/* CTA Button */
+/* ===== CTA Button ===== */
 button.toggle {
   background: none;
   border: 1px solid var(--accent);
@@ -113,7 +119,7 @@ button.toggle:hover {
   color: #fff;
 }
 
-/* Nav Buttons */
+/* ===== Nav Buttons ===== */
 nav {
   display: flex;
   flex-wrap: wrap;
@@ -134,13 +140,12 @@ nav a:hover {
   color: #fff;
 }
 
-/* Lab mode */
+/* ===== labモード ===== */
 body.lab-mode {
   background: #0b3d31;
   color: #f8faf9;
 }
 body.lab-mode h1 { color: var(--accent); }
-body.lab-mode p.desc { color: #b7ffe2; }
 body.lab-mode nav a {
   border-color: #fff;
   color: #fff;
@@ -158,29 +163,36 @@ body.lab-mode button.toggle:hover {
   color: #0b3d31;
 }
 
-/* 事業説明ブロック */
-#intro {
+/* ===== Intro Section ===== */
+main {
   text-align: center;
   max-width: 720px;
-  margin-bottom: 2em;
   line-height: 1.8;
 }
 #intro p {
   font-size: 0.95rem;
   color: #444;
   margin-bottom: 1.2em;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+body.lab-mode #intro p { color: #fff; }
+
+/* ===== purpose-lab ===== */
+#purpose-lab {
+  text-align: center;
+  max-width: 700px;
+  margin-top: 40px;
+  line-height: 1.8;
+  opacity: 0;
   transition: opacity 0.5s ease;
+}
+#purpose-lab.visible {
   opacity: 1;
 }
-#intro p[style*="display: none"] {
-  opacity: 0;
-  transform: translateY(8px);
-}
 
-/* labモード時のカラー変更 */
-body.lab-mode #intro p { color: #ffffff; }
-
-/* Footer */
+/* ===== Footer ===== */
 footer {
   margin-top: clamp(40px, 6vh, 80px);
   font-size: 0.85rem;
@@ -194,154 +206,174 @@ footer a {
 }
 footer a:hover { text-decoration: underline; }
 
-/* Responsive */
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
   h1 { font-size: 1.6rem; }
   p.desc { font-size: 0.9rem; }
   nav a { font-size: 0.85rem; padding: 0.45em 1.1em; }
 }
+@media (max-width: 480px) {
+  h1 { font-size: 1.4rem; }
+  p.desc { font-size: 0.85rem; }
+}
 </style>
 </head>
 
 <body>
-<img id="logo" src="./assets/logo-seii.svg" alt="整ロゴ">
-<h1 id="title">整【アジャストメント】</h1>
+  <img id="logo" src="./assets/logo-seii.svg" alt="整ロゴ">
+  <h1 id="title">整【アジャストメント】</h1>
 
-<p id="desc" class="desc" style="font-size:1rem;">
-  Structural design<br>for tough athletes.
-</p>
-  
-<!-- 事業説明 -->
-<section id="intro">
-  <p id="intro-seii">
-    アスリート専門のパーソナルトレーニング・<br>
-    チーム契約・測定サポートを行う<br>現場型サービスです。<br>
-    現場で培った再現性のあるメソッドを、<br>
-    科学的に設計しToughなアスリートとして<br>競技パフォーマンスを高めます。
-  </p><br>
-  <p id="intro-lab" style="display:none;">
-    トレーニング管理アプリとHTML教材を<br>開発・販売するデジタル開発拠点です。<br>
-    「整【アジャストメント】」の現場で生まれた理論を<br>学び、使える形に変換します。
+  <p id="desc" class="desc">
+    Structural design<br>for tough athletes.
   </p>
-</section>
 
-<section id="purpose-lab" style="display:none; text-align:center; max-width:700px; margin-top:40px; line-height:1.8;">
-  <p style="font-size:0.95rem; color:#555; margin-top:12px;">
-  間接的なセッションでもあなたの思考と<br>トレーニングをアップデートできる。<br>
-  すべての教材と設計は実際のアスリートたちとの<br>関わりから生まれています。
-</p>
-  <p style="font-size:1rem; color:#333;">
-    あなたの努力を再現できる構造に変える。<br>
-    <span style="color:#00b386; font-weight:500;">adjustment-lab</span>は、<br>
-    現場の思考をそのまま形にした「使える教材とトレーニング設計」です。
-  </p>
-  <button style="
-    background:#00b386;
-    color:#fff;
-    border:none;
-    border-radius:4px;
-    padding:0.7em 1.6em;
-    margin-top:18px;
-    font-size:1rem;
-    cursor:pointer;
-  " onclick="window.location.href='./products/index.html'">
-    商品一覧を見る
-  </button>
-  <p style="font-size:0.9rem; color:#777; margin-top:20px;">
-  これは“情報”ではなく、“再現性”を届けるプロジェクトです。
-</p>
-</section>
+  <!-- ===== メインコンテンツ ===== -->
+  <main>
+    <section id="intro">
+      <p id="intro-seii">
+        アスリート専門のパーソナルトレーニング、<br>
+        チーム契約・測定サポートを行う現場型サービス。<br>
+        現場で培った再現性のあるメソッドを科学的に設計し、<br>
+        Toughなアスリートの競技パフォーマンスを高めます。
+      </p>
 
-<button class="toggle" id="switchBtn">→ adjustment-labへ</button>
+      <p id="intro-lab" style="display:none;">
+        トレーニング管理アプリとHTML教材を開発・販売する<br>
+        デジタル拠点。<br>
+        「整【アジャストメント】」の現場で生まれた理論を、<br>
+        学び・使える形に変換します。
+      </p>
+    </section>
 
-<nav id="navLinks">
-  <a href="./adjustment/index.html">整【アジャストメント】を探る</a>
-</nav>
+    <section id="purpose-lab">
+      <p style="font-size:0.95rem; color:#e8e8e8; margin-top:12px;">
+        間接的なセッションでもあなたの思考と<br>
+        トレーニングをアップデートできる。<br>
+        すべての教材と設計は実際のアスリートとの<br>
+        関わりから生まれています。
+      </p>
+      <p style="font-size:1rem; color:#fff;">
+        あなたの努力を再現できる構造に変える。<br>
+        <span style="color:#00b386; font-weight:500;">adjustment-lab</span>は、<br>
+        現場の思考を形にした“使える教材”です。
+      </p>
 
-<footer>
-  <p><a href="./legal.html">販売・利用規約</a>｜
-  <a href="./contact/index.html">お問い合わせ</a><br>
-  <small>© 2025 adjustment-lab</small></p>
-</footer>
+      <button style="
+        background:#00b386;
+        color:#fff;
+        border:none;
+        border-radius:4px;
+        padding:0.7em 1.6em;
+        margin-top:18px;
+        font-size:1rem;
+        cursor:pointer;
+      " onclick="window.location.href='./products/index.html'">
+        商品一覧を見る
+      </button>
 
-<script>
-const btn = document.getElementById('switchBtn');
-const logo = document.getElementById('logo');
-const title = document.getElementById('title');
-const desc = document.getElementById('desc');
-const navLinks = document.getElementById('navLinks');
-const purposeLab = document.getElementById('purpose-lab');
-let mode = 'seii';
-const introSeii = document.getElementById('intro-seii');
-const introLab = document.getElementById('intro-lab');
+      <p style="font-size:0.9rem; color:#aaa; margin-top:20px;">
+        これは“情報”ではなく、“再現性”を届けるプロジェクトです。
+      </p>
+    </section>
+  </main>
 
-const preloadImages = ['./assets/logo-lab.png', './assets/logo-seii.png'];
-preloadImages.forEach(src => {
-  const img = new Image();
-  img.src = src;
-});
+  <!-- ===== 切替ボタン ===== -->
+  <button class="toggle" id="switchBtn">→ adjustment-labへ</button>
 
-function fadeSwitch(hideEl, showEl) {
-  hideEl.style.opacity = '0';
-  hideEl.style.transform = 'translateY(8px)';
-  setTimeout(() => {
-    hideEl.style.display = 'none';
-    showEl.style.display = 'block';
+  <!-- ===== ナビゲーション ===== -->
+  <nav id="navLinks">
+    <a href="./adjustment/index.html">整【アジャストメント】を探る</a>
+  </nav>
+
+  <!-- ===== フッター ===== -->
+  <footer>
+    <p>
+      <a href="./legal.html">販売・利用規約</a>｜
+      <a href="./contact/index.html">お問い合わせ</a><br>
+      <small>© 2025 adjustment-lab</small>
+    </p>
+  </footer>
+
+  <!-- ===== JSスクリプト ===== -->
+  <script>
+  const btn = document.getElementById('switchBtn');
+  const logo = document.getElementById('logo');
+  const title = document.getElementById('title');
+  const desc = document.getElementById('desc');
+  const navLinks = document.getElementById('navLinks');
+  const purposeLab = document.getElementById('purpose-lab');
+  const introSeii = document.getElementById('intro-seii');
+  const introLab = document.getElementById('intro-lab');
+
+  let mode = 'seii';
+
+  // 画像を事前読み込み
+  const preloadImages = ['./assets/logo-lab.svg', './assets/logo-seii.svg'];
+  preloadImages.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+
+  // 要素切替フェード関数
+  function fadeSwitch(hideEl, showEl) {
+    hideEl.style.opacity = '0';
+    hideEl.style.transform = 'translateY(8px)';
     setTimeout(() => {
-      showEl.style.opacity = '1';
-      showEl.style.transform = 'translateY(0)';
-    }, 50);
-  }, 250);
-}
-
-function switchLogo(newSrc) {
-  logo.style.transition = 'opacity 0.2s ease';
-  logo.style.opacity = '0';
-  setTimeout(() => {
-    logo.src = newSrc;
-    logo.style.opacity = '1';
-  }, 80);
-}
-
-btn.addEventListener('click', () => {
-  document.body.classList.toggle('lab-mode');
-
-  if (mode === 'seii') {
-    mode = 'lab';
-    switchLogo('./assets/logo-lab.png');
-    title.textContent = 'adjustment-lab';
-    // ===== 追加：descのフェード切替 =====
-    fadeSwitch(desc, document.createElement('p'));
-    desc.innerHTML = '再現性を科学し、現場へつなぐ。<br>整う思考を、デジタルで。';
-
-    btn.textContent = '← 整【アジャストメント】へ';
-    fadeSwitch(introSeii, introLab);
-    purposeLab.style.display = 'block';
-    purposeLab.style.opacity = '0';
-    setTimeout(() => (purposeLab.style.opacity = '1'), 200);
-
-    const links = navLinks.querySelectorAll('a');
-    links[0].textContent = 'labを体験';
-    links[0].setAttribute('href', './lab/index.html');
-  } else {
-    mode = 'seii';
-    switchLogo('./assets/logo-seii.png');
-    title.textContent = '整【アジャストメント】';
-
-    // ===== 追加：descのフェード切替 =====
-    fadeSwitch(desc, document.createElement('p'));
-    desc.innerHTML = 'Structural design<br>for tough athletes.';
-
-    btn.textContent = '→ adjustment-labへ';
-    fadeSwitch(introLab, introSeii);
-    purposeLab.style.display = 'none';
-
-    const links = navLinks.querySelectorAll('a');
-    links[0].textContent = '整【アジャストメント】を探る';
-    links[0].setAttribute('href', './adjustment/index.html');
+      hideEl.style.display = 'none';
+      showEl.style.display = 'block';
+      setTimeout(() => {
+        showEl.style.opacity = '1';
+        showEl.style.transform = 'translateY(0)';
+      }, 50);
+    }, 250);
   }
-});
-</script>
-  
+
+  // ロゴ切替
+  function switchLogo(newSrc) {
+    logo.style.transition = 'opacity 0.2s ease';
+    logo.style.opacity = '0';
+    setTimeout(() => {
+      logo.src = newSrc;
+      logo.style.opacity = '1';
+    }, 80);
+  }
+
+  // メイン切替処理
+  btn.addEventListener('click', () => {
+    document.body.classList.toggle('lab-mode');
+    desc.style.opacity = '0';
+
+    setTimeout(() => {
+      if (mode === 'seii') {
+        mode = 'lab';
+        switchLogo('./assets/logo-lab.svg');
+        title.textContent = 'adjustment-lab';
+        desc.innerHTML = '再現性を科学し、現場へつなぐ。<br>整う思考を、デジタルで。';
+        btn.textContent = '← 整【アジャストメント】へ';
+        fadeSwitch(introSeii, introLab);
+
+        purposeLab.classList.add('visible');
+
+        const links = navLinks.querySelectorAll('a');
+        links[0].textContent = 'labを体験';
+        links[0].setAttribute('href', './lab/index.html');
+      } else {
+        mode = 'seii';
+        switchLogo('./assets/logo-seii.svg');
+        title.textContent = '整【アジャストメント】';
+        desc.innerHTML = 'Structural design<br>for tough athletes.';
+        btn.textContent = '→ adjustment-labへ';
+        fadeSwitch(introLab, introSeii);
+
+        purposeLab.classList.remove('visible');
+
+        const links = navLinks.querySelectorAll('a');
+        links[0].textContent = '整【アジャストメント】を探る';
+        links[0].setAttribute('href', './adjustment/index.html');
+      }
+      desc.style.opacity = '1';
+    }, 250);
+  });
+  </script>
 </body>
 </html>
