@@ -224,17 +224,3 @@ fetch("/adjustment-lab/assets/footer-lite.html")
 
 </body>
 </html>
-
-<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
-<div id="footer"></div>
-
-<script>
-  fetch("/adjustment-lab/assets/footer-lite.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("footer").innerHTML = data;
-    });
-</script>
-
-</body>
-</html>
