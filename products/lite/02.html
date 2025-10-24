@@ -210,12 +210,11 @@ footer small {
   </section>
 </main>
 
-<!-- ===== 共通フッター ===== -->
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 <div id="footer"></div>
 
 <script>
-fetch("/adjustment-lab/assets/footer-lite.html")
+ fetch("/adjustment-lab/assets/footer-lite.html")
     .then(response => response.text())
     .then(data => {
       document.getElementById("footer").innerHTML = data;
