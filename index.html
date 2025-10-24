@@ -310,11 +310,12 @@ btn.addEventListener('click', () => {
     mode = 'lab';
     switchLogo('./assets/logo-lab.png');
     title.textContent = 'adjustment-lab';
+    // ===== 追加：descのフェード切替 =====
+    fadeSwitch(desc, document.createElement('p'));
     desc.innerHTML = '再現性を科学し、現場へつなぐ。<br>整う思考を、デジタルで。';
+
     btn.textContent = '← 整【アジャストメント】へ';
     fadeSwitch(introSeii, introLab);
-
-    // lab専用セクションをフェードイン
     purposeLab.style.display = 'block';
     purposeLab.style.opacity = '0';
     setTimeout(() => (purposeLab.style.opacity = '1'), 200);
@@ -326,11 +327,13 @@ btn.addEventListener('click', () => {
     mode = 'seii';
     switchLogo('./assets/logo-seii.png');
     title.textContent = '整【アジャストメント】';
-    desc.innerHTML = 'アスリート専門トレーナー。<br>動きを理解し、再現を設計する。';
+
+    // ===== 追加：descのフェード切替 =====
+    fadeSwitch(desc, document.createElement('p'));
+    desc.innerHTML = 'Structural design<br>for tough athletes.';
+
     btn.textContent = '→ adjustment-labへ';
     fadeSwitch(introLab, introSeii);
-
-    // labセクションを非表示
     purposeLab.style.display = 'none';
 
     const links = navLinks.querySelectorAll('a');
