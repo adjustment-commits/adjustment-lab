@@ -47,14 +47,18 @@ body {
 }
 
 .hero-content h1 {
-  font-size: clamp(1.2rem, 5vw, 2.2rem);
+  display: inline-block;
+  font-size: clamp(1rem, 4vw, 2rem);
   color: var(--accent);
   margin-bottom: 0.6em;
   line-height: 1.3;
-  white-space: nowrap;      /* 改行を禁止 */
-  overflow: hidden;         /* はみ出し防止 */
-  text-overflow: ellipsis;  /* 長すぎた場合は「…」で省略 */
+  white-space: nowrap;   /* 改行禁止 */
+  transform-origin: center;
+  max-width: 90vw;       /* 画面幅に合わせる */
+  overflow: visible;     /* カットしない */
+  text-overflow: unset;  /* 省略しない */
 }
+  
 .hero-content p.sub {
   font-size: clamp(0.95rem, 3.8vw, 1.05rem);
   color: var(--sub);
