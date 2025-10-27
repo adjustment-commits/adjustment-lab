@@ -104,6 +104,17 @@ button:hover { background: #009270; }
   <button type="submit">保存する</button>
 </form>
 
+ <button id="deleteAll" style="background:#d84a4a;margin-top:15px;">全データを削除する</button>
+
+<script>
+document.getElementById("deleteAll").addEventListener("click", () => {
+  if (confirm("⚠️ 全ての記録を削除しますか？ この操作は元に戻せません。")) {
+    localStorage.removeItem("recoveryRecords");
+    alert("データを削除しました。");
+  }
+});
+</script> 
+  
 <div id="message"></div>
 
 <button onclick="window.location.href='result.html'" style="margin-top:30px;background:#555;">グラフを見る</button>
