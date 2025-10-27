@@ -1,11 +1,11 @@
 {
-  "name": "RUN TRACKER",
+  "name": "Run Tracker",
   "short_name": "RunTracker",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f8faf9",
   "theme_color": "#00b386",
-  "description": "走行・心拍・RPEを記録・管理できるランニングトラッカー",
+  "description": "野球選手のためのランニング記録アプリ。トレーニングを自分で見える化し、再現性を育てる。",
   "icons": [
     {
       "src": "/adjustment-lab/products/icons/icon-192.png",
