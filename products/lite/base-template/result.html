@@ -6,6 +6,7 @@
 <title>トレーニング記録｜グラフと分析</title>
 <meta name="theme-color" content="#f8faf9">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 
 <style>
 :root {
@@ -61,6 +62,11 @@ th {
   color: var(--accent);
   text-decoration: none;
 }
+
+/* ===== Footer spacing ===== */
+footer {
+  margin-top: 80px;
+}
 </style>
 </head>
 
@@ -70,6 +76,14 @@ th {
 <canvas id="trainingChart"></canvas>
 <table id="dataTable"></table>
 <a id="back" href="./index.html">← 記録入力へ戻る</a>
+
+<!-- ===== 共通フッター ===== -->
+<div id="footer"></div>
+<script>
+fetch("/adjustment-lab/assets/footer-lite.html")
+  .then(res => res.text())
+  .then(html => { document.getElementById("footer").innerHTML = html; });
+</script>
 
 <script>
 const records = JSON.parse(localStorage.getItem('trainingRecords')) || [];
