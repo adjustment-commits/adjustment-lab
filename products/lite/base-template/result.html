@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>トレーニング記録｜グラフと分析</title>
+<meta name="theme-color" content="#f8faf9">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+:root {
+  --bg: #f8faf9;
+  --text: #1a1a1a;
+  --accent: #00b386;
+  --sub: #666;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 20px;
+  line-height: 1.8;
+}
+h1 {
+  text-align: center;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+#summary {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--sub);
+  margin-bottom: 30px;
+}
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+}
+th, td {
+  border: 1px solid #eee;
+  padding: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+th {
+  background: #f3f7f5;
+  color: var(--accent);
+}
+#back {
+  margin-top: 40px;
+  display: block;
+  text-align: center;
+  color: var(--accent);
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+<h1>トレーニング記録グラフ</h1>
+<p id="summary">データを読み込み中...</p>
+<canvas id="trainingChart"></canvas>
+<table id="dataTable"></table>
+<a id="back" href="./index.html">← 記録入力へ戻る</a>
+
+<script>
+const records = JSON.parse(localStorage.getItem('trainingRecords')) || [];
+
+// ===== 表の生成 =====
+const table = document.getElementById('dataTable');
+if (records.length === 0) {
+  table.innerHTML = "<tr><td>データがありません。</td></tr>";
+} else {
+  let header = "<tr><th>日付</th><th>距離(km)</th><th>RPE</th><th>心拍</th></tr>";
+  let rows = records.map(r => 
+    `<tr><td>${r.date}</td><td>${r.distance}</td><td>${r.rpe}</td><td>${r.hr}</td></tr>`
+  ).join("");
+  table.innerHTML = header + rows;
+}
+
+// ===== グラフ描画 =====
+const ctx = document.getElementById('trainingChart').getContext('2d');
+const dates = records.map(r => r.date);
+const distances = records.map(r => Number(r.distance));
+const rpe = records.map(r => Number(r.rpe));
+const hr = records.map(r => Number(r.hr));
+
+new Chart(ctx, {
+  data: {
+    labels: dates,
+    datasets: [
+      {
+        type: 'bar',
+        label: '距離(km)',
+        data: distances,
+        backgroundColor: 'rgba(0,179,134,0.4)',
+        borderColor: 'rgba(0,179,134,1)',
+        borderWidth: 1
+      },
+      {
+        type: 'line',
+        label: 'RPE',
+        data: rpe,
+        borderColor: '#f39c12',
+        backgroundColor: 'rgba(243,156,18,0.2)',
+        yAxisID: 'y1'
+      },
+      {
+        type: 'line',
+        label: '心拍',
+        data: hr,
+        borderColor: '#e74c3c',
+        backgroundColor: 'rgba(231,76,60,0.2)',
+        yAxisID: 'y2'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: '距離(km)' } },
+      y1: { position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'RPE' } },
+      y2: { position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: '心拍' } }
+    },
+    plugins: { legend: { position: 'bottom' } }
+  }
+});
+
+// ===== コメント生成 =====
+let summary = document.getElementById('summary');
+if (records.length > 1) {
+  const last = records[records.length - 1];
+  const prev = records[records.length - 2];
+  let comment = "";
+  
+  if (last.hr < prev.hr && last.distance >= prev.distance) {
+    comment = "心拍数が下がり距離が伸びています。持久力が向上しています。";
+  } else if (last.hr > prev.hr && last.rpe > prev.rpe) {
+    comment = "疲労傾向です。強度を調整しましょう。";
+  } else {
+    comment = "安定したトレーニングが続いています。";
+  }
+  summary.textContent = comment;
+} else {
+  summary.textContent = "まずは2日以上のデータを入力すると傾向が見えます。";
+}
+</script>
+</body>
+</html>
