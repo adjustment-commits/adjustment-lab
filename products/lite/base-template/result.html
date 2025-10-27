@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LITE BASE｜グラフ表示</title>
 <meta name="theme-color" content="#f8faf9">
-<link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
@@ -21,7 +20,7 @@ body {
 h1 {
   text-align: center;
   color: #00b386;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 canvas {
   background: #fff;
@@ -50,36 +49,91 @@ button:hover {
   margin-top: 40px;
   color: #666;
 }
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.filter-btn {
+  border: 1px solid #00b386;
+  color: #00b386;
+  background: #fff;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.filter-btn.active, .filter-btn:hover {
+  background: #00b386;
+  color: #fff;
+}
 </style>
 </head>
 
 <body>
 <h1>トレーニング記録グラフ</h1>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-range="all">全期間</button>
+  <button class="filter-btn" data-range="7">直近7日</button>
+  <button class="filter-btn" data-range="30">直近30日</button>
+</div>
+
 <canvas id="trainingChart"></canvas>
 <div id="noData" style="display:none;">📉 データがまだありません。</div>
 
 <button onclick="window.location.href='index.html'">← 記録入力に戻る</button>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const ctx = document.getElementById("trainingChart");
-  const data = JSON.parse(localStorage.getItem("trainingRecords")) || [];
+let chart;
+const ctx = document.getElementById("trainingChart");
 
+document.addEventListener("DOMContentLoaded", () => {
+  renderChart("all"); // 初期表示は全期間
+  setupFilters();
+});
+
+function setupFilters() {
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderChart(btn.dataset.range);
+    });
+  });
+}
+
+function renderChart(range) {
+  const data = JSON.parse(localStorage.getItem("trainingRecords")) || [];
   if (data.length === 0) {
     document.getElementById("noData").style.display = "block";
     ctx.style.display = "none";
     return;
   }
 
-  // 日付順にソート
+  document.getElementById("noData").style.display = "none";
+  ctx.style.display = "block";
+
   data.sort((a,b) => new Date(a.date) - new Date(b.date));
 
-  const labels = data.map(d => d.date);
-  const rpe = data.map(d => Number(d.rpe));
-  const hr = data.map(d => Number(d.hr) || null);
-  const distance = data.map(d => Number(d.distance) || null);
+  const today = new Date();
+  let filtered = data;
 
-  new Chart(ctx, {
+  if (range !== "all") {
+    const days = Number(range);
+    const cutoff = new Date(today - days * 86400000);
+    filtered = data.filter(d => new Date(d.date) >= cutoff);
+  }
+
+  const labels = filtered.map(d => d.date);
+  const rpe = filtered.map(d => Number(d.rpe));
+  const hr = filtered.map(d => Number(d.hr) || null);
+  const distance = filtered.map(d => Number(d.distance) || null);
+
+  if (chart) chart.destroy();
+  chart = new Chart(ctx, {
     type: "line",
     data: {
       labels: labels,
@@ -128,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
-});
+}
 </script>
 
 <!-- ===== 共通フッター ===== -->
