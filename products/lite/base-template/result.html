@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LITE BASE｜グラフ表示</title>
+<title>LITE BASE｜グラフ・コメント</title>
 <meta name="theme-color" content="#f8faf9">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -14,8 +14,9 @@ body {
   color: #1a1a1a;
   margin: 0;
   padding: 20px;
-  max-width: 700px;
+  max-width: 800px;
   margin: auto;
+  line-height: 1.8;
 }
 h1 {
   text-align: center;
@@ -23,13 +24,26 @@ h1 {
   margin-bottom: 10px;
 }
 canvas {
+  margin-top: 30px;
+}
+.comment-box {
   background: #fff;
   border-radius: 8px;
+  padding: 20px;
+  margin-top: 40px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  padding: 10px;
+}
+.comment-box h2 {
+  font-size: 1.2rem;
+  color: #00b386;
+  margin-bottom: 10px;
+}
+.comment {
+  font-size: 1rem;
+  color: #333;
 }
 button {
-  display: block;
+  margin-top: 25px;
   width: 100%;
   background: #00b386;
   color: #fff;
@@ -37,160 +51,153 @@ button {
   padding: 12px;
   font-size: 1.1rem;
   border-radius: 6px;
-  margin-top: 30px;
   cursor: pointer;
   transition: 0.3s;
 }
 button:hover {
   background: #009270;
 }
-#noData {
+
+/* ===== フッター ===== */
+footer {
   text-align: center;
-  margin-top: 40px;
   color: #666;
+  font-size: 0.85rem;
+  margin: 80px 0 40px;
+  line-height: 1.6;
 }
-.filter-bar {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-.filter-btn {
-  border: 1px solid #00b386;
+footer a {
   color: #00b386;
-  background: #fff;
-  border-radius: 20px;
-  padding: 6px 14px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: 0.3s;
+  text-decoration: none;
+  transition: 0.3s ease;
 }
-.filter-btn.active, .filter-btn:hover {
-  background: #00b386;
-  color: #fff;
+footer a:hover {
+  text-decoration: underline;
+}
+footer small {
+  display: block;
+  margin-top: 6px;
+  color: #999;
 }
 </style>
 </head>
 
 <body>
-<h1>トレーニング記録グラフ</h1>
+<h1>記録グラフ・コメント</h1>
 
-<div class="filter-bar">
-  <button class="filter-btn active" data-range="all">全期間</button>
-  <button class="filter-btn" data-range="7">直近7日</button>
-  <button class="filter-btn" data-range="30">直近30日</button>
+<canvas id="trainingChart" height="120"></canvas>
+
+<div class="comment-box">
+  <h2>今日のコメント</h2>
+  <div class="comment" id="comment">データを読み込み中...</div>
 </div>
 
-<canvas id="trainingChart"></canvas>
-<div id="noData" style="display:none;">📉 データがまだありません。</div>
+<button onclick="window.location.href='index.html'">← 記録入力へ戻る</button>
 
-<button onclick="window.location.href='index.html'">← 記録入力に戻る</button>
+<footer>
+  <p>
+    © 2025 adjustment-lab<br>
+    <a href="/adjustment-lab/legal.html">販売・利用規約</a>｜
+    <a href="/adjustment-lab/contact/index.html">お問い合わせ</a><br>
+    <small>Produced by 整【アジャストメント】</small>
+  </p>
+</footer>
 
 <script>
-let chart;
-const ctx = document.getElementById("trainingChart");
+// ==== データ読み込み ====
+const records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
+const labels = records.map(r => r.date);
+const rpeData = records.map(r => Number(r.rpe));
+const hrData = records.map(r => Number(r.hr));
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderChart("all"); // 初期表示は全期間
-  setupFilters();
-});
-
-function setupFilters() {
-  document.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      renderChart(btn.dataset.range);
-    });
-  });
-}
-
-function renderChart(range) {
-  const data = JSON.parse(localStorage.getItem("trainingRecords")) || [];
-  if (data.length === 0) {
-    document.getElementById("noData").style.display = "block";
-    ctx.style.display = "none";
-    return;
-  }
-
-  document.getElementById("noData").style.display = "none";
-  ctx.style.display = "block";
-
-  data.sort((a,b) => new Date(a.date) - new Date(b.date));
-
-  const today = new Date();
-  let filtered = data;
-
-  if (range !== "all") {
-    const days = Number(range);
-    const cutoff = new Date(today - days * 86400000);
-    filtered = data.filter(d => new Date(d.date) >= cutoff);
-  }
-
-  const labels = filtered.map(d => d.date);
-  const rpe = filtered.map(d => Number(d.rpe));
-  const hr = filtered.map(d => Number(d.hr) || null);
-  const distance = filtered.map(d => Number(d.distance) || null);
-
-  if (chart) chart.destroy();
-  chart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "RPE（主観的強度）",
-          data: rpe,
-          borderColor: "#00b386",
-          backgroundColor: "rgba(0,179,134,0.2)",
-          tension: 0.3,
-          fill: false
-        },
-        {
-          label: "距離（km）",
-          data: distance,
-          borderColor: "#009e60",
-          backgroundColor: "rgba(0,158,96,0.2)",
-          tension: 0.3,
-          fill: false
-        },
-        {
-          label: "心拍数（bpm）",
-          data: hr,
-          borderColor: "#ff7043",
-          backgroundColor: "rgba(255,112,67,0.2)",
-          tension: 0.3,
-          fill: false
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: { beginAtZero: true },
-        x: { ticks: { autoSkip: true, maxTicksLimit: 7 } }
+// ==== グラフ描画 ====
+const ctx = document.getElementById('trainingChart');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [
+      {
+        label: 'RPE（主観的疲労度）',
+        data: rpeData,
+        borderColor: '#00b386',
+        backgroundColor: 'rgba(0,179,134,0.1)',
+        tension: 0.3,
+        yAxisID: 'y1'
       },
-      plugins: {
-        legend: { position: "bottom" },
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              return context.dataset.label + "：" + context.parsed.y;
-            }
-          }
-        }
+      {
+        label: '心拍数（bpm）',
+        data: hrData,
+        borderColor: '#ff7043',
+        backgroundColor: 'rgba(255,112,67,0.1)',
+        tension: 0.3,
+        yAxisID: 'y2'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y1: {
+        type: 'linear',
+        position: 'left',
+        min: 0,
+        max: 10,
+        title: { display: true, text: 'RPE' }
+      },
+      y2: {
+        type: 'linear',
+        position: 'right',
+        min: 40,
+        max: 220,
+        grid: { drawOnChartArea: false },
+        title: { display: true, text: '心拍数 (bpm)' }
       }
     }
-  });
-}
-</script>
+  }
+});
 
-<!-- ===== 共通フッター ===== -->
-<div id="footer"></div>
-<script>
-fetch("/adjustment-lab/assets/footer-lite.html")
-  .then(res => res.text())
-  .then(html => { document.getElementById("footer").innerHTML = html; });
+// ==== コメント生成ロジック ====
+function generateComment(rpe, hr) {
+  if (rpe <= 4 && hr < 120) {
+    return `
+    身体が落ち着いています。<br>
+    今は<strong>整うフェーズ</strong>。<br>
+    無理に刺激を入れる必要はありません。<br>
+    呼吸を深くし、姿勢をニュートラルに戻す時間に使いましょう。<br>
+    この静けさが次の出力の準備になります。`;
+  }
+  if (rpe <= 7 && hr < 150) {
+    return `
+    出力と回復のバランスが取れています。<br>
+    いまは<strong>地力を積み上げるタイミング</strong>。<br>
+    ルーティンを大切に、ひとつひとつの動作を丁寧に。<br>
+    フォーム・呼吸・テンポ──この安定こそが、次の“キレ”を生み出します。`;
+  }
+  if (rpe <= 9 && hr < 180) {
+    return `
+    高い負荷が続いています。<br>
+    この疲労は<strong>壁を破る前触れ</strong>かもしれません。<br>
+    休むか、もう一歩踏み出すか。<br>
+    今必要なのは「根性」ではなく、<strong>感覚を研ぎ澄ますこと</strong>。<br>
+    呼吸とフォームを整え、境界線を正確に読んでください。`;
+  }
+  return `
+  限界に近い数値です。<br>
+  ここから先は<strong>構造を壊すか、再構築するか</strong>の分かれ道。<br>
+  勇気をもって一度止まりましょう。<br>
+  出力を落とすことは、弱さではなく<strong>選択の強さ</strong>です。<br>
+  整える時間を、次の“本当の強さ”につなげてください。`;
+}
+
+// ==== 最新データからコメント表示 ====
+if (records.length > 0) {
+  const latest = records[records.length - 1];
+  const comment = generateComment(Number(latest.rpe), Number(latest.hr));
+  document.getElementById('comment').innerHTML = comment;
+} else {
+  document.getElementById('comment').innerHTML = "まだ記録がありません。<br>まずは今日のトレーニングを記録しましょう。";
+}
 </script>
 </body>
 </html>
