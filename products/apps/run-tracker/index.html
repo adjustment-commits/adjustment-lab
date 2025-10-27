@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RUN TRACKER｜記録入力</title>
+<title>LITE BASE｜記録入力（投手・野手）</title>
 <meta name="theme-color" content="#f8faf9">
 <link rel="stylesheet" href="style.css">
 
@@ -16,12 +16,17 @@ body {
   padding: 20px;
   max-width: 600px;
   margin: auto;
-  line-height: 1.7;
 }
 h1 {
   text-align: center;
   color: #00b386;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+h2 {
+  text-align: center;
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 25px;
 }
 label {
   display: block;
@@ -57,8 +62,6 @@ button:hover {
   color: #00b386;
   font-weight: 500;
 }
-
-/* === Footer === */
 footer {
   text-align: center;
   color: #666;
@@ -71,9 +74,7 @@ footer a {
   text-decoration: none;
   transition: 0.3s ease;
 }
-footer a:hover {
-  text-decoration: underline;
-}
+footer a:hover { text-decoration: underline; }
 footer small {
   display: block;
   margin-top: 6px;
@@ -84,7 +85,13 @@ footer small {
 
 <body>
 
-<h1>RUN TRACKER</h1>
+<h1>記録を入力する</h1>
+<h2>ポジションを選択してください</h2>
+
+<select id="role">
+  <option value="pitcher">投手</option>
+  <option value="fielder">野手</option>
+</select>
 
 <form id="recordForm">
   <label>日付</label>
@@ -120,6 +127,9 @@ document.addEventListener("DOMContentLoaded", () => {
 document.getElementById("recordForm").addEventListener("submit", (e) => {
   e.preventDefault();
 
+  const role = document.getElementById("role").value; // 投手 or 野手
+  const storageKey = role === "pitcher" ? "trainingRecords_pitcher" : "trainingRecords_fielder";
+
   const record = {
     date: document.getElementById("date").value,
     rpe: document.getElementById("rpe").value,
@@ -129,13 +139,13 @@ document.getElementById("recordForm").addEventListener("submit", (e) => {
   };
 
   // 保存処理
-  let records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
+  let records = JSON.parse(localStorage.getItem(storageKey)) || [];
   records.push(record);
-  localStorage.setItem("trainingRecords", JSON.stringify(records));
+  localStorage.setItem(storageKey, JSON.stringify(records));
 
   // メッセージ表示
   const msg = document.getElementById("message");
-  msg.textContent = "✅ 記録を保存しました。";
+  msg.textContent = `✅ ${role === "pitcher" ? "投手" : "野手"}の記録を保存しました。`;
   setTimeout(() => msg.textContent = "", 2500);
 
   // フォームリセット
@@ -145,14 +155,12 @@ document.getElementById("recordForm").addEventListener("submit", (e) => {
 </script>
 
 <!-- ===== 共通フッター ===== -->
-<footer>
-  <p>
-    © 2025 adjustment-lab<br>
-    <a href="/adjustment-lab/legal.html">販売・利用規約</a>｜
-    <a href="/adjustment-lab/contact/index.html">お問い合わせ</a><br>
-    <small>Produced by 整【アジャストメント】</small>
-  </p>
-</footer>
+<div id="footer"></div>
+<script>
+fetch("/adjustment-lab/assets/footer-lite.html")
+  .then(res => res.text())
+  .then(html => { document.getElementById("footer").innerHTML = html; });
+</script>
 
 </body>
 </html>
