@@ -143,11 +143,13 @@ function renderChart() {
     return;
   }
 
-  const dates = records.map(r => r.date);
-  const rpeData = records.map(r => Number(r.rpe));
-  const hrData = records.map(r => Number(r.hr));
-  const distData = records.map(r => Number(r.distance));
+const sortedRecords = records.sort((a, b) => new Date(a.date) - new Date(b.date));
 
+const dates = sortedRecords.map(r => r.date);
+const rpeData = sortedRecords.map(r => Number(r.rpe));
+const hrData = sortedRecords.map(r => Number(r.hr));
+const distData = sortedRecords.map(r => Number(r.distance));
+  
   const ctx = document.getElementById('trainingChart').getContext('2d');
   if (window.chartInstance) window.chartInstance.destroy();
 
