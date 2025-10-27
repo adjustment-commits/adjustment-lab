@@ -6,7 +6,7 @@
 <title>RUN TRACKER｜記録グラフ</title>
 <meta name="theme-color" content="#f8faf9">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
+<link rel="stylesheet" href="/adjustment-l-lab/assets/footer-lite.css">
 
 <style>
 body {
@@ -21,10 +21,31 @@ body {
 h1 {
   text-align: center;
   color: #00b386;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+}
+.role-toggle {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0 25px;
+  gap: 6px;
+}
+.role-toggle button {
+  flex: 1;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #00b386;
+  border-radius: 6px;
+  background: #fff;
+  color: #00b386;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.role-toggle button.active {
+  background: #00b386;
+  color: #fff;
 }
 canvas {
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
   height: 300px;
 }
@@ -44,7 +65,7 @@ p.comment {
   font-size: 1rem;
   font-weight: 500;
 }
-button {
+button.back {
   margin-top: 30px;
   background: #00b386;
   color: #fff;
@@ -56,27 +77,11 @@ button {
   cursor: pointer;
   transition: 0.3s;
 }
-button:hover {
+button.back:hover {
   background: #009270;
 }
 footer {
   margin-top: 50px;
-}
-.toggle-role {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 15px;
-}
-.toggle-role button {
-  width: 45%;
-  background: #fff;
-  color: #00b386;
-  border: 1px solid #00b386;
-}
-.toggle-role button.active {
-  background: #00b386;
-  color: #fff;
 }
 </style>
 </head>
@@ -84,16 +89,17 @@ footer {
 <body>
 <h1>RUN TRACKER</h1>
 
-<div class="toggle-role">
-  <button id="pitcherBtn">投手モード</button>
-  <button id="fielderBtn">野手モード</button>
+<!-- 投手／野手 切替 -->
+<div class="role-toggle">
+  <button id="pitcherBtn" class="active">投手</button>
+  <button id="fielderBtn">野手</button>
 </div>
 
 <canvas id="trainingChart"></canvas>
 <p id="feedback" class="comment"></p>
 <p id="role" class="role"></p>
 
-<button onclick="window.location.href='index.html'">← 入力ページに戻る</button>
+<button class="back" onclick="window.location.href='index.html'">← 記録入力ページへ戻る</button>
 
 <div id="footer"></div>
 <script>
@@ -104,64 +110,64 @@ fetch("/adjustment-lab/assets/footer-lite.html")
 
 <script>
 const records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
-
-// === モード管理 ===
-let currentRole = localStorage.getItem("runTrackerRole") || "pitcher";
+let currentRole = "pitcher"; // 初期値：投手
 
 const pitcherBtn = document.getElementById("pitcherBtn");
 const fielderBtn = document.getElementById("fielderBtn");
+const feedback = document.getElementById("feedback");
+const roleLabel = document.getElementById("role");
 
-function updateRoleButtons() {
-  if (currentRole === "pitcher") {
-    pitcherBtn.classList.add("active");
-    fielderBtn.classList.remove("active");
-  } else {
-    pitcherBtn.classList.remove("active");
-    fielderBtn.classList.add("active");
-  }
-}
+// ==== 役割切替処理 ====
 pitcherBtn.addEventListener("click", () => {
   currentRole = "pitcher";
-  localStorage.setItem("runTrackerRole", "pitcher");
-  updateRoleButtons();
-  renderGraph();
+  pitcherBtn.classList.add("active");
+  fielderBtn.classList.remove("active");
+  updateDisplay();
 });
 fielderBtn.addEventListener("click", () => {
   currentRole = "fielder";
-  localStorage.setItem("runTrackerRole", "fielder");
-  updateRoleButtons();
-  renderGraph();
+  fielderBtn.classList.add("active");
+  pitcherBtn.classList.remove("active");
+  updateDisplay();
 });
-updateRoleButtons();
 
-// === グラフ＆コメント描画 ===
-function renderGraph() {
-  const feedbackEl = document.getElementById("feedback");
-  const roleEl = document.getElementById("role");
-  feedbackEl.textContent = "";
-  roleEl.textContent = "";
-
-  if (records.length === 0) {
-    feedbackEl.textContent = "まだ記録がありません。まずは入力ページで記録しましょう。";
-    return;
-  }
-
+// ==== グラフ描画処理 ====
+let chart;
+function renderChart() {
   const dates = records.map(r => r.date);
   const rpeData = records.map(r => Number(r.rpe));
   const hrData = records.map(r => Number(r.hr));
   const distData = records.map(r => Number(r.distance));
 
-  const ctx = document.getElementById('trainingChart').getContext('2d');
-  if (window.chartInstance) window.chartInstance.destroy();
+  if (chart) chart.destroy();
 
-  window.chartInstance = new Chart(ctx, {
+  const ctx = document.getElementById('trainingChart').getContext('2d');
+  chart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: dates,
       datasets: [
-        { label: 'RPE', data: rpeData, borderColor: '#00b386', backgroundColor: 'rgba(0,179,134,0.2)', yAxisID: 'y' },
-        { label: '心拍数', data: hrData, borderColor: '#ff8c00', backgroundColor: 'rgba(255,140,0,0.2)', yAxisID: 'y1' },
-        { label: '距離(km)', data: distData, borderColor: '#1e90ff', backgroundColor: 'rgba(30,144,255,0.2)', yAxisID: 'y2' }
+        {
+          label: 'RPE（主観的強度）',
+          data: rpeData,
+          borderColor: '#00b386',
+          backgroundColor: 'rgba(0,179,134,0.2)',
+          yAxisID: 'y'
+        },
+        {
+          label: '心拍数（bpm）',
+          data: hrData,
+          borderColor: '#ff8c00',
+          backgroundColor: 'rgba(255,140,0,0.2)',
+          yAxisID: 'y1'
+        },
+        {
+          label: '距離（km）',
+          data: distData,
+          borderColor: '#1e90ff',
+          backgroundColor: 'rgba(30,144,255,0.2)',
+          yAxisID: 'y2'
+        }
       ]
     },
     options: {
@@ -176,45 +182,52 @@ function renderGraph() {
       }
     }
   });
+}
 
-  // === コメント生成 ===
-  const avgRPE = rpeData.reduce((a,b)=>a+b,0)/rpeData.length;
-  const recentRPE = rpeData.slice(-3);
-  const trendUp = recentRPE[2] > recentRPE[0];
-  const hrAvg = hrData.filter(n=>n).reduce((a,b)=>a+b,0)/hrData.filter(n=>n).length || 0;
-  const distAvg = distData.filter(n=>n).reduce((a,b)=>a+b,0)/distData.filter(n=>n).length || 0;
-
-  let comment = "";
-  if (currentRole === "pitcher") {
-    comment = "【投手モード】";
-    if (avgRPE >= 8) comment += " 強度の高いトレーニングが続いています。投球動作の精度維持に注意。";
-    else if (trendUp) comment += " 負荷が徐々に高まっています。ピッチ強化期に良い傾向です。";
-    else comment += " 安定した負荷コントロール。疲労管理を継続しましょう。";
-
-    if (hrAvg > 175) comment += " 心拍数が高め。疲労やフォームの乱れが出やすい時期です。";
-    else if (distAvg > 5) comment += " ランニング距離が確保されています。下肢持久力が向上しています。";
-
-  } else {
-    comment = "【野手モード】";
-    if (avgRPE >= 8) comment += " 出力トレーニングの山場です。スピード動作を重視していきましょう。";
-    else if (trendUp) comment += " 強度が上がってきています。走塁スピードの成長が期待できます。";
-    else comment += " 安定したペース。反応速度と持久力のバランスを保てています。";
-
-    if (distAvg < 3) comment += " 距離が短めです。ゲーム中の動作反復を意識しましょう。";
+// ==== コメント生成 ====
+function updateDisplay() {
+  if (records.length === 0) {
+    feedback.textContent = "まだ記録がありません。まずは入力ページで記録しましょう。";
+    roleLabel.textContent = "";
+    return;
   }
 
-  feedbackEl.textContent = comment;
+  renderChart();
 
-  // === 成長段階 ===
+  const rpeData = records.map(r => Number(r.rpe));
+  const hrData = records.map(r => Number(r.hr));
+  const avgRPE = rpeData.reduce((a,b)=>a+b,0)/rpeData.length;
+  const hrAvg = hrData.filter(n=>n).reduce((a,b)=>a+b,0)/hrData.filter(n=>n).length || 0;
+  const recentRPE = rpeData.slice(-3);
+  const trendUp = recentRPE[2] > recentRPE[0];
+
+  let comment = "";
+
+  if (currentRole === "pitcher") {
+    if (avgRPE >= 8) comment = "強度が高い状態が続いています。休養も大切にしつつ、登板へ向けた土台が築かれています。";
+    else if (avgRPE <= 4) comment = "負荷が落ちています。フォームや呼吸を整える良い時期です。";
+    else if (trendUp) comment = "持久的な耐性が上がっています。登板後のリカバリーにも活きるはず。";
+    else comment = "出力と回復のバランスが良好です。継続して積み上げましょう。";
+  } else {
+    if (avgRPE >= 8) comment = "高強度のセッションが続いています。動きの鋭さを保つため、リカバリーも意識しましょう。";
+    else if (avgRPE <= 4) comment = "低負荷の期間です。反応スピードや打撃リズムを再確認する時間に。";
+    else if (trendUp) comment = "強度が上昇傾向です。スプリントや打撃での出力感も高まっています。";
+    else comment = "コンディションの安定が見られます。反応動作を維持しながら進めましょう。";
+  }
+
+  if (hrAvg > 180) comment += " 心拍数が高め。水分・睡眠を確保して疲労を溜めないように。";
+  else if (hrAvg < 100 && hrAvg > 0) comment += " 心拍数が低め。回復力や有酸素能力が安定しています。";
+
+  feedback.textContent = comment;
+
   let stage = "";
   if (avgRPE < 4) stage = "リカバリー期（整える）";
   else if (avgRPE < 7) stage = "発展期（積み上げる）";
   else stage = "突破期（限界を破る）";
-
-  roleEl.textContent = `現在地：${stage}`;
+  roleLabel.textContent = `現在地：${stage}`;
 }
 
-renderGraph();
+updateDisplay();
 </script>
 </body>
 </html>
