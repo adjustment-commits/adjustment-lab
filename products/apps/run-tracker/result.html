@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LITE BASE｜記録グラフ</title>
 <meta name="theme-color" content="#f8faf9">
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 
@@ -24,6 +23,25 @@ h1 {
   color: #00b386;
   margin-bottom: 10px;
 }
+.role-switch {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.role-switch button {
+  border: 1px solid #00b386;
+  background: #fff;
+  color: #00b386;
+  padding: 6px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.role-switch button.active {
+  background: #00b386;
+  color: #fff;
+}
 canvas {
   margin-top: 20px;
   width: 100%;
@@ -37,31 +55,15 @@ p.comment {
   box-shadow: 0 1px 6px rgba(0,0,0,0.05);
   margin-top: 20px;
   line-height: 1.7;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
 }
-p.comment.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-.role {
+p.role {
   text-align: center;
   margin-top: 20px;
   color: #333;
   font-size: 1rem;
   font-weight: 500;
 }
-.advice {
-  margin-top: 20px;
-  background: #e7faf4;
-  border-left: 4px solid #00b386;
-  padding: 12px;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  color: #0b3d31;
-}
-button {
+button.back {
   margin-top: 30px;
   background: #00b386;
   color: #fff;
@@ -73,74 +75,71 @@ button {
   cursor: pointer;
   transition: 0.3s;
 }
-button:hover {
-  background: #009270;
-}
-footer {
-  margin-top: 50px;
-}
+button.back:hover { background: #009270; }
 </style>
 </head>
 
 <body>
 <h1>記録のグラフ表示</h1>
+
+<div class="role-switch">
+  <button id="batterBtn">野手</button>
+  <button id="pitcherBtn">投手</button>
+</div>
+
 <canvas id="trainingChart"></canvas>
 <p id="feedback" class="comment"></p>
-<p id="role" class="role"></p>
-<div id="advice" class="advice"></div>
+<p id="stage" class="role"></p>
 
-<button onclick="window.location.href='index.html'">← 入力ページに戻る</button>
+<button class="back" onclick="window.location.href='index.html'">← 入力ページに戻る</button>
 
 <div id="footer"></div>
 <script>
 fetch("/adjustment-lab/assets/footer-lite.html")
   .then(res => res.text())
-  .then(html => { document.getElementById("footer").innerHTML = html; });
+  .then(html => document.getElementById("footer").innerHTML = html);
 </script>
 
 <script>
-// === 記録取得 ===
+// ===== データ読み込み =====
 const records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
+const role = localStorage.getItem("playerRole") || "野手";
 const feedbackEl = document.getElementById("feedback");
-const adviceEl = document.getElementById("advice");
+const stageEl = document.getElementById("stage");
 
+// ボタンの初期表示
+const batterBtn = document.getElementById("batterBtn");
+const pitcherBtn = document.getElementById("pitcherBtn");
+if (role === "投手") pitcherBtn.classList.add("active");
+else batterBtn.classList.add("active");
+
+// 役割切り替え
+batterBtn.onclick = () => setRole("野手");
+pitcherBtn.onclick = () => setRole("投手");
+
+function setRole(newRole) {
+  localStorage.setItem("playerRole", newRole);
+  location.reload();
+}
+
+// ===== 記録が存在しない場合 =====
 if (records.length === 0) {
   feedbackEl.textContent = "まだ記録がありません。まずは入力ページで記録しましょう。";
-  feedbackEl.classList.add("show");
 } else {
   const dates = records.map(r => r.date);
   const rpeData = records.map(r => Number(r.rpe));
   const hrData = records.map(r => Number(r.hr));
   const distData = records.map(r => Number(r.distance));
 
-  // === グラフ描画 ===
-  const ctx = document.getElementById('trainingChart').getContext('2d');
-  new Chart(ctx, {
+  // グラフ描画
+  new Chart(document.getElementById('trainingChart').getContext('2d'), {
     type: 'line',
     data: {
       labels: dates,
       datasets: [
-        {
-          label: 'RPE（主観的強度）',
-          data: rpeData,
-          borderColor: '#00b386',
-          backgroundColor: 'rgba(0,179,134,0.2)',
-          yAxisID: 'y'
-        },
-        {
-          label: '心拍数（bpm）',
-          data: hrData,
-          borderColor: '#ff8c00',
-          backgroundColor: 'rgba(255,140,0,0.2)',
-          yAxisID: 'y1'
-        },
-        {
-          label: '距離（km）',
-          data: distData,
-          borderColor: '#1e90ff',
-          backgroundColor: 'rgba(30,144,255,0.2)',
-          yAxisID: 'y2'
-        }
+        { label: 'RPE（主観的強度）', data: rpeData, borderColor: '#00b386', backgroundColor: 'rgba(0,179,134,0.2)', yAxisID: 'y' },
+        { label: '心拍数（bpm）', data: hrData, borderColor: '#ff8c00', backgroundColor: 'rgba(255,140,0,0.2)', yAxisID: 'y1' },
+        { label: '距離（km）', data: distData, borderColor: '#1e90ff', backgroundColor: 'rgba(30,144,255,0.2)', yAxisID: 'y2' }
       ]
     },
     options: {
@@ -149,63 +148,39 @@ if (records.length === 0) {
       stacked: false,
       plugins: { legend: { position: 'bottom' } },
       scales: {
-        y: { type: 'linear', position: 'left', title: { display: true, text: 'RPE' }, min: 0, max: 10 },
-        y1: { type: 'linear', position: 'right', title: { display: true, text: '心拍数(bpm)' }, grid: { drawOnChartArea: false } },
-        y2: { type: 'linear', position: 'right', display: false }
-      },
-      animation: {
-        duration: 1000,
-        easing: 'easeOutQuart'
+        y: { min: 0, max: 10, title: { display: true, text: 'RPE' } },
+        y1: { position: 'right', title: { display: true, text: '心拍数(bpm)' }, grid: { drawOnChartArea: false } },
+        y2: { display: false }
       }
     }
   });
 
-  // === コメント生成 ===
+  // === 平均値とコメント生成 ===
   const avgRPE = rpeData.reduce((a,b)=>a+b,0)/rpeData.length;
-  const recentRPE = rpeData.slice(-3);
-  const trendUp = recentRPE[2] > recentRPE[0];
   const hrAvg = hrData.filter(n=>n).reduce((a,b)=>a+b,0)/hrData.filter(n=>n).length || 0;
 
   let comment = "";
-
-  if (avgRPE >= 8) {
-    comment = "最近のトレーニングは高強度が続いています。休養を意識しながらも、この壁を越える準備ができています。";
-  } else if (avgRPE <= 4) {
-    comment = "強度が低めです。回復には良い期間ですが、そろそろ出力の準備を進めましょう。";
-  } else if (trendUp) {
-    comment = "強度が段階的に上昇しています。しっかり積み上がっています。体調に注意しながら継続を。";
+  if (role === "投手") {
+    if (avgRPE > 7) comment = "投手として高強度が続いています。心身の疲労を整えながら、強度を維持するリズムを大切に。";
+    else if (avgRPE < 4) comment = "調整段階です。フォームと出力の一致を再確認する時期。";
+    else comment = "良い強度で投げ込めています。球速・制球の安定に繋がる積み上げです。";
   } else {
-    comment = "強度の波が安定しています。コンディションをコントロールできている証拠です。";
+    if (avgRPE > 7) comment = "強度の高いトレーニングが続いています。疲労が打撃リズムに影響しないように調整を。";
+    else if (avgRPE < 4) comment = "やや軽めの負荷です。スピード感を意識した動作ドリルを挟むのも良いでしょう。";
+    else comment = "適切な強度です。走力と打撃リズムの両立を意識しましょう。";
   }
 
-  if (hrAvg > 180) {
-    comment += " 心拍数が高めです。疲労の蓄積や水分不足に注意してください。";
-  } else if (hrAvg < 100 && hrAvg > 0) {
-    comment += " 心拍数が低めです。有酸素能力が高まっている兆候かもしれません。";
-  }
+  if (hrAvg > 180) comment += " 心拍数が高めです。呼吸リズムを整えてクールダウンを入念に。";
+  else if (hrAvg < 100 && hrAvg > 0) comment += " 有酸素能力が高まりつつあります。ベースは非常に良好です。";
 
-  const today = new Date();
-  const dateStr = `${today.getMonth()+1}月${today.getDate()}日分析`;
-  feedbackEl.innerHTML = `${comment}<br><br><span style="font-size:0.85rem;color:#666;">（${dateStr}時点のデータ）</span>`;
-  feedbackEl.classList.add("show");
+  feedbackEl.textContent = comment;
 
-  // === 成長段階（あなたの現在地） ===
-  let roleText = "";
-  if (avgRPE < 4) roleText = "段階：リカバリー期（整える）";
-  else if (avgRPE < 7) roleText = "段階：発展期（積み上げる）";
-  else roleText = "段階：突破期（限界を破る）";
-  document.getElementById("role").textContent = `あなたの現在地：${roleText}`;
-
-  // === 次アクション提案 ===
-  let advice = "";
-  if (avgRPE < 4) {
-    advice = "次は少し強度を上げてみましょう。心拍数が上がるようなペースで短距離走を加えても良い段階です。";
-  } else if (avgRPE < 7) {
-    advice = "現状維持でOK。フォームや呼吸の質を意識して、走りの効率を高めていきましょう。";
-  } else {
-    advice = "強度が十分高いので、次は“質”を意識。体調が万全なら距離を+0.5km、またはペース維持で挑戦を。";
-  }
-  adviceEl.textContent = advice;
+  // 成長段階
+  let stage = "";
+  if (avgRPE < 4) stage = "整える期";
+  else if (avgRPE < 7) stage = "積み上げ期";
+  else stage = "突破期";
+  stageEl.textContent = `現在地：${stage}（${role}）`;
 }
 </script>
 </body>
