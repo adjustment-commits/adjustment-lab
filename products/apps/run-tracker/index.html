@@ -101,6 +101,19 @@ button:hover { background: #009270; }
   <button type="submit">保存する</button>
 </form>
 
+<!-- 🔥 全データ削除ボタン -->
+<button id="resetBtn" style="margin-top:20px;background:#c0392b;">全データを削除する</button>
+
+<script>
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if (confirm("すべての記録を削除しますか？この操作は取り消せません。")) {
+    localStorage.removeItem("trainingRecords");
+    alert("全データを削除しました。");
+    location.reload(); // ページ更新
+  }
+});
+</script>
+
 <div id="message"></div>
 
 <button onclick="window.location.href='result.html'" style="margin-top:30px;background:#555;">グラフを見る</button>
