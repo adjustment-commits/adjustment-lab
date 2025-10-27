@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- ✅ PWA設定 -->
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#00b386">
+<link rel="apple-touch-icon" sizes="192x192" href="/adjustment-lab/products/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="/adjustment-lab/products/icons/icon-512.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Recovery Tracker">
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js');
+  });
+}
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recovery Tracker｜記録グラフ</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
+
+<style>
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #f8faf9;
+  color: #1a1a1a;
+  margin: 0;
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+h1 {
+  text-align: center;
+  color: #00b386;
+  margin-bottom: 20px;
+}
+canvas {
+  width: 100%;
+  max-height: 400px;
+  margin-top: 20px;
+}
+button {
+  margin-top: 25px;
+  width: 100%;
+  background: #00b386;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover { background: #009270; }
+#average {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 600;
+  color: #009270;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Recovery Tracker</h1>
+
+<canvas id="recoveryChart"></canvas>
+
+<div id="average"></div>
+
+<button onclick="window.location.href='index.html'">入力画面へ戻る</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const ctx = document.getElementById("recoveryChart").getContext("2d");
+  const data = JSON.parse(localStorage.getItem("recoveryRecords")) || [];
+
+  if (data.length === 0) {
+    document.getElementById("average").textContent = "データがありません。";
+    return;
+  }
+
+  const labels = data.map(r => r.date);
+  const sleep = data.map(r => parseFloat(r.sleep || 0));
+  const fatigue = data.map(r => parseFloat(r.fatigue || 0));
+  const muscle = data.map(r => parseFloat(r.muscle || 0));
+  const appetite = data.map(r => parseFloat(r.appetite || 0));
+  const mental = data.map(r => parseFloat(r.mental || 0));
+
+  const avg = (arr) => (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1);
+
+  document.getElementById("average").innerHTML = `
+    💤 睡眠平均：${avg(sleep)}h　
+    ⚡ 疲労平均：${avg(fatigue)}　
+    💪 筋肉痛平均：${avg(muscle)}　
+    🍽️ 食欲平均：${avg(appetite)}　
+    🧠 メンタル平均：${avg(mental)}
+  `;
+
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [
+        { label: "睡眠(h)", data: sleep, borderColor: "#007b3a", backgroundColor: "rgba(0,123,58,0.1)", tension: 0.3 },
+        { label: "疲労(1-10)", data: fatigue, borderColor: "#ff9800", backgroundColor: "rgba(255,152,0,0.1)", tension: 0.3 },
+        { label: "筋肉痛(1-5)", data: muscle, borderColor: "#e91e63", backgroundColor: "rgba(233,30,99,0.1)", tension: 0.3 },
+        { label: "食欲(1-5)", data: appetite, borderColor: "#2196f3", backgroundColor: "rgba(33,150,243,0.1)", tension: 0.3 },
+        { label: "メンタル(1-5)", data: mental, borderColor: "#9c27b0", backgroundColor: "rgba(156,39,176,0.1)", tension: 0.3 }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: "bottom" },
+        title: { display: true, text: "コンディション推移", color: "#333" }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 1 }
+        }
+      }
+    }
+  });
+});
+</script>
+
+<div id="footer"></div>
+<script>
+fetch("/adjustment-lab/assets/footer-lite.html")
+  .then(res => res.text())
+  .then(html => { document.getElementById("footer").innerHTML = html; });
+</script>
+
+</body>
+</html>
