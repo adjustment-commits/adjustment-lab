@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LITE BASE｜記録グラフ</title>
+<title>RUN TRACKER｜記録グラフ</title>
 <meta name="theme-color" content="#f8faf9">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
+<link rel="stylesheet" href="/adjustment-l-lab/assets/footer-lite.css">
 
 <style>
 body {
@@ -45,28 +45,37 @@ p.comment {
   font-weight: 500;
 }
 button {
-  margin-top: 30px;
+  margin-top: 25px;
   background: #00b386;
   color: #fff;
   border: none;
   padding: 12px;
   font-size: 1rem;
   border-radius: 6px;
-  width: 100%;
   cursor: pointer;
   transition: 0.3s;
 }
-button:hover {
-  background: #009270;
+button:hover { background: #009270; }
+#modeSwitch {
+  background: #fff;
+  color: #00b386;
+  border: 1px solid #00b386;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin: 10px auto;
+  display: block;
+  cursor: pointer;
 }
-footer {
-  margin-top: 50px;
-}
+footer { margin-top: 50px; }
 </style>
 </head>
 
 <body>
-<h1>記録のグラフ表示</h1>
+<h1>RUN TRACKER｜記録グラフ</h1>
+
+<button id="modeSwitch">⚾ 現在：野手モード（切替）</button>
+
 <canvas id="trainingChart"></canvas>
 <p id="feedback" class="comment"></p>
 <p id="role" class="role"></p>
@@ -82,7 +91,15 @@ fetch("/adjustment-lab/assets/footer-lite.html")
 
 <script>
 // === 記録取得 ===
+let mode = "fielder"; // 初期モード：野手
+const modeSwitch = document.getElementById("modeSwitch");
 const records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
+
+modeSwitch.addEventListener("click", () => {
+  mode = (mode === "fielder") ? "pitcher" : "fielder";
+  modeSwitch.textContent = mode === "pitcher" ? "⚾ 現在：投手モード（切替）" : "⚾ 現在：野手モード（切替）";
+  location.reload(); // 再読込でコメント・表示を更新
+});
 
 if (records.length === 0) {
   document.getElementById("feedback").textContent = "まだ記録がありません。まずは入力ページで記録しましょう。";
@@ -99,27 +116,9 @@ if (records.length === 0) {
     data: {
       labels: dates,
       datasets: [
-        {
-          label: 'RPE（主観的強度）',
-          data: rpeData,
-          borderColor: '#00b386',
-          backgroundColor: 'rgba(0,179,134,0.2)',
-          yAxisID: 'y'
-        },
-        {
-          label: '心拍数（bpm）',
-          data: hrData,
-          borderColor: '#ff8c00',
-          backgroundColor: 'rgba(255,140,0,0.2)',
-          yAxisID: 'y1'
-        },
-        {
-          label: '距離（km）',
-          data: distData,
-          borderColor: '#1e90ff',
-          backgroundColor: 'rgba(30,144,255,0.2)',
-          yAxisID: 'y2'
-        }
+        { label: 'RPE（主観的強度）', data: rpeData, borderColor: '#00b386', backgroundColor: 'rgba(0,179,134,0.2)', yAxisID: 'y' },
+        { label: '心拍数（bpm）', data: hrData, borderColor: '#ff8c00', backgroundColor: 'rgba(255,140,0,0.2)', yAxisID: 'y1' },
+        { label: '距離（km）', data: distData, borderColor: '#1e90ff', backgroundColor: 'rgba(30,144,255,0.2)', yAxisID: 'y2' }
       ]
     },
     options: {
@@ -135,46 +134,28 @@ if (records.length === 0) {
     }
   });
 
-  // === コメント生成（トレンド分析型） ===
+  // === コメント生成 ===
   const avgRPE = rpeData.reduce((a,b)=>a+b,0)/rpeData.length;
   const hrAvg = hrData.filter(n=>n).reduce((a,b)=>a+b,0)/hrData.filter(n=>n).length || 0;
 
-  const recent = records.slice(-7);
-  const rpeRecent = recent.map(r => Number(r.rpe));
-  const hrRecent = recent.map(r => Number(r.hr));
-
-  function trend(array) {
-    if (array.length < 3) return "一定";
-    const diff = array[array.length - 1] - array[0];
-    if (diff > 1) return "上昇";
-    if (diff < -1) return "下降";
-    return "安定";
-  }
-
-  const rpeTrend = trend(rpeRecent);
-  const hrTrend = trend(hrRecent);
-
   let comment = "";
 
-  if (rpeTrend === "上昇" && hrTrend === "安定") {
-    comment = "負荷を上げながらも心拍が安定しています。確かな成長の兆しです。";
-  } else if (rpeTrend === "上昇" && hrTrend === "上昇") {
-    comment = "高負荷が続いています。壁を感じているかもしれませんが、ここがタフネス構築の局面です。";
-  } else if (rpeTrend === "下降" && hrTrend === "下降") {
-    comment = "負荷を下げながら回復に入っています。体調のリズムをつかめています。";
-  } else if (rpeTrend === "安定" && hrTrend === "下降") {
-    comment = "同じ強度で心拍が落ち着いてきています。耐久力が高まっています。";
+  if (mode === "pitcher") {
+    if (avgRPE >= 8) comment = "登板間の調整としては負荷がやや高め。次の登板に疲労を残さないようリカバリーを優先。";
+    else if (avgRPE <= 4) comment = "強度が低め。リカバリーには理想的だが、試合間隔が空く場合は刺激走を取り入れよう。";
+    else comment = "登板リズムに合わせた負荷が適正。呼吸やリズムの安定が成果に繋がります。";
   } else {
-    comment = "出力の波が自然に生まれています。リズムを壊さず積み上げていきましょう。";
+    if (avgRPE >= 8) comment = "高い強度で走り切っています。爆発力の維持と回復のバランスが鍵です。";
+    else if (avgRPE <= 4) comment = "強度が低め。リズムを保ちつつ、出力を高める準備を始めましょう。";
+    else comment = "安定したペースで積み上がっています。走る力がバッティングや守備の基礎になります。";
   }
 
-  if (avgRPE >= 8) comment += " もう一歩で限界突破です。身体の声を聞きながら仕上げてください。";
-  else if (avgRPE <= 4) comment += " 回復期の今は、質より継続。整える時間を大切に。";
-  else comment += " バランスの良いトレーニングが続いています。徐々に上限を広げていきましょう。";
+  if (hrAvg > 180) comment += " 心拍数が高めです。疲労蓄積や水分不足に注意してください。";
+  else if (hrAvg < 100 && hrAvg > 0) comment += " 心拍数が低め。持久力や心肺機能が安定してきています。";
 
   document.getElementById("feedback").textContent = comment;
 
-  // === 成長段階（あなたの現在地） ===
+  // === 成長段階 ===
   let roleText = "";
   if (avgRPE < 4) roleText = "段階：リカバリー期（整える）";
   else if (avgRPE < 7) roleText = "段階：発展期（積み上げる）";
