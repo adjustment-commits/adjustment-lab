@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LITE BASE｜記録入力（投手・野手）</title>
+<title>RUN TRACKER｜記録入力</title>
 <meta name="theme-color" content="#f8faf9">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 
 <style>
 body {
@@ -20,13 +20,7 @@ body {
 h1 {
   text-align: center;
   color: #00b386;
-  margin-bottom: 10px;
-}
-h2 {
-  text-align: center;
-  color: #555;
-  font-size: 1rem;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 label {
   display: block;
@@ -53,49 +47,29 @@ button {
   cursor: pointer;
   transition: 0.3s;
 }
-button:hover {
-  background: #009270;
-}
+button:hover { background: #009270; }
 #message {
   text-align: center;
   margin-top: 15px;
   color: #00b386;
   font-weight: 500;
 }
-footer {
-  text-align: center;
-  color: #666;
-  font-size: 0.85rem;
-  margin: 80px 0 40px;
-  line-height: 1.6;
-}
-footer a {
-  color: #00b386;
-  text-decoration: none;
-  transition: 0.3s ease;
-}
-footer a:hover { text-decoration: underline; }
-footer small {
-  display: block;
-  margin-top: 6px;
-  color: #999;
-}
 </style>
 </head>
 
 <body>
 
-<h1>記録を入力する</h1>
-<h2>ポジションを選択してください</h2>
-
-<select id="role">
-  <option value="pitcher">投手</option>
-  <option value="fielder">野手</option>
-</select>
+<h1>RUN TRACKER</h1>
 
 <form id="recordForm">
   <label>日付</label>
   <input type="date" id="date" required>
+
+  <label>役割（ポジション）</label>
+  <select id="role" required>
+    <option value="投手">投手</option>
+    <option value="野手">野手</option>
+  </select>
 
   <label>自覚的疲労度（RPE）</label>
   <input type="range" id="rpe" min="1" max="10" value="5" oninput="rpeValue.textContent=this.value">
@@ -119,48 +93,37 @@ footer small {
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // 今日の日付を自動入力
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById("date").value = today;
+  document.getElementById("date").value = new Date().toISOString().split('T')[0];
 });
 
 document.getElementById("recordForm").addEventListener("submit", (e) => {
   e.preventDefault();
-
-  const role = document.getElementById("role").value; // 投手 or 野手
-  const storageKey = role === "pitcher" ? "trainingRecords_pitcher" : "trainingRecords_fielder";
-
   const record = {
     date: document.getElementById("date").value,
+    role: document.getElementById("role").value,
     rpe: document.getElementById("rpe").value,
     hr: document.getElementById("hr").value,
     distance: document.getElementById("distance").value,
     note: document.getElementById("note").value
   };
 
-  // 保存処理
-  let records = JSON.parse(localStorage.getItem(storageKey)) || [];
+  let records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
   records.push(record);
-  localStorage.setItem(storageKey, JSON.stringify(records));
+  localStorage.setItem("trainingRecords", JSON.stringify(records));
 
-  // メッセージ表示
   const msg = document.getElementById("message");
-  msg.textContent = `✅ ${role === "pitcher" ? "投手" : "野手"}の記録を保存しました。`;
-  setTimeout(() => msg.textContent = "", 2500);
-
-  // フォームリセット
+  msg.textContent = "✅ 記録を保存しました。";
+  setTimeout(() => msg.textContent = "", 2000);
   document.getElementById("recordForm").reset();
   document.getElementById("rpeValue").textContent = "5";
 });
 </script>
 
-<!-- ===== 共通フッター ===== -->
 <div id="footer"></div>
 <script>
 fetch("/adjustment-lab/assets/footer-lite.html")
   .then(res => res.text())
   .then(html => { document.getElementById("footer").innerHTML = html; });
 </script>
-
 </body>
 </html>
