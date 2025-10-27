@@ -1,11 +1,11 @@
 {
-  "name": "Run Tracker｜adjustment-lab",
+  "name": "RUN TRACKER",
   "short_name": "RunTracker",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f8faf9",
   "theme_color": "#00b386",
-  "description": "トレーニング記録を手軽に。走力・心拍・強度を自分で可視化できるアプリ。",
+  "description": "ランニング・トレーニングを記録し、再現性を高めるアプリ。",
   "icons": [
     {
       "src": "/adjustment-lab/icons/icon-192.png",
