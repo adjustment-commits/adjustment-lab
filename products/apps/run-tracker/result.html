@@ -37,6 +37,13 @@ p.comment {
   box-shadow: 0 1px 6px rgba(0,0,0,0.05);
   margin-top: 20px;
   line-height: 1.7;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+p.comment.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 .role {
   text-align: center;
@@ -44,6 +51,15 @@ p.comment {
   color: #333;
   font-size: 1rem;
   font-weight: 500;
+}
+.advice {
+  margin-top: 20px;
+  background: #e7faf4;
+  border-left: 4px solid #00b386;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #0b3d31;
 }
 button {
   margin-top: 30px;
@@ -71,6 +87,7 @@ footer {
 <canvas id="trainingChart"></canvas>
 <p id="feedback" class="comment"></p>
 <p id="role" class="role"></p>
+<div id="advice" class="advice"></div>
 
 <button onclick="window.location.href='index.html'">← 入力ページに戻る</button>
 
@@ -84,9 +101,12 @@ fetch("/adjustment-lab/assets/footer-lite.html")
 <script>
 // === 記録取得 ===
 const records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
+const feedbackEl = document.getElementById("feedback");
+const adviceEl = document.getElementById("advice");
 
 if (records.length === 0) {
-  document.getElementById("feedback").textContent = "まだ記録がありません。まずは入力ページで記録しましょう。";
+  feedbackEl.textContent = "まだ記録がありません。まずは入力ページで記録しましょう。";
+  feedbackEl.classList.add("show");
 } else {
   const dates = records.map(r => r.date);
   const rpeData = records.map(r => Number(r.rpe));
@@ -132,6 +152,10 @@ if (records.length === 0) {
         y: { type: 'linear', position: 'left', title: { display: true, text: 'RPE' }, min: 0, max: 10 },
         y1: { type: 'linear', position: 'right', title: { display: true, text: '心拍数(bpm)' }, grid: { drawOnChartArea: false } },
         y2: { type: 'linear', position: 'right', display: false }
+      },
+      animation: {
+        duration: 1000,
+        easing: 'easeOutQuart'
       }
     }
   });
@@ -160,15 +184,28 @@ if (records.length === 0) {
     comment += " 心拍数が低めです。有酸素能力が高まっている兆候かもしれません。";
   }
 
-  document.getElementById("feedback").textContent = comment;
+  const today = new Date();
+  const dateStr = `${today.getMonth()+1}月${today.getDate()}日分析`;
+  feedbackEl.innerHTML = `${comment}<br><br><span style="font-size:0.85rem;color:#666;">（${dateStr}時点のデータ）</span>`;
+  feedbackEl.classList.add("show");
 
   // === 成長段階（あなたの現在地） ===
   let roleText = "";
   if (avgRPE < 4) roleText = "段階：リカバリー期（整える）";
   else if (avgRPE < 7) roleText = "段階：発展期（積み上げる）";
   else roleText = "段階：突破期（限界を破る）";
-
   document.getElementById("role").textContent = `あなたの現在地：${roleText}`;
+
+  // === 次アクション提案 ===
+  let advice = "";
+  if (avgRPE < 4) {
+    advice = "次は少し強度を上げてみましょう。心拍数が上がるようなペースで短距離走を加えても良い段階です。";
+  } else if (avgRPE < 7) {
+    advice = "現状維持でOK。フォームや呼吸の質を意識して、走りの効率を高めていきましょう。";
+  } else {
+    advice = "強度が十分高いので、次は“質”を意識。体調が万全なら距離を+0.5km、またはペース維持で挑戦を。";
+  }
+  adviceEl.textContent = advice;
 }
 </script>
 </body>
