@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LITEシリーズ一覧｜adjustment-lab</title>
+<title>PRODUCTS｜adjustment-lab</title>
 
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#f8faf9">
@@ -29,6 +29,7 @@ body {
   line-height: 1.8;
 }
 
+/* ===== Header ===== */
 header {
   text-align: center;
   padding: 80px 20px 40px;
@@ -45,13 +46,34 @@ p.sub {
   font-size: 1rem;
 }
 
+/* ===== Section Headings ===== */
+.section {
+  margin: 80px auto;
+  max-width: 1000px;
+  padding: 0 20px;
+}
+
+.section-title {
+  color: var(--accent);
+  font-size: 1.6rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.section-desc {
+  color: var(--sub);
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 0.95rem;
+}
+
+/* ===== Product Cards ===== */
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 40px;
   max-width: 1000px;
-  margin: 60px auto 100px;
-  padding: 0 20px;
+  margin: 0 auto 100px;
 }
 
 .card {
@@ -100,7 +122,27 @@ button:hover {
   color: #fff;
 }
 
-/* Footer */
+/* ===== Back Home Button ===== */
+.back-home {
+  text-align: center;
+  margin: 80px 0 40px;
+}
+.back-home button {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.7em 1.6em;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.back-home button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ===== Footer ===== */
 footer {
   text-align: center;
   color: var(--sub);
@@ -120,181 +162,53 @@ footer a:hover {
 <body>
 
 <header>
-  <h1>LITEシリーズ｜adjustment-lab</h1>
-  <p class="sub">野球選手とアスリートのための基礎構築シリーズ。<br>整うことで、再現性が生まれる。</p>
+  <h1>PRODUCTS｜adjustment-lab</h1>
+  <p class="sub">ツールと教材で、“再現性”を育てる。</p>
 </header>
 
-<div style="text-align:center; margin-top:10px;">
-  <button style="
-    background:none;
-    border:1px solid var(--accent);
-    color:var(--accent);
-    padding:0.6em 1.4em;
-    border-radius:4px;
-    cursor:pointer;
-    font-size:0.95rem;
-    transition:0.3s;
-  " onclick="window.location.href='./lite/index.html'">
-    ▶ アスリート向けLITEシリーズ（A〜E）を見る
-  </button>
-</div>
-  
-<div class="products">
+<!-- ===================================== -->
+<!--        アプリシリーズ セクション       -->
+<!-- ===================================== -->
+<section class="section">
+  <h2 class="section-title">アプリシリーズ</h2>
+  <p class="section-desc">記録と可視化で現場を支えるツール群。</p>
 
-  <!-- 野球選手向け 01〜05 -->
-  <div class="card">
-    <img src="../assets/thumbnails/lite-01.jpg" alt="体の基準">
-    <div class="card-content">
-      <h2>#01｜The Standard of the Body</h2>
-      <p>アスリートに備わるべき“体の基準”を学ぶ。</p>
-      <button onclick="window.location.href='./lite/01.html'">詳細を見る</button>
+  <div class="products">
+    <div class="card">
+      <img src="../assets/thumbnails/apps-thumb.jpg" alt="アプリシリーズ">
+      <div class="card-content">
+        <h2>Apps｜Run Tracker / Recovery Tracker</h2>
+        <p>トレーニングやコンディションを記録・可視化する実践ツール。</p>
+        <button onclick="window.location.href='./apps/index.html'">一覧を見る</button>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="card">
-    <img src="../assets/thumbnails/lite-02.jpg" alt="姿勢バランス">
-    <div class="card-content">
-      <h2>#02｜Balanced Posture for Baseball Players</h2>
-      <p>野球選手に共通する“整う姿勢”を体感する。</p>
-      <button onclick="window.location.href='./lite/02.html'">詳細を見る</button>
-    </div>
-  </div>
+<!-- ===================================== -->
+<!--        LITEシリーズ セクション         -->
+<!-- ===================================== -->
+<section class="section">
+  <h2 class="section-title">LITEシリーズ</h2>
+  <p class="section-desc">野球選手とアスリートのための基礎構築シリーズ。</p>
 
-  <div class="card">
-    <img src="../assets/thumbnails/lite-03.jpg" alt="投手の出力連鎖">
-    <div class="card-content">
-      <h2>#03｜Power Sequence for Pitchers</h2>
-      <p>投手のための“力の順番”を再構築する。</p>
-      <button onclick="window.location.href='./lite/03.html'">詳細を見る</button>
-    </div>
-  </div>
+  <!-- 既存のLITEシリーズカード群をここに配置 -->
+  <!-- ↓既存HTMLの01〜05 / A〜Eのカードをこの位置にそのままコピペ -->
+</section>
 
-  <div class="card">
-    <img src="../assets/thumbnails/lite-04.jpg" alt="ヒップイン">
-    <div class="card-content">
-      <h2>#04｜Feel the Hip-In</h2>
-      <p>ヒップインを“感じる”ための動作原理を学ぶ。</p>
-      <button onclick="window.location.href='./lite/04.html'">詳細を見る</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="../assets/thumbnails/lite-05.jpg" alt="呼吸">
-    <div class="card-content">
-      <h2>#05｜Breathing for Reproducibility</h2>
-      <p>再現性を支える“呼吸”の整え方を知る。</p>
-      <button onclick="window.location.href='./lite/05.html'">詳細を見る</button>
-    </div>
-  </div>
-
-  <!-- アスリート向け A〜E -->
-  <div class="card">
-    <img src="../assets/thumbnails/lite-A.jpg" alt="体の基準">
-    <div class="card-content">
-      <h2>#A｜アスリートに備えたい「体の基準」</h2>
-      <p>すべての競技に共通する“基準の軸”。姿勢・重心・呼吸を整える導入編。</p>
-      <button onclick="window.location.href='./lite/athlete-a.html'">詳細を見る</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="../assets/thumbnails/lite-B.jpg" alt="スプリント">
-    <div class="card-content">
-      <h2>#B｜スプリント ― 滑走するスピード</h2>
-      <p>地面を押すよりも“滑らせる”。走るという動きの本質を再設計。</p>
-      <button onclick="window.location.href='./lite/athlete-b.html'">詳細を見る</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="../assets/thumbnails/lite-C.jpg" alt="ジャンプ力">
-    <div class="card-content">
-      <h2>#C｜ジャンプ力 ― 地反力を扱う</h2>
-      <p>高く跳ぶ力は、沈む力から生まれる。反射・タイミング・剛性の調律。</p>
-      <button onclick="window.location.href='./lite/athlete-c.html'">詳細を見る</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="../assets/thumbnails/lite-D.jpg" alt="切り返しスピード">
-    <div class="card-content">
-      <h2>#D｜切り返しスピード ― 接地を制する</h2>
-      <p>一瞬の重心移動を制御する。力より速さ、速さより精度。</p>
-      <button onclick="window.location.href='./lite/athlete-d.html'">詳細を見る</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="../assets/thumbnails/lite-E.jpg" alt="コンディショニング">
-    <div class="card-content">
-      <h2>#E｜コンディショニング ― 回復をデザインする</h2>
-      <p>“休む”ではなく“戻す”。神経系のリセットと再構築のメソッド。</p>
-      <button onclick="window.location.href='./lite/athlete-e.html'">詳細を見る</button>
-    </div>
-  </div>
-
- <!-- ===== ホームへ戻るボタン ===== -->
+<!-- ===== 戻るボタン ===== -->
 <div class="back-home">
   <button onclick="window.location.href='/adjustment-lab/index.html'">← ホームへ戻る</button>
 </div>
 
-<style>
-.back-home {
-  text-align: center;
-  margin: 80px 0 40px;
-}
-.back-home button {
-  background: none;
-  border: 1px solid #00b386;
-  color: #00b386;
-  padding: 0.7em 1.6em;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.back-home button:hover {
-  background: #00b386;
-  color: #fff;
-}
-</style> 
-
-<!-- ===== ホームへ戻るボタン ===== -->
-<div class="back-home">
-  <button onclick="window.location.href='/adjustment-lab/index.html'">← ホームへ戻る</button>
-</div>
-
-<style>
-.back-home {
-  text-align: center;
-  margin: 80px 0 40px;
-}
-.back-home button {
-  background: none;
-  border: 1px solid #00b386;
-  color: #00b386;
-  padding: 0.7em 1.6em;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.back-home button:hover {
-  background: #00b386;
-  color: #fff;
-}
-</style>
-  
 <!-- ===== 共通フッター ===== -->
-<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 <div id="footer"></div>
-
 <script>
 fetch("/adjustment-lab/assets/footer-lite.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("footer").innerHTML = data;
-    });
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById("footer").innerHTML = data;
+  });
 </script>
 
 </body>
