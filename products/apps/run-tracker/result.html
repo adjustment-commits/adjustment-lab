@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RUN TRACKER｜結果</title>
+<meta name="theme-color" content="#f8faf9">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #f8faf9;
+  color: #1a1a1a;
+  margin: 0;
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  line-height: 1.7;
+}
+h1 {
+  text-align: center;
+  color: #00b386;
+  margin-bottom: 20px;
+}
+canvas {
+  margin-top: 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+#comment {
+  margin-top: 40px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  line-height: 1.8;
+}
+button {
+  margin-top: 30px;
+  width: 100%;
+  background: #555;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background: #333;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  color: #666;
+  font-size: 0.85rem;
+  margin: 80px 0 40px;
+  line-height: 1.6;
+}
+footer a {
+  color: #00b386;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+footer small {
+  display: block;
+  margin-top: 6px;
+  color: #999;
+}
+</style>
+</head>
+
+<body>
+<h1>RUN TRACKER｜結果</h1>
+
+<canvas id="chart" height="220"></canvas>
+
+<div id="comment"></div>
+
+<button onclick="window.location.href='index.html'">← 記録入力に戻る</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const data = JSON.parse(localStorage.getItem("trainingRecords")) || [];
+
+  if (data.length === 0) {
+    document.getElementById("comment").innerHTML = "<p>まだ記録がありません。</p>";
+    return;
+  }
+
+  const dates = data.map(d => d.date);
+  const rpe = data.map(d => Number(d.rpe));
+  const hr = data.map(d => Number(d.hr));
+  const dist = data.map(d => Number(d.distance));
+
+  // === Chart.js ===
+  const ctx = document.getElementById("chart").getContext("2d");
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: dates,
+      datasets: [
+        {
+          label: "RPE",
+          data: rpe,
+          borderColor: "#00b386",
+          backgroundColor: "rgba(0,179,134,0.1)",
+          yAxisID: "y1",
+          tension: 0.3
+        },
+        {
+          label: "心拍数 (bpm)",
+          data: hr,
+          borderColor: "#ff8a65",
+          backgroundColor: "rgba(255,138,101,0.1)",
+          yAxisID: "y2",
+          tension: 0.3
+        },
+        {
+          label: "距離 (km)",
+          data: dist,
+          borderColor: "#3f51b5",
+          backgroundColor: "rgba(63,81,181,0.1)",
+          yAxisID: "y3",
+          tension: 0.3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y1: { type: "linear", position: "left", beginAtZero: true, title: { display: true, text: "RPE" } },
+        y2: { type: "linear", position: "right", beginAtZero: true, grid: { drawOnChartArea: false }, title: { display: true, text: "心拍数" } },
+        y3: { display: false }
+      },
+      plugins: {
+        legend: { position: "bottom" }
+      }
+    }
+  });
+
+  // === コメント生成 ===
+  const avgRPE = rpe.reduce((a,b)=>a+b,0) / rpe.length;
+  const avgHR = hr.filter(n=>!isNaN(n)).reduce((a,b)=>a+b,0) / hr.filter(n=>!isNaN(n)).length;
+  const avgDist = dist.filter(n=>!isNaN(n)).reduce((a,b)=>a+b,0) / dist.filter(n=>!isNaN(n)).length;
+
+  let msg = "";
+
+  if (avgRPE > 7) {
+    msg += "🔥 高い強度が続いています。体は確実に適応していますが、休養を意識しましょう。<br>";
+  } else if (avgRPE < 4) {
+    msg += "⚡ 負荷が軽めです。次のステップでは、少し強度を上げて刺激を入れていきましょう。<br>";
+  } else {
+    msg += "💪 適切な強度でトレーニングが積めています。バランスの良い状態です。<br>";
+  }
+
+  if (avgHR > 160) {
+    msg += "❤️‍🔥 心拍数が高めです。疲労やストレスが蓄積している可能性もあります。<br>";
+  } else if (avgHR < 100) {
+    msg += "🫀 低心拍で安定しています。リカバリー期として理想的です。<br>";
+  }
+
+  if (avgDist > 5) {
+    msg += "🏃‍♂️ 距離が安定して伸びています。持久力強化が進行中です。<br>";
+  } else if (avgDist < 2) {
+    msg += "📉 距離が短めです。無理のない範囲で少しずつ距離を伸ばしていきましょう。<br>";
+  }
+
+  msg += "<br><b>最終的に大切なのは、“続けること”。</b><br>トレーニング量より、習慣化の積み重ねがToughさを作ります。";
+
+  document.getElementById("comment").innerHTML = msg;
+});
+</script>
+
+<footer>
+  <p>
+    © 2025 adjustment-lab<br>
+    <a href="/adjustment-lab/legal.html">販売・利用規約</a>｜
+    <a href="/adjustment-lab/contact/index.html">お問い合わせ</a><br>
+    <small>Produced by 整【アジャストメント】</small>
+  </p>
+</footer>
+
+</body>
+</html>
