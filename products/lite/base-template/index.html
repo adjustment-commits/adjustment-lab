@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LITE BASE｜記録入力</title>
 <meta name="theme-color" content="#f8faf9">
-<link rel="stylesheet" href="style.css">
+
+<!-- 共通CSS（footerなど） -->
+<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 
 <style>
 body {
@@ -17,16 +19,19 @@ body {
   max-width: 600px;
   margin: auto;
 }
+
 h1 {
   text-align: center;
   color: #00b386;
   margin-bottom: 20px;
 }
+
 label {
   display: block;
   margin-top: 20px;
   font-size: 0.95rem;
 }
+
 input, select, textarea {
   width: 100%;
   padding: 10px;
@@ -35,6 +40,7 @@ input, select, textarea {
   font-size: 1rem;
   box-sizing: border-box;
 }
+
 button {
   margin-top: 25px;
   width: 100%;
@@ -50,11 +56,17 @@ button {
 button:hover {
   background: #009270;
 }
+
 #message {
   text-align: center;
   margin-top: 15px;
   color: #00b386;
   font-weight: 500;
+}
+
+/* ===== footer調整 ===== */
+footer {
+  margin-top: 60px !important;
 }
 </style>
 </head>
@@ -119,6 +131,14 @@ document.getElementById("recordForm").addEventListener("submit", (e) => {
   document.getElementById("recordForm").reset();
   document.getElementById("rpeValue").textContent = "5";
 });
+</script>
+
+<!-- ===== 共通フッター ===== -->
+<div id="footer"></div>
+<script>
+fetch("/adjustment-lab/assets/footer-lite.html")
+  .then(res => res.text())
+  .then(html => { document.getElementById("footer").innerHTML = html; });
 </script>
 
 </body>
