@@ -62,6 +62,14 @@ button:hover { background: #009270; }
   font-weight: 600;
   color: #009270;
 }
+.feedback {
+  margin-top: 20px;
+  background: #eefaf6;
+  border-left: 5px solid #00b386;
+  padding: 15px;
+  border-radius: 6px;
+  line-height: 1.8;
+}
 </style>
 </head>
 
@@ -72,6 +80,7 @@ button:hover { background: #009270; }
 <canvas id="recoveryChart"></canvas>
 
 <div id="average"></div>
+<div id="feedback" class="feedback"></div>
 
 <button onclick="window.location.href='index.html'">入力画面へ戻る</button>
 
@@ -94,12 +103,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const avg = (arr) => (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1);
 
+  const avgData = {
+    sleep: avg(sleep),
+    fatigue: avg(fatigue),
+    muscle: avg(muscle),
+    appetite: avg(appetite),
+    mental: avg(mental)
+  };
+
   document.getElementById("average").innerHTML = `
-    💤 睡眠平均：${avg(sleep)}h　
-    ⚡ 疲労平均：${avg(fatigue)}　
-    💪 筋肉痛平均：${avg(muscle)}　
-    🍽️ 食欲平均：${avg(appetite)}　
-    🧠 メンタル平均：${avg(mental)}
+    💤 睡眠平均：${avgData.sleep}h　
+    ⚡ 疲労平均：${avgData.fatigue}　
+    💪 筋肉痛平均：${avgData.muscle}　
+    🍽️ 食欲平均：${avgData.appetite}　
+    🧠 メンタル平均：${avgData.mental}
   `;
 
   new Chart(ctx, {
@@ -121,13 +138,44 @@ document.addEventListener("DOMContentLoaded", () => {
         title: { display: true, text: "コンディション推移", color: "#333" }
       },
       scales: {
-        y: {
-          beginAtZero: true,
-          ticks: { stepSize: 1 }
-        }
+        y: { beginAtZero: true, ticks: { stepSize: 1 } }
       }
     }
   });
+
+  // === コメント生成関数 ===
+  function generateFeedback(avgData) {
+    const { sleep, fatigue, muscle, appetite, mental } = avgData;
+    let feedbacks = [];
+
+    // 単項目
+    if (sleep < 6) feedbacks.push("💤 睡眠が不足しています（6時間未満）。");
+    if (fatigue > 7) feedbacks.push("⚡ 強い疲労が見られます。今日は調整を優先しましょう。");
+    if (muscle > 4) feedbacks.push("💪 筋肉痛が強い状態。軽い動きで血流促進を。");
+    if (appetite < 3) feedbacks.push("🍽️ 食欲が低下しています。栄養摂取を意識。");
+    if (mental < 3) feedbacks.push("🧠 メンタルが落ち気味。睡眠と気分転換を。");
+
+    // 相関パターン
+    if (sleep < 6 && fatigue > 6)
+      feedbacks.push("睡眠不足が疲労を悪化させています。まずは休養を。");
+    if (mental < 3 && fatigue > 6)
+      feedbacks.push("ストレスによる疲労傾向。リカバリーデイを設けましょう。");
+    if (muscle > 3 && sleep < 6)
+      feedbacks.push("筋修復が遅れています。タンパク質補給を意識。");
+
+    // 総評
+    const score = (sleep/8 + (10 - fatigue)/10 + (5 - muscle)/5 + appetite/5 + mental/5) / 5;
+    if (score >= 0.8)
+      feedbacks.push("🌿 全体的に良好。高強度トレーニングも実施可能。");
+    else if (score >= 0.6)
+      feedbacks.push("安定傾向。疲労と睡眠のバランスを維持しましょう。");
+    else
+      feedbacks.push("⚠️ 回復が遅れています。2〜3日の調整期間を設けてください。");
+
+    return feedbacks.join("<br>");
+  }
+
+  document.getElementById("feedback").innerHTML = generateFeedback(avgData);
 });
 </script>
 
