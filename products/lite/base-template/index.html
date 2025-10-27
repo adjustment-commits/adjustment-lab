@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LITE BASE｜記録入力</title>
+<meta name="theme-color" content="#f8faf9">
+<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #f8faf9;
+  color: #1a1a1a;
+  margin: 0;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+h1 {
+  text-align: center;
+  color: #00b386;
+  margin-bottom: 20px;
+}
+label {
+  display: block;
+  margin-top: 20px;
+  font-size: 0.95rem;
+}
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+button {
+  margin-top: 25px;
+  width: 100%;
+  background: #00b386;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  background: #009270;
+}
+#message {
+  text-align: center;
+  margin-top: 15px;
+  color: #00b386;
+  font-weight: 500;
+}
+</style>
+</head>
+
+<body>
+
+<h1>記録を入力する</h1>
+
+<form id="recordForm">
+  <label>日付</label>
+  <input type="date" id="date" required>
+
+  <label>自覚的疲労度（RPE）</label>
+  <input type="range" id="rpe" min="1" max="10" value="5" oninput="rpeValue.textContent=this.value">
+  <span id="rpeValue">5</span>
+
+  <label>心拍数（bpm）</label>
+  <input type="number" id="hr" placeholder="例：145" min="40" max="220">
+
+  <label>距離（km）</label>
+  <input type="number" id="distance" placeholder="例：3.5" step="0.1" min="0">
+
+  <label>練習内容メモ</label>
+  <textarea id="note" rows="3" placeholder="自由に記入..."></textarea>
+
+  <button type="submit">保存する</button>
+</form>
+
+<div id="message"></div>
+
+<button onclick="window.location.href='result.html'" style="margin-top:30px;background:#555;">グラフを見る</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // 今日の日付を自動入力
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById("date").value = today;
+});
+
+document.getElementById("recordForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const record = {
+    date: document.getElementById("date").value,
+    rpe: document.getElementById("rpe").value,
+    hr: document.getElementById("hr").value,
+    distance: document.getElementById("distance").value,
+    note: document.getElementById("note").value
+  };
+
+  // 保存処理
+  let records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
+  records.push(record);
+  localStorage.setItem("trainingRecords", JSON.stringify(records));
+
+  // メッセージ表示
+  const msg = document.getElementById("message");
+  msg.textContent = "✅ 記録を保存しました。";
+  setTimeout(() => msg.textContent = "", 2000);
+
+  // フォームリセット
+  document.getElementById("recordForm").reset();
+  document.getElementById("rpeValue").textContent = "5";
+});
+</script>
+
+</body>
+</html>
