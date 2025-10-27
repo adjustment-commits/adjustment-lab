@@ -7,15 +7,16 @@
   "theme_color": "#00b386",
   "description": "ランニング・トレーニングを記録し、再現性を高めるアプリ。",
   "icons": [
-    {
-      "src": "/adjustment-lab/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/adjustment-lab/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+   "icons": [
+  {
+    "src": "/adjustment-lab/products/icons/icon-192.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "/adjustment-lab/products/icons/icon-512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
   ]
 }
