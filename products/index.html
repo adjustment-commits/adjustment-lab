@@ -3,22 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PRODUCTS｜adjustment-lab</title>
+<title>Products｜adjustment-lab</title>
 
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#f8faf9">
 
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
+
 <script>
 fetch("/adjustment-lab/assets/footer-lite.html")
+  .then(res => res.text())
+  .then(html => {
+    const footer = document.querySelector("footer");
+    if (footer) footer.innerHTML = html;
+  });
 </script>
 
 <style>
 :root {
   --bg: #f8faf9;
   --text: #1a1a1a;
-  --accent: #00b386;
   --sub: #666;
+  --accent: #00b386;
+  --card-bg: #ffffff;
+  --line: rgba(0,0,0,0.06);
   font-family: 'Noto Sans JP', sans-serif;
 }
 
@@ -27,189 +35,141 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.8;
+  animation: fadein 1.2s ease-in;
+}
+@keyframes fadein {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
 }
 
-/* ===== Header ===== */
+/* === Header === */
 header {
   text-align: center;
-  padding: 80px 20px 40px;
+  padding: 80px 20px 60px;
 }
-
-h1 {
-  font-size: 2rem;
-  color: var(--accent);
-  margin-bottom: 8px;
+header h1 {
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
 }
-
-p.sub {
+header p {
   color: var(--sub);
-  font-size: 1rem;
+  margin-top: 8px;
 }
 
-/* ===== Section Headings ===== */
-.section {
-  margin: 80px auto;
-  max-width: 1000px;
-  padding: 0 20px;
+/* === Category Section === */
+section.category {
+  padding: 40px 5% 60px;
+  border-top: 1px solid var(--line);
 }
-
-.section-title {
+section.category h2 {
+  font-size: 1.4rem;
   color: var(--accent);
-  font-size: 1.6rem;
+  margin-bottom: 24px;
   text-align: center;
-  margin-bottom: 10px;
 }
 
-.section-desc {
-  color: var(--sub);
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 0.95rem;
-}
-
-/* ===== Product Cards ===== */
-.products {
+/* === Card Grid === */
+.cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 40px;
-  max-width: 1000px;
-  margin: 0 auto 100px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  justify-content: center;
 }
-
 .card {
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
-  transition: 0.3s;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+  padding: 24px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
 }
-.card img {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  color: var(--text);
 }
-.card-content {
-  padding: 24px;
-}
-.card-content h2 {
-  color: var(--accent);
-  font-size: 1.2rem;
-  margin-bottom: 0.4em;
-  line-height: 1.4;
-}
-.card-content p {
-  color: var(--sub);
-  font-size: 0.95rem;
-  margin-bottom: 1.6em;
-}
-
-button {
-  background: none;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 0.6em 1.4em;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-button:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-/* ===== Back Home Button ===== */
-.back-home {
-  text-align: center;
-  margin: 80px 0 40px;
-}
-.back-home button {
-  background: none;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 0.7em 1.6em;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.back-home button:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-/* ===== Footer ===== */
-footer {
-  text-align: center;
+.card p {
+  margin: 0;
   color: var(--sub);
   font-size: 0.9rem;
-  margin: 100px 0 40px;
+  line-height: 1.6;
 }
-footer a {
-  color: var(--accent);
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
+
+/* === Accent per Category === */
+.apps .card { border-top: 3px solid #00b386; }
+.lite .card { border-top: 3px solid #007b3a; }
+.custom .card { border-top: 3px solid #444; }
+
+/* === Footer spacing === */
+footer {
+  margin-top: 80px;
 }
 </style>
 </head>
 
 <body>
-
 <header>
-  <h1>PRODUCTS｜adjustment-lab</h1>
-  <p class="sub">ツールと教材で、“再現性”を育てる。</p>
+  <h1>adjustment-lab PRODUCTS</h1>
+  <p>現場の思考を“使える教材とツール”に変換する。</p>
 </header>
 
-<!-- ===================================== -->
-<!--        アプリシリーズ セクション       -->
-<!-- ===================================== -->
-<section class="section">
-  <h2 class="section-title">アプリシリーズ</h2>
-  <p class="section-desc">記録と可視化で現場を支えるツール群。</p>
-
-  <div class="products">
+<!-- Apps -->
+<section class="category">
+  <h2>Apps｜記録と可視化</h2>
+  <div class="cards apps">
+    <div class="card" onclick="location.href='/adjustment-lab/products/apps/run-tracker/'">
+      <h3>Run Tracker</h3>
+      <p>ランニングや持久系の記録をグラフ化。現場で簡単に入力・分析。</p>
+    </div>
+    <div class="card" onclick="location.href='/adjustment-lab/products/apps/recovery-tracker/'">
+      <h3>Recovery Tracker</h3>
+      <p>体調・回復度を日次で可視化し、トレーニング負荷との関係を把握。</p>
+    </div>
     <div class="card">
-      <img src="../assets/thumbnails/apps-thumb.jpg" alt="アプリシリーズ">
-      <div class="card-content">
-        <h2>Apps｜Run Tracker / Recovery Tracker</h2>
-        <p>トレーニングやコンディションを記録・可視化する実践ツール。</p>
-        <button onclick="window.location.href='./apps/index.html'">一覧を見る</button>
-      </div>
+      <h3>Injury Record System</h3>
+      <p>チームで共有できる障害記録プラットフォーム。Excel管理からの脱却。</p>
     </div>
   </div>
 </section>
 
-<!-- ===================================== -->
-<!--        LITEシリーズ セクション         -->
-<!-- ===================================== -->
-<section class="section">
-  <h2 class="section-title">LITEシリーズ</h2>
-  <p class="section-desc">野球選手とアスリートのための基礎構築シリーズ。</p>
-
-  <!-- 既存のLITEシリーズカード群をここに配置 -->
-  <!-- ↓既存HTMLの01〜05 / A〜Eのカードをこの位置にそのままコピペ -->
+<!-- Lite -->
+<section class="category">
+  <h2>Lite / Flipbook｜教材と設計</h2>
+  <div class="cards lite">
+    <div class="card" onclick="location.href='/adjustment-lab/products/lite/lite-a.html'">
+      <h3>LITE-A｜骨盤と胸郭の連動</h3>
+      <p>選手の“動きの順番”を可視化し、再現性を高めるトレーニング教材。</p>
+    </div>
+    <div class="card" onclick="location.href='/adjustment-lab/products/lite/lite-b.html'">
+      <h3>LITE-B｜ヒップイン基礎</h3>
+      <p>下半身主導の動作づくりを段階的に学ぶ教材。指導現場で即活用可。</p>
+    </div>
+    <div class="card">
+      <h3>Flipbook｜投手 × VO₂max</h3>
+      <p>スタミナ構築と出力の両立を学ぶインタラクティブ教材。</p>
+    </div>
+  </div>
 </section>
 
-<!-- ===== 戻るボタン ===== -->
-<div class="back-home">
-  <button onclick="window.location.href='/adjustment-lab/index.html'">← ホームへ戻る</button>
-</div>
+<!-- Custom -->
+<section class="category">
+  <h2>Custom｜チーム・個別対応</h2>
+  <div class="cards custom">
+    <div class="card">
+      <h3>Team Package</h3>
+      <p>チーム単位でのアプリ導入・教材カスタム。練習現場へ最適化設計。</p>
+    </div>
+    <div class="card">
+      <h3>Personal Design</h3>
+      <p>個別アスリート専用の教材・PWA設計を行う完全オーダーメイド対応。</p>
+    </div>
+  </div>
+</section>
 
-<!-- ===== 共通フッター ===== -->
-<div id="footer"></div>
-<script>
-fetch("/adjustment-lab/assets/footer-lite.html")
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById("footer").innerHTML = data;
-  });
-</script>
-
+<footer></footer>
 </body>
 </html>
