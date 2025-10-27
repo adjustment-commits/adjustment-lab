@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RUN TRACKER｜結果</title>
+<title>LITE BASE｜記録の推移</title>
 <meta name="theme-color" content="#f8faf9">
+<link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
@@ -16,35 +17,44 @@ body {
   padding: 20px;
   max-width: 800px;
   margin: auto;
-  line-height: 1.7;
 }
 h1 {
   text-align: center;
   color: #00b386;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+select {
+  display: block;
+  margin: 0 auto 30px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.2);
 }
 canvas {
-  margin-top: 30px;
+  margin-bottom: 40px;
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 10px;
 }
-#comment {
-  margin-top: 40px;
+#advice {
   background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  line-height: 1.8;
+  border-left: 6px solid #00b386;
+  padding: 15px 20px;
+  border-radius: 6px;
+  margin-top: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  font-size: 0.95rem;
+  line-height: 1.7;
 }
 button {
-  margin-top: 30px;
-  width: 100%;
+  display: block;
+  margin: 30px auto 0;
   background: #555;
   color: #fff;
   border: none;
-  padding: 12px;
-  font-size: 1.1rem;
+  padding: 12px 20px;
   border-radius: 6px;
   cursor: pointer;
   transition: 0.3s;
@@ -52,141 +62,140 @@ button {
 button:hover {
   background: #333;
 }
-
-/* Footer */
-footer {
-  text-align: center;
-  color: #666;
-  font-size: 0.85rem;
-  margin: 80px 0 40px;
-  line-height: 1.6;
-}
-footer a {
-  color: #00b386;
-  text-decoration: none;
-  transition: 0.3s ease;
-}
-footer a:hover {
-  text-decoration: underline;
-}
-footer small {
-  display: block;
-  margin-top: 6px;
-  color: #999;
-}
 </style>
 </head>
 
 <body>
-<h1>RUN TRACKER｜結果</h1>
 
-<canvas id="chart" height="220"></canvas>
+<h1>記録の推移</h1>
+<select id="filter">
+  <option value="all">全期間</option>
+  <option value="month">今月</option>
+  <option value="week">今週</option>
+</select>
 
-<div id="comment"></div>
+<canvas id="rpeChart" height="150"></canvas>
+<canvas id="hrChart" height="150"></canvas>
+<canvas id="distanceChart" height="150"></canvas>
 
-<button onclick="window.location.href='index.html'">← 記録入力に戻る</button>
+<div id="advice"></div>
 
+<button onclick="window.location.href='index.html'">← 記録入力へ戻る</button>
+
+<!-- ===== JS ===== -->
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const data = JSON.parse(localStorage.getItem("trainingRecords")) || [];
+const ctxRPE = document.getElementById("rpeChart");
+const ctxHR = document.getElementById("hrChart");
+const ctxDist = document.getElementById("distanceChart");
+const filterSelect = document.getElementById("filter");
+const adviceBox = document.getElementById("advice");
 
-  if (data.length === 0) {
-    document.getElementById("comment").innerHTML = "<p>まだ記録がありません。</p>";
-    return;
-  }
+function filterRecords(records, mode) {
+  const now = new Date();
+  return records.filter(r => {
+    const d = new Date(r.date);
+    if (mode === "week") {
+      const diff = (now - d) / (1000 * 60 * 60 * 24);
+      return diff <= 7;
+    }
+    if (mode === "month") {
+      return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+    }
+    return true;
+  });
+}
 
-  const dates = data.map(d => d.date);
-  const rpe = data.map(d => Number(d.rpe));
-  const hr = data.map(d => Number(d.hr));
-  const dist = data.map(d => Number(d.distance));
+function analyzePerformance(records) {
+  if (!records.length) return "まだ記録がありません。今日から始めましょう。";
 
-  // === Chart.js ===
-  const ctx = document.getElementById("chart").getContext("2d");
-  new Chart(ctx, {
+  const avgRPE = records.reduce((a,b)=>a+Number(b.rpe),0)/records.length;
+  const avgHR = records.filter(b=>b.hr).reduce((a,b)=>a+Number(b.hr||0),0)/records.filter(b=>b.hr).length || 0;
+  const totalDist = records.reduce((a,b)=>a+Number(b.distance||0),0);
+
+  if (avgRPE >= 8)
+    return "🔥 高強度のトレーニングが続いています。身体の声を聞きつつ、しっかり休養を。";
+  if (avgRPE >= 6)
+    return "💪 良い負荷で積み上げができています。このリズムを維持しながら、週末は軽めの刺激を。";
+  if (avgRPE >= 4)
+    return "⚖ 安定したコンディションです。今週は少し負荷を上げても良いタイミングです。";
+  return "🌀 低強度が続いています。目的を見直し、意図を持ったトレーニングを再開しましょう。";
+}
+
+function renderCharts(mode="all") {
+  const raw = JSON.parse(localStorage.getItem("trainingRecords")) || [];
+  const data = filterRecords(raw, mode);
+  const labels = data.map(d=>d.date);
+
+  const rpe = data.map(d=>d.rpe);
+  const hr = data.map(d=>d.hr);
+  const dist = data.map(d=>d.distance);
+
+  // RPE
+  new Chart(ctxRPE, {
     type: "line",
     data: {
-      labels: dates,
-      datasets: [
-        {
-          label: "RPE",
-          data: rpe,
-          borderColor: "#00b386",
-          backgroundColor: "rgba(0,179,134,0.1)",
-          yAxisID: "y1",
-          tension: 0.3
-        },
-        {
-          label: "心拍数 (bpm)",
-          data: hr,
-          borderColor: "#ff8a65",
-          backgroundColor: "rgba(255,138,101,0.1)",
-          yAxisID: "y2",
-          tension: 0.3
-        },
-        {
-          label: "距離 (km)",
-          data: dist,
-          borderColor: "#3f51b5",
-          backgroundColor: "rgba(63,81,181,0.1)",
-          yAxisID: "y3",
-          tension: 0.3
-        }
-      ]
+      labels,
+      datasets: [{
+        label: "RPE（主観的強度）",
+        data: rpe,
+        borderColor: "#00b386",
+        backgroundColor: "rgba(0,179,134,0.1)",
+        fill: true
+      }]
     },
-    options: {
-      responsive: true,
-      scales: {
-        y1: { type: "linear", position: "left", beginAtZero: true, title: { display: true, text: "RPE" } },
-        y2: { type: "linear", position: "right", beginAtZero: true, grid: { drawOnChartArea: false }, title: { display: true, text: "心拍数" } },
-        y3: { display: false }
-      },
-      plugins: {
-        legend: { position: "bottom" }
-      }
-    }
+    options: { responsive: true, scales: { y: { suggestedMin: 0, suggestedMax: 10 } } }
   });
 
-  // === コメント生成 ===
-  const avgRPE = rpe.reduce((a,b)=>a+b,0) / rpe.length;
-  const avgHR = hr.filter(n=>!isNaN(n)).reduce((a,b)=>a+b,0) / hr.filter(n=>!isNaN(n)).length;
-  const avgDist = dist.filter(n=>!isNaN(n)).reduce((a,b)=>a+b,0) / dist.filter(n=>!isNaN(n)).length;
+  // HR
+  new Chart(ctxHR, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "心拍数（bpm）",
+        data: hr,
+        borderColor: "#ff6b6b",
+        backgroundColor: "rgba(255,107,107,0.1)",
+        fill: true
+      }]
+    },
+    options: { responsive: true }
+  });
 
-  let msg = "";
+  // Distance
+  new Chart(ctxDist, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "距離（km）",
+        data: dist,
+        borderColor: "#4a90e2",
+        backgroundColor: "rgba(74,144,226,0.1)",
+        fill: true
+      }]
+    },
+    options: { responsive: true }
+  });
 
-  if (avgRPE > 7) {
-    msg += "🔥 高い強度が続いています。体は確実に適応していますが、休養を意識しましょう。<br>";
-  } else if (avgRPE < 4) {
-    msg += "⚡ 負荷が軽めです。次のステップでは、少し強度を上げて刺激を入れていきましょう。<br>";
-  } else {
-    msg += "💪 適切な強度でトレーニングが積めています。バランスの良い状態です。<br>";
-  }
+  adviceBox.innerHTML = analyzePerformance(data);
+}
 
-  if (avgHR > 160) {
-    msg += "❤️‍🔥 心拍数が高めです。疲労やストレスが蓄積している可能性もあります。<br>";
-  } else if (avgHR < 100) {
-    msg += "🫀 低心拍で安定しています。リカバリー期として理想的です。<br>";
-  }
-
-  if (avgDist > 5) {
-    msg += "🏃‍♂️ 距離が安定して伸びています。持久力強化が進行中です。<br>";
-  } else if (avgDist < 2) {
-    msg += "📉 距離が短めです。無理のない範囲で少しずつ距離を伸ばしていきましょう。<br>";
-  }
-
-  msg += "<br><b>最終的に大切なのは、“続けること”。</b><br>トレーニング量より、習慣化の積み重ねがToughさを作ります。";
-
-  document.getElementById("comment").innerHTML = msg;
+filterSelect.addEventListener("change", e => {
+  renderCharts(e.target.value);
 });
+
+// 初期表示
+renderCharts();
 </script>
 
-<footer>
-  <p>
-    © 2025 adjustment-lab<br>
-    <a href="/adjustment-lab/legal.html">販売・利用規約</a>｜
-    <a href="/adjustment-lab/contact/index.html">お問い合わせ</a><br>
-    <small>Produced by 整【アジャストメント】</small>
-  </p>
-</footer>
+<!-- ===== 共通フッター ===== -->
+<div id="footer"></div>
+<script>
+fetch("/adjustment-lab/assets/footer-lite.html")
+  .then(res => res.text())
+  .then(html => { document.getElementById("footer").innerHTML = html; });
+</script>
 
 </body>
 </html>
