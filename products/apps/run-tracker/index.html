@@ -9,6 +9,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Run Tracker">
+
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -16,6 +17,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RUN TRACKER｜記録入力</title>
@@ -68,12 +70,48 @@ button:hover { background: #009270; }
   color: #00b386;
   font-weight: 500;
 }
+#welcomeCard {
+  display: none;
+  background: #fff;
+  border-left: 4px solid #00b386;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
+#installPrompt {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #00b386;
+  color: #fff;
+  text-align: center;
+  padding: 12px 8px;
+  z-index: 999;
+}
+#installPrompt button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  background: #fff;
+  color: #00b386;
+  border-radius: 4px;
+}
+footer { margin-top: 50px; }
 </style>
 </head>
 
 <body>
 
 <h1>RUN TRACKER</h1>
+
+<!-- ✅ 初回アクセス時のウェルカムカード -->
+<div id="welcomeCard">
+  <strong>🏃‍♂️ ようこそ Run Trackerへ</strong><br>
+  このアプリはあなたのランニングデータを記録し、グラフ化します。<br>
+  ホーム画面に追加すれば、<strong>オフラインでも使えます。</strong>
+</div>
 
 <form id="recordForm">
   <label>日付</label>
@@ -101,28 +139,36 @@ button:hover { background: #009270; }
   <button type="submit">保存する</button>
 </form>
 
-<!-- 🔥 全データ削除ボタン -->
-<button id="resetBtn" style="margin-top:20px;background:#c0392b;">全データを削除する</button>
-
-<script>
-document.getElementById("resetBtn").addEventListener("click", () => {
-  if (confirm("すべての記録を削除しますか？この操作は取り消せません。")) {
-    localStorage.removeItem("trainingRecords");
-    alert("全データを削除しました。");
-    location.reload(); // ページ更新
-  }
-});
-</script>
-
 <div id="message"></div>
-
 <button onclick="window.location.href='result.html'" style="margin-top:30px;background:#555;">グラフを見る</button>
 
+<!-- ✅ ホーム追加バナー -->
+<div id="installPrompt">
+  📱 ホーム画面に追加してRun Trackerをアプリとして使う
+  <button id="installBtn">追加</button>
+</div>
+
+<!-- ✅ フッター -->
+<div id="footer"></div>
 <script>
+fetch("/adjustment-lab/assets/footer-lite.html")
+  .then(res => res.text())
+  .then(html => { document.getElementById("footer").innerHTML = html; });
+</script>
+
+<script>
+// === 日付自動入力 ===
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("date").value = new Date().toISOString().split('T')[0];
+
+  // 初回アクセス判定
+  if (!localStorage.getItem("runTrackerVisited")) {
+    document.getElementById("welcomeCard").style.display = "block";
+    localStorage.setItem("runTrackerVisited", "true");
+  }
 });
 
+// === 保存処理 ===
 document.getElementById("recordForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const record = {
@@ -133,7 +179,6 @@ document.getElementById("recordForm").addEventListener("submit", (e) => {
     distance: document.getElementById("distance").value,
     note: document.getElementById("note").value
   };
-
   let records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
   records.push(record);
   localStorage.setItem("trainingRecords", JSON.stringify(records));
@@ -144,13 +189,24 @@ document.getElementById("recordForm").addEventListener("submit", (e) => {
   document.getElementById("recordForm").reset();
   document.getElementById("rpeValue").textContent = "5";
 });
+
+// === PWAインストール案内 ===
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installPrompt').style.display = 'block';
+});
+document.getElementById('installBtn').addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') console.log('PWA installed');
+    deferredPrompt = null;
+    document.getElementById('installPrompt').style.display = 'none';
+  }
+});
 </script>
 
-<div id="footer"></div>
-<script>
-fetch("/adjustment-lab/assets/footer-lite.html")
-  .then(res => res.text())
-  .then(html => { document.getElementById("footer").innerHTML = html; });
-</script>
 </body>
 </html>
