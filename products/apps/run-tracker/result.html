@@ -3,8 +3,8 @@
 <head>
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#00b386">
-<link rel="apple-touch-icon" sizes="192x192" href="/adjustment-lab/icons/icon-192.png">
-<link rel="apple-touch-icon" sizes="512x512" href="/adjustment-lab/icons/icon-512.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/adjustment-lab/products/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="/adjustment-lab/products/icons/icon-512.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Run Tracker">
@@ -53,7 +53,7 @@ h1 {
 canvas {
   margin-top: 10px;
   width: 100%;
-  height: 300px;
+  height: 320px;
 }
 p.comment {
   background: #fff;
@@ -143,13 +143,16 @@ function renderChart() {
     return;
   }
 
-const sortedRecords = records.sort((a, b) => new Date(a.date) - new Date(b.date));
+  const sortedRecords = records.sort((a,b)=> new Date(a.date) - new Date(b.date));
+  const dates = sortedRecords.map(r => r.date);
+  const rpeData = sortedRecords.map(r => Number(r.rpe));
+  const hrData = sortedRecords.map(r => Number(r.hr));
+  const distData = sortedRecords.map(r => Number(r.distance));
+  const vo2Data = sortedRecords.map(r => {
+    const match = r.vo2max?.match(/[\d.]+/);
+    return match ? Number(match[0]) : null;
+  });
 
-const dates = sortedRecords.map(r => r.date);
-const rpeData = sortedRecords.map(r => Number(r.rpe));
-const hrData = sortedRecords.map(r => Number(r.hr));
-const distData = sortedRecords.map(r => Number(r.distance));
-  
   const ctx = document.getElementById('trainingChart').getContext('2d');
   if (window.chartInstance) window.chartInstance.destroy();
 
@@ -160,7 +163,8 @@ const distData = sortedRecords.map(r => Number(r.distance));
       datasets: [
         { label: 'RPE（主観的強度）', data: rpeData, borderColor: '#00b386', backgroundColor: 'rgba(0,179,134,0.2)', yAxisID: 'y' },
         { label: '心拍数（bpm）', data: hrData, borderColor: '#ff8c00', backgroundColor: 'rgba(255,140,0,0.2)', yAxisID: 'y1' },
-        { label: '距離（km）', data: distData, borderColor: '#1e90ff', backgroundColor: 'rgba(30,144,255,0.2)', yAxisID: 'y2' }
+        { label: '距離（km）', data: distData, borderColor: '#1e90ff', backgroundColor: 'rgba(30,144,255,0.2)', yAxisID: 'y2' },
+        { label: 'VO₂max（ml/kg/min）', data: vo2Data, borderColor: '#9b59b6', backgroundColor: 'rgba(155,89,182,0.2)', yAxisID: 'y3' }
       ]
     },
     options: {
@@ -169,35 +173,43 @@ const distData = sortedRecords.map(r => Number(r.distance));
       stacked: false,
       plugins: { legend: { position: 'bottom' } },
       scales: {
-        y: { type: 'linear', position: 'left', min: 0, max: 10 },
-        y1: { type: 'linear', position: 'right', grid: { drawOnChartArea: false } },
-        y2: { display: false }
+        y: { type: 'linear', position: 'left', title: { display: true, text: 'RPE' }, min: 0, max: 10 },
+        y1: { type: 'linear', position: 'right', title: { display: true, text: '心拍数(bpm)' }, grid: { drawOnChartArea: false } },
+        y2: { display: false },
+        y3: { display: false }
       }
     }
   });
 
+  // === コメント生成 ===
   const avgRPE = rpeData.reduce((a,b)=>a+b,0)/rpeData.length;
   const trendUp = rpeData.slice(-3)[2] > rpeData.slice(-3)[0];
   const hrAvg = hrData.filter(n=>n).reduce((a,b)=>a+b,0)/hrData.filter(n=>n).length || 0;
+  const vo2Avg = vo2Data.filter(n=>n).reduce((a,b)=>a+b,0)/vo2Data.filter(n=>n).length || 0;
 
   let comment = "";
   if (roleType === "pitcher") {
-    if (avgRPE >= 8) comment = "高強度の投げ込みが続いています。疲労を見極めながらも、試合での持久的集中力が育っています。";
-    else if (avgRPE <= 4) comment = "リカバリー期です。フォームの再現性を意識して、無理のない強度で。";
-    else if (trendUp) comment = "負荷が段階的に上昇しています。球質やスタミナが上向いています。";
-    else comment = "安定した強度を維持できています。ルーティンが機能しています。";
+    if (avgRPE >= 8) comment = "高強度の投げ込みが続いています。持久的集中力が向上しています。";
+    else if (avgRPE <= 4) comment = "フォームの再現性を意識しながら整える時期。";
+    else if (trendUp) comment = "負荷が上がり、球質やスタミナの向上が期待されます。";
+    else comment = "安定した負荷でルーティンが定着しています。";
   } else {
-    if (avgRPE >= 8) comment = "強度の高い走力練習が続いています。爆発力を維持するために短時間の高出力を意識しましょう。";
-    else if (avgRPE <= 4) comment = "強度が低めです。リカバリーに適した期間ですが、動きのキレを忘れずに。";
-    else if (trendUp) comment = "強度が上昇しています。スピードと体幹の連動が整っています。";
-    else comment = "強度の波が安定しています。安定した動作再現ができています。";
+    if (avgRPE >= 8) comment = "高出力トレーニングが続いています。パワー発揮の準備が整いつつあります。";
+    else if (avgRPE <= 4) comment = "動きのキレを取り戻す期間。軽めで感覚を磨きましょう。";
+    else if (trendUp) comment = "段階的な負荷上昇。動作の再現性とスピードが噛み合ってきています。";
+    else comment = "安定したトレーニング。再現力と出力のバランス良好。";
   }
 
-  if (hrAvg > 180) comment += " 心拍数が高めです。呼吸リズムとフォームの乱れに注意。";
-  else if (hrAvg < 100 && hrAvg > 0) comment += " 心拍数が低めです。有酸素能力が向上している兆候です。";
+  if (vo2Avg > 60) comment += " 有酸素能力が非常に高く維持されています。";
+  else if (vo2Avg > 50) comment += " 有酸素能力が安定しています。";
+  else if (vo2Avg > 0) comment += " 持久力の底上げが課題です。";
+
+  if (hrAvg > 180) comment += " 心拍数が高め。疲労や水分不足に注意。";
+  else if (hrAvg < 100 && hrAvg > 0) comment += " 心拍数が低め。回復状態は良好です。";
 
   document.getElementById("feedback").textContent = comment;
 
+  // === 段階 ===
   let roleText = "";
   if (avgRPE < 4) roleText = "段階：整える期（リカバリー）";
   else if (avgRPE < 7) roleText = "段階：積み上げ期（発展）";
