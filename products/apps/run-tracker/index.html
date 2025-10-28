@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RUN TRACKER｜VO₂max対応版</title>
+<title>RUN TRACKER｜記録入力</title>
 
 <!-- ✅ PWA設定 -->
 <link rel="manifest" href="./manifest.json">
@@ -22,6 +22,7 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
+
 <style>
 body {
   font-family: 'Noto Sans JP', sans-serif;
@@ -37,47 +38,145 @@ h1 {
   color: #00b386;
   margin-bottom: 20px;
 }
-label { display:block; margin-top:18px; font-size:0.95rem; }
+label {
+  display: block;
+  margin-top: 20px;
+  font-size: 0.95rem;
+}
 input, select, textarea {
-  width: 100%; padding: 10px;
+  width: 100%;
+  padding: 10px;
   border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 6px; font-size: 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
   box-sizing: border-box;
 }
 button {
-  margin-top: 25px; width: 100%;
-  background: #00b386; color: #fff;
-  border: none; padding: 12px;
-  font-size: 1.1rem; border-radius: 6px;
-  cursor: pointer; transition: 0.3s;
+  margin-top: 25px;
+  width: 100%;
+  background: #00b386;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 button:hover { background: #009270; }
 #message {
-  text-align: center; margin-top: 15px;
-  color: #00b386; font-weight: 500;
-}
-#vo2Result {
-  margin-top: 10px;
-  font-weight: bold;
-  color: #007b5e;
-  text-align: right;
-  font-size: 1rem;
-}
-fieldset {
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 8px;
-  padding: 15px;
-  margin-top: 25px;
-}
-legend {
+  text-align: center;
+  margin-top: 15px;
   color: #00b386;
-  font-weight: bold;
-  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ====== PWA導線関連 ====== */
+#installPrompt {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #00b386;
+  color: #fff;
+  text-align: center;
+  padding: 12px 8px;
+  z-index: 999;
+  font-size: 0.95rem;
+}
+#installPrompt button {
+  margin-left: 10px;
+  padding: 6px 10px;
+  border: none;
+  background: #fff;
+  color: #00b386;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ====== iOS用ガイド ====== */
+#iosGuide {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+#iosGuide .modal {
+  background: #fff;
+  color: #333;
+  padding: 24px;
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  max-width: 360px;
+}
+#iosGuide .modal h2 {
+  color: #00b386;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+#iosGuide .modal p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+#iosGuide .close-btn {
+  margin-top: 16px;
+  padding: 6px 16px;
+  background: #00b386;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ====== 初回ウェルカムカード ====== */
+#welcomeCard {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  color: #333;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 16px;
+  max-width: 360px;
+  width: 90%;
+  text-align: left;
+  z-index: 1000;
+}
+#welcomeCard h2 {
+  color: #00b386;
+  font-size: 1.1rem;
+  margin-top: 0;
+}
+#welcomeCard ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+#welcomeCard button {
+  margin-top: 12px;
+  background: #00b386;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 0.9rem;
 }
 </style>
 </head>
 
 <body>
+
 <h1>RUN TRACKER</h1>
 
 <form id="recordForm">
@@ -90,6 +189,18 @@ legend {
     <option value="野手">野手</option>
   </select>
 
+  <label>テスト種別（VO₂max計測）</label>
+  <select id="testType" required>
+    <option value="none">選択なし</option>
+    <option value="cooper">クーパー走（12分走）</option>
+    <option value="shuttle">シャトルラン（往復）</option>
+    <option value="yoyo">Yo-Yoテスト</option>
+    <option value="custom">任意距離／時間</option>
+  </select>
+
+  <label>距離（m）または時間（分）</label>
+  <input type="number" id="testValue" placeholder="例：3000" step="1" min="0">
+
   <label>自覚的疲労度（RPE）</label>
   <input type="range" id="rpe" min="1" max="10" value="5" oninput="rpeValue.textContent=this.value">
   <span id="rpeValue">5</span>
@@ -100,23 +211,6 @@ legend {
   <label>距離（km）</label>
   <input type="number" id="distance" placeholder="例：3.5" step="0.1" min="0">
 
-  <!-- ✅ VO₂maxテストセクション -->
-  <fieldset>
-    <legend>VO₂maxテスト</legend>
-
-    <label>テスト種別</label>
-    <select id="testType">
-      <option value="">選択してください</option>
-      <option value="cooper">クーパー走（12分走）</option>
-      <option value="shuttle">シャトルラン</option>
-      <option value="yoyo">YOYOテスト</option>
-      <option value="custom">任意距離・時間</option>
-    </select>
-
-    <div id="testInputs"></div>
-    <div id="vo2Result"></div>
-  </fieldset>
-
   <label>練習内容メモ</label>
   <textarea id="note" rows="3" placeholder="自由に記入..."></textarea>
 
@@ -124,85 +218,124 @@ legend {
 </form>
 
 <div id="message"></div>
+<div id="vo2maxResult" style="text-align:center;margin-top:15px;color:#333;font-weight:500;"></div>
+
 <button onclick="window.location.href='result.html'" style="margin-top:30px;background:#555;">グラフを見る</button>
+
+<!-- ✅ PWA導線 -->
+<div id="installPrompt">
+  📱 ホーム画面に追加してアプリとして使う
+  <button id="installBtn">追加</button>
+</div>
+
+<!-- ✅ iOSガイドモーダル -->
+<div id="iosGuide">
+  <div class="modal">
+    <h2>ホーム画面に追加する方法</h2>
+    <p>Safariの共有ボタン <span style="font-size:1.3rem;">⬆️</span> を押し、<br>
+    「ホーム画面に追加」を選択してください。</p>
+    <button class="close-btn" onclick="document.getElementById('iosGuide').style.display='none'">閉じる</button>
+  </div>
+</div>
+
+<!-- ✅ 初回ウェルカムカード -->
+<div id="welcomeCard">
+  <h2>ようこそ Run Tracker へ</h2>
+  <ul>
+    <li>毎日のランニングを記録しよう</li>
+    <li>VO₂maxテストで走力を数値化</li>
+    <li>ホーム画面に追加すれば、いつでも起動</li>
+  </ul>
+  <button id="closeWelcome">はじめる</button>
+</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("date").value = new Date().toISOString().split('T')[0];
-});
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById("date").value = today;
 
-// === VO₂max 入力動的切り替え ===
-const testType = document.getElementById("testType");
-const testInputs = document.getElementById("testInputs");
-const vo2Result = document.getElementById("vo2Result");
+  // === 初回ウェルカムカード ===
+  const firstVisit = !localStorage.getItem("runTrackerFirstVisit");
+  if (firstVisit) {
+    document.getElementById("welcomeCard").style.display = "block";
+    document.getElementById("closeWelcome").onclick = () => {
+      document.getElementById("welcomeCard").style.display = "none";
+      localStorage.setItem("runTrackerFirstVisit", "true");
+    };
+  }
 
-testType.addEventListener("change", () => {
-  const type = testType.value;
-  testInputs.innerHTML = "";
-  vo2Result.textContent = "";
-  if (type === "cooper") {
-    testInputs.innerHTML = `
-      <label>走行距離（m）</label>
-      <input type="number" id="cooperDist" placeholder="例：2700" min="500">
-    `;
-  } else if (type === "shuttle") {
-    testInputs.innerHTML = `
-      <label>往復回数</label>
-      <input type="number" id="shuttleCount" placeholder="例：60" min="10">
-      <label>年齢</label>
-      <input type="number" id="age" placeholder="例：20" min="10" max="60">
-    `;
-  } else if (type === "yoyo") {
-    testInputs.innerHTML = `
-      <label>走行距離合計（m）</label>
-      <input type="number" id="yoyoDist" placeholder="例：1600" min="200">
-    `;
-  } else if (type === "custom") {
-    testInputs.innerHTML = `
-      <label>距離（m）</label>
-      <input type="number" id="customDist" placeholder="例：1000" min="100">
-      <label>時間（秒）</label>
-      <input type="number" id="customTime" placeholder="例：240" min="10">
-    `;
+  // === PWAバナー制御 ===
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  if (!isStandalone && !localStorage.getItem("runTrackerInstalled")) {
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      document.getElementById('installPrompt').style.display = 'block';
+    });
+    document.getElementById('installBtn').addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          localStorage.setItem("runTrackerInstalled", "true");
+        }
+        document.getElementById('installPrompt').style.display = 'none';
+        deferredPrompt = null;
+      }
+    });
+  }
+
+  // === iOSデバイス判定 ===
+  const ua = window.navigator.userAgent;
+  const isIOS = /iPhone|iPad|iPod/.test(ua);
+  if (isIOS && !isStandalone && !localStorage.getItem("runTrackerIOSPrompted")) {
+    setTimeout(() => {
+      document.getElementById("iosGuide").style.display = "flex";
+      localStorage.setItem("runTrackerIOSPrompted", "true");
+    }, 2500);
   }
 });
 
-// === VO₂max 自動計算 ===
-testInputs.addEventListener("input", () => {
-  const type = testType.value;
+// === VO₂max計算関数 ===
+function calculateVO2max(testType, value) {
   let vo2 = 0;
-
-  if (type === "cooper") {
-    const d = Number(document.getElementById("cooperDist")?.value || 0);
-    if (d > 0) vo2 = (d - 504.9) / 44.73;
-  } else if (type === "shuttle") {
-    const n = Number(document.getElementById("shuttleCount")?.value || 0);
-    const age = Number(document.getElementById("age")?.value || 20);
-    const v = 8 + (n * 0.5);
-    vo2 = 31.025 + (3.238 * v) - (3.248 * age / 10) + (0.1536 * v * age / 10);
-  } else if (type === "yoyo") {
-    const dist = Number(document.getElementById("yoyoDist")?.value || 0);
-    vo2 = 36.4 + (0.0084 * dist);
-  } else if (type === "custom") {
-    const dist = Number(document.getElementById("customDist")?.value || 0);
-    const time = Number(document.getElementById("customTime")?.value || 0);
-    if (dist > 0 && time > 0) vo2 = (dist / time) * 3.5;
+  switch (testType) {
+    case "cooper": // Cooper test（12分走）
+      vo2 = (value / 1000 - 0.505) / 0.0278;
+      break;
+    case "shuttle": // シャトルラン（往復回数）
+      vo2 = 31.025 + 3.238 * (value * 0.5) - 3.248 * 0.02 * (value * 0.5) + 0.1536 * (value * 0.5) * 0.02;
+      break;
+    case "yoyo": // Yo-Yo（レベル到達距離）
+      vo2 = 0.0084 * value + 36.4;
+      break;
+    case "custom": // 任意入力
+      vo2 = value > 0 ? value * 0.02 + 30 : 0;
+      break;
+    default:
+      vo2 = 0;
   }
-
-  vo2Result.textContent = vo2 ? `推定VO₂max：${vo2.toFixed(1)} ml/kg/min` : "";
-});
+  return vo2.toFixed(1);
+}
 
 // === 記録保存 ===
 document.getElementById("recordForm").addEventListener("submit", (e) => {
   e.preventDefault();
+  const testType = document.getElementById("testType").value;
+  const testValue = Number(document.getElementById("testValue").value);
+  const vo2 = calculateVO2max(testType, testValue);
+
   const record = {
     date: document.getElementById("date").value,
     role: document.getElementById("role").value,
+    testType,
+    testValue,
+    vo2,
     rpe: document.getElementById("rpe").value,
     hr: document.getElementById("hr").value,
     distance: document.getElementById("distance").value,
-    note: document.getElementById("note").value,
-    vo2: vo2Result.textContent || ""
+    note: document.getElementById("note").value
   };
 
   let records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
@@ -211,10 +344,11 @@ document.getElementById("recordForm").addEventListener("submit", (e) => {
 
   const msg = document.getElementById("message");
   msg.textContent = "✅ 記録を保存しました。";
+  document.getElementById("vo2maxResult").textContent = vo2 > 0 ? `推定VO₂max：${vo2} ml/kg/min` : "";
   setTimeout(() => msg.textContent = "", 2000);
+
   document.getElementById("recordForm").reset();
   document.getElementById("rpeValue").textContent = "5";
-  vo2Result.textContent = "";
 });
 </script>
 
@@ -225,5 +359,6 @@ fetch("/adjustment-lab/assets/footer-lite.html")
   .then(res => res.text())
   .then(html => { document.getElementById("footer").innerHTML = html; });
 </script>
+
 </body>
 </html>
