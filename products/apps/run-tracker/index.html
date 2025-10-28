@@ -189,17 +189,22 @@ button:hover { background: #009270; }
     <option value="野手">野手</option>
   </select>
 
-  <label>テスト種別（VO₂max計測）</label>
-  <select id="testType" required>
-    <option value="none">選択なし</option>
-    <option value="cooper">クーパー走（12分走）</option>
-    <option value="shuttle">シャトルラン（往復）</option>
-    <option value="yoyo">Yo-Yoテスト</option>
-    <option value="custom">任意距離／時間</option>
+  <label>テスト種目（VO₂max測定）</label>
+  <select id="testType">
+    <option value="">選択してください</option>
+    <option value="cooper">クーパー走（12分間走）</option>
+    <option value="shuttle">シャトルラン（20m往復）</option>
+    <option value="yoyo">YoYoテスト</option>
+    <option value="custom">任意距離・時間</option>
   </select>
 
-  <label>距離（m）または時間（分）</label>
-  <input type="number" id="testValue" placeholder="例：3000" step="1" min="0">
+  <label>距離（m）または回数</label>
+  <input type="number" id="testDistance" placeholder="例：2700" step="1" min="0">
+
+  <label>時間（分）</label>
+  <input type="number" id="testTime" placeholder="例：12" step="0.1" min="0">
+
+  <p id="vo2maxResult" style="color:#00b386;font-weight:600;margin-top:10px;"></p>
 
   <label>自覚的疲労度（RPE）</label>
   <input type="range" id="rpe" min="1" max="10" value="5" oninput="rpeValue.textContent=this.value">
@@ -218,8 +223,6 @@ button:hover { background: #009270; }
 </form>
 
 <div id="message"></div>
-<div id="vo2maxResult" style="text-align:center;margin-top:15px;color:#333;font-weight:500;"></div>
-
 <button onclick="window.location.href='result.html'" style="margin-top:30px;background:#555;">グラフを見る</button>
 
 <!-- ✅ PWA導線 -->
@@ -232,8 +235,7 @@ button:hover { background: #009270; }
 <div id="iosGuide">
   <div class="modal">
     <h2>ホーム画面に追加する方法</h2>
-    <p>Safariの共有ボタン <span style="font-size:1.3rem;">⬆️</span> を押し、<br>
-    「ホーム画面に追加」を選択してください。</p>
+    <p>Safariの共有ボタン <span style="font-size:1.3rem;">⬆️</span> を押し、<br>「ホーム画面に追加」を選択してください。</p>
     <button class="close-btn" onclick="document.getElementById('iosGuide').style.display='none'">閉じる</button>
   </div>
 </div>
@@ -242,9 +244,9 @@ button:hover { background: #009270; }
 <div id="welcomeCard">
   <h2>ようこそ Run Tracker へ</h2>
   <ul>
-    <li>毎日のランニングを記録しよう</li>
-    <li>VO₂maxテストで走力を数値化</li>
-    <li>ホーム画面に追加すれば、いつでも起動</li>
+    <li>毎日のランニングを簡単に記録</li>
+    <li>グラフで疲労や距離を見える化</li>
+    <li>ホーム画面に追加で、いつでも起動</li>
   </ul>
   <button id="closeWelcome">はじめる</button>
 </div>
@@ -254,7 +256,42 @@ document.addEventListener("DOMContentLoaded", () => {
   const today = new Date().toISOString().split('T')[0];
   document.getElementById("date").value = today;
 
-  // === 初回ウェルカムカード ===
+  // === VO2max計算 ===
+  const testType = document.getElementById("testType");
+  const testDistance = document.getElementById("testDistance");
+  const testTime = document.getElementById("testTime");
+  const resultField = document.getElementById("vo2maxResult");
+
+  function calcVO2max() {
+    const distance = parseFloat(testDistance.value);
+    const time = parseFloat(testTime.value);
+    let vo2max = 0;
+
+    if (!distance || distance <= 0) return resultField.textContent = "";
+
+    switch (testType.value) {
+      case "cooper":
+        vo2max = (distance - 504.9) / 44.73;
+        break;
+      case "shuttle":
+        vo2max = 31.025 + 3.238 * (distance/20) - 3.248 * (time/60) - 0.1536 * (distance/20)*(time/60);
+        break;
+      case "yoyo":
+        vo2max = 15.3 + 0.0084 * distance;
+        break;
+      case "custom":
+        if (distance && time) vo2max = (distance / time / 1000) * 15;
+        break;
+    }
+
+    if (vo2max > 0) resultField.textContent = `推定VO₂max：${vo2max.toFixed(1)} ml/kg/min`;
+  }
+
+  testType.addEventListener("change", calcVO2max);
+  testDistance.addEventListener("input", calcVO2max);
+  testTime.addEventListener("input", calcVO2max);
+
+  // === 初回起動時ウェルカムカード ===
   const firstVisit = !localStorage.getItem("runTrackerFirstVisit");
   if (firstVisit) {
     document.getElementById("welcomeCard").style.display = "block";
@@ -277,16 +314,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (deferredPrompt) {
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          localStorage.setItem("runTrackerInstalled", "true");
-        }
+        if (outcome === 'accepted') localStorage.setItem("runTrackerInstalled", "true");
         document.getElementById('installPrompt').style.display = 'none';
         deferredPrompt = null;
       }
     });
   }
 
-  // === iOSデバイス判定 ===
+  // === iOSガイド ===
   const ua = window.navigator.userAgent;
   const isIOS = /iPhone|iPad|iPod/.test(ua);
   if (isIOS && !isStandalone && !localStorage.getItem("runTrackerIOSPrompted")) {
@@ -297,56 +332,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// === VO₂max計算関数 ===
-function calculateVO2max(testType, value) {
-  let vo2 = 0;
-  switch (testType) {
-    case "cooper": // Cooper test（12分走）
-      vo2 = (value / 1000 - 0.505) / 0.0278;
-      break;
-    case "shuttle": // シャトルラン（往復回数）
-      vo2 = 31.025 + 3.238 * (value * 0.5) - 3.248 * 0.02 * (value * 0.5) + 0.1536 * (value * 0.5) * 0.02;
-      break;
-    case "yoyo": // Yo-Yo（レベル到達距離）
-      vo2 = 0.0084 * value + 36.4;
-      break;
-    case "custom": // 任意入力
-      vo2 = value > 0 ? value * 0.02 + 30 : 0;
-      break;
-    default:
-      vo2 = 0;
-  }
-  return vo2.toFixed(1);
-}
-
 // === 記録保存 ===
 document.getElementById("recordForm").addEventListener("submit", (e) => {
   e.preventDefault();
-  const testType = document.getElementById("testType").value;
-  const testValue = Number(document.getElementById("testValue").value);
-  const vo2 = calculateVO2max(testType, testValue);
-
   const record = {
     date: document.getElementById("date").value,
     role: document.getElementById("role").value,
-    testType,
-    testValue,
-    vo2,
     rpe: document.getElementById("rpe").value,
     hr: document.getElementById("hr").value,
     distance: document.getElementById("distance").value,
-    note: document.getElementById("note").value
+    note: document.getElementById("note").value,
+    vo2max: document.getElementById("vo2maxResult").textContent || ""
   };
-
   let records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
   records.push(record);
   localStorage.setItem("trainingRecords", JSON.stringify(records));
-
   const msg = document.getElementById("message");
   msg.textContent = "✅ 記録を保存しました。";
-  document.getElementById("vo2maxResult").textContent = vo2 > 0 ? `推定VO₂max：${vo2} ml/kg/min` : "";
   setTimeout(() => msg.textContent = "", 2000);
-
   document.getElementById("recordForm").reset();
   document.getElementById("rpeValue").textContent = "5";
 });
