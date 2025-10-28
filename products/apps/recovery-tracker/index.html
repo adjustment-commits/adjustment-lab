@@ -4,7 +4,7 @@
 <!-- ✅ PWA設定 -->
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#00b386">
-<link rel="apple-touch-icon" sizes="192x192" href="/adjustment-l-lab/products/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/adjustment-lab/products/icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="512x512" href="/adjustment-lab/products/icons/icon-512.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,6 +16,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Recovery Tracker｜コンディション入力</title>
@@ -68,6 +69,33 @@ button:hover { background: #009270; }
   color: #00b386;
   font-weight: 500;
 }
+
+/* === install banner === */
+#installPrompt {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #00b386;
+  color: #fff;
+  text-align: center;
+  padding: 12px 8px;
+  z-index: 999;
+  font-size: 0.95rem;
+}
+#installPrompt button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  background: #fff;
+  color: #00b386;
+  border-radius: 4px;
+  font-weight: 600;
+}
+#installPrompt button:hover {
+  background: #e7fff3;
+}
 </style>
 </head>
 
@@ -104,26 +132,24 @@ button:hover { background: #009270; }
   <button type="submit">保存する</button>
 </form>
 
- <button id="deleteAll" style="background:#d84a4a;margin-top:15px;">全データを削除する</button>
-
-<script>
-document.getElementById("deleteAll").addEventListener("click", () => {
-  if (confirm("⚠️ 全ての記録を削除しますか？ この操作は元に戻せません。")) {
-    localStorage.removeItem("recoveryRecords");
-    alert("データを削除しました。");
-  }
-});
-</script> 
-  
 <div id="message"></div>
 
 <button onclick="window.location.href='result.html'" style="margin-top:30px;background:#555;">グラフを見る</button>
+<button id="deleteAll" style="background:#d84a4a;margin-top:15px;">全データを削除する</button>
+
+<!-- ✅ ホーム画面追加バナー -->
+<div id="installPrompt">
+  📱 ホーム画面に追加してアプリとして使う
+  <button id="installBtn">追加</button>
+</div>
 
 <script>
+// === 自動日付入力 ===
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("date").value = new Date().toISOString().split('T')[0];
 });
 
+// === 保存処理 ===
 document.getElementById("recoveryForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const record = {
@@ -149,6 +175,34 @@ document.getElementById("recoveryForm").addEventListener("submit", (e) => {
   document.getElementById("appetiteValue").textContent = "3";
   document.getElementById("mentalValue").textContent = "3";
 });
+
+// === 削除ボタン ===
+document.getElementById("deleteAll").addEventListener("click", () => {
+  if (confirm("⚠️ 全ての記録を削除しますか？ この操作は元に戻せません。")) {
+    localStorage.removeItem("recoveryRecords");
+    alert("データを削除しました。");
+  }
+});
+
+// === ホーム画面追加案内 ===
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installPrompt').style.display = 'block';
+});
+
+document.getElementById('installBtn').addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      console.log('PWA installed');
+    }
+    deferredPrompt = null;
+    document.getElementById('installPrompt').style.display = 'none';
+  }
+});
 </script>
 
 <div id="footer"></div>
@@ -157,5 +211,6 @@ fetch("/adjustment-lab/assets/footer-lite.html")
   .then(res => res.text())
   .then(html => { document.getElementById("footer").innerHTML = html; });
 </script>
+
 </body>
 </html>
