@@ -93,9 +93,43 @@ button:hover { background: #009270; }
   border-radius: 4px;
   font-weight: 600;
 }
-#installPrompt button:hover {
-  background: #e7fff3;
+#installPrompt button:hover { background: #e7fff3; }
+
+/* === モーダル共通 === */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
 }
+.modal {
+  background: #fff;
+  color: #333;
+  padding: 25px 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 360px;
+  text-align: left;
+  line-height: 1.7;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+.modal h3 {
+  margin-top: 0;
+  color: #00b386;
+  text-align: center;
+}
+.modal button {
+  background: #00b386;
+  color: #fff;
+  width: 100%;
+  margin-top: 15px;
+}
+
+/* === iOSガイド専用 === */
+#iosGuide .modal h3 { font-size: 1.1rem; }
 </style>
 </head>
 
@@ -143,6 +177,33 @@ button:hover { background: #009270; }
   <button id="installBtn">追加</button>
 </div>
 
+<!-- ✅ iOS 手動追加モーダル -->
+<div id="iosGuide" class="modal-overlay">
+  <div class="modal">
+    <h3>ホーム画面に追加する方法（iPhone）</h3>
+    <p>1️⃣ Safariでこのページを開きます。</p>
+    <p>2️⃣ 下の <strong>共有ボタン（□↑）</strong> をタップ。</p>
+    <p>3️⃣ メニューから <strong>「ホーム画面に追加」</strong> を選択。</p>
+    <p>これでアプリとして登録できます。</p>
+    <button id="closeIosGuide">OK</button>
+  </div>
+</div>
+
+<!-- ✅ 初回ウェルカムモーダル -->
+<div id="welcomeModal" class="modal-overlay">
+  <div class="modal">
+    <h3>ようこそ Recovery Tracker へ</h3>
+    <p>このアプリは、<strong>疲労・睡眠・食欲・メンタル</strong>を記録して<br>回復の状態を可視化するツールです。</p>
+    <p>📋 使い方はかんたん3ステップ：</p>
+    <ol>
+      <li>1. 今日の状態を入力して「保存」</li>
+      <li>2. 「グラフを見る」で変化を確認</li>
+      <li>3. ホーム画面に追加して毎日記録</li>
+    </ol>
+    <button id="closeWelcome">はじめる</button>
+  </div>
+</div>
+
 <script>
 // === 自動日付入力 ===
 document.addEventListener("DOMContentLoaded", () => {
@@ -184,25 +245,52 @@ document.getElementById("deleteAll").addEventListener("click", () => {
   }
 });
 
-// === ホーム画面追加案内 ===
+// === ホーム画面追加案内（自動非表示対応） ===
 let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  document.getElementById('installPrompt').style.display = 'block';
+if (window.matchMedia('(display-mode: standalone)').matches) {
+  document.getElementById('installPrompt').style.display = 'none';
+} else if (localStorage.getItem('installedRecoveryTracker') === 'true') {
+  document.getElementById('installPrompt').style.display = 'none';
+} else {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('installPrompt').style.display = 'block';
+  });
+  document.getElementById('installBtn').addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') localStorage.setItem('installedRecoveryTracker', 'true');
+      deferredPrompt = null;
+      document.getElementById('installPrompt').style.display = 'none';
+    }
+  });
+}
+
+// === iOS Safari検出と手動ガイド表示 ===
+const isIos = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+const isInStandalone = window.navigator.standalone === true;
+if (isIos && !isInStandalone) {
+  setTimeout(() => {
+    if (!localStorage.getItem('iosGuideShown')) {
+      document.getElementById('iosGuide').style.display = 'flex';
+      localStorage.setItem('iosGuideShown', 'true');
+    }
+  }, 3000);
+}
+document.getElementById('closeIosGuide').addEventListener('click', () => {
+  document.getElementById('iosGuide').style.display = 'none';
 });
 
-document.getElementById('installBtn').addEventListener('click', async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      console.log('PWA installed');
-    }
-    deferredPrompt = null;
-    document.getElementById('installPrompt').style.display = 'none';
-  }
-});
+// === 初回ウェルカムモーダル ===
+if (!localStorage.getItem('welcomeShown')) {
+  document.getElementById('welcomeModal').style.display = 'flex';
+  document.getElementById('closeWelcome').addEventListener('click', () => {
+    document.getElementById('welcomeModal').style.display = 'none';
+    localStorage.setItem('welcomeShown', 'true');
+  });
+}
 </script>
 
 <div id="footer"></div>
