@@ -2,166 +2,130 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APP BASE｜PWAテンプレート</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>adjustment-lab｜App Base Template</title>
 
 <!-- ✅ PWA設定 -->
-<link rel="manifest" href="./manifest.json">
+<link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#00b386">
-<link rel="apple-touch-icon" sizes="192x192" href="/adjustment-lab/products/icons/icon-192.png">
-<link rel="apple-touch-icon" sizes="512x512" href="/adjustment-lab/products/icons/icon-512.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="adjustment-lab APP">
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js');
-  });
-}
-</script>
+<meta name="apple-mobile-web-app-title" content="adjustment-lab App">
+<link rel="apple-touch-icon" sizes="192x192" href="/adjustment-lab/products/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="/adjustment-lab/products/icons/icon-512.png">
 
 <style>
 body {
-  font-family: 'Noto Sans JP', sans-serif;
-  background: #f8faf9;
-  color: #1a1a1a;
   margin: 0;
-  padding: 20px;
-  max-width: 600px;
-  margin: auto;
-}
-h1 {
-  text-align: center;
-  color: #00b386;
-  margin-bottom: 20px;
-}
-p {
-  text-align: center;
-  line-height: 1.8;
-  font-size: 0.95rem;
-  color: #333;
-}
-button {
-  background: #00b386;
-  color: #fff;
-  border: none;
-  padding: 12px;
-  font-size: 1rem;
-  border-radius: 6px;
-  width: 100%;
-  cursor: pointer;
-  transition: 0.3s;
-}
-button:hover { background: #009270; }
-
-/* === ホーム追加バナー === */
-#installPrompt {
-  display:none;
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:#00b386;
-  color:#fff;
-  text-align:center;
-  padding:12px 8px;
-  z-index:999;
-}
-#installPrompt button {
-  margin-left:10px;
-  background:#fff;
-  color:#00b386;
-  padding:5px 10px;
-  border:none;
-  border-radius:4px;
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #fff;
+  color: #111;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* === ウェルカムカード === */
-#welcomeCard {
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.6);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:1000;
+/* ✅ プレースホルダーUI（各アプリがここにUIを挿入） */
+main {
+  padding: 40px 20px;
+  text-align: center;
 }
-#welcomeCard .card {
-  background:#fff;
-  border-radius:10px;
-  padding:30px;
-  text-align:center;
-  max-width:90%;
-  box-shadow:0 4px 20px rgba(0,0,0,0.2);
+
+/* ✅ 共通のフェードアニメーション（UI要素用） */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
 }
-#welcomeCard h2 {
-  color:#00b386;
-  margin-bottom:10px;
-}
-#welcomeCard button {
-  width:auto;
-  margin-top:20px;
+@keyframes fadeIn {
+  to { opacity: 1; }
 }
 </style>
 </head>
 
 <body>
-<h1>APP BASE</h1>
-<p>ここにアプリのUIを構築します。<br>このテンプレートはPWA対応済みです。</p>
-
-<div id="installPrompt">
-  📱 ホーム画面に追加してアプリとして使う
-  <button id="installBtn">追加</button>
-</div>
-
-<div id="welcomeCard">
-  <div class="card">
-    <h2>ようこそ！</h2>
-    <p>このアプリはオフラインでも使用できます。<br>
-    ホーム画面に追加して毎日の記録を続けましょう。</p>
-    <button id="closeWelcome">はじめる</button>
-  </div>
-</div>
+<main>
+  <h1>adjustment-lab Base Template</h1>
+  <p>このテンプレートは、全アプリ共通のPWA制御を提供します。</p>
+  <p>各アプリでUI（バナー、モーダル、ウェルカムなど）を追加してください。</p>
+</main>
 
 <script>
-// === ホーム追加バナー ===
+// =====================================================
+// ✅ Service Worker 登録
+// =====================================================
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('../service-worker.js')
+      .then(reg => console.log('[PWA] Service Worker registered:', reg.scope))
+      .catch(err => console.warn('[PWA] SW registration failed:', err));
+  });
+}
+
+// =====================================================
+// ✅ PWAインストール制御
+// =====================================================
 let deferredPrompt;
+const appKey = 'adjustmentLabAppInstalled';
+
+// すでにインストール済みか localStorage で確認
+const isInstalled = localStorage.getItem(appKey) === 'true';
+
+// ✅ Android / PC向け beforeinstallprompt
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  document.getElementById('installPrompt').style.display = 'block';
-});
-document.getElementById('installBtn').addEventListener('click', async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') console.log('PWA installed');
-    deferredPrompt = null;
-    document.getElementById('installPrompt').style.display = 'none';
+  console.log('[PWA] beforeinstallprompt 発火');
+
+  // まだインストールされていない場合のみ通知
+  if (!isInstalled && !window.matchMedia('(display-mode: standalone)').matches) {
+    // 各アプリ側でバナーを出す処理をここで呼ぶ
+    const event = new CustomEvent('showInstallBanner', { detail: deferredPrompt });
+    window.dispatchEvent(event);
   }
 });
 
-// === 初回アクセス時ウェルカムカード ===
-if (!localStorage.getItem('visited')) {
-  document.getElementById('welcomeCard').style.display = 'flex';
-  localStorage.setItem('visited', 'true');
-}
-document.getElementById('closeWelcome').addEventListener('click', () => {
-  document.getElementById('welcomeCard').style.display = 'none';
+// ✅ インストール完了検知
+window.addEventListener('appinstalled', () => {
+  console.log('[PWA] インストール完了');
+  localStorage.setItem(appKey, 'true');
 });
-</script>
 
-<div id="footer"></div>
-<script>
-fetch("/adjustment-lab/assets/footer-lite.html")
-  .then(res => res.text())
-  .then(html => { document.getElementById("footer").innerHTML = html; });
+// =====================================================
+// ✅ display-mode 判定（インストール済み or ブラウザ起動）
+// =====================================================
+function getDisplayMode() {
+  if (document.referrer.startsWith('android-app://')) {
+    return 'twa';
+  }
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    return 'standalone';
+  }
+  return 'browser';
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const mode = getDisplayMode();
+  console.log('[PWA] display-mode:', mode);
+
+  if (mode === 'standalone') {
+    localStorage.setItem(appKey, 'true');
+  }
+});
+
+// =====================================================
+// ✅ iOS向けガイドモーダル制御（アプリ側で利用）
+// =====================================================
+function shouldShowIosGuide() {
+  const ua = window.navigator.userAgent.toLowerCase();
+  const isIos = /iphone|ipad|ipod/.test(ua);
+  const isInStandalone = window.navigator.standalone === true;
+  return isIos && !isInStandalone && !isInstalled;
+}
+
+// 各アプリ側で利用するため export
+window.adjustmentLabPWA = {
+  deferredPrompt,
+  getDisplayMode,
+  shouldShowIosGuide
+};
 </script>
 
 </body>
