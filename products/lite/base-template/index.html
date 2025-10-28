@@ -3,10 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LITE BASE｜記録入力</title>
-<meta name="theme-color" content="#f8faf9">
+<title>ADJUSTMENT LAB｜APP BASE TEMPLATE</title>
 
-<!-- 共通CSS（footerなど） -->
+<!-- ✅ PWA設定 -->
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#00b386">
+<link rel="apple-touch-icon" sizes="192x192" href="/adjustment-lab/products/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="/adjustment-lab/products/icons/icon-512.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Adjustment Lab App">
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js');
+  });
+}
+</script>
+
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 
 <style>
@@ -16,47 +31,29 @@ body {
   color: #1a1a1a;
   margin: 0;
   padding: 20px;
-  max-width: 600px;
+  max-width: 700px;
   margin: auto;
+  line-height: 1.8;
 }
-
 h1 {
   text-align: center;
   color: #00b386;
   margin-bottom: 20px;
 }
-
-label {
-  display: block;
-  margin-top: 20px;
-  font-size: 0.95rem;
-}
-
-input, select, textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 6px;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-
 button {
-  margin-top: 25px;
+  display: block;
   width: 100%;
+  padding: 12px;
   background: #00b386;
   color: #fff;
   border: none;
-  padding: 12px;
-  font-size: 1.1rem;
   border-radius: 6px;
+  font-size: 1rem;
+  margin-top: 25px;
   cursor: pointer;
   transition: 0.3s;
 }
-button:hover {
-  background: #009270;
-}
-
+button:hover { background: #009270; }
 #message {
   text-align: center;
   margin-top: 15px;
@@ -64,81 +61,109 @@ button:hover {
   font-weight: 500;
 }
 
-/* ===== footer調整 ===== */
-footer {
-  margin-top: 60px !important;
+/* --- Install Banner --- */
+#installPrompt {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #00b386;
+  color: #fff;
+  text-align: center;
+  padding: 12px 8px;
+  z-index: 999;
+}
+#installPrompt button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  background: #fff;
+  color: #00b386;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* --- Welcome Card --- */
+#welcomeCard {
+  display: none;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  padding: 25px;
+  margin: 25px 0;
+  text-align: center;
+}
+#welcomeCard button {
+  width: auto;
+  background: #00b386;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  cursor: pointer;
 }
 </style>
 </head>
 
 <body>
 
-<h1>記録を入力する</h1>
+<h1>ADJUSTMENT LAB APP</h1>
+<p style="text-align:center;color:#555;">このテンプレートはアプリ開発用の基盤です。</p>
 
-<form id="recordForm">
-  <label>日付</label>
-  <input type="date" id="date" required>
+<!-- ✅ Welcome Card（初回アクセス時のみ表示） -->
+<div id="welcomeCard">
+  <h3>ようこそ！</h3>
+  <p>このアプリはあなたのトレーニングや回復状態を<br>記録・可視化できるWebアプリです。<br><br>
+  ホーム画面に追加すると、オフラインでも使えます。</p>
+  <button onclick="document.getElementById('welcomeCard').style.display='none'">OK</button>
+</div>
 
-  <label>自覚的疲労度（RPE）</label>
-  <input type="range" id="rpe" min="1" max="10" value="5" oninput="rpeValue.textContent=this.value">
-  <span id="rpeValue">5</span>
+<!-- ✅ Install Banner -->
+<div id="installPrompt">
+  📱 ホーム画面に追加してアプリとして使う
+  <button id="installBtn">追加</button>
+</div>
 
-  <label>心拍数（bpm）</label>
-  <input type="number" id="hr" placeholder="例：145" min="40" max="220">
-
-  <label>距離（km）</label>
-  <input type="number" id="distance" placeholder="例：3.5" step="0.1" min="0">
-
-  <label>練習内容メモ</label>
-  <textarea id="note" rows="3" placeholder="自由に記入..."></textarea>
-
-  <button type="submit">保存する</button>
-</form>
+<!-- ✅ メインボタン例 -->
+<button onclick="alert('ここにメイン機能を追加します')">記録する</button>
 
 <div id="message"></div>
 
-<button onclick="window.location.href='result.html'" style="margin-top:30px;background:#555;">グラフを見る</button>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // 今日の日付を自動入力
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById("date").value = today;
-});
-
-document.getElementById("recordForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const record = {
-    date: document.getElementById("date").value,
-    rpe: document.getElementById("rpe").value,
-    hr: document.getElementById("hr").value,
-    distance: document.getElementById("distance").value,
-    note: document.getElementById("note").value
-  };
-
-  // 保存処理
-  let records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
-  records.push(record);
-  localStorage.setItem("trainingRecords", JSON.stringify(records));
-
-  // メッセージ表示
-  const msg = document.getElementById("message");
-  msg.textContent = "✅ 記録を保存しました。";
-  setTimeout(() => msg.textContent = "", 2000);
-
-  // フォームリセット
-  document.getElementById("recordForm").reset();
-  document.getElementById("rpeValue").textContent = "5";
-});
-</script>
-
-<!-- ===== 共通フッター ===== -->
+<!-- ✅ Footer -->
 <div id="footer"></div>
 <script>
 fetch("/adjustment-lab/assets/footer-lite.html")
   .then(res => res.text())
   .then(html => { document.getElementById("footer").innerHTML = html; });
+</script>
+
+<!-- ✅ Install Prompt制御 -->
+<script>
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installPrompt').style.display = 'block';
+});
+document.getElementById('installBtn').addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') console.log('PWA installed');
+    deferredPrompt = null;
+    document.getElementById('installPrompt').style.display = 'none';
+  }
+});
+</script>
+
+<!-- ✅ WelcomeCard制御 -->
+<script>
+if (!localStorage.getItem('firstVisitDone')) {
+  document.getElementById('welcomeCard').style.display = 'block';
+  localStorage.setItem('firstVisitDone', 'true');
+}
 </script>
 
 </body>
