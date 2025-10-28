@@ -1,223 +1,229 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#00b386">
-<link rel="apple-touch-icon" sizes="192x192" href="/adjustment-lab/products/icons/icon-192.png">
-<link rel="apple-touch-icon" sizes="512x512" href="/adjustment-lab/products/icons/icon-512.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Run Tracker">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RUN TRACKER｜記録グラフ</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
+  <!-- ✅ PWA最低限（index.html準拠の軽量版。必要なら拡張可） -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RUN TRACKER｜記録グラフ</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#00b386">
+  <link rel="apple-touch-icon" sizes="192x192" href="/adjustment-lab/products/icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="/adjustment-lab/products/icons/icon-512.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Run Tracker">
 
-<style>
-body {
-  font-family: 'Noto Sans JP', sans-serif;
-  background: #f8faf9;
-  color: #1a1a1a;
-  margin: 0;
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
-}
-h1 {
-  text-align: center;
-  color: #00b386;
-  margin-bottom: 6px;
-}
-.toggle-role {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 15px;
-  gap: 10px;
-}
-.toggle-role button {
-  border: 1px solid #00b386;
-  background: none;
-  color: #00b386;
-  padding: 6px 14px;
-  border-radius: 4px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.toggle-role button.active {
-  background: #00b386;
-  color: #fff;
-}
-canvas {
-  margin-top: 10px;
-  width: 100%;
-  height: 320px;
-}
-p.comment {
-  background: #fff;
-  border-left: 4px solid #00b386;
-  padding: 15px;
-  border-radius: 6px;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
-  margin-top: 20px;
-  line-height: 1.7;
-}
-.role {
-  text-align: center;
-  margin-top: 15px;
-  color: #333;
-  font-size: 1rem;
-  font-weight: 500;
-}
-button.nav {
-  margin-top: 30px;
-  background: #00b386;
-  color: #fff;
-  border: none;
-  padding: 12px;
-  font-size: 1rem;
-  border-radius: 6px;
-  width: 100%;
-  cursor: pointer;
-  transition: 0.3s;
-}
-button.nav:hover {
-  background: #009270;
-}
-footer { margin-top: 50px; }
-</style>
-</head>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 
-<body>
-<h1>RUN TRACKER</h1>
-
-<div class="toggle-role">
-  <button id="batterBtn">野手</button>
-  <button id="pitcherBtn">投手</button>
-</div>
-
-<canvas id="trainingChart"></canvas>
-<p id="feedback" class="comment"></p>
-<p id="role" class="role"></p>
-
-<button class="nav" onclick="window.location.href='index.html'">← 記録入力へ戻る</button>
-
-<!-- Footer -->
-<div id="footer"></div>
-<script>
-fetch("/adjustment-lab/assets/footer-lite.html")
-  .then(res => res.text())
-  .then(html => { document.getElementById("footer").innerHTML = html; });
-</script>
-
-<script>
-const records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
-let roleType = localStorage.getItem("playerRole") || "batter";
-
-const batterBtn = document.getElementById("batterBtn");
-const pitcherBtn = document.getElementById("pitcherBtn");
-function updateRoleButtons() {
-  batterBtn.classList.toggle("active", roleType === "batter");
-  pitcherBtn.classList.toggle("active", roleType === "pitcher");
-}
-updateRoleButtons();
-
-batterBtn.onclick = () => {
-  roleType = "batter";
-  localStorage.setItem("playerRole", roleType);
-  updateRoleButtons();
-  renderChart();
-};
-pitcherBtn.onclick = () => {
-  roleType = "pitcher";
-  localStorage.setItem("playerRole", roleType);
-  updateRoleButtons();
-  renderChart();
-};
-
-function renderChart() {
-  if (records.length === 0) {
-    document.getElementById("feedback").textContent = "まだ記録がありません。まずは入力ページで記録しましょう。";
-    return;
-  }
-
-  const sortedRecords = records.sort((a,b)=> new Date(a.date) - new Date(b.date));
-  const dates = sortedRecords.map(r => r.date);
-  const rpeData = sortedRecords.map(r => Number(r.rpe));
-  const hrData = sortedRecords.map(r => Number(r.hr));
-  const distData = sortedRecords.map(r => Number(r.distance));
-  const vo2Data = sortedRecords.map(r => {
-    const match = r.vo2max?.match(/[\d.]+/);
-    return match ? Number(match[0]) : null;
-  });
-
-  const ctx = document.getElementById('trainingChart').getContext('2d');
-  if (window.chartInstance) window.chartInstance.destroy();
-
-  window.chartInstance = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: dates,
-      datasets: [
-        { label: 'RPE（主観的強度）', data: rpeData, borderColor: '#00b386', backgroundColor: 'rgba(0,179,134,0.2)', yAxisID: 'y' },
-        { label: '心拍数（bpm）', data: hrData, borderColor: '#ff8c00', backgroundColor: 'rgba(255,140,0,0.2)', yAxisID: 'y1' },
-        { label: '距離（km）', data: distData, borderColor: '#1e90ff', backgroundColor: 'rgba(30,144,255,0.2)', yAxisID: 'y2' },
-        { label: 'VO₂max（ml/kg/min）', data: vo2Data, borderColor: '#9b59b6', backgroundColor: 'rgba(155,89,182,0.2)', yAxisID: 'y3' }
-      ]
-    },
-    options: {
-      responsive: true,
-      interaction: { mode: 'index', intersect: false },
-      stacked: false,
-      plugins: { legend: { position: 'bottom' } },
-      scales: {
-        y: { type: 'linear', position: 'left', title: { display: true, text: 'RPE' }, min: 0, max: 10 },
-        y1: { type: 'linear', position: 'right', title: { display: true, text: '心拍数(bpm)' }, grid: { drawOnChartArea: false } },
-        y2: { display: false },
-        y3: { display: false }
-      }
+  <style>
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #f8faf9; color:#1a1a1a;
+      margin:0; padding:20px; max-width:800px; margin:auto;
     }
-  });
+    h1 { text-align:center; color:#00b386; margin:0 0 8px; }
+    .toggle-role {
+      display:flex; justify-content:center; gap:10px; margin:10px 0 14px;
+    }
+    .toggle-role button {
+      border:1px solid #00b386; background:none; color:#00b386;
+      padding:6px 14px; border-radius:4px; font-size:.95rem; cursor:pointer; transition:.2s;
+    }
+    .toggle-role button.active { background:#00b386; color:#fff; }
+    canvas { margin-top:12px; width:100%; height:300px; }
+    .comment {
+      background:#fff; border-left:4px solid #00b386; padding:14px;
+      border-radius:6px; box-shadow:0 1px 6px rgba(0,0,0,.05); line-height:1.7; margin-top:18px;
+    }
+    .role { text-align:center; margin-top:12px; color:#333; font-size:1rem; font-weight:500; }
+    .nav {
+      margin-top:26px; width:100%; background:#00b386; color:#fff; border:none;
+      padding:12px; font-size:1rem; border-radius:6px; cursor:pointer; transition:.2s;
+    }
+    .nav:hover { background:#009270; }
+    .section-title { margin-top:26px; margin-bottom:6px; color:#00b386; font-weight:700; font-size:1.05rem; }
+    .note { color:#555; font-size:.9rem; margin-top:6px; }
+    footer { margin-top:50px; }
+  </style>
+</head>
+<body>
+  <h1>RUN TRACKER</h1>
 
-  // === コメント生成 ===
-  const avgRPE = rpeData.reduce((a,b)=>a+b,0)/rpeData.length;
-  const trendUp = rpeData.slice(-3)[2] > rpeData.slice(-3)[0];
-  const hrAvg = hrData.filter(n=>n).reduce((a,b)=>a+b,0)/hrData.filter(n=>n).length || 0;
-  const vo2Avg = vo2Data.filter(n=>n).reduce((a,b)=>a+b,0)/vo2Data.filter(n=>n).length || 0;
+  <!-- 役割トグル（表示文言やコメント生成にのみ使用。データ自体は全件表示） -->
+  <div class="toggle-role">
+    <button id="batterBtn">野手</button>
+    <button id="pitcherBtn">投手</button>
+  </div>
 
-  let comment = "";
-  if (roleType === "pitcher") {
-    if (avgRPE >= 8) comment = "高強度の投げ込みが続いています。持久的集中力が向上しています。";
-    else if (avgRPE <= 4) comment = "フォームの再現性を意識しながら整える時期。";
-    else if (trendUp) comment = "負荷が上がり、球質やスタミナの向上が期待されます。";
-    else comment = "安定した負荷でルーティンが定着しています。";
-  } else {
-    if (avgRPE >= 8) comment = "高出力トレーニングが続いています。パワー発揮の準備が整いつつあります。";
-    else if (avgRPE <= 4) comment = "動きのキレを取り戻す期間。軽めで感覚を磨きましょう。";
-    else if (trendUp) comment = "段階的な負荷上昇。動作の再現性とスピードが噛み合ってきています。";
-    else comment = "安定したトレーニング。再現力と出力のバランス良好。";
-  }
+  <!-- 総合グラフ（RPE / HR / 距離） -->
+  <div class="section-title">トレーニング推移</div>
+  <canvas id="trainingChart"></canvas>
 
-  if (vo2Avg > 60) comment += " 有酸素能力が非常に高く維持されています。";
-  else if (vo2Avg > 50) comment += " 有酸素能力が安定しています。";
-  else if (vo2Avg > 0) comment += " 持久力の底上げが課題です。";
+  <!-- VO2maxグラフ（データがある時だけ表示） -->
+  <div id="vo2wrap" style="display:none;">
+    <div class="section-title">VO₂max 推移</div>
+    <canvas id="vo2Chart"></canvas>
+    <p id="vo2note" class="note"></p>
+  </div>
 
-  if (hrAvg > 180) comment += " 心拍数が高め。疲労や水分不足に注意。";
-  else if (hrAvg < 100 && hrAvg > 0) comment += " 心拍数が低め。回復状態は良好です。";
+  <p id="feedback" class="comment"></p>
+  <p id="role" class="role"></p>
 
-  document.getElementById("feedback").textContent = comment;
+  <button class="nav" onclick="window.location.href='index.html'">← 記録入力へ戻る</button>
 
-  // === 段階 ===
-  let roleText = "";
-  if (avgRPE < 4) roleText = "段階：整える期（リカバリー）";
-  else if (avgRPE < 7) roleText = "段階：積み上げ期（発展）";
-  else roleText = "段階：突破期（タフネス構築）";
-  document.getElementById("role").textContent = `あなたの現在地：${roleText}`;
-}
+  <!-- Footer -->
+  <div id="footer"></div>
+  <script>
+    fetch("/adjustment-lab/assets/footer-lite.html")
+      .then(res => res.text())
+      .then(html => { document.getElementById("footer").innerHTML = html; });
+  </script>
 
-renderChart();
-</script>
+  <script>
+    // ====== データ取得 / 並び順（左→右＝古→新） ======
+    const raw = JSON.parse(localStorage.getItem("trainingRecords")) || [];
+    const records = raw
+      .filter(r => !!r.date)
+      .sort((a,b) => new Date(a.date) - new Date(b.date));
+
+    // 役割トグル
+    let roleType = localStorage.getItem("playerRole") || "batter";
+    const batterBtn  = document.getElementById("batterBtn");
+    const pitcherBtn = document.getElementById("pitcherBtn");
+    const setRoleUI = () => {
+      batterBtn.classList.toggle("active", roleType === "batter");
+      pitcherBtn.classList.toggle("active", roleType === "pitcher");
+    };
+    setRoleUI();
+    batterBtn.onclick  = () => { roleType = "batter";  localStorage.setItem("playerRole", roleType); setRoleUI(); renderAll(); };
+    pitcherBtn.onclick = () => { roleType = "pitcher"; localStorage.setItem("playerRole", roleType); setRoleUI(); renderAll(); };
+
+    let chartMain, chartVO2;
+
+    function renderAll() {
+      renderTrainingChart();
+      renderVO2Chart();
+      renderComments();
+    }
+
+    function renderTrainingChart() {
+      const dates   = records.map(r => r.date);
+      const rpeData = records.map(r => Number(r.rpe ?? NaN));
+      const hrData  = records.map(r => Number(r.hr  ?? NaN));
+      const kmData  = records.map(r => Number(r.distance ?? NaN));
+
+      if (chartMain) chartMain.destroy();
+      const ctx = document.getElementById("trainingChart").getContext("2d");
+      chartMain = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: dates,
+          datasets: [
+            { label:'RPE（主観的強度）', data:rpeData, borderColor:'#00b386', backgroundColor:'rgba(0,179,134,.18)', yAxisID:'y' },
+            { label:'心拍数（bpm）',      data:hrData,  borderColor:'#ff8c00', backgroundColor:'rgba(255,140,0,.18)',  yAxisID:'y1' },
+            { label:'距離（km）',         data:kmData,  borderColor:'#1e90ff', backgroundColor:'rgba(30,144,255,.18)', yAxisID:'y2' }
+          ]
+        },
+        options: {
+          responsive:true, interaction:{ mode:'index', intersect:false }, stacked:false,
+          plugins:{ legend:{ position:'bottom' } },
+          scales:{
+            y:  { type:'linear', position:'left',  min:0, max:10, title:{ display:true, text:'RPE' } },
+            y1: { type:'linear', position:'right', grid:{ drawOnChartArea:false }, title:{ display:true, text:'bpm' } },
+            y2: { type:'linear', position:'right', display:false }
+          }
+        }
+      });
+    }
+
+    // VO2max: record.vo2 が数値として存在する場合のみ描画
+    function renderVO2Chart() {
+      const vo2Pairs = records
+        .map(r => ({ date: r.date, vo2: (r.vo2 !== undefined && r.vo2 !== null) ? Number(r.vo2) : NaN }))
+        .filter(p => !Number.isNaN(p.vo2));
+
+      const wrap = document.getElementById("vo2wrap");
+      const note = document.getElementById("vo2note");
+
+      if (vo2Pairs.length === 0) {
+        wrap.style.display = "none";
+        return;
+      }
+
+      wrap.style.display = "block";
+      const labels = vo2Pairs.map(p => p.date);
+      const data   = vo2Pairs.map(p => p.vo2);
+
+      if (chartVO2) chartVO2.destroy();
+      const ctx2 = document.getElementById("vo2Chart").getContext("2d");
+      chartVO2 = new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            { label:'VO₂max（mL/kg/min）', data, borderColor:'#00b386', backgroundColor:'rgba(0,179,134,.18)', yAxisID:'y' }
+          ]
+        },
+        options: {
+          responsive:true, interaction:{ mode:'index', intersect:false },
+          plugins:{ legend:{ position:'bottom' } },
+          scales:{
+            y: { type:'linear', position:'left', suggestedMin: 25, suggestedMax: 75, title:{ display:true, text:'mL/kg/min' } }
+          }
+        }
+      });
+
+      const latest = data[data.length - 1];
+      note.textContent = `最新の推定VO₂max：${latest.toFixed(1)} mL/kg/min（入力データに基づく表示）`;
+    }
+
+    function renderComments() {
+      const rpeVals = records.map(r => Number(r.rpe)).filter(n => !Number.isNaN(n));
+      const hrVals  = records.map(r => Number(r.hr)).filter(n => !Number.isNaN(n));
+
+      const avgRPE = rpeVals.length ? (rpeVals.reduce((a,b)=>a+b,0)/rpeVals.length) : NaN;
+      const last3  = rpeVals.slice(-3);
+      const trendUp = (last3.length === 3) ? (last3[2] > last3[0]) : false;
+      const hrAvg = hrVals.length ? (hrVals.reduce((a,b)=>a+b,0)/hrVals.length) : NaN;
+
+      let comment = "";
+      if (roleType === "pitcher") {
+        if (!Number.isNaN(avgRPE) && avgRPE >= 8) comment = "高強度の投げ込みが続いています。疲労を見極めつつ、試合での持久的集中力を磨けています。";
+        else if (!Number.isNaN(avgRPE) && avgRPE <= 4) comment = "リカバリー期。フォーム再現性に集中し、無理のない強度で。";
+        else if (trendUp) comment = "負荷が段階的に上がっています。球質とスタミナが上向き。";
+        else comment = "強度が安定。ルーティンが機能しています。";
+      } else {
+        if (!Number.isNaN(avgRPE) && avgRPE >= 8) comment = "走力練習が高強度で継続。爆発力維持のため短時間の高出力も織り交ぜましょう。";
+        else if (!Number.isNaN(avgRPE) && avgRPE <= 4) comment = "強度低めでリカバリー向き。キレとリズムは保ちたい。";
+        else if (trendUp) comment = "強度が上昇。スピードと体幹の連動が整っています。";
+        else comment = "強度の波が安定。動作再現の精度が保てています。";
+      }
+
+      if (!Number.isNaN(hrAvg)) {
+        if (hrAvg > 180) comment += " 心拍が高め。呼吸リズムとフォームの乱れに注意。";
+        else if (hrAvg > 0 && hrAvg < 100) comment += " 心拍が低め。有酸素能力向上の兆候。";
+      }
+
+      document.getElementById("feedback").textContent = comment;
+
+      let phase = "";
+      if (!Number.isNaN(avgRPE)) {
+        if (avgRPE < 4) phase = "段階：整える期（リカバリー）";
+        else if (avgRPE < 7) phase = "段階：積み上げ期（発展）";
+        else phase = "段階：突破期（タフネス構築）";
+      } else {
+        phase = "段階：—";
+      }
+      document.getElementById("role").textContent = `あなたの現在地：${phase}`;
+    }
+
+    // 初回レンダリング
+    if (records.length === 0) {
+      document.getElementById("feedback").textContent = "まだ記録がありません。まずは入力ページで記録しましょう。";
+    } else {
+      renderAll();
+    }
+  </script>
 </body>
 </html>
