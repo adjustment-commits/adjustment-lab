@@ -3,129 +3,326 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>adjustment-lab｜App Base Template</title>
+<title>Run Tracker｜adjustment-lab</title>
 
 <!-- ✅ PWA設定 -->
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#00b386">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="adjustment-lab App">
+<meta name="apple-mobile-web-app-title" content="Run Tracker">
 <link rel="apple-touch-icon" sizes="192x192" href="/adjustment-lab/products/icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="512x512" href="/adjustment-lab/products/icons/icon-512.png">
 
 <style>
+:root {
+  --accent: #00b386;
+  --bg: #ffffff;
+  --text: #111;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: 'Noto Sans JP', sans-serif;
-  background: #fff;
-  color: #111;
+  background: var(--bg);
+  color: var(--text);
   -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
 }
 
-/* ✅ プレースホルダーUI（各アプリがここにUIを挿入） */
-main {
-  padding: 40px 20px;
+/* === Header === */
+header {
+  background: var(--accent);
+  color: #fff;
   text-align: center;
+  padding: 20px 10px;
+}
+header h1 {
+  font-size: 1.4rem;
+  margin: 0;
 }
 
-/* ✅ 共通のフェードアニメーション（UI要素用） */
-.fade-in {
-  opacity: 0;
+/* === Main Form === */
+main {
+  padding: 30px 20px 100px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 6px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  margin-top: 30px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* === Install Banner === */
+#installBanner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 360px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   animation: fadeIn 0.8s forwards;
 }
+#installBanner button {
+  background: #fff;
+  color: var(--accent);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  border: none;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* === iOS 手動追加モーダル === */
+#iosGuide {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+#iosGuide .content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 320px;
+  text-align: center;
+  color: #333;
+}
+#iosGuide .content h2 {
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+#iosGuide .content p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+#iosGuide .close-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* === Welcome Card === */
+#welcomeCard {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  color: #333;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  padding: 20px;
+  text-align: left;
+  width: 90%;
+  max-width: 340px;
+  display: none;
+  animation: fadeIn 0.8s forwards;
+}
+#welcomeCard h3 {
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+#welcomeCard ol {
+  margin: 0 0 12px 20px;
+  padding: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+#welcomeCard button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  float: right;
+}
+
 @keyframes fadeIn {
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
 
 <body>
+
+<header>
+  <h1>Run Tracker</h1>
+</header>
+
 <main>
-  <h1>adjustment-lab Base Template</h1>
-  <p>このテンプレートは、全アプリ共通のPWA制御を提供します。</p>
-  <p>各アプリでUI（バナー、モーダル、ウェルカムなど）を追加してください。</p>
+  <form id="runForm">
+    <label>距離（km）</label>
+    <input type="number" step="0.01" id="distance" required>
+
+    <label>RPE（主観的運動強度）</label>
+    <select id="rpe">
+      <option value="">選択してください</option>
+      <option>1</option><option>2</option><option>3</option>
+      <option>4</option><option>5</option><option>6</option>
+      <option>7</option><option>8</option><option>9</option>
+      <option>10</option>
+    </select>
+
+    <label>メモ</label>
+    <textarea id="memo" rows="3" placeholder="内容を入力..."></textarea>
+
+    <button type="submit">記録する</button>
+  </form>
 </main>
+
+<!-- ✅ PWAバナー・モーダル群 -->
+<div id="installBanner">
+  <span>ホーム画面に追加してアプリ化しよう</span>
+  <button id="installBtn">追加</button>
+</div>
+
+<div id="iosGuide">
+  <div class="content">
+    <h2>ホーム画面に追加</h2>
+    <p>共有ボタン（<span style="font-size:1.2em;">⬆️</span>）を押して<br>
+    「ホーム画面に追加」を選択してください。</p>
+    <button class="close-btn">閉じる</button>
+  </div>
+</div>
+
+<div id="welcomeCard">
+  <h3>Run Tracker の使い方</h3>
+  <ol>
+    <li>距離とRPEを入力する</li>
+    <li>走行メモを残す</li>
+    <li>アプリをホームに追加すると便利！</li>
+  </ol>
+  <button id="closeWelcome">OK</button>
+</div>
 
 <script>
 // =====================================================
-// ✅ Service Worker 登録
+// ✅ Service Worker登録
 // =====================================================
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('../service-worker.js')
-      .then(reg => console.log('[PWA] Service Worker registered:', reg.scope))
-      .catch(err => console.warn('[PWA] SW registration failed:', err));
+      .then(reg => console.log('[PWA] registered:', reg.scope))
+      .catch(err => console.warn('[PWA] failed:', err));
   });
 }
 
 // =====================================================
-// ✅ PWAインストール制御
+// ✅ PWAバナー表示制御
 // =====================================================
+const appKey = 'runTrackerInstalled';
 let deferredPrompt;
-const appKey = 'adjustmentLabAppInstalled';
+const banner = document.getElementById('installBanner');
+const iosGuide = document.getElementById('iosGuide');
+const welcomeCard = document.getElementById('welcomeCard');
 
-// すでにインストール済みか localStorage で確認
-const isInstalled = localStorage.getItem(appKey) === 'true';
-
-// ✅ Android / PC向け beforeinstallprompt
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  console.log('[PWA] beforeinstallprompt 発火');
-
-  // まだインストールされていない場合のみ通知
-  if (!isInstalled && !window.matchMedia('(display-mode: standalone)').matches) {
-    // 各アプリ側でバナーを出す処理をここで呼ぶ
-    const event = new CustomEvent('showInstallBanner', { detail: deferredPrompt });
-    window.dispatchEvent(event);
-  }
-});
-
-// ✅ インストール完了検知
-window.addEventListener('appinstalled', () => {
-  console.log('[PWA] インストール完了');
-  localStorage.setItem(appKey, 'true');
-});
-
-// =====================================================
-// ✅ display-mode 判定（インストール済み or ブラウザ起動）
-// =====================================================
+// display-mode 判定
 function getDisplayMode() {
-  if (document.referrer.startsWith('android-app://')) {
-    return 'twa';
-  }
-  if (window.matchMedia('(display-mode: standalone)').matches) {
-    return 'standalone';
-  }
+  if (document.referrer.startsWith('android-app://')) return 'twa';
+  if (window.matchMedia('(display-mode: standalone)').matches) return 'standalone';
   return 'browser';
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  const mode = getDisplayMode();
-  console.log('[PWA] display-mode:', mode);
+const isInstalled = localStorage.getItem(appKey) === 'true';
 
-  if (mode === 'standalone') {
-    localStorage.setItem(appKey, 'true');
+// Android / PC 用
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  console.log('[PWA] beforeinstallprompt');
+  if (!isInstalled && getDisplayMode() === 'browser') {
+    banner.style.display = 'flex';
   }
 });
 
-// =====================================================
-// ✅ iOS向けガイドモーダル制御（アプリ側で利用）
-// =====================================================
+document.getElementById('installBtn').addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      localStorage.setItem(appKey, 'true');
+      banner.style.display = 'none';
+    }
+  }
+});
+
+// iOS 用
 function shouldShowIosGuide() {
-  const ua = window.navigator.userAgent.toLowerCase();
+  const ua = navigator.userAgent.toLowerCase();
   const isIos = /iphone|ipad|ipod/.test(ua);
   const isInStandalone = window.navigator.standalone === true;
   return isIos && !isInStandalone && !isInstalled;
 }
 
-// 各アプリ側で利用するため export
-window.adjustmentLabPWA = {
-  deferredPrompt,
-  getDisplayMode,
-  shouldShowIosGuide
-};
+if (shouldShowIosGuide()) {
+  iosGuide.style.display = 'flex';
+}
+
+iosGuide.querySelector('.close-btn').addEventListener('click', () => {
+  iosGuide.style.display = 'none';
+  localStorage.setItem(appKey, 'true');
+});
+
+// Welcomeカード
+if (!localStorage.getItem('welcomeShown')) {
+  welcomeCard.style.display = 'block';
+}
+document.getElementById('closeWelcome').addEventListener('click', () => {
+  welcomeCard.style.display = 'none';
+  localStorage.setItem('welcomeShown', 'true');
+});
+
+// Install完了検知
+window.addEventListener('appinstalled', () => {
+  localStorage.setItem(appKey, 'true');
+  banner.style.display = 'none';
+  iosGuide.style.display = 'none';
+});
 </script>
 
 </body>
