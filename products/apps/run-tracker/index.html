@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RUN TRACKER｜記録入力</title>
+<title>RUN TRACKER｜記録入力＋VO₂max</title>
 
 <!-- ✅ PWA設定 -->
 <link rel="manifest" href="./manifest.json">
@@ -38,139 +38,39 @@ h1 {
   color: #00b386;
   margin-bottom: 20px;
 }
-label {
-  display: block;
-  margin-top: 20px;
-  font-size: 0.95rem;
-}
+label { display: block; margin-top: 20px; font-size: 0.95rem; }
 input, select, textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 6px;
-  font-size: 1rem;
-  box-sizing: border-box;
+  width: 100%; padding: 10px; border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 6px; font-size: 1rem; box-sizing: border-box;
 }
 button {
-  margin-top: 25px;
-  width: 100%;
-  background: #00b386;
-  color: #fff;
-  border: none;
-  padding: 12px;
-  font-size: 1.1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
+  margin-top: 25px; width: 100%; background: #00b386; color: #fff;
+  border: none; padding: 12px; font-size: 1.1rem; border-radius: 6px;
+  cursor: pointer; transition: 0.3s;
 }
 button:hover { background: #009270; }
-#message {
-  text-align: center;
-  margin-top: 15px;
-  color: #00b386;
-  font-weight: 500;
+#message { text-align: center; margin-top: 15px; color: #00b386; font-weight: 500; }
+
+/* VO2max表示 */
+#vo2maxResult {
+  background: #fff;
+  border-left: 4px solid #00b386;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
 }
 
-/* ====== PWA導線関連 ====== */
+/* === PWA導線 === */
 #installPrompt {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #00b386;
-  color: #fff;
-  text-align: center;
-  padding: 12px 8px;
-  z-index: 999;
-  font-size: 0.95rem;
+  display: none; position: fixed; bottom: 0; width: 100%;
+  background: #00b386; color: #fff; text-align: center;
+  padding: 12px 8px; z-index: 999; font-size: 0.95rem;
 }
 #installPrompt button {
-  margin-left: 10px;
-  padding: 6px 10px;
-  border: none;
-  background: #fff;
-  color: #00b386;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* ====== iOS用ガイド ====== */
-#iosGuide {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-#iosGuide .modal {
-  background: #fff;
-  color: #333;
-  padding: 24px;
-  border-radius: 10px;
-  text-align: center;
-  width: 90%;
-  max-width: 360px;
-}
-#iosGuide .modal h2 {
-  color: #00b386;
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-#iosGuide .modal p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-#iosGuide .close-btn {
-  margin-top: 16px;
-  padding: 6px 16px;
-  background: #00b386;
-  border: none;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* ====== 初回ウェルカムカード ====== */
-#welcomeCard {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #fff;
-  color: #333;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  padding: 16px;
-  max-width: 360px;
-  width: 90%;
-  text-align: left;
-  z-index: 1000;
-}
-#welcomeCard h2 {
-  color: #00b386;
-  font-size: 1.1rem;
-  margin-top: 0;
-}
-#welcomeCard ul {
-  margin: 0;
-  padding-left: 20px;
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
-#welcomeCard button {
-  margin-top: 12px;
-  background: #00b386;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 14px;
-  cursor: pointer;
-  font-size: 0.9rem;
+  margin-left: 10px; padding: 6px 10px; border: none;
+  background: #fff; color: #00b386; border-radius: 4px; cursor: pointer;
 }
 </style>
 </head>
@@ -189,6 +89,26 @@ button:hover { background: #009270; }
     <option value="野手">野手</option>
   </select>
 
+  <label>テストモード</label>
+  <select id="testType">
+    <option value="none">通常トレーニング</option>
+    <option value="cooper">クーパー走（12分走）</option>
+    <option value="yoyo">YOYOテスト</option>
+    <option value="shuttle">シャトルラン</option>
+    <option value="custom">任意距離・時間</option>
+  </select>
+
+  <div id="testFields" style="display:none;">
+    <label>距離（m）</label>
+    <input type="number" id="testDistance" placeholder="例：2400" step="10" min="0">
+
+    <label>時間（分）</label>
+    <input type="number" id="testTime" placeholder="例：12" step="0.1" min="1">
+  </div>
+
+  <button type="button" id="calcVo2maxBtn" style="background:#009270;">VO₂maxを算出</button>
+  <div id="vo2maxResult" style="display:none;"></div>
+
   <label>自覚的疲労度（RPE）</label>
   <input type="range" id="rpe" min="1" max="10" value="5" oninput="rpeValue.textContent=this.value">
   <span id="rpeValue">5</span>
@@ -206,7 +126,6 @@ button:hover { background: #009270; }
 </form>
 
 <div id="message"></div>
-
 <button onclick="window.location.href='result.html'" style="margin-top:30px;background:#555;">グラフを見る</button>
 
 <!-- ✅ PWA導線 -->
@@ -215,73 +134,51 @@ button:hover { background: #009270; }
   <button id="installBtn">追加</button>
 </div>
 
-<!-- ✅ iOSガイドモーダル -->
-<div id="iosGuide">
-  <div class="modal">
-    <h2>ホーム画面に追加する方法</h2>
-    <p>Safariの共有ボタン <span style="font-size:1.3rem;">⬆️</span> を押し、<br>
-    「ホーム画面に追加」を選択してください。</p>
-    <button class="close-btn" onclick="document.getElementById('iosGuide').style.display='none'">閉じる</button>
-  </div>
-</div>
-
-<!-- ✅ 初回ウェルカムカード -->
-<div id="welcomeCard">
-  <h2>ようこそ Run Tracker へ</h2>
-  <ul>
-    <li>毎日のランニングを簡単に記録</li>
-    <li>グラフで疲労や距離を見える化</li>
-    <li>ホーム画面に追加で、いつでも起動</li>
-  </ul>
-  <button id="closeWelcome">はじめる</button>
-</div>
-
 <script>
+// === 初期化 ===
 document.addEventListener("DOMContentLoaded", () => {
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById("date").value = today;
+  document.getElementById("date").value = new Date().toISOString().split('T')[0];
 
-  // === 初回起動時ウェルカムカード ===
-  const firstVisit = !localStorage.getItem("runTrackerFirstVisit");
-  if (firstVisit) {
-    document.getElementById("welcomeCard").style.display = "block";
-    document.getElementById("closeWelcome").onclick = () => {
-      document.getElementById("welcomeCard").style.display = "none";
-      localStorage.setItem("runTrackerFirstVisit", "true");
-    };
-  }
+  const testType = document.getElementById("testType");
+  const testFields = document.getElementById("testFields");
+  const calcBtn = document.getElementById("calcVo2maxBtn");
+  const resultDiv = document.getElementById("vo2maxResult");
 
-  // === PWAバナー制御 ===
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-  if (!isStandalone && !localStorage.getItem("runTrackerInstalled")) {
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      document.getElementById('installPrompt').style.display = 'block';
-    });
-    document.getElementById('installBtn').addEventListener('click', async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          localStorage.setItem("runTrackerInstalled", "true");
-        }
-        document.getElementById('installPrompt').style.display = 'none';
-        deferredPrompt = null;
-      }
-    });
-  }
+  testType.addEventListener("change", () => {
+    testFields.style.display = (testType.value === "none") ? "none" : "block";
+  });
 
-  // === iOSデバイス判定 ===
-  const ua = window.navigator.userAgent;
-  const isIOS = /iPhone|iPad|iPod/.test(ua);
-  if (isIOS && !isStandalone && !localStorage.getItem("runTrackerIOSPrompted")) {
-    setTimeout(() => {
-      document.getElementById("iosGuide").style.display = "flex";
-      localStorage.setItem("runTrackerIOSPrompted", "true");
-    }, 2500);
-  }
+  calcBtn.addEventListener("click", () => {
+    const type = testType.value;
+    if (type === "none") {
+      resultDiv.style.display = "none";
+      return;
+    }
+
+    const distance = parseFloat(document.getElementById("testDistance").value);
+    const time = parseFloat(document.getElementById("testTime").value);
+
+    let vo2max = 0;
+
+    if (type === "cooper") {
+      // クーパー走式
+      vo2max = (distance - 504.9) / 44.73;
+    } else if (type === "yoyo") {
+      // YOYO（近似換算）
+      vo2max = 36.4 + (0.0084 * distance);
+    } else if (type === "shuttle") {
+      // シャトルラン近似（速度から算出）
+      vo2max = 5.857 * (distance / time / 60 * 3.6) - 19.458;
+    } else if (type === "custom") {
+      // 任意距離・時間（速度ベース近似）
+      const speed = (distance / time) / 60; // m/min → m/s
+      vo2max = 3.5 + (speed * 3.5);
+    }
+
+    vo2max = Math.round(vo2max * 10) / 10;
+    resultDiv.innerHTML = `推定VO₂max：<strong>${vo2max}</strong> ml/kg/min`;
+    resultDiv.style.display = "block";
+  });
 });
 
 // === 記録保存 ===
@@ -293,16 +190,36 @@ document.getElementById("recordForm").addEventListener("submit", (e) => {
     rpe: document.getElementById("rpe").value,
     hr: document.getElementById("hr").value,
     distance: document.getElementById("distance").value,
-    note: document.getElementById("note").value
+    note: document.getElementById("note").value,
+    vo2max: document.getElementById("vo2maxResult").textContent || ""
   };
+
   let records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
   records.push(record);
   localStorage.setItem("trainingRecords", JSON.stringify(records));
+
   const msg = document.getElementById("message");
   msg.textContent = "✅ 記録を保存しました。";
   setTimeout(() => msg.textContent = "", 2000);
   document.getElementById("recordForm").reset();
   document.getElementById("rpeValue").textContent = "5";
+});
+
+// === PWA導線 ===
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installPrompt').style.display = 'block';
+});
+document.getElementById('installBtn').addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') console.log('PWA installed');
+    deferredPrompt = null;
+    document.getElementById('installPrompt').style.display = 'none';
+  }
 });
 </script>
 
