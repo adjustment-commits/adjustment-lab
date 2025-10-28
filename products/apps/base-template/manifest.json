@@ -1,11 +1,13 @@
 {
-  "name": "adjustment-lab APP",
-  "short_name": "LabApp",
+  "name": "Run Tracker｜adjustment-lab",
+  "short_name": "Run Tracker",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#f8faf9",
+  "background_color": "#ffffff",
   "theme_color": "#00b386",
-  "description": "adjustment-lab 実験型トレーニングアプリベーステンプレート。",
+  "orientation": "portrait-primary",
+  "description": "ランニング距離とRPEを記録できる、シンプルなランニングトラッカー。",
   "icons": [
     {
       "src": "/adjustment-lab/products/icons/icon-192.png",
@@ -16,6 +18,12 @@
       "src": "/adjustment-lab/products/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/adjustment-lab/products/icons/maskable-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
