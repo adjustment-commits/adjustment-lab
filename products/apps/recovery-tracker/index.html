@@ -1,304 +1,212 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<!-- ✅ PWA設定 -->
-<link rel="manifest" href="./manifest.json">
+<meta charset="UTF-8">
+<title>Recovery Tracker｜adjustment-lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#00b386">
-<link rel="apple-touch-icon" sizes="192x192" href="/adjustment-lab/products/icons/icon-192.png">
-<link rel="apple-touch-icon" sizes="512x512" href="/adjustment-lab/products/icons/icon-512.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Recovery Tracker">
+
+<!-- ✅ PWA統合：manifest / service-worker動的生成 -->
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js');
-  });
+const manifestData = {
+  name: "Recovery Tracker",
+  short_name: "Recovery",
+  start_url: "./index.html",
+  display: "standalone",
+  background_color: "#00b386",
+  theme_color: "#00b386",
+  icons: [
+    { src: "icon-192.png", sizes: "192x192", type: "image/png" },
+    { src: "icon-512.png", sizes: "512x512", type: "image/png" }
+  ]
+};
+const blob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+const manifestURL = URL.createObjectURL(blob);
+const link = document.createElement('link');
+link.rel = 'manifest';
+link.href = manifestURL;
+document.head.appendChild(link);
+
+const swCode = `
+const CACHE_NAME = "recovery-tracker-v1";
+const FILES_TO_CACHE = ["./", "./index.html"];
+self.addEventListener("install", e => {
+  e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(FILES_TO_CACHE)));
+});
+self.addEventListener("fetch", e => {
+  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
+});
+self.addEventListener("activate", e => {
+  e.waitUntil(caches.keys().then(keys =>
+    Promise.all(keys.map(k => k !== CACHE_NAME && caches.delete(k)))
+  ));
+});`;
+const swBlob = new Blob([swCode], {type: "text/javascript"});
+const swURL = URL.createObjectURL(swBlob);
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register(swURL));
 }
 </script>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recovery Tracker｜コンディション入力</title>
-<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
-
 <style>
+:root {
+  --accent: #00b386;
+  --bg: #f6faf8;
+  --text: #222;
+  --sub: #666;
+}
 body {
-  font-family: 'Noto Sans JP', sans-serif;
-  background: #f8faf9;
-  color: #1a1a1a;
+  font-family: 'Noto Sans JP', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
   margin: 0;
   padding: 20px;
-  max-width: 600px;
+  max-width: 640px;
   margin: auto;
+  line-height: 1.8;
 }
 h1 {
   text-align: center;
-  color: #00b386;
+  color: var(--accent);
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+.summary {
+  background: #fff;
+  padding: 14px 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  text-align: center;
   margin-bottom: 20px;
+}
+.summary strong {
+  color: var(--accent);
+  font-size: 1.6rem;
+}
+.input-box {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 20px;
 }
 label {
   display: block;
-  margin-top: 20px;
-  font-size: 0.95rem;
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--text);
 }
-input, select, textarea {
+input, textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid rgba(0,0,0,0.1);
+  padding: 8px;
+  border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 1rem;
-  box-sizing: border-box;
+  font-size: 14px;
+  margin-top: 4px;
 }
+textarea { resize: vertical; height: 60px; }
 button {
-  margin-top: 25px;
-  width: 100%;
-  background: #00b386;
+  background: var(--accent);
   color: #fff;
   border: none;
-  padding: 12px;
-  font-size: 1.1rem;
   border-radius: 6px;
+  padding: 10px 16px;
+  width: 100%;
+  margin-top: 16px;
+  font-size: 15px;
   cursor: pointer;
-  transition: 0.3s;
 }
-button:hover { background: #009270; }
-#message {
-  text-align: center;
-  margin-top: 15px;
-  color: #00b386;
-  font-weight: 500;
-}
-
-/* === install banner === */
-#installPrompt {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #00b386;
-  color: #fff;
-  text-align: center;
-  padding: 12px 8px;
-  z-index: 999;
-  font-size: 0.95rem;
-}
-#installPrompt button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  border: none;
+button:hover { opacity: 0.9; }
+.record {
   background: #fff;
-  color: #00b386;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 16px;
+  margin-top: 14px;
+}
+.record p { margin: 4px 0; }
+.record small { color: var(--sub); }
+.del {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 4px 10px;
   border-radius: 4px;
-  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
 }
-#installPrompt button:hover { background: #e7fff3; }
-
-/* === モーダル共通 === */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-.modal {
-  background: #fff;
-  color: #333;
-  padding: 25px 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 360px;
-  text-align: left;
-  line-height: 1.7;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-}
-.modal h3 {
-  margin-top: 0;
-  color: #00b386;
+.del:hover { background: var(--accent); color: #fff; }
+footer {
   text-align: center;
+  color: #999;
+  margin: 40px 0 20px;
+  font-size: 13px;
 }
-.modal button {
-  background: #00b386;
-  color: #fff;
-  width: 100%;
-  margin-top: 15px;
-}
-
-/* === iOSガイド専用 === */
-#iosGuide .modal h3 { font-size: 1.1rem; }
 </style>
 </head>
-
 <body>
 
 <h1>Recovery Tracker</h1>
-
-<form id="recoveryForm">
-  <label>日付</label>
-  <input type="date" id="date" required>
-
-  <label>睡眠時間（h）</label>
-  <input type="number" id="sleep" min="0" max="24" step="0.1" placeholder="例：7.5">
-
-  <label>疲労感（1〜10）</label>
-  <input type="range" id="fatigue" min="1" max="10" value="5" oninput="fatigueValue.textContent=this.value">
-  <span id="fatigueValue">5</span>
-
-  <label>筋肉痛（1〜5）</label>
-  <input type="range" id="muscle" min="1" max="5" value="3" oninput="muscleValue.textContent=this.value">
-  <span id="muscleValue">3</span>
-
-  <label>食欲（1〜5）</label>
-  <input type="range" id="appetite" min="1" max="5" value="3" oninput="appetiteValue.textContent=this.value">
-  <span id="appetiteValue">3</span>
-
-  <label>メンタル（1〜5）</label>
-  <input type="range" id="mental" min="1" max="5" value="3" oninput="mentalValue.textContent=this.value">
-  <span id="mentalValue">3</span>
-
-  <label>メモ</label>
-  <textarea id="note" rows="3" placeholder="自由に記入..."></textarea>
-
-  <button type="submit">保存する</button>
-</form>
-
-<div id="message"></div>
-
-<button onclick="window.location.href='result.html'" style="margin-top:30px;background:#555;">グラフを見る</button>
-<button id="deleteAll" style="background:#d84a4a;margin-top:15px;">全データを削除する</button>
-
-<!-- ✅ ホーム画面追加バナー -->
-<div id="installPrompt">
-  📱 ホーム画面に追加してアプリとして使う
-  <button id="installBtn">追加</button>
+<div class="summary">
+  平均疲労スコア：<strong id="avgFatigue">0.0</strong>／10
 </div>
 
-<!-- ✅ iOS 手動追加モーダル -->
-<div id="iosGuide" class="modal-overlay">
-  <div class="modal">
-    <h3>ホーム画面に追加する方法（iPhone）</h3>
-    <p>1️⃣ Safariでこのページを開きます。</p>
-    <p>2️⃣ 下の <strong>共有ボタン（□↑）</strong> をタップ。</p>
-    <p>3️⃣ メニューから <strong>「ホーム画面に追加」</strong> を選択。</p>
-    <p>これでアプリとして登録できます。</p>
-    <button id="closeIosGuide">OK</button>
-  </div>
+<div class="input-box">
+  <label>日付: <input type="date" id="date"></label>
+  <label>睡眠時間 (h): <input type="number" step="0.1" id="sleep" placeholder="例: 7.5"></label>
+  <label>疲労感 (1〜10): <input type="number" min="1" max="10" id="fatigue" placeholder="例: 5"></label>
+  <label>RPE (1〜10): <input type="number" min="1" max="10" id="rpe" placeholder="例: 6"></label>
+  <label>コメント: <textarea id="note" placeholder="例: 眠り浅め、朝重い感じ"></textarea></label>
+  <button onclick="saveData()">記録する</button>
 </div>
 
-<!-- ✅ 初回ウェルカムモーダル -->
-<div id="welcomeModal" class="modal-overlay">
-  <div class="modal">
-    <h3>ようこそ Recovery Tracker へ</h3>
-    <p>このアプリは、<strong>疲労・睡眠・食欲・メンタル</strong>を記録して<br>回復の状態を可視化するツールです。</p>
-    <p>📋 使い方はかんたん3ステップ：</p>
-    <ol>
-      <li>1. 今日の状態を入力して「保存」</li>
-      <li>2. 「グラフを見る」で変化を確認</li>
-      <li>3. ホーム画面に追加して毎日記録</li>
-    </ol>
-    <button id="closeWelcome">はじめる</button>
-  </div>
-</div>
+<div id="records"></div>
+<footer>© 2025 adjustment-lab｜Recovery Tracker</footer>
 
 <script>
-// === 自動日付入力 ===
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("date").value = new Date().toISOString().split('T')[0];
-});
-
-// === 保存処理 ===
-document.getElementById("recoveryForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const record = {
-    date: document.getElementById("date").value,
-    sleep: document.getElementById("sleep").value,
-    fatigue: document.getElementById("fatigue").value,
-    muscle: document.getElementById("muscle").value,
-    appetite: document.getElementById("appetite").value,
-    mental: document.getElementById("mental").value,
-    note: document.getElementById("note").value
-  };
-
-  let records = JSON.parse(localStorage.getItem("recoveryRecords")) || [];
-  records.push(record);
-  localStorage.setItem("recoveryRecords", JSON.stringify(records));
-
-  const msg = document.getElementById("message");
-  msg.textContent = "✅ 記録を保存しました。";
-  setTimeout(() => msg.textContent = "", 2000);
-  document.getElementById("recoveryForm").reset();
-  document.getElementById("fatigueValue").textContent = "5";
-  document.getElementById("muscleValue").textContent = "3";
-  document.getElementById("appetiteValue").textContent = "3";
-  document.getElementById("mentalValue").textContent = "3";
-});
-
-// === 削除ボタン ===
-document.getElementById("deleteAll").addEventListener("click", () => {
-  if (confirm("⚠️ 全ての記録を削除しますか？ この操作は元に戻せません。")) {
-    localStorage.removeItem("recoveryRecords");
-    alert("データを削除しました。");
-  }
-});
-
-// === ホーム画面追加案内（自動非表示対応） ===
-let deferredPrompt;
-if (window.matchMedia('(display-mode: standalone)').matches) {
-  document.getElementById('installPrompt').style.display = 'none';
-} else if (localStorage.getItem('installedRecoveryTracker') === 'true') {
-  document.getElementById('installPrompt').style.display = 'none';
-} else {
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    document.getElementById('installPrompt').style.display = 'block';
+function loadData(){
+  const data = JSON.parse(localStorage.getItem("recoveryRecords") || "[]");
+  const container = document.getElementById("records");
+  container.innerHTML = "";
+  let total = 0;
+  data.forEach((r,i)=>{
+    total += parseInt(r.fatigue)||0;
+    const div = document.createElement("div");
+    div.className="record";
+    div.innerHTML = `
+      <p><strong>${r.date}</strong>｜疲労:${r.fatigue}/10｜睡眠:${r.sleep}h｜RPE:${r.rpe}</p>
+      <p><small>${r.note||""}</small></p>
+      <button class="del" onclick="delData(${i})">削除</button>
+    `;
+    container.appendChild(div);
   });
-  document.getElementById('installBtn').addEventListener('click', async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') localStorage.setItem('installedRecoveryTracker', 'true');
-      deferredPrompt = null;
-      document.getElementById('installPrompt').style.display = 'none';
-    }
-  });
+  const avg = data.length ? (total / data.length).toFixed(1) : 0.0;
+  document.getElementById("avgFatigue").textContent = avg;
 }
 
-// === iOS Safari検出と手動ガイド表示 ===
-const isIos = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
-const isInStandalone = window.navigator.standalone === true;
-if (isIos && !isInStandalone) {
-  setTimeout(() => {
-    if (!localStorage.getItem('iosGuideShown')) {
-      document.getElementById('iosGuide').style.display = 'flex';
-      localStorage.setItem('iosGuideShown', 'true');
-    }
-  }, 3000);
+function saveData(){
+  const date = document.getElementById("date").value || new Date().toISOString().slice(0,10);
+  const sleep = parseFloat(document.getElementById("sleep").value)||0;
+  const fatigue = parseInt(document.getElementById("fatigue").value)||0;
+  const rpe = parseInt(document.getElementById("rpe").value)||0;
+  const note = document.getElementById("note").value;
+  if(!fatigue){ alert("疲労感を入力してください"); return; }
+  const data = JSON.parse(localStorage.getItem("recoveryRecords") || "[]");
+  data.push({date, sleep, fatigue, rpe, note});
+  localStorage.setItem("recoveryRecords", JSON.stringify(data));
+  document.getElementById("sleep").value="";
+  document.getElementById("fatigue").value="";
+  document.getElementById("rpe").value="";
+  document.getElementById("note").value="";
+  loadData();
 }
-document.getElementById('closeIosGuide').addEventListener('click', () => {
-  document.getElementById('iosGuide').style.display = 'none';
-});
 
-// === 初回ウェルカムモーダル ===
-if (!localStorage.getItem('welcomeShown')) {
-  document.getElementById('welcomeModal').style.display = 'flex';
-  document.getElementById('closeWelcome').addEventListener('click', () => {
-    document.getElementById('welcomeModal').style.display = 'none';
-    localStorage.setItem('welcomeShown', 'true');
-  });
+function delData(i){
+  const data = JSON.parse(localStorage.getItem("recoveryRecords") || "[]");
+  data.splice(i,1);
+  localStorage.setItem("recoveryRecords", JSON.stringify(data));
+  loadData();
 }
+loadData();
 </script>
-
-<div id="footer"></div>
-<script>
-fetch("/adjustment-lab/assets/footer-lite.html")
-  .then(res => res.text())
-  .then(html => { document.getElementById("footer").innerHTML = html; });
-</script>
-
 </body>
 </html>
