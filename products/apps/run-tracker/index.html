@@ -2,366 +2,208 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RUN TRACKER｜記録入力</title>
-
-<!-- ✅ PWA設定 -->
-<link rel="manifest" href="./manifest.json">
+<title>Run Tracker｜adjustment-lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#00b386">
-<link rel="apple-touch-icon" sizes="192x192" href="/adjustment-lab/products/icons/icon-192.png">
-<link rel="apple-touch-icon" sizes="512x512" href="/adjustment-lab/products/icons/icon-512.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Run Tracker">
+
+<!-- ✅ PWA統合：manifest / service-worker動的生成 -->
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js');
-  });
+const manifestData = {
+  name: "Run Tracker",
+  short_name: "RunTracker",
+  start_url: "./index.html",
+  display: "standalone",
+  background_color: "#00b386",
+  theme_color: "#00b386",
+  icons: [
+    { src: "icon-192.png", sizes: "192x192", type: "image/png" },
+    { src: "icon-512.png", sizes: "512x512", type: "image/png" }
+  ]
+};
+const blob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+const manifestURL = URL.createObjectURL(blob);
+const link = document.createElement('link');
+link.rel = 'manifest';
+link.href = manifestURL;
+document.head.appendChild(link);
+
+const swCode = `
+const CACHE_NAME = "run-tracker-v1";
+const FILES_TO_CACHE = ["./", "./index.html"];
+self.addEventListener("install", e => {
+  e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(FILES_TO_CACHE)));
+});
+self.addEventListener("fetch", e => {
+  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
+});
+self.addEventListener("activate", e => {
+  e.waitUntil(caches.keys().then(keys =>
+    Promise.all(keys.map(k => k !== CACHE_NAME && caches.delete(k)))
+  ));
+});`;
+const swBlob = new Blob([swCode], {type: "text/javascript"});
+const swURL = URL.createObjectURL(swBlob);
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register(swURL));
 }
 </script>
 
-<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
-
 <style>
+:root {
+  --accent: #00b386;
+  --bg: #f6faf8;
+  --text: #222;
+  --sub: #666;
+}
 body {
-  font-family: 'Noto Sans JP', sans-serif;
-  background: #f8faf9;
-  color: #1a1a1a;
+  font-family: 'Noto Sans JP', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
   margin: 0;
   padding: 20px;
-  max-width: 600px;
+  line-height: 1.8;
+  max-width: 640px;
   margin: auto;
 }
 h1 {
   text-align: center;
-  color: #00b386;
+  color: var(--accent);
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+.summary {
+  background: #fff;
+  padding: 14px 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  text-align: center;
   margin-bottom: 20px;
+}
+.summary strong {
+  color: var(--accent);
+  font-size: 1.6rem;
+}
+.input-box {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 20px;
+  margin-top: 10px;
 }
 label {
   display: block;
-  margin-top: 20px;
-  font-size: 0.95rem;
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--text);
 }
-input, select, textarea {
+input, textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid rgba(0,0,0,0.1);
+  padding: 8px;
+  border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 1rem;
-  box-sizing: border-box;
+  font-size: 14px;
+  margin-top: 4px;
 }
+textarea { resize: vertical; height: 60px; }
 button {
-  margin-top: 25px;
-  width: 100%;
-  background: #00b386;
+  background: var(--accent);
   color: #fff;
   border: none;
-  padding: 12px;
-  font-size: 1.1rem;
   border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-button:hover { background: #009270; }
-#message {
-  text-align: center;
-  margin-top: 15px;
-  color: #00b386;
-  font-weight: 500;
-}
-
-/* ====== PWA導線関連 ====== */
-#installPrompt {
-  display: none;
-  position: fixed;
-  bottom: 0;
+  padding: 10px 16px;
   width: 100%;
-  background: #00b386;
-  color: #fff;
-  text-align: center;
-  padding: 12px 8px;
-  z-index: 999;
-  font-size: 0.95rem;
-}
-#installPrompt button {
-  margin-left: 10px;
-  padding: 6px 10px;
-  border: none;
-  background: #fff;
-  color: #00b386;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* ====== iOS用ガイド ====== */
-#iosGuide {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-#iosGuide .modal {
-  background: #fff;
-  color: #333;
-  padding: 24px;
-  border-radius: 10px;
-  text-align: center;
-  width: 90%;
-  max-width: 360px;
-}
-#iosGuide .modal h2 {
-  color: #00b386;
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-#iosGuide .modal p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-#iosGuide .close-btn {
   margin-top: 16px;
-  padding: 6px 16px;
-  background: #00b386;
-  border: none;
-  color: #fff;
-  border-radius: 4px;
+  font-size: 15px;
   cursor: pointer;
 }
-
-/* ====== 初回ウェルカムカード ====== */
-#welcomeCard {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+button:hover { opacity: 0.9; }
+.record {
   background: #fff;
-  color: #333;
-  border: 1px solid rgba(0,0,0,0.1);
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   padding: 16px;
-  max-width: 360px;
-  width: 90%;
-  text-align: left;
-  z-index: 1000;
+  margin-top: 14px;
 }
-#welcomeCard h2 {
-  color: #00b386;
-  font-size: 1.1rem;
-  margin-top: 0;
-}
-#welcomeCard ul {
-  margin: 0;
-  padding-left: 20px;
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
-#welcomeCard button {
-  margin-top: 12px;
-  background: #00b386;
-  color: #fff;
-  border: none;
+.record p { margin: 4px 0; }
+.record small { color: var(--sub); }
+.del {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 4px 10px;
   border-radius: 4px;
-  padding: 8px 14px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 13px;
+}
+.del:hover { background: var(--accent); color: #fff; }
+footer {
+  text-align: center;
+  color: #999;
+  margin: 40px 0 20px;
+  font-size: 13px;
 }
 </style>
 </head>
-
 <body>
 
-<h1>RUN TRACKER</h1>
-
-<form id="recordForm">
-  <label>日付</label>
-  <input type="date" id="date" required>
-
-  <label>役割（ポジション）</label>
-  <select id="role" required>
-    <option value="投手">投手</option>
-    <option value="野手">野手</option>
-  </select>
-
-  <label>テスト種目（VO₂max測定）</label>
-  <select id="testType">
-    <option value="">選択してください</option>
-    <option value="cooper">クーパー走（12分間走）</option>
-    <option value="shuttle">シャトルラン（20m往復）</option>
-    <option value="yoyo">YoYoテスト</option>
-    <option value="custom">任意距離・時間</option>
-  </select>
-
-  <label>距離（m）または回数</label>
-  <input type="number" id="testDistance" placeholder="例：2700" step="1" min="0">
-
-  <label>時間（分）</label>
-  <input type="number" id="testTime" placeholder="例：12" step="0.1" min="0">
-
-  <p id="vo2maxResult" style="color:#00b386;font-weight:600;margin-top:10px;"></p>
-
-  <label>自覚的疲労度（RPE）</label>
-  <input type="range" id="rpe" min="1" max="10" value="5" oninput="rpeValue.textContent=this.value">
-  <span id="rpeValue">5</span>
-
-  <label>心拍数（bpm）</label>
-  <input type="number" id="hr" placeholder="例：145" min="40" max="220">
-
-  <label>距離（km）</label>
-  <input type="number" id="distance" placeholder="例：3.5" step="0.1" min="0">
-
-  <label>練習内容メモ</label>
-  <textarea id="note" rows="3" placeholder="自由に記入..."></textarea>
-
-  <button type="submit">保存する</button>
-</form>
-
-<div id="message"></div>
-<button onclick="window.location.href='result.html'" style="margin-top:30px;background:#555;">グラフを見る</button>
-
-<!-- ✅ PWA導線 -->
-<div id="installPrompt">
-  📱 ホーム画面に追加してアプリとして使う
-  <button id="installBtn">追加</button>
+<h1>Run Tracker</h1>
+<div class="summary">
+  合計距離：<strong id="totalDistance">0.0</strong> km
 </div>
 
-<!-- ✅ iOSガイドモーダル -->
-<div id="iosGuide">
-  <div class="modal">
-    <h2>ホーム画面に追加する方法</h2>
-    <p>Safariの共有ボタン <span style="font-size:1.3rem;">⬆️</span> を押し、<br>「ホーム画面に追加」を選択してください。</p>
-    <button class="close-btn" onclick="document.getElementById('iosGuide').style.display='none'">閉じる</button>
-  </div>
+<div class="input-box">
+  <label>日付: <input type="date" id="date"></label>
+  <label>距離 (km): <input type="number" step="0.01" id="distance" placeholder="例: 5.2"></label>
+  <label>RPE (1〜10): <input type="number" min="1" max="10" id="rpe" placeholder="例: 6"></label>
+  <label>コメント: <textarea id="note" placeholder="例: 追い込みすぎずリズム良く"></textarea></label>
+  <button onclick="saveData()">記録する</button>
 </div>
 
-<!-- ✅ 初回ウェルカムカード -->
-<div id="welcomeCard">
-  <h2>ようこそ Run Tracker へ</h2>
-  <ul>
-    <li>毎日のランニングを簡単に記録</li>
-    <li>グラフで疲労や距離を見える化</li>
-    <li>ホーム画面に追加で、いつでも起動</li>
-  </ul>
-  <button id="closeWelcome">はじめる</button>
-</div>
+<div id="records"></div>
+<footer>© 2025 adjustment-lab｜Run Tracker</footer>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById("date").value = today;
+function loadData(){
+  const data = JSON.parse(localStorage.getItem("runRecords") || "[]");
+  const container = document.getElementById("records");
+  container.innerHTML = "";
+  let total = 0;
+  data.forEach((r,i)=>{
+    total += parseFloat(r.distance)||0;
+    const div = document.createElement("div");
+    div.className="record";
+    div.innerHTML = `
+      <p><strong>${r.date}</strong>｜${r.distance} km｜RPE:${r.rpe}</p>
+      <p><small>${r.note||""}</small></p>
+      <button class="del" onclick="delData(${i})">削除</button>
+    `;
+    container.appendChild(div);
+  });
+  document.getElementById("totalDistance").textContent = total.toFixed(1);
+}
 
-  // === VO2max計算 ===
-  const testType = document.getElementById("testType");
-  const testDistance = document.getElementById("testDistance");
-  const testTime = document.getElementById("testTime");
-  const resultField = document.getElementById("vo2maxResult");
+function saveData(){
+  const date = document.getElementById("date").value || new Date().toISOString().slice(0,10);
+  const distance = parseFloat(document.getElementById("distance").value);
+  const rpe = parseInt(document.getElementById("rpe").value);
+  const note = document.getElementById("note").value;
+  if(isNaN(distance)){ alert("距離を入力してください"); return; }
+  const data = JSON.parse(localStorage.getItem("runRecords") || "[]");
+  data.push({date, distance, rpe, note});
+  localStorage.setItem("runRecords", JSON.stringify(data));
+  document.getElementById("distance").value="";
+  document.getElementById("rpe").value="";
+  document.getElementById("note").value="";
+  loadData();
+}
 
-  function calcVO2max() {
-    const distance = parseFloat(testDistance.value);
-    const time = parseFloat(testTime.value);
-    let vo2max = 0;
-
-    if (!distance || distance <= 0) return resultField.textContent = "";
-
-    switch (testType.value) {
-      case "cooper":
-        vo2max = (distance - 504.9) / 44.73;
-        break;
-      case "shuttle":
-        vo2max = 31.025 + 3.238 * (distance/20) - 3.248 * (time/60) - 0.1536 * (distance/20)*(time/60);
-        break;
-      case "yoyo":
-        vo2max = 15.3 + 0.0084 * distance;
-        break;
-      case "custom":
-        if (distance && time) vo2max = (distance / time / 1000) * 15;
-        break;
-    }
-
-    if (vo2max > 0) resultField.textContent = `推定VO₂max：${vo2max.toFixed(1)} ml/kg/min`;
-  }
-
-  testType.addEventListener("change", calcVO2max);
-  testDistance.addEventListener("input", calcVO2max);
-  testTime.addEventListener("input", calcVO2max);
-
-  // === 初回起動時ウェルカムカード ===
-  const firstVisit = !localStorage.getItem("runTrackerFirstVisit");
-  if (firstVisit) {
-    document.getElementById("welcomeCard").style.display = "block";
-    document.getElementById("closeWelcome").onclick = () => {
-      document.getElementById("welcomeCard").style.display = "none";
-      localStorage.setItem("runTrackerFirstVisit", "true");
-    };
-  }
-
-  // === PWAバナー制御 ===
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-  if (!isStandalone && !localStorage.getItem("runTrackerInstalled")) {
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      document.getElementById('installPrompt').style.display = 'block';
-    });
-    document.getElementById('installBtn').addEventListener('click', async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') localStorage.setItem("runTrackerInstalled", "true");
-        document.getElementById('installPrompt').style.display = 'none';
-        deferredPrompt = null;
-      }
-    });
-  }
-
-  // === iOSガイド ===
-  const ua = window.navigator.userAgent;
-  const isIOS = /iPhone|iPad|iPod/.test(ua);
-  if (isIOS && !isStandalone && !localStorage.getItem("runTrackerIOSPrompted")) {
-    setTimeout(() => {
-      document.getElementById("iosGuide").style.display = "flex";
-      localStorage.setItem("runTrackerIOSPrompted", "true");
-    }, 2500);
-  }
-});
-
-// === 記録保存 ===
-document.getElementById("recordForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const record = {
-    date: document.getElementById("date").value,
-    role: document.getElementById("role").value,
-    rpe: document.getElementById("rpe").value,
-    hr: document.getElementById("hr").value,
-    distance: document.getElementById("distance").value,
-    note: document.getElementById("note").value,
-    vo2max: document.getElementById("vo2maxResult").textContent || ""
-  };
-  let records = JSON.parse(localStorage.getItem("trainingRecords")) || [];
-  records.push(record);
-  localStorage.setItem("trainingRecords", JSON.stringify(records));
-  const msg = document.getElementById("message");
-  msg.textContent = "✅ 記録を保存しました。";
-  setTimeout(() => msg.textContent = "", 2000);
-  document.getElementById("recordForm").reset();
-  document.getElementById("rpeValue").textContent = "5";
-});
+function delData(i){
+  const data = JSON.parse(localStorage.getItem("runRecords") || "[]");
+  data.splice(i,1);
+  localStorage.setItem("runRecords", JSON.stringify(data));
+  loadData();
+}
+loadData();
 </script>
-
-<!-- Footer -->
-<div id="footer"></div>
-<script>
-fetch("/adjustment-lab/assets/footer-lite.html")
-  .then(res => res.text())
-  .then(html => { document.getElementById("footer").innerHTML = html; });
-</script>
-
 </body>
 </html>
