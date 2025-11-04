@@ -1,184 +1,218 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>アプリシリーズ一覧｜adjustment-lab</title>
+  <meta charset="UTF-8">
+  <title>VO₂max Lite判定｜adjustment-lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#007b9e">
 
-<link rel="manifest" href="../../manifest.json">
-<meta name="theme-color" content="#f8faf9">
+  <!-- ✅ PWA構成：manifestとservice-workerを動的生成 -->
+  <script>
+    // --- manifest生成 ---
+    const manifestData = {
+      name: "VO₂max Lite判定",
+      short_name: "VO₂max Lite",
+      start_url: "./index.html",
+      display: "standalone",
+      background_color: "#007b9e",
+      theme_color: "#007b9e",
+      icons: [
+        { src: "icon-192.png", sizes: "192x192", type: "image/png" },
+        { src: "icon-512.png", sizes: "512x512", type: "image/png" }
+      ]
+    };
+    const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+    const manifestURL = URL.createObjectURL(manifestBlob);
+    const manifestLink = document.createElement('link');
+    manifestLink.rel = 'manifest';
+    manifestLink.href = manifestURL;
+    document.head.appendChild(manifestLink);
 
-<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
-<script>
-fetch("/adjustment-lab/assets/footer-lite.html")
-</script>
+    // --- service-worker生成 ---
+    const swCode = `
+      const CACHE_NAME = "vo2max-lite-v1";
+      const FILES_TO_CACHE = ["./", "./index.html"];
+      self.addEventListener("install", e => {
+        e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(FILES_TO_CACHE)));
+      });
+      self.addEventListener("fetch", e => {
+        e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
+      });
+      self.addEventListener("activate", e => {
+        e.waitUntil(caches.keys().then(keys => Promise.all(keys.map(k => k !== CACHE_NAME && caches.delete(k)))));
+      });
+    `;
+    const swBlob = new Blob([swCode], {type: "text/javascript"});
+    const swURL = URL.createObjectURL(swBlob);
 
-<style>
-:root {
-  --bg: #f8faf9;
-  --text: #1a1a1a;
-  --accent: #00b386;
-  --sub: #666;
-  font-family: 'Noto Sans JP', sans-serif;
-}
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register(swURL));
+    }
+  </script>
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.8;
-}
-
-header {
-  text-align: center;
-  padding: 80px 20px 40px;
-}
-
-h1 {
-  font-size: 2rem;
-  color: var(--accent);
-  margin-bottom: 8px;
-}
-
-p.sub {
-  color: var(--sub);
-  font-size: 1rem;
-}
-
-/* ===== アプリカード一覧 ===== */
-.apps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 40px;
-  max-width: 900px;
-  margin: 60px auto 100px;
-  padding: 0 20px;
-}
-
-.card {
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
-  text-align: center;
-  transition: 0.3s;
-}
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-}
-
-.card-content {
-  padding: 32px 20px;
-}
-
-.card-content h2 {
-  color: var(--accent);
-  font-size: 1.4rem;
-  margin-bottom: 0.6em;
-}
-
-.card-content p {
-  color: var(--sub);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 1.6em;
-}
-
-button {
-  background: var(--accent);
-  border: none;
-  color: #fff;
-  padding: 0.7em 1.6em;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: 0.3s;
-}
-button:hover {
-  background: #009b74;
-}
-
-/* ===== 戻るボタン ===== */
-.back-home {
-  text-align: center;
-  margin: 80px 0 40px;
-}
-.back-home button {
-  background: none;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 0.7em 1.6em;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.back-home button:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-/* ===== フッター調整 ===== */
-footer {
-  text-align: center;
-  color: var(--sub);
-  font-size: 0.9rem;
-  margin: 100px 0 40px;
-}
-footer a {
-  color: var(--accent);
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
-}
-</style>
+  <style>
+    body {
+      font-family: 'Noto Sans JP', system-ui, sans-serif;
+      background: #f3f8f9;
+      color: #111;
+      margin: 0;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      line-height: 1.7;
+    }
+    h1 {
+      text-align: center;
+      color: #007b9e;
+      font-size: 1.6rem;
+      margin-top: 40px;
+    }
+    .input-box {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 20px;
+      margin-top: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 18px;
+      padding: 10px 16px;
+      background: #007b9e;
+      border: none;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover { opacity: 0.9; }
+    #result {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 20px;
+      margin-top: 30px;
+    }
+    .role {
+      font-weight: bold;
+      color: #007b9e;
+      font-size: 1.1rem;
+    }
+    section {
+      margin-top: 40px;
+      background: #e6f5f7;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    section h2 {
+      color: #007b9e;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+    section p {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.8;
+    }
+    footer {
+      text-align: center;
+      color: #888;
+      margin-top: 50px;
+      font-size: 13px;
+    }
+  </style>
 </head>
 
 <body>
+  <h1>VO₂max Lite判定</h1>
 
-<header>
-  <h1>アプリシリーズ｜adjustment-lab</h1>
-  <p class="sub">現場で使える記録・可視化ツール。<br>思考とデータを結びつけるアプリ群。</p>
-</header>
-
-<section class="apps">
-
-  <!-- Run Tracker -->
-  <div class="card">
-    <div class="card-content">
-      <h2>Run Tracker</h2>
-      <p>ランニングの距離やペースを記録・可視化するツール</p>
-      <button onclick="window.location.href='./run-tracker/index.html'">開く</button>
-    </div>
+  <div class="input-box">
+    <label>選手名: <input type="text" id="name" placeholder="例: 山田"></label>
+    <label>クーパー走距離 (m): <input type="number" id="cooper" placeholder="例: 2700"></label>
+    <label>Yo-Yo IR距離 (m): <input type="number" id="yoyo" placeholder="例: 1600"></label>
+    <label>10mスプリント (秒): <input type="number" step="0.01" id="s10" placeholder="例: 1.55"></label>
+    <label>30mスプリント (秒): <input type="number" step="0.01" id="s30" placeholder="例: 4.05"></label>
+    <label>50mスプリント (秒): <input type="number" step="0.01" id="s50" placeholder="例: 6.40"></label>
+    <button onclick="check()">結果を表示</button>
   </div>
 
-  <!-- Recovery Tracker -->
-  <div class="card">
-    <div class="card-content">
-      <h2>Recovery Tracker</h2>
-      <p>コンディションや疲労回復を記録・可視化するツール</p>
-      <button onclick="window.location.href='./recovery-tracker/index.html'">開く</button>
-    </div>
-  </div>
+  <div id="result"></div>
 
-</section>
+  <section>
+    <h2>VO₂maxと野球の関係</h2>
+    <p>
+      VO₂max（最大酸素摂取量）は、身体が酸素を使ってエネルギーを再生する力を示します。<br>
+      野球では一球の出力だけでなく、<strong>「同じ動きを何度も再現できる能力」</strong>が求められます。<br><br>
+      投手にとってVO₂maxは、登板間の回復や終盤の安定性を支える“酸素エンジン”。<br>
+      野手にとっては、<strong>打席間や守備間での心拍回復・判断力維持</strong>に直結します。<br><br>
+      つまりVO₂maxは、単なる持久力ではなく、<strong>パフォーマンスを最後まで再現する力</strong>の指標といえます。
+    </p>
+  </section>
 
-<div class="back-home">
-  <button onclick="window.location.href='/adjustment-lab/index.html'">← ホームへ戻る</button>
-</div>
+  <footer>© 2025 adjustment-lab｜VO₂max Flipbook Lite</footer>
 
-<!-- ===== 共通フッター ===== -->
-<div id="footer"></div>
-<script>
-fetch("/adjustment-lab/assets/footer-lite.html")
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById("footer").innerHTML = data;
-  });
-</script>
+  <script>
+    // VO₂max換算式
+    function cooperToVO2max(dist) { return (dist - 504.9) / 44.73; }
+    function yoyoToVO2max(dist) { return dist * 0.0084 + 36.4; }
 
+    // ロール分類
+    function getRoleColor(vo2, sprintScore) {
+      if (vo2 >= 51 && sprintScore >= 3) return {role:"◎ エース格", color:"gold"};
+      if (vo2 >= 51 && sprintScore < 3) return {role:"ロング先発", color:"blue"};
+      if (vo2 >= 47 && vo2 < 51 && sprintScore >= 2) return {role:"中継ぎ", color:"green"};
+      if (vo2 < 47 && sprintScore >= 2) return {role:"抑え／ショート", color:"red"};
+      return {role:"基礎不足", color:"gray"};
+    }
+
+    // 判定関数
+    function check() {
+      const name = document.getElementById("name").value || "無名";
+      const cooper = parseFloat(document.getElementById("cooper").value);
+      const yoyo = parseFloat(document.getElementById("yoyo").value);
+      const s10 = parseFloat(document.getElementById("s10").value);
+      const s30 = parseFloat(document.getElementById("s30").value);
+      const s50 = parseFloat(document.getElementById("s50").value);
+
+      if (isNaN(cooper) && isNaN(yoyo)) {
+        alert("クーパー走またはYo-Yoを入力してください。");
+        return;
+      }
+
+      let vo2list = [];
+      if (!isNaN(cooper)) vo2list.push(cooperToVO2max(cooper));
+      if (!isNaN(yoyo)) vo2list.push(yoyoToVO2max(yoyo));
+      const vo2avg = vo2list.reduce((a,b)=>a+b,0) / vo2list.length;
+
+      let sprintScore = 0;
+      if (!isNaN(s10) && s10 <= 1.55) sprintScore += 2;
+      if (!isNaN(s30) && s30 <= 4.0) sprintScore += 1;
+      if (!isNaN(s50) && s50 <= 6.4) sprintScore += 1;
+
+      const {role, color} = getRoleColor(vo2avg, sprintScore);
+
+      document.getElementById("result").innerHTML = `
+        <h2>判定結果</h2>
+        <p><strong>${name}</strong></p>
+        <p>VO₂max：${vo2avg.toFixed(1)} ml/kg/min</p>
+        <p>スプリントスコア：${sprintScore}/4</p>
+        <p class="role" style="color:${color};">${role}</p>
+      `;
+    }
+  </script>
 </body>
 </html>
