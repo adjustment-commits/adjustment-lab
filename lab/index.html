@@ -4,15 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>adjustment-lab｜思考を形にし、再現を科学する</title>
-
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#ffffff">
-
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 <script>
 fetch("/adjustment-lab/assets/footer-lite.html")
 </script>
-
 <style>
 :root {
   --bg: #ffffff;
@@ -51,6 +48,7 @@ body {
   color: var(--sub);
   font-size: 1.05rem;
   margin-bottom: 2em;
+  line-height: 1.8;
 }
 .cta {
   display: flex;
@@ -91,14 +89,14 @@ section p {
   opacity: 0.9;
 }
 
-/* ---------- Products ---------- */
-.products {
+/* ---------- App Cards ---------- */
+.apps {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
   margin-top: 40px;
 }
-.product-card {
+.app-card {
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -106,22 +104,27 @@ section p {
   text-align: center;
   transition: 0.3s;
 }
-.product-card:hover {
+.app-card:hover {
   box-shadow: 0 8px 20px rgba(0,0,0,0.06);
   transform: translateY(-4px);
 }
-.product-card h3 {
+.app-card img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
+}
+.app-card h3 {
   color: var(--accent);
   font-size: 1.1rem;
   margin-bottom: 0.6em;
 }
-.product-card p {
+.app-card p {
   color: var(--sub);
   font-size: 0.95rem;
   line-height: 1.7;
   margin-bottom: 1em;
 }
-.product-card a {
+.app-card a {
   display: inline-block;
   color: #fff;
   background: var(--accent);
@@ -131,7 +134,7 @@ section p {
   font-size: 0.9rem;
   transition: 0.3s;
 }
-.product-card a:hover {
+.app-card a:hover {
   opacity: 0.8;
 }
 
@@ -152,76 +155,7 @@ section p {
   line-height: 1.9;
 }
 
-@media (max-width: 768px) {
-  .hero h1 { font-size: 1.8rem; }
-  .hero p { font-size: 0.95rem; }
-  section { margin: 60px 16px; }
-}
-</style>
-</head>
-
-<body>
-
-<!-- HERO -->
-<section class="hero">
-  <h1>adjustment-lab</h1>
-  <p>思考を形にし、再現を科学する。<br>ここは“整”の理論を教材として実装する実験場です。</p>
-  <div class="cta">
-    <button onclick="window.location.href='../products/lite.html'">教材一覧を見る</button>
-    <button onclick="window.location.href='../index.html'">整サイトへ戻る</button>
-  </div>
-</section>
-
-<!-- SECTION 1 -->
-<section>
-  <h2>トレーニング教材一覧</h2>
-  <p>adjustment-labでは、目的別に整理されたトレーニング教材を販売しています。<br>
-  興味のあるカテゴリを選び、内容を確認して購入できます。</p>
-
-  <div class="products">
-    <div class="product-card">
-      <h3>Lite 教材シリーズ</h3>
-      <p>基礎10種目を軸に構成されたトレーニング教材。<br>野球選手・一般アスリート別に展開。</p>
-      <a href="../products/lite.html">詳しく見る</a>
-    </div>
-    <div class="product-card">
-      <h3>Standard 教材</h3>
-      <p>個別カウンセリングを経て構成される上位版プログラム。<br>目的に応じたカスタマイズが可能。</p>
-      <a href="../products/standard.html">詳しく見る</a>
-    </div>
-    <div class="product-card">
-      <h3>Tracker（記録管理）</h3>
-      <p>トレーニング実施を可視化し、日々の進捗を記録。<br>Lite教材と連携可能。</p>
-      <a href="../products/lite/tracker.html">詳しく見る</a>
-    </div>
-    <div class="product-card">
-      <h3>Training Lite（運用版）</h3>
-      <p>チームや個人で利用できる進行管理システム。<br>Lite教材のオプションとして導入可能。</p>
-      <a href="../products/lite/training-lite/index.html">詳しく見る</a>
-    </div>
-    <div class="product-card">
-      <h3>VO₂max資料</h3>
-      <p>最大酸素摂取量を中心とした体力評価と設計指針。<br>競技別に応用可能な研究資料。</p>
-      <a href="../products/vo2max.html">詳しく見る</a>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 2 -->
-<section class="message">
-  <h2>整の知を、科学へ。</h2>
-  <p>「整」で生まれた理論を「lab」で検証し、<br>
-  再現性のあるトレーニング体系へと進化させる。<br>
-  adjustment-labは、思考と現場をつなぐ研究の場です。</p>
-</section>
-
-<!-- ===== ホームへ戻るボタン ===== -->
-<div class="back-home">
-  <button onclick="window.location.href='../products/apps/index.html'">アプリ一覧を見る</button>
-  <button onclick="window.location.href='/adjustment-lab/index.html'">← ホームへ戻る</button>
-</div>
-
-<style>
+/* ---------- Back Button ---------- */
 .back-home {
   text-align: center;
   margin: 80px 0 40px;
@@ -240,8 +174,86 @@ section p {
   background: #00b386;
   color: #fff;
 }
-</style>
 
+@media (max-width: 768px) {
+  .hero h1 { font-size: 1.8rem; }
+  .hero p { font-size: 0.95rem; }
+  section { margin: 60px 16px; }
+}
+</style>
+</head>
+<body>
+<!-- HERO -->
+<section class="hero">
+  <h1>adjustment-lab</h1>
+  <p>思考を形にし、再現を科学する。<br>
+  トレーニング・リカバリー・測定を可視化するアプリ群。</p>
+  <div class="cta">
+    <button onclick="window.location.href='../products/apps/index.html'">アプリを使う</button>
+    <button onclick="window.location.href='../products/index.html'">教材を見る</button>
+  </div>
+</section>
+<!-- SECTION 1：主要アプリ -->
+<section>
+  <h2>アプリ一覧</h2>
+  <p>adjustment-labが提供する無料トラッカーアプリ。<br>現場で使える即戦力ツール。</p>
+  <div class="apps">
+    <div class="app-card">
+      <img src="../products/apps/run-tracker/icon-192.png" alt="Run Tracker">
+      <h3>Run Tracker</h3>
+      <p>距離・主観強度・心拍を入力し、走行パターンをグラフ化。</p>
+      <a href="../products/apps/run-tracker/index.html">開く</a>
+    </div>
+    <div class="app-card">
+      <img src="../products/apps/recovery-tracker/icon-192.png" alt="Recovery Tracker">
+      <h3>Recovery Tracker</h3>
+      <p>睡眠・疲労・筋肉痛・メンタルを数値化して回復傾向を見える化。</p>
+      <a href="../products/apps/recovery-tracker/index.html">開く</a>
+    </div>
+    <div class="app-card">
+      <img src="../products/apps/training-lite/icon-192.png" alt="Training Lite">
+      <h3>Training Lite</h3>
+      <p>目標・種目・時間を記録して、自分の成長を追えるベーシックアプリ。</p>
+      <a href="../products/apps/training-lite/index.html">開く</a>
+    </div>
+    <div class="app-card">
+      <img src="../products/apps/vo2max-lite/icon-192.png" alt="VO₂max Lite">
+      <h3>VO₂max Lite</h3>
+      <p>クーパー走やYoYoテストから最大酸素摂取量を推定する簡易ツール。</p>
+      <a href="../products/apps/vo2max-lite/index.html">開く</a>
+    </div>
+  </div>
+</section>
+<!-- SECTION 2：教材 -->
+<section>
+  <h2>教材一覧</h2>
+  <p>トレーニングの理論と実践を結ぶ教材群。<br>LiteシリーズからStandard教材まで段階的に学べます。</p>
+  <div class="apps">
+    <div class="app-card">
+      <img src="../products/lite/icon-lite.png" alt="Lite Series">
+      <h3>Lite教材シリーズ</h3>
+      <p>基礎10種目を軸に構成された再現性トレーニング教材。</p>
+      <a href="../products/lite/index.html">見る</a>
+    </div>
+    <div class="app-card">
+      <img src="../products/standard/icon-standard.png" alt="Standard教材">
+      <h3>Standard教材</h3>
+      <p>個別カウンセリングを経て作成される発展型プログラム。</p>
+      <a href="../products/standard.html">見る</a>
+    </div>
+  </div>
+</section>
+<!-- SECTION 3 -->
+<section class="message">
+  <h2>整の理論を、現場の科学へ。</h2>
+  <p>「整」で生まれた理論を「lab」で検証し、<br>
+  再現性のあるトレーニング体系へと進化させる。<br>
+  adjustment-labは、思考と現場をつなぐ研究の場です。</p>
+</section>
+<!-- ===== ホームへ戻るボタン ===== -->
+<div class="back-home">
+  <button onclick="window.location.href='/adjustment-lab/index.html'">← ホームへ戻る</button>
+</div>
 <!-- ✅ フッター -->
 <div id="footer"></div>
 <script>
@@ -249,6 +261,5 @@ section p {
     .then(response => response.text())
     .then(data => { document.getElementById("footer").innerHTML = data; });
 </script>
-
 </body>
 </html>
