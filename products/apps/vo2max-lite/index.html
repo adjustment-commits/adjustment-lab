@@ -224,44 +224,61 @@ document.getElementById("startBtn").onclick = () => {
 function cooperToVO2max(dist){ return (dist - 504.9) / 44.73; }
 function yoyoToVO2max(dist){ return dist * 0.0084 + 36.4; }
 
-// プロファイル分類
 function getProfileType(vo2, sprintScore){
-  if(vo2 >= 51 && sprintScore >= 3) return {
-    type: "統合型（Balanced Performer）",
-    color: "gold",
-    desc: "出力・再現力ともに高く、試合全体で安定したパフォーマンスを維持できるタイプ。",
-    recommend: "スプリント＋持久のミックスドリルで全体維持を狙う。",
-    nextEval: "6〜8週間後に再測し、安定性とピークの両立を確認。"
-  };
-  if(vo2 >= 51 && sprintScore < 3) return {
-    type: "持久主導型（Endurance-Dominant）",
-    color: "blue",
-    desc: "再現力が高く、長時間の登板や走行でもパフォーマンスを保てるタイプ。",
-    recommend: "10〜30mスプリントや反応系を週2で追加し、神経発火を促進。",
-    nextEval: "8週間後に再測。VO2maxの維持とスプリント改善を評価。"
-  };
-  if(vo2 >= 47 && sprintScore >= 2) return {
-    type: "瞬発主導型（Power-Dominant）",
-    color: "green",
-    desc: "出力ピークが高く、短時間で爆発的な動きを生み出すタイプ。",
-    recommend: "有酸素サーキットや心拍140ゾーン維持で再現性を強化。",
-    nextEval: "6週間後に再測。安定出力の継続時間をチェック。"
-  };
-  if(vo2 < 47 && sprintScore >= 2) return {
-    type: "短時間高出力型（Burst Type）",
-    color: "red",
-    desc: "瞬発的な出力は高いが、リカバリーが課題になりやすいタイプ。",
-    recommend: "インターバル走＋呼吸制御トレで酸素利用効率を改善。",
-    nextEval: "4〜6週間後に再測。疲労回復のスピードを確認。"
-  };
+  // --- 統合型（全体最適） ---
+  if(vo2 >= 49 && sprintScore >= 2){
+    return {
+      type: "統合型（Balanced Performer）",
+      color: "gold",
+      desc: "出力と再現力のバランスが高水準。試合を通して安定したパフォーマンスを維持できるタイプ。",
+      recommend: "スプリントと持久を交互刺激するハイブリッドセッションを週2で実施。",
+      nextEval: "6〜8週間後に再測。安定性とピーク出力の両立を確認。"
+    };
+  }
+
+  // --- 持久主導型（再現性優位） ---
+  if(vo2 >= 49 && sprintScore < 2){
+    return {
+      type: "持久主導型（Endurance-Dominant）",
+      color: "blue",
+      desc: "呼吸・循環系の再現力が高く、長時間のプレーでも安定するタイプ。爆発的出力は控えめ。",
+      recommend: "10〜30mスプリントや反応ドリルを週2で導入し、神経系を活性化。",
+      nextEval: "8週間後に再測。VO₂max維持と瞬発改善の両面を評価。"
+    };
+  }
+
+  // --- 瞬発主導型（ピーク出力優位） ---
+  if(vo2 >= 45 && sprintScore >= 2){
+    return {
+      type: "瞬発主導型（Power-Dominant）",
+      color: "green",
+      desc: "短時間の爆発出力に優れるが、再現性に波があるタイプ。ピーク出力重視型。",
+      recommend: "心拍140前後を維持するテンポ走やサーキットで出力持続を強化。",
+      nextEval: "6週間後に再測。持続的安定出力の変化を確認。"
+    };
+  }
+
+  // --- 短時間高出力型（Burst） ---
+  if(vo2 < 45 && sprintScore >= 2){
+    return {
+      type: "短時間高出力型（Burst Type）",
+      color: "red",
+      desc: "瞬発力は高いが酸素利用効率が低く、疲労に弱いタイプ。短時間の爆発出力が中心。",
+      recommend: "呼吸制御を意識したインターバル走とリズム走でリカバリー耐性を強化。",
+      nextEval: "4〜6週間後に再測。回復速度と安定性を確認。"
+    };
+  }
+
+  // --- 基盤形成期（発展段階） ---
   return {
     type: "基盤形成期（Foundation Stage）",
     color: "gray",
-    desc: "出力・再現力ともに発展段階。まずは酸素系と基礎筋持久の育成を優先。",
-    recommend: "低強度のロング走と補強で土台を固める。",
-    nextEval: "4週間後に再測。VO2maxとスプリント両面の伸びを確認。"
+    desc: "出力・再現力ともに発展段階。まずは土台を整えるフェーズ。",
+    recommend: "低強度のロング走＋補強トレで心肺・筋持久の基礎を形成。",
+    nextEval: "4週間後に再測。VO₂maxとスプリント両面の伸びを確認。"
   };
 }
+
 
 // 履歴保存
 const logList = document.getElementById("logList");
