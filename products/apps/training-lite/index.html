@@ -191,9 +191,111 @@ footer {
   header h1 {font-size:1.6rem;}
   main {padding:30px 14px;}
 }
+
+#splash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, #00b386 0%, #004f3a 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeIn .6s ease forwards;
+}
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+.splash-card {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 16px;
+  padding: 36px 28px;
+  text-align: center;
+  max-width: 360px;
+  width: 90%;
+  box-shadow: 0 0 40px rgba(0,0,0,0.4);
+}
+.splash-card img { width: 96px; height: 96px; margin-bottom: 10px; }
+.splash-card h1 { color: #fff; margin-bottom: 6px; }
+.splash-card p.desc { color:#e5fff5; line-height:1.6; font-size:0.95rem; margin-bottom:18px; }
+
+.howto, .purpose, .pro {
+  text-align:left;
+  background: rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size:0.9rem;
+  margin-bottom:14px;
+}
+.howto ol, .purpose ul, .pro ul {
+  margin:6px 0 0 16px;
+  padding:0;
+  line-height:1.5;
+}
+.howto li, .purpose li, .pro li { margin-bottom:2px; }
+
+.buttons { display:flex; justify-content:center; gap:10px; margin-top:20px; }
+#startBtn,#proBtn {
+  padding:10px 18px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:600;
+}
+#startBtn { background:#fff; color:#00b386; }
+#proBtn { background:transparent; color:#fff; border:1px solid #fff; }
+#proBtn:hover { background:#fff; color:#00b386; }
 </style>
 </head>
 <body>
+
+<!-- ===== スプラッシュ（起動画面） ===== -->
+<div id="splash">
+  <div class="splash-card">
+    <img src="icon-192.png" alt="Training Lite アイコン">
+    <h1>Training Lite</h1>
+    <p class="desc">
+      毎日のトレーニングを“設計”するアプリ。<br>
+      目的を設定し、行動を記録して、<br>
+      あなたの成長を構造的に積み上げる。
+    </p>
+
+    <div class="howto">
+      <p>📘 <b>使い方</b></p>
+      <ol>
+        <li>① トレーニング前に「目標」を設定する。</li>
+        <li>② 種目・強度・時間を入力して記録する。</li>
+        <li>③ 記録が積み重なると“達成率”が進む。</li>
+        <li>④ 1週間ごとにフォームや出力を見直す。</li>
+      </ol>
+    </div>
+
+    <div class="purpose">
+      <p>🎯 <b>Training Liteでできること</b></p>
+      <ul>
+        <li>・「なぜやるか」を明確にして継続を習慣化</li>
+        <li>・記録を“再現可能な構造”として可視化</li>
+        <li>・強度とボリュームの自己管理を育てる</li>
+      </ul>
+    </div>
+
+    <div class="pro">
+      <p>🚀 <b>PRO版でさらにできること</b></p>
+      <ul>
+        <li>・RPE・VO₂maxとの連動分析</li>
+        <li>・トレーナーとの共有・フィードバック機能</li>
+        <li>・クラウドバックアップ・複数選手モード</li>
+      </ul>
+    </div>
+
+    <div class="buttons">
+      <button id="startBtn">はじめる</button>
+      <button id="proBtn" onclick="location.href='/adjustment-lab/products/index.html'">PRO版を見る</button>
+    </div>
+  </div>
+</div>  
+  
 <header>
   <h1>Training LITE</h1>
   <p>自分で設定し、実行し、記録する。<br>思考を形にする、無料トレーニングログ。</p>
@@ -236,6 +338,24 @@ footer {
 <footer>
   <p>© 2025 adjustment-lab｜Training LITE</p>
 </footer>
+
+<script>
+if (!localStorage.getItem("trainingLiteVisited")) {
+  document.getElementById("splash").style.display = "flex";
+  document.body.style.overflow = "hidden";
+} else {
+  document.getElementById("splash").style.display = "none";
+}
+document.getElementById("startBtn").onclick = () => {
+  localStorage.setItem("trainingLiteVisited", "true");
+  document.getElementById("splash").style.opacity = "0";
+  setTimeout(() => {
+    document.getElementById("splash").remove();
+    document.body.style.overflow = "";
+  }, 600);
+};
+</script>
+  
 <script>
 const form=document.getElementById("trainingForm");
 const logList=document.getElementById("logList");
