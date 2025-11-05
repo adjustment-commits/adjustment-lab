@@ -27,49 +27,48 @@ body {
   margin:auto;
   line-height:1.8;
 }
-
 /* ===== Splash ===== */
 #splash {
-  position:fixed; inset:0;
-  background:radial-gradient(circle at 20% 30%,#009ed0 0%,#003f5a 100%);
-  color:#fff;
-  display:flex; align-items:center; justify-content:center;
-  z-index:999;
-  animation:fadeIn .6s ease forwards;
+position:fixed; inset:0;
+background:radial-gradient(circle at 20% 30%,#009ed0 0%,#003f5a 100%);
+color:#fff;
+display:flex; align-items:center; justify-content:center;
+z-index:999;
+animation:fadeIn .6s ease forwards;
 }
 @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
 
 .splash-card {
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:16px;
-  padding:36px 28px;
-  text-align:center;
-  max-width:360px; width:90%;
-  box-shadow:0 0 40px rgba(0,0,0,0.4);
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.15);
+border-radius:16px;
+padding:36px 28px;
+text-align:center;
+max-width:360px; width:90%;
+box-shadow:0 0 40px rgba(0,0,0,0.4);
 }
 .splash-card img { width:96px; height:96px; margin-bottom:10px; }
 .splash-card h1 { color:#fff; margin-bottom:6px; }
 .splash-card p.desc { color:#e3f9ff; line-height:1.6; font-size:0.95rem; margin-bottom:18px; }
 
 .howto,.purpose,.pro {
-  text-align:left;
-  background:rgba(255,255,255,0.08);
-  border-radius:8px;
-  padding:12px 14px;
-  font-size:0.9rem;
-  margin-bottom:14px;
+text-align:left;
+background:rgba(255,255,255,0.08);
+border-radius:8px;
+padding:12px 14px;
+font-size:0.9rem;
+margin-bottom:14px;
 }
 .howto ol,.purpose ul,.pro ul {
-  margin:6px 0 0 16px; padding:0; line-height:1.5;
+margin:6px 0 0 16px; padding:0; line-height:1.5;
 }
 .howto li,.purpose li,.pro li { margin-bottom:2px; }
 
 .buttons { display:flex; justify-content:center; gap:10px; margin-top:20px; }
 #startBtn,#proBtn {
-  padding:10px 18px; border:none; border-radius:6px;
-  cursor:pointer; font-weight:600;
+padding:10px 18px; border:none; border-radius:6px;
+cursor:pointer; font-weight:600;
 }
 #startBtn { background:#fff; color:#007b9e; }
 #proBtn { background:transparent; color:#fff; border:1px solid #fff; }
@@ -77,75 +76,74 @@ body {
 
 /* ===== Main UI ===== */
 h1 {
-  text-align:center;
-  color:var(--accent);
-  font-size:1.8rem;
-  margin-top:40px;
+text-align:center;
+color:var(--accent);
+font-size:1.8rem;
+margin-top:40px;
 }
 .input-box {
-  background:#fff;
-  border-radius:10px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.05);
-  padding:20px;
-  margin-top:20px;
+background:#fff;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+padding:20px;
+margin-top:20px;
 }
 label {
-  display:block;
-  margin-top:12px;
-  font-size:14px;
-  color:#333;
+display:block;
+margin-top:12px;
+font-size:14px;
+color:#333;
 }
 input {
-  width:100%;
-  padding:8px;
-  margin-top:4px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  font-size:14px;
+width:100%;
+padding:8px;
+margin-top:4px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:14px;
 }
 button {
-  margin-top:18px;
-  padding:10px 16px;
-  background:#007b9e;
-  border:none;
-  color:#fff;
-  border-radius:6px;
-  font-size:15px;
-  cursor:pointer;
-  width:100%;
+margin-top:18px;
+padding:10px 16px;
+background:#007b9e;
+border:none;
+color:#fff;
+border-radius:6px;
+font-size:15px;
+cursor:pointer;
+width:100%;
 }
 button:hover { opacity:0.9; }
 #result {
-  background:#fff;
-  border-radius:10px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.05);
-  padding:20px;
-  margin-top:30px;
+background:#fff;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+padding:20px;
+margin-top:30px;
 }
 .role { font-weight:bold; color:#007b9e; font-size:1.1rem; }
 footer {
-  text-align:center;
-  color:#888;
-  margin-top:50px;
-  font-size:13px;
+text-align:center;
+color:#888;
+margin-top:50px;
+font-size:13px;
 }
 
 .del {
-  background:none;
-  border:1px solid var(--accent);
-  color:var(--accent);
-  padding:4px 10px;
-  border-radius:4px;
-  cursor:pointer;
-  font-size:0.85rem;
-  margin-left:8px;
-  transition:0.3s;
+background:none;
+border:1px solid var(--accent);
+color:var(--accent);
+padding:4px 10px;
+border-radius:4px;
+cursor:pointer;
+font-size:0.85rem;
+margin-left:8px;
+transition:0.3s;
 }
 .del:hover {
-  background:var(--accent);
-  color:#fff;
+background:var(--accent);
+color:#fff;
 }
-</style>
 </head>
 <body>
 <!-- ===== Splash Screen ===== -->
@@ -167,7 +165,6 @@ footer {
     <li>④ 結果を基に“強化ポイント”を把握。</li>
   </ol>
 </div>
-
 <div class="purpose">
   <p>🎯 <b>VO₂max Liteでできること</b></p>
   <ul>
@@ -176,7 +173,6 @@ footer {
     <li>・自分のリカバリープロフィールを可視化。</li>
   </ul>
 </div>
-
 <div class="pro">
   <p>🚀 <b>PRO版でさらにできること</b></p>
   <ul>
@@ -185,7 +181,6 @@ footer {
     <li>・チーム単位でのVO₂max比較と共有</li>
   </ul>
 </div>
-
 <div class="buttons">
   <button id="startBtn">はじめる</button>
   <button id="proBtn" onclick="location.href='/adjustment-lab/products/index.html'">PRO版を見る</button>
@@ -209,7 +204,6 @@ footer {
 </section>
 <footer>© 2025 adjustment-lab｜VO₂max Lite</footer>
 <script>
-// 初回のみスプラッシュ
 if (!localStorage.getItem("vo2maxLiteVisited")) {
   document.getElementById("splash").style.display = "flex";
   document.body.style.overflow = "hidden";
@@ -225,58 +219,64 @@ document.getElementById("startBtn").onclick = () => {
   }, 600);
 };
 
-// VO₂max換算式
+// VO2max換算式
 function cooperToVO2max(dist){ return (dist - 504.9) / 44.73; }
 function yoyoToVO2max(dist){ return dist * 0.0084 + 36.4; }
 
+// プロファイル分類
 function getProfileType(vo2, sprintScore){
   if(vo2 >= 51 && sprintScore >= 3) return {
-    type:"統合型（Balanced Performer）",
-    color:"gold",
-    desc:"出力・再現力ともに高く、試合全体で安定したパフォーマンスを維持できるタイプ。"
+    type: "統合型（Balanced Performer）",
+    color: "gold",
+    desc: "出力・再現力ともに高く、試合全体で安定したパフォーマンスを維持できるタイプ。",
+    recommend: "スプリント＋持久のミックスドリルで全体維持を狙う。",
+    nextEval: "6〜8週間後に再測し、安定性とピークの両立を確認。"
   };
   if(vo2 >= 51 && sprintScore < 3) return {
-    type:"持久主導型（Endurance-Dominant）",
-    color:"blue",
-    desc:"再現力が高く、長時間の登板や走行でもパフォーマンスを保てるタイプ。"
+    type: "持久主導型（Endurance-Dominant）",
+    color: "blue",
+    desc: "再現力が高く、長時間の登板や走行でもパフォーマンスを保てるタイプ。",
+    recommend: "10〜30mスプリントや反応系を週2で追加し、神経発火を促進。",
+    nextEval: "8週間後に再測。VO2maxの維持とスプリント改善を評価。"
   };
   if(vo2 >= 47 && sprintScore >= 2) return {
-    type:"瞬発主導型（Power-Dominant）",
-    color:"green",
-    desc:"出力ピークが高く、短時間で爆発的な動きを生み出すタイプ。"
+    type: "瞬発主導型（Power-Dominant）",
+    color: "green",
+    desc: "出力ピークが高く、短時間で爆発的な動きを生み出すタイプ。",
+    recommend: "有酸素サーキットや心拍140ゾーン維持で再現性を強化。",
+    nextEval: "6週間後に再測。安定出力の継続時間をチェック。"
   };
   if(vo2 < 47 && sprintScore >= 2) return {
-    type:"短時間高出力型（Burst Type）",
-    color:"red",
-    desc:"瞬発的な出力は高いが、リカバリーが課題になりやすいタイプ。"
+    type: "短時間高出力型（Burst Type）",
+    color: "red",
+    desc: "瞬発的な出力は高いが、リカバリーが課題になりやすいタイプ。",
+    recommend: "インターバル走＋呼吸制御トレで酸素利用効率を改善。",
+    nextEval: "4〜6週間後に再測。疲労回復のスピードを確認。"
   };
   return {
-    type:"基盤形成期（Foundation Stage）",
-    color:"gray",
-    desc:"出力・再現力ともに発展段階。まずは酸素系と基礎筋持久の育成を優先。"
+    type: "基盤形成期（Foundation Stage）",
+    color: "gray",
+    desc: "出力・再現力ともに発展段階。まずは酸素系と基礎筋持久の育成を優先。",
+    recommend: "低強度のロング走と補強で土台を固める。",
+    nextEval: "4週間後に再測。VO2maxとスプリント両面の伸びを確認。"
   };
 }
 
-// ==== 記録保存＆削除機能 ====
+// 履歴保存
 const logList = document.getElementById("logList");
 let logs = JSON.parse(localStorage.getItem("vo2Logs") || "[]");
-
-function saveLog(log) {
-  logs.push(log);
-  localStorage.setItem("vo2Logs", JSON.stringify(logs));
-}
-
-function updateLogs() {
+function saveLog(log){ logs.push(log); localStorage.setItem("vo2Logs", JSON.stringify(logs)); }
+function updateLogs(){
   logList.innerHTML = "";
   logs.forEach((l, i) => {
     const li = document.createElement("li");
-    li.textContent = `${l.date}｜${l.name}｜VO₂max:${l.vo2}｜スプリント:${l.sprintScore}/4`;
+    li.textContent = `${l.date}｜${l.name}｜VO2max:${l.vo2}｜スプリント:${l.sprintScore}/4`;
     const delBtn = document.createElement("button");
     delBtn.textContent = "削除";
     delBtn.className = "del";
     delBtn.onclick = () => {
-      if (confirm("この記録を削除しますか？")) {
-        logs.splice(i, 1);
+      if(confirm("この記録を削除しますか？")){
+        logs.splice(i,1);
         localStorage.setItem("vo2Logs", JSON.stringify(logs));
         updateLogs();
       }
@@ -286,50 +286,46 @@ function updateLogs() {
   });
 }
 
-// ==== 結果表示のあとに保存 ====
+// 判定処理
 function check(){
-  const name=document.getElementById("name").value||"無名";
-  const cooper=parseFloat(document.getElementById("cooper").value);
-  const yoyo=parseFloat(document.getElementById("yoyo").value);
-  const s10=parseFloat(document.getElementById("s10").value);
-  const s30=parseFloat(document.getElementById("s30").value);
-  const s50=parseFloat(document.getElementById("s50").value);
+  const name = document.getElementById("name").value || "無名";
+  const cooper = parseFloat(document.getElementById("cooper").value);
+  const yoyo = parseFloat(document.getElementById("yoyo").value);
+  const s10 = parseFloat(document.getElementById("s10").value);
+  const s30 = parseFloat(document.getElementById("s30").value);
+  const s50 = parseFloat(document.getElementById("s50").value);
 
   if(isNaN(cooper) && isNaN(yoyo)){ alert("クーパー走またはYo-Yoを入力してください。"); return; }
 
   let vo2list=[];
   if(!isNaN(cooper)) vo2list.push(cooperToVO2max(cooper));
   if(!isNaN(yoyo)) vo2list.push(yoyoToVO2max(yoyo));
-  const vo2avg=vo2list.reduce((a,b)=>a+b,0)/vo2list.length;
+  const vo2avg = vo2list.reduce((a,b)=>a+b,0)/vo2list.length;
 
   let sprintScore=0;
   if(!isNaN(s10) && s10<=1.55) sprintScore+=2;
   if(!isNaN(s30) && s30<=4.0) sprintScore+=1;
   if(!isNaN(s50) && s50<=6.4) sprintScore+=1;
 
-const {type, color, desc} = getProfileType(vo2avg, sprintScore);
+  const {type,color,desc,recommend,nextEval} = getProfileType(vo2avg,sprintScore);
 
-document.getElementById("result").innerHTML = `
-  <h2>判定結果</h2>
-  <p><strong>${name}</strong></p>
-  <p>VO₂max：${vo2avg.toFixed(1)} ml/kg/min</p>
-  <p>スプリントスコア：${sprintScore}/4</p>
-  <p class="role" style="color:${color};">${type}</p>
-  <p>${desc}</p>
-`;
+  document.getElementById("result").innerHTML = `
+    <h2>判定結果</h2>
+    <p><strong>${name}</strong></p>
+    <p>VO2max：${vo2avg.toFixed(1)} ml/kg/min</p>
+    <p>スプリントスコア：${sprintScore}/4</p>
+    <p class="role" style="color:${color};">${type}</p>
+    <p>${desc}</p>
+    <p><b>推奨トレーニング：</b>${recommend}</p>
+    <p><b>次回評価目安：</b>${nextEval}</p>
+  `;
 
-  // 🔽 履歴に追加
-  const newLog = {
-    name,
-    vo2: vo2avg.toFixed(1),
-    sprintScore,
-    date: new Date().toLocaleDateString("ja-JP")
-  };
+  const newLog = { name, vo2: vo2avg.toFixed(1), sprintScore, date: new Date().toLocaleDateString("ja-JP") };
   saveLog(newLog);
   updateLogs();
 }
-
 updateLogs();
 </script>
+
 </body>
 </html>
