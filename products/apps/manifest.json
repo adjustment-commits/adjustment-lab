@@ -1,0 +1,23 @@
+{
+“name”: “adjustment-lab Apps”,
+“short_name”: “adjustment-lab”,
+“description”: “トレーニング・リカバリー・測定を統合するスポーツ科学アプリ群。”,
+“start_url”: “./index.html”,
+“display”: “standalone”,
+“background_color”: “#f8faf9”,
+“theme_color”: “#00b386”,
+“orientation”: “portrait-primary”,
+“scope”: “./”,
+“icons”: [
+{
+“src”: “/adjustment-lab/products/icons/icon-192.png”,
+“sizes”: “192x192”,
+“type”: “image/png”
+},
+{
+“src”: “/adjustment-lab/products/icons/icon-512.png”,
+“sizes”: “512x512”,
+“type”: “image/png”
+}
+]
+}
