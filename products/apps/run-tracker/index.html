@@ -2,220 +2,213 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 <title>Run Tracker｜adjustment-lab</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#00b386">
-<!-- ✅ PWA統合：manifest / service-worker動的生成 -->
-<script>
-const manifestData = {
-  name: "Run Tracker",
-  short_name: "RunTracker",
-  start_url: "./index.html",
-  display: "standalone",
-  background_color: "#00b386",
-  theme_color: "#00b386",
-  icons: [
-    { src: "icon-192.png", sizes: "192x192", type: "image/png" },
-    { src: "icon-512.png", sizes: "512x512", type: "image/png" }
-  ]
-};
-const blob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
-const manifestURL = URL.createObjectURL(blob);
-const link = document.createElement('link');
-link.rel = 'manifest';
-link.href = manifestURL;
-document.head.appendChild(link);
-
-const swCode = `
-const CACHE_NAME = "run-tracker-v1";
-const FILES_TO_CACHE = ["./", "./index.html"];
-self.addEventListener("install", e => {
-  e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(FILES_TO_CACHE)));
-});
-self.addEventListener("fetch", e => {
-  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
-});
-self.addEventListener("activate", e => {
-  e.waitUntil(caches.keys().then(keys =>
-    Promise.all(keys.map(k => k !== CACHE_NAME && caches.delete(k)))
-  ));
-});`;
-const swBlob = new Blob([swCode], {type: "text/javascript"});
-const swURL = URL.createObjectURL(swBlob);
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => navigator.serviceWorker.register(swURL));
-}
-</script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Run Tracker">
 <style>
 :root {
   --accent:#00b386; --bg:#f8faf9; --text:#1a1a1a;
+  font-family:'Noto Sans JP',sans-serif;
 }
 body {
-  font-family:'Noto Sans JP',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  margin:0;
-  padding:20px;
-  max-width:720px;
-  margin-inline:auto;
-  line-height:1.7;
+  margin:0; background:var(--bg); color:var(--text);
+  line-height:1.8; text-rendering:optimizeLegibility;
 }
-h1 {
-  text-align:center;
-  color:var(--accent);
-  margin-top:24px;
-  margin-bottom:16px;
+header {
+  background:linear-gradient(135deg,#00b386 0%,#009270 100%);
+  color:#fff; text-align:center; padding:70px 20px 60px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.2);
 }
-form {
-  background:#fff;
-  padding:20px;
-  border-radius:8px;
-  box-shadow:0 2px 12px rgba(0,0,0,.05);
+header h1 { font-size:2rem; margin-bottom:6px; }
+header p { opacity:0.9; font-size:1rem; }
+
+main {
+  max-width:820px; margin:0 auto; padding:40px 20px 80px;
 }
-label {
-  display:block;
-  margin-top:10px;
-  font-weight:600;
-  color:#333;
+section {
+  background:#fff; border-radius:12px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.05);
+  padding:28px 24px; margin-bottom:40px;
 }
-input, textarea {
-  width:100%;
-  padding:8px;
-  margin-top:4px;
-  border:1px solid #ccc;
-  border-radius:4px;
-  font-size:1rem;
-  box-sizing:border-box;
+h2 { color:var(--accent); font-size:1.2rem; margin-top:0; }
+
+label { display:block; margin-top:10px; font-weight:500; }
+input {
+  width:100%; padding:10px; border:1px solid #ccc;
+  border-radius:6px; font-size:1rem; margin-top:4px;
 }
 button {
-  background:var(--accent);
-  color:#fff;
-  border:none;
+  background:var(--accent); color:#fff; border:none;
+  border-radius:6px; padding:12px 22px; margin-top:20px;
+  font-size:1rem; cursor:pointer; transition:0.3s;
+}
+button:hover { background:#009270; }
+
+#logList li {
+  list-style:none; background:#fff; margin:6px 0;
+  border-left:4px solid var(--accent); padding:8px 10px;
+  border-radius:6px; box-shadow:0 1px 6px rgba(0,0,0,0.05);
+}
+footer { text-align:center; color:#777; font-size:0.85rem; margin:40px 0; }
+
+/* スプラッシュ画面 */
+#splash {
+  position:fixed; inset:0;
+  background:radial-gradient(circle at 30% 20%,#00b386 0%,#004f3a 100%);
+  color:#fff; display:flex; align-items:center; justify-content:center;
+  z-index:999; animation:fadeIn .6s ease forwards;
+}
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+.splash-card {
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:16px; padding:36px 28px;
+  text-align:center; max-width:360px; width:90%;
+  box-shadow:0 0 40px rgba(0,0,0,0.4);
+}
+.splash-card img { width:96px; height:96px; margin-bottom:10px; }
+.splash-card h1 { color:#fff; margin-bottom:6px; }
+.splash-card p.desc { color:#e5fff5; line-height:1.6; font-size:0.95rem; margin-bottom:18px; }
+
+.howto,.purpose,.pro {
+  text-align:left;
+  background:rgba(255,255,255,0.08);
+  border-radius:8px;
+  padding:12px 14px;
+  font-size:0.9rem;
+  margin-bottom:14px;
+}
+.howto ol,.purpose ul,.pro ul {
+  margin:6px 0 0 16px; padding:0; line-height:1.5;
+}
+.howto li,.purpose li,.pro li { margin-bottom:2px; }
+
+.buttons { display:flex; justify-content:center; gap:10px; margin-top:20px; }
+#startBtn,#proBtn {
   padding:10px 18px;
-  border-radius:6px;
-  margin-top:14px;
-  font-size:1rem;
-  cursor:pointer;
-  transition:.25s;
+  border:none; border-radius:6px;
+  cursor:pointer; font-weight:600;
 }
-button:hover { opacity:.9; }
-
-canvas { margin-top:28px; width:100%; height:320px; }
-
-p.comment {
-  background:#fff;
-  border-left:4px solid var(--accent);
-  padding:16px;
-  border-radius:6px;
-  box-shadow:0 1px 8px rgba(0,0,0,.05);
-  margin-top:20px;
-}
-.controls {
-  display:flex;
-  justify-content:space-between;
-  margin-top:20px;
-}
-.controls button {
-  flex:1;
-  margin-inline:4px;
-}
-footer {
-  text-align:center;
-  color:#777;
-  font-size:13px;
-  margin:40px 0 10px;
-}
+#startBtn { background:#fff; color:#00b386; }
+#proBtn { background:transparent; color:#fff; border:1px solid #fff; }
+#proBtn:hover { background:#fff; color:#00b386; }
 </style>
 </head>
 <body>
-<h1>Run Tracker</h1>
-<form id="runForm">
-  <label>日付</label>
-  <input type="date" id="date" required>
-  <textarea id="memo" rows="2" placeholder="走行内容・気づきなど"></textarea>
-</form>
-<p id="comment" class="comment"></p>
-<div class="controls">
-  <button id="clearBtn" style="background:#999;">全データ削除</button>
-  <button id="viewBtn" onclick="location.href='view.html'">分析ページへ</button>
+<!-- ===== スプラッシュ ===== -->
+<div id="splash">
+  <div class="splash-card">
+    <img src="icon-192.png" alt="Run Tracker アイコン">
+    <h1>Run Tracker</h1>
+    <p class="desc">走ることを「見える化」する。<br>記録し、分析し、走力と回復を整える。</p>
+<div class="howto">
+  <p>📘 <b>使い方</b></p>
+  <ol>
+    <li>① 走行距離・RPE・VO₂maxなどを入力。</li>
+    <li>② 日ごとのデータをグラフで確認。</li>
+    <li>③ 傾向を分析し、次の走りに活かす。</li>
+  </ol>
 </div>
+
+<div class="purpose">
+  <p>🎯 <b>Run Trackerでできること</b></p>
+  <ul>
+    <li>・走力と回復力の“見える化”</li>
+    <li>・練習負荷と疲労の関係を管理</li>
+    <li>・フォーム・コンディションの変化を追跡</li>
+  </ul>
+</div>
+
+<div class="pro">
+  <p>🚀 <b>PRO版でできること</b></p>
+  <ul>
+    <li>・心拍センサーとのリアルタイム連動</li>
+    <li>・回復スコア自動生成（Recovery連携）</li>
+    <li>・トレーナー共有とチーム管理</li>
+  </ul>
+</div>
+
+<div class="buttons">
+  <button id="startBtn">はじめる</button>
+  <button id="proBtn" onclick="location.href='/adjustment-lab/products/index.html'">PRO版を見る</button>
+</div>
+  </div>
+</div>
+
+<header>
+  <h1>Run Tracker</h1>
+  <p>走ることで思考を整える。<br>記録で「自分の走り」を可視化しよう。</p>
+</header>
+<main>
+  <section>
+    <h2>記録入力</h2>
+    <form id="runForm">
+      <label>距離 (km)</label>
+      <input type="number" id="distance" placeholder="例：3.5" required>
+      <label>RPE（主観的強度）</label>
+      <input type="number" id="rpe" min="1" max="10" placeholder="1〜10" required>
+      <label>VO₂max（任意）</label>
+      <input type="number" id="vo2" placeholder="例：45">
+      <button type="submit">記録する</button>
+    </form>
+  </section>
+  <section>
+    <h2>記録一覧</h2>
+    <ul id="logList"></ul>
+  </section>
+</main>
 <footer>© 2025 adjustment-lab｜Run Tracker</footer>
 <script>
-const form = document.getElementById("runForm");
-const ctx = document.getElementById("chart").getContext("2d");
-let chart=null;
-
-form.addEventListener("submit", e=>{
-  e.preventDefault();
-  const record={
-    date:date.value,
-    distance:parseFloat(distance.value)||0,
-    time:parseFloat(time.value)||0,
-    rpe:parseFloat(rpe.value)||0,
-    vo2:parseFloat(vo2.value)||null,
-    memo:memo.value.trim()
-  };
-  const records=JSON.parse(localStorage.getItem("runRecords")||"[]");
-  records.push(record);
-  localStorage.setItem("runRecords",JSON.stringify(records));
-  form.reset();
-  renderChart();
-});
-
-document.getElementById("clearBtn").onclick=()=>{
-  if(confirm("すべての記録を削除しますか？")){
-    localStorage.removeItem("runRecords");
-    if(chart) chart.destroy();
-    document.getElementById("comment").textContent="データを削除しました。";
-  }
+if (!localStorage.getItem("runTrackerVisited")) {
+  document.getElementById("splash").style.display = "flex";
+  document.body.style.overflow = "hidden";
+} else {
+  document.getElementById("splash").style.display = "none";
+}
+document.getElementById("startBtn").onclick = () => {
+  localStorage.setItem("runTrackerVisited", "true");
+  document.getElementById("splash").style.opacity = "0";
+  setTimeout(() => {
+    document.getElementById("splash").remove();
+    document.body.style.overflow = "";
+  }, 600);
 };
 
-function renderChart(){
-  const data=JSON.parse(localStorage.getItem("runRecords")||"[]");
-  if(!data.length){
-    document.getElementById("comment").textContent="まだ記録がありません。";
-    if(chart) chart.destroy();
-    return;
-  }
-  const sorted=[...data].sort((a,b)=>new Date(a.date)-new Date(b.date));
-  const labels=sorted.map(r=>r.date);
-  const dist=sorted.map(r=>r.distance);
-  const rpe=sorted.map(r=>r.rpe);
-  const vo2=sorted.map(r=>r.vo2);
+const form=document.getElementById("runForm");
+const logList=document.getElementById("logList");
+let logs=JSON.parse(localStorage.getItem("runLogs")||"[]");
 
-  if(chart) chart.destroy();
-  chart=new Chart(ctx,{
-    type:"line",
-    data:{
-      labels:labels,
-      datasets:[
-        {label:"距離(km)",data:dist,borderColor:"#1e90ff",backgroundColor:"rgba(30,144,255,0.2)",yAxisID:"y1"},
-        {label:"RPE",data:rpe,borderColor:"#00b386",backgroundColor:"rgba(0,179,134,0.2)",yAxisID:"y"},
-        {label:"VO₂max",data:vo2,borderColor:"#8a2be2",backgroundColor:"rgba(138,43,226,0.15)",yAxisID:"y2"}
-      ]
-    },
-    options:{
-      responsive:true,
-      plugins:{legend:{position:"bottom"}},
-      interaction:{mode:"index",intersect:false},
-      scales:{
-        y:{title:{display:true,text:"RPE"},min:0,max:10},
-        y1:{position:"right",grid:{drawOnChartArea:false},title:{display:true,text:"距離(km)"}},
-        y2:{position:"right",grid:{drawOnChartArea:false},title:{display:true,text:"VO₂max"}}
-      }
-    }
-  });
-
-  const rpeValid=rpe.filter(v=>!isNaN(v)&&v>0);
-  const avgRPE=rpeValid.reduce((a,b)=>a+b,0)/(rpeValid.length||1);
-  let text="";
-  if(avgRPE>=8) text="高強度が続いています。疲労に注意してリカバリーを挟みましょう。";
-  else if(avgRPE>=5) text="適正な負荷ゾーン。パフォーマンスの安定が見込めます。";
-  else text="軽い負荷。フォーム確認や呼吸リズムの再構成に最適です。";
-  document.getElementById("comment").textContent=text;
+function saveLog(log){
+  logs.push(log);
+  localStorage.setItem("runLogs",JSON.stringify(logs));
 }
-renderChart();
+function updateLogs(){
+  logList.innerHTML="";
+  logs.forEach(l=>{
+    const li=document.createElement("li");
+    li.textContent=`${l.date}｜距離:${l.distance}km｜RPE:${l.rpe}｜VO₂max:${l.vo2}`;
+    logList.appendChild(li);
+  });
+}
+form.addEventListener("submit",e=>{
+  e.preventDefault();
+  const newLog={
+    distance:distance.value,
+    rpe:rpe.value,
+    vo2:vo2.value||"-",
+    date:new Date().toLocaleDateString("ja-JP")
+  };
+  saveLog(newLog); updateLogs(); form.reset();
+});
+updateLogs();
 </script>
 </body>
 </html>
