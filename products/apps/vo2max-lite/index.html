@@ -143,6 +143,38 @@ transition:0.3s;
 background:var(--accent);
 color:#fff;
 }
+
+.pro-link {
+  text-align: center;
+  background: linear-gradient(180deg, #0b0b0b 0%, #111 100%);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 80px 20px;
+  color: #ddd;
+}
+.pro-link h2 {
+  color: var(--accent, #00b386);
+  font-size: 1.4rem;
+  margin-bottom: 0.8em;
+}
+.pro-link p {
+  color: #aaa;
+  line-height: 1.8;
+  margin-bottom: 1.5em;
+}
+.pro-link .cta button {
+  background: none;
+  border: 1px solid var(--accent, #00b386);
+  color: var(--accent, #00b386);
+  padding: 0.7em 1.6em;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.pro-link .cta button:hover {
+  background: var(--accent, #00b386);
+  color: #fff;
+}
 </style>
   
 </head>
@@ -202,6 +234,15 @@ color:#fff;
 <section>
   <h2>判定履歴</h2>
   <ul id="logList"></ul>
+</section>
+<!-- PRO 導線 -->
+<section class="pro-link">
+  <h2>律動 PRO ― 統合と再現の世界へ</h2>
+  <p>このアプリで得たデータは、律動 PRO で統合解析できます。<br>
+  出力と回復、テンポと精度をひとつの画面で確認しよう。</p>
+  <div class="cta">
+    <button onclick="window.location.href='/adjustmentl-lab/products/apps/pro/index.html'">律動 PRO を見る</button>
+  </div>
 </section>
 <footer>© 2025 adjustment-lab｜VO₂max Lite</footer>
 <script>
