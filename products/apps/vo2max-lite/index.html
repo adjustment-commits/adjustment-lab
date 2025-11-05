@@ -1,218 +1,254 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>VO₂max Lite判定｜adjustment-lab</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#007b9e">
+<meta charset="UTF-8">
+<title>VO₂max Lite｜adjustment-lab</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#007b9e">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="VO₂max Lite">
+<style>
+:root {
+  --accent:#007b9e;
+  --bg:#f3f8f9;
+  --text:#111;
+  font-family:'Noto Sans JP',sans-serif;
+}
+body {
+  background:var(--bg);
+  color:var(--text);
+  margin:0;
+  padding:20px;
+  max-width:640px;
+  margin:auto;
+  line-height:1.8;
+}
 
-  <!-- ✅ PWA構成：manifestとservice-workerを動的生成 -->
-  <script>
-    // --- manifest生成 ---
-    const manifestData = {
-      name: "VO₂max Lite判定",
-      short_name: "VO₂max Lite",
-      start_url: "./index.html",
-      display: "standalone",
-      background_color: "#007b9e",
-      theme_color: "#007b9e",
-      icons: [
-        { src: "icon-192.png", sizes: "192x192", type: "image/png" },
-        { src: "icon-512.png", sizes: "512x512", type: "image/png" }
-      ]
-    };
-    const manifestBlob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
-    const manifestURL = URL.createObjectURL(manifestBlob);
-    const manifestLink = document.createElement('link');
-    manifestLink.rel = 'manifest';
-    manifestLink.href = manifestURL;
-    document.head.appendChild(manifestLink);
+/* ===== Splash ===== */
+#splash {
+  position:fixed; inset:0;
+  background:radial-gradient(circle at 20% 30%,#009ed0 0%,#003f5a 100%);
+  color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  z-index:999;
+  animation:fadeIn .6s ease forwards;
+}
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
 
-    // --- service-worker生成 ---
-    const swCode = `
-      const CACHE_NAME = "vo2max-lite-v1";
-      const FILES_TO_CACHE = ["./", "./index.html"];
-      self.addEventListener("install", e => {
-        e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(FILES_TO_CACHE)));
-      });
-      self.addEventListener("fetch", e => {
-        e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
-      });
-      self.addEventListener("activate", e => {
-        e.waitUntil(caches.keys().then(keys => Promise.all(keys.map(k => k !== CACHE_NAME && caches.delete(k)))));
-      });
-    `;
-    const swBlob = new Blob([swCode], {type: "text/javascript"});
-    const swURL = URL.createObjectURL(swBlob);
+.splash-card {
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:16px;
+  padding:36px 28px;
+  text-align:center;
+  max-width:360px; width:90%;
+  box-shadow:0 0 40px rgba(0,0,0,0.4);
+}
+.splash-card img { width:96px; height:96px; margin-bottom:10px; }
+.splash-card h1 { color:#fff; margin-bottom:6px; }
+.splash-card p.desc { color:#e3f9ff; line-height:1.6; font-size:0.95rem; margin-bottom:18px; }
 
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => navigator.serviceWorker.register(swURL));
-    }
-  </script>
+.howto,.purpose,.pro {
+  text-align:left;
+  background:rgba(255,255,255,0.08);
+  border-radius:8px;
+  padding:12px 14px;
+  font-size:0.9rem;
+  margin-bottom:14px;
+}
+.howto ol,.purpose ul,.pro ul {
+  margin:6px 0 0 16px; padding:0; line-height:1.5;
+}
+.howto li,.purpose li,.pro li { margin-bottom:2px; }
 
-  <style>
-    body {
-      font-family: 'Noto Sans JP', system-ui, sans-serif;
-      background: #f3f8f9;
-      color: #111;
-      margin: 0;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-      line-height: 1.7;
-    }
-    h1 {
-      text-align: center;
-      color: #007b9e;
-      font-size: 1.6rem;
-      margin-top: 40px;
-    }
-    .input-box {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      padding: 20px;
-      margin-top: 20px;
-    }
-    label {
-      display: block;
-      margin-top: 12px;
-      font-size: 14px;
-      color: #333;
-    }
-    input {
-      width: 100%;
-      padding: 8px;
-      margin-top: 4px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
-    button {
-      margin-top: 18px;
-      padding: 10px 16px;
-      background: #007b9e;
-      border: none;
-      color: #fff;
-      border-radius: 6px;
-      font-size: 15px;
-      cursor: pointer;
-      width: 100%;
-    }
-    button:hover { opacity: 0.9; }
-    #result {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      padding: 20px;
-      margin-top: 30px;
-    }
-    .role {
-      font-weight: bold;
-      color: #007b9e;
-      font-size: 1.1rem;
-    }
-    section {
-      margin-top: 40px;
-      background: #e6f5f7;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    section h2 {
-      color: #007b9e;
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-    }
-    section p {
-      font-size: 14px;
-      color: #333;
-      line-height: 1.8;
-    }
-    footer {
-      text-align: center;
-      color: #888;
-      margin-top: 50px;
-      font-size: 13px;
-    }
-  </style>
+.buttons { display:flex; justify-content:center; gap:10px; margin-top:20px; }
+#startBtn,#proBtn {
+  padding:10px 18px; border:none; border-radius:6px;
+  cursor:pointer; font-weight:600;
+}
+#startBtn { background:#fff; color:#007b9e; }
+#proBtn { background:transparent; color:#fff; border:1px solid #fff; }
+#proBtn:hover { background:#fff; color:#007b9e; }
+
+/* ===== Main UI ===== */
+h1 {
+  text-align:center;
+  color:var(--accent);
+  font-size:1.8rem;
+  margin-top:40px;
+}
+.input-box {
+  background:#fff;
+  border-radius:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+  padding:20px;
+  margin-top:20px;
+}
+label {
+  display:block;
+  margin-top:12px;
+  font-size:14px;
+  color:#333;
+}
+input {
+  width:100%;
+  padding:8px;
+  margin-top:4px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:14px;
+}
+button {
+  margin-top:18px;
+  padding:10px 16px;
+  background:#007b9e;
+  border:none;
+  color:#fff;
+  border-radius:6px;
+  font-size:15px;
+  cursor:pointer;
+  width:100%;
+}
+button:hover { opacity:0.9; }
+#result {
+  background:#fff;
+  border-radius:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+  padding:20px;
+  margin-top:30px;
+}
+.role { font-weight:bold; color:#007b9e; font-size:1.1rem; }
+footer {
+  text-align:center;
+  color:#888;
+  margin-top:50px;
+  font-size:13px;
+}
+</style>
 </head>
-
 <body>
-  <h1>VO₂max Lite判定</h1>
-
-  <div class="input-box">
-    <label>選手名: <input type="text" id="name" placeholder="例: 山田"></label>
-    <label>クーパー走距離 (m): <input type="number" id="cooper" placeholder="例: 2700"></label>
-    <label>Yo-Yo IR距離 (m): <input type="number" id="yoyo" placeholder="例: 1600"></label>
-    <label>10mスプリント (秒): <input type="number" step="0.01" id="s10" placeholder="例: 1.55"></label>
-    <label>30mスプリント (秒): <input type="number" step="0.01" id="s30" placeholder="例: 4.05"></label>
-    <label>50mスプリント (秒): <input type="number" step="0.01" id="s50" placeholder="例: 6.40"></label>
-    <button onclick="check()">結果を表示</button>
-  </div>
-
-  <div id="result"></div>
-
-  <section>
-    <h2>VO₂maxと野球の関係</h2>
-    <p>
-      VO₂max（最大酸素摂取量）は、身体が酸素を使ってエネルギーを再生する力を示します。<br>
-      野球では一球の出力だけでなく、<strong>「同じ動きを何度も再現できる能力」</strong>が求められます。<br><br>
-      投手にとってVO₂maxは、登板間の回復や終盤の安定性を支える“酸素エンジン”。<br>
-      野手にとっては、<strong>打席間や守備間での心拍回復・判断力維持</strong>に直結します。<br><br>
-      つまりVO₂maxは、単なる持久力ではなく、<strong>パフォーマンスを最後まで再現する力</strong>の指標といえます。
+<!-- ===== Splash Screen ===== -->
+<div id="splash">
+  <div class="splash-card">
+    <img src="icon-192.png" alt="VO₂max Lite アイコン">
+    <h1>VO₂max Lite</h1>
+    <p class="desc">
+      “走る”を科学し、呼吸の力を理解する。<br>
+      VO₂maxは、<strong>再現性を支える酸素エンジン</strong>。<br>
+      このアプリは、あなたの現在地を見える化します。
     </p>
-  </section>
+<div class="howto">
+  <p>📘 <b>使い方</b></p>
+  <ol>
+    <li>① クーパー走またはYo-Yo距離を入力。</li>
+    <li>② スプリントタイムを記録。</li>
+    <li>③ VO₂maxとスプリント指数を自動算出。</li>
+    <li>④ 結果を基に“強化ポイント”を把握。</li>
+  </ol>
+</div>
 
-  <footer>© 2025 adjustment-lab｜VO₂max Flipbook Lite</footer>
+<div class="purpose">
+  <p>🎯 <b>VO₂max Liteでできること</b></p>
+  <ul>
+    <li>・呼吸と出力の関係を理解する。</li>
+    <li>・持久力ではなく“再現力”を測る。</li>
+    <li>・自分のリカバリープロフィールを可視化。</li>
+  </ul>
+</div>
 
-  <script>
-    // VO₂max換算式
-    function cooperToVO2max(dist) { return (dist - 504.9) / 44.73; }
-    function yoyoToVO2max(dist) { return dist * 0.0084 + 36.4; }
+<div class="pro">
+  <p>🚀 <b>PRO版でさらにできること</b></p>
+  <ul>
+    <li>・連続測定で成長カーブを自動可視化</li>
+    <li>・Run Tracker／Recovery Trackerとの統合分析</li>
+    <li>・チーム単位でのVO₂max比較と共有</li>
+  </ul>
+</div>
 
-    // ロール分類
-    function getRoleColor(vo2, sprintScore) {
-      if (vo2 >= 51 && sprintScore >= 3) return {role:"◎ エース格", color:"gold"};
-      if (vo2 >= 51 && sprintScore < 3) return {role:"ロング先発", color:"blue"};
-      if (vo2 >= 47 && vo2 < 51 && sprintScore >= 2) return {role:"中継ぎ", color:"green"};
-      if (vo2 < 47 && sprintScore >= 2) return {role:"抑え／ショート", color:"red"};
-      return {role:"基礎不足", color:"gray"};
-    }
+<div class="buttons">
+  <button id="startBtn">はじめる</button>
+  <button id="proBtn" onclick="location.href='/adjustment-lab/products/index.html'">PRO版を見る</button>
+</div>
+  </div>
+</div>
+<h1>VO₂max Lite判定</h1>
+<div class="input-box">
+  <label>選手名: <input type="text" id="name" placeholder="例: 山田"></label>
+  <label>クーパー走距離 (m): <input type="number" id="cooper" placeholder="例: 2700"></label>
+  <label>Yo-Yo IR距離 (m): <input type="number" id="yoyo" placeholder="例: 1600"></label>
+  <label>10mスプリント (秒): <input type="number" step="0.01" id="s10" placeholder="例: 1.55"></label>
+  <label>30mスプリント (秒): <input type="number" step="0.01" id="s30" placeholder="例: 4.05"></label>
+  <label>50mスプリント (秒): <input type="number" step="0.01" id="s50" placeholder="例: 6.40"></label>
+  <button onclick="check()">結果を表示</button>
+</div>
+<div id="result"></div>
+<footer>© 2025 adjustment-lab｜VO₂max Lite</footer>
+<script>
+// 初回のみスプラッシュ
+if (!localStorage.getItem("vo2maxLiteVisited")) {
+  document.getElementById("splash").style.display = "flex";
+  document.body.style.overflow = "hidden";
+} else {
+  document.getElementById("splash").style.display = "none";
+}
+document.getElementById("startBtn").onclick = () => {
+  localStorage.setItem("vo2maxLiteVisited", "true");
+  document.getElementById("splash").style.opacity = "0";
+  setTimeout(() => {
+    document.getElementById("splash").remove();
+    document.body.style.overflow = "";
+  }, 600);
+};
 
-    // 判定関数
-    function check() {
-      const name = document.getElementById("name").value || "無名";
-      const cooper = parseFloat(document.getElementById("cooper").value);
-      const yoyo = parseFloat(document.getElementById("yoyo").value);
-      const s10 = parseFloat(document.getElementById("s10").value);
-      const s30 = parseFloat(document.getElementById("s30").value);
-      const s50 = parseFloat(document.getElementById("s50").value);
+// VO₂max換算式
+function cooperToVO2max(dist){ return (dist - 504.9) / 44.73; }
+function yoyoToVO2max(dist){ return dist * 0.0084 + 36.4; }
 
-      if (isNaN(cooper) && isNaN(yoyo)) {
-        alert("クーパー走またはYo-Yoを入力してください。");
-        return;
-      }
+// ロール分類
+function getRoleColor(vo2, sprintScore){
+  if(vo2 >= 51 && sprintScore >= 3) return {role:"◎ エース格", color:"gold"};
+  if(vo2 >= 51 && sprintScore < 3) return {role:"ロング先発", color:"blue"};
+  if(vo2 >= 47 && sprintScore >= 2) return {role:"中継ぎ", color:"green"};
+  if(vo2 < 47 && sprintScore >= 2) return {role:"抑え／ショート", color:"red"};
+  return {role:"基礎不足", color:"gray"};
+}
 
-      let vo2list = [];
-      if (!isNaN(cooper)) vo2list.push(cooperToVO2max(cooper));
-      if (!isNaN(yoyo)) vo2list.push(yoyoToVO2max(yoyo));
-      const vo2avg = vo2list.reduce((a,b)=>a+b,0) / vo2list.length;
+// 判定
+function check(){
+  const name=document.getElementById("name").value||"無名";
+  const cooper=parseFloat(document.getElementById("cooper").value);
+  const yoyo=parseFloat(document.getElementById("yoyo").value);
+  const s10=parseFloat(document.getElementById("s10").value);
+  const s30=parseFloat(document.getElementById("s30").value);
+  const s50=parseFloat(document.getElementById("s50").value);
 
-      let sprintScore = 0;
-      if (!isNaN(s10) && s10 <= 1.55) sprintScore += 2;
-      if (!isNaN(s30) && s30 <= 4.0) sprintScore += 1;
-      if (!isNaN(s50) && s50 <= 6.4) sprintScore += 1;
+  if(isNaN(cooper) && isNaN(yoyo)){ alert("クーパー走またはYo-Yoを入力してください。"); return; }
 
-      const {role, color} = getRoleColor(vo2avg, sprintScore);
+  let vo2list=[];
+  if(!isNaN(cooper)) vo2list.push(cooperToVO2max(cooper));
+  if(!isNaN(yoyo)) vo2list.push(yoyoToVO2max(yoyo));
+  const vo2avg=vo2list.reduce((a,b)=>a+b,0)/vo2list.length;
 
-      document.getElementById("result").innerHTML = `
-        <h2>判定結果</h2>
-        <p><strong>${name}</strong></p>
-        <p>VO₂max：${vo2avg.toFixed(1)} ml/kg/min</p>
-        <p>スプリントスコア：${sprintScore}/4</p>
-        <p class="role" style="color:${color};">${role}</p>
-      `;
-    }
-  </script>
+  let sprintScore=0;
+  if(!isNaN(s10) && s10<=1.55) sprintScore+=2;
+  if(!isNaN(s30) && s30<=4.0) sprintScore+=1;
+  if(!isNaN(s50) && s50<=6.4) sprintScore+=1;
+
+  const {role,color}=getRoleColor(vo2avg,sprintScore);
+
+  document.getElementById("result").innerHTML=`
+    <h2>判定結果</h2>
+    <p><strong>${name}</strong></p>
+    <p>VO₂max：${vo2avg.toFixed(1)} ml/kg/min</p>
+    <p>スプリントスコア：${sprintScore}/4</p>
+    <p class="role" style="color:${color};">${role}</p>
+  `;
+}
+</script>
 </body>
 </html>
