@@ -129,6 +129,22 @@ footer {
   margin-top:50px;
   font-size:13px;
 }
+
+.del {
+  background:none;
+  border:1px solid var(--accent);
+  color:var(--accent);
+  padding:4px 10px;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:0.85rem;
+  margin-left:8px;
+  transition:0.3s;
+}
+.del:hover {
+  background:var(--accent);
+  color:#fff;
+}
 </style>
 </head>
 <body>
@@ -187,6 +203,10 @@ footer {
   <button onclick="check()">結果を表示</button>
 </div>
 <div id="result"></div>
+<section>
+  <h2>判定履歴</h2>
+  <ul id="logList"></ul>
+</section>
 <footer>© 2025 adjustment-lab｜VO₂max Lite</footer>
 <script>
 // 初回のみスプラッシュ
@@ -209,16 +229,64 @@ document.getElementById("startBtn").onclick = () => {
 function cooperToVO2max(dist){ return (dist - 504.9) / 44.73; }
 function yoyoToVO2max(dist){ return dist * 0.0084 + 36.4; }
 
-// ロール分類
-function getRoleColor(vo2, sprintScore){
-  if(vo2 >= 51 && sprintScore >= 3) return {role:"◎ エース格", color:"gold"};
-  if(vo2 >= 51 && sprintScore < 3) return {role:"ロング先発", color:"blue"};
-  if(vo2 >= 47 && sprintScore >= 2) return {role:"中継ぎ", color:"green"};
-  if(vo2 < 47 && sprintScore >= 2) return {role:"抑え／ショート", color:"red"};
-  return {role:"基礎不足", color:"gray"};
+function getProfileType(vo2, sprintScore){
+  if(vo2 >= 51 && sprintScore >= 3) return {
+    type:"統合型（Balanced Performer）",
+    color:"gold",
+    desc:"出力・再現力ともに高く、試合全体で安定したパフォーマンスを維持できるタイプ。"
+  };
+  if(vo2 >= 51 && sprintScore < 3) return {
+    type:"持久主導型（Endurance-Dominant）",
+    color:"blue",
+    desc:"再現力が高く、長時間の登板や走行でもパフォーマンスを保てるタイプ。"
+  };
+  if(vo2 >= 47 && sprintScore >= 2) return {
+    type:"瞬発主導型（Power-Dominant）",
+    color:"green",
+    desc:"出力ピークが高く、短時間で爆発的な動きを生み出すタイプ。"
+  };
+  if(vo2 < 47 && sprintScore >= 2) return {
+    type:"短時間高出力型（Burst Type）",
+    color:"red",
+    desc:"瞬発的な出力は高いが、リカバリーが課題になりやすいタイプ。"
+  };
+  return {
+    type:"基盤形成期（Foundation Stage）",
+    color:"gray",
+    desc:"出力・再現力ともに発展段階。まずは酸素系と基礎筋持久の育成を優先。"
+  };
 }
 
-// 判定
+// ==== 記録保存＆削除機能 ====
+const logList = document.getElementById("logList");
+let logs = JSON.parse(localStorage.getItem("vo2Logs") || "[]");
+
+function saveLog(log) {
+  logs.push(log);
+  localStorage.setItem("vo2Logs", JSON.stringify(logs));
+}
+
+function updateLogs() {
+  logList.innerHTML = "";
+  logs.forEach((l, i) => {
+    const li = document.createElement("li");
+    li.textContent = `${l.date}｜${l.name}｜VO₂max:${l.vo2}｜スプリント:${l.sprintScore}/4`;
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "削除";
+    delBtn.className = "del";
+    delBtn.onclick = () => {
+      if (confirm("この記録を削除しますか？")) {
+        logs.splice(i, 1);
+        localStorage.setItem("vo2Logs", JSON.stringify(logs));
+        updateLogs();
+      }
+    };
+    li.appendChild(delBtn);
+    logList.appendChild(li);
+  });
+}
+
+// ==== 結果表示のあとに保存 ====
 function check(){
   const name=document.getElementById("name").value||"無名";
   const cooper=parseFloat(document.getElementById("cooper").value);
@@ -239,16 +307,29 @@ function check(){
   if(!isNaN(s30) && s30<=4.0) sprintScore+=1;
   if(!isNaN(s50) && s50<=6.4) sprintScore+=1;
 
-  const {role,color}=getRoleColor(vo2avg,sprintScore);
+const {type, color, desc} = getProfileType(vo2avg, sprintScore);
 
-  document.getElementById("result").innerHTML=`
-    <h2>判定結果</h2>
-    <p><strong>${name}</strong></p>
-    <p>VO₂max：${vo2avg.toFixed(1)} ml/kg/min</p>
-    <p>スプリントスコア：${sprintScore}/4</p>
-    <p class="role" style="color:${color};">${role}</p>
-  `;
+document.getElementById("result").innerHTML = `
+  <h2>判定結果</h2>
+  <p><strong>${name}</strong></p>
+  <p>VO₂max：${vo2avg.toFixed(1)} ml/kg/min</p>
+  <p>スプリントスコア：${sprintScore}/4</p>
+  <p class="role" style="color:${color};">${type}</p>
+  <p>${desc}</p>
+`;
+
+  // 🔽 履歴に追加
+  const newLog = {
+    name,
+    vo2: vo2avg.toFixed(1),
+    sprintScore,
+    date: new Date().toLocaleDateString("ja-JP")
+  };
+  saveLog(newLog);
+  updateLogs();
 }
+
+updateLogs();
 </script>
 </body>
 </html>
