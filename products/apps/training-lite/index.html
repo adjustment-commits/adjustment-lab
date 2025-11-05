@@ -246,6 +246,22 @@ footer {
 #startBtn { background:#fff; color:#00b386; }
 #proBtn { background:transparent; color:#fff; border:1px solid #fff; }
 #proBtn:hover { background:#fff; color:#00b386; }
+
+.del {
+  background:none;
+  border:1px solid var(--accent);
+  color:var(--accent);
+  padding:4px 10px;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:0.85rem;
+  margin-left:8px;
+  transition:0.3s;
+}
+.del:hover {
+  background:var(--accent);
+  color:#fff;
+}
 </style>
 </head>
 <body>
@@ -373,9 +389,23 @@ function saveLog(log){
 
 function updateLogs(){
   logList.innerHTML="";
-  logs.forEach(l=>{
+  logs.forEach((l,i)=>{
     const li=document.createElement("li");
     li.textContent=`${l.date}｜${l.goal}｜${l.exercise}｜${l.intensity}｜${l.duration}`;
+
+    // 🔽 この3行を追加
+    const delBtn=document.createElement("button");
+    delBtn.textContent="削除";
+    delBtn.className="del";
+    delBtn.onclick=()=>{
+      if(confirm("この記録を削除しますか？")){
+        logs.splice(i,1);
+        localStorage.setItem("trainingLogs",JSON.stringify(logs));
+        updateLogs();
+      }
+    };
+
+    li.appendChild(delBtn); // ここでボタンをliに追加
     logList.appendChild(li);
   });
 }
