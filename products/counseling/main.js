@@ -70,6 +70,10 @@ function analyzeAnswers(ans) {
     text = "再現性と回復を支える『呼吸の整え方』（E）";
     link = "../lite/E.html";
   }
+  else if (joined.includes("相談")) {
+  text = "トレーニングを直接体験するなら「整 - adjustment」へ。";
+  link = "/adjustment/index.html";
+　}
 
   return { text, link };
 }
