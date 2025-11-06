@@ -56,25 +56,25 @@ function analyzeAnswers(ans) {
   // ✅ 最優先：対面セッション
   if (joined.includes("相談") || joined.includes("セッション")) {
     return {
-      text: "あなたに最適なサポートは『整 - adjustment』の対面セッションです。",
+      text: "あなたに最適なサポートは<br>『整 - adjustment』の<br>対面セッションです。",
       link: "/adjustment/index.html"
     };
   }
 
   if (joined.includes("出力") || joined.includes("爆発力")) {
-    text = "出力連鎖を整えるなら『投手のための“力の順番”』（C）";
+    text = "出力連鎖を整えるなら<br>『投手のための“力の順番”』（C）";
     link = "../lite/C.html";
   } 
   else if (joined.includes("姿勢") || joined.includes("安定") || joined.includes("再現性")) {
-    text = "姿勢と再現性を整えるなら『野球選手に共通する“整う姿勢”』（B）";
+    text = "姿勢と再現性を整えるなら<br>『野球選手に共通する“整う姿勢”』（B）";
     link = "../lite/B.html";
   } 
   else if (joined.includes("リズム") || joined.includes("しなやか")) {
-    text = "ヒップインで動きのリズムを掴む『動きを感じるヒップイン入門』（D）";
+    text = "ヒップインで動きのリズムを掴む<br>『動きを感じるヒップイン入門』（D）";
     link = "../lite/D.html";
   } 
   else if (joined.includes("呼吸") || joined.includes("疲労")) {
-    text = "再現性と回復を支える『呼吸の整え方』（E）";
+    text = "再現性と回復を支える<br>『呼吸の整え方』（E）";
     link = "../lite/E.html";
   }
 
