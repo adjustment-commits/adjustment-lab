@@ -125,3 +125,22 @@ footer {
   background: #00b386;
   color: #fff;
 }
+
+.icon-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+.icon-links img {
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.icon-links img:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
