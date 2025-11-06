@@ -291,7 +291,7 @@ body.lab-mode #purpose-lab {
 
   <!-- ===== ナビゲーション ===== -->
   <nav id="navLinks">
-    <a href="./adjustment/index.html">整【アジャストメント】を探る</a>
+    <a href="./adjustment/index.html">トレーナーとコンタクト</a>
   </nav>
 
   <!-- ===== フッター ===== -->
@@ -356,11 +356,11 @@ body.lab-mode #purpose-lab {
         title.textContent = 'adjustment-lab';
         desc.innerHTML = '再現性を科学し現場へつなぐ。<br>整う思考をデジタルで。';
         btn.textContent = '← 整【アジャストメント】へ';
-        fadeSwitch(introSei, introLab); // ←ここも修正！
+        fadeSwitch(introSei, introLab); // 
 
         purposeLab.classList.add('visible');
         const links = navLinks.querySelectorAll('a');
-        links[0].textContent = 'labを体験';
+        links[0].textContent = 'lab商品を見る';
         links[0].setAttribute('href', './lab/index.html');
       } else {
         mode = 'sei';
@@ -368,11 +368,11 @@ body.lab-mode #purpose-lab {
         title.textContent = '整【アジャストメント】';
         desc.innerHTML = 'Structural design<br>for tough athletes.';
         btn.textContent = '→ adjustment-labへ';
-        fadeSwitch(introLab, introSei); // ←修正済み
+        fadeSwitch(introLab, introSei); // 
 
         purposeLab.classList.remove('visible');
         const links = navLinks.querySelectorAll('a');
-        links[0].textContent = 'トレーナーとコンタクトをとる';
+        links[0].textContent = 'トレーナーとコンタクト';
         links[0].setAttribute('href', './adjustment/index.html');
       }
       desc.style.opacity = '1';
