@@ -285,14 +285,16 @@ body.lab-mode #purpose-lab {
       </p>
     </section>
   </main>
-
-  <!-- ===== 切替ボタン ===== -->
-  <button class="toggle" id="switchBtn">→ adjustment-labへ</button>
-
-  <!-- ===== ナビゲーション ===== -->
+  
+ <!-- ===== ナビゲーション ===== -->
   <nav id="navLinks">
     <a href="./adjustment/index.html">トレーニングについて</a>
   </nav>
+  
+  <!-- ===== 切替ボタン ===== -->
+  <button class="toggle" id="switchBtn">→ 開発事業へ</button>
+
+ 
 
   <!-- ===== フッター ===== -->
   <footer>
@@ -355,7 +357,7 @@ body.lab-mode #purpose-lab {
         switchLogo('./assets/logo-lab.png');
         title.textContent = 'adjustment-lab';
         desc.innerHTML = '再現性を科学し現場へつなぐ。<br>整う思考をデジタルで。';
-        btn.textContent = '← 整【アジャストメント】へ';
+        btn.textContent = '← トレーナー事業へ';
         fadeSwitch(introSei, introLab); // 
 
         purposeLab.classList.add('visible');
