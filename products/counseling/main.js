@@ -62,7 +62,7 @@ function analyzeAnswers(ans) {
   if (joined.includes("相談") || joined.includes("セッション")) {
     return {
       text: "あなたに最適なサポートは<br>『整 - adjustment』の<br>対面セッションです。",
-      link: "./adjustment/index.html"
+ 　　　　link: "/adjustment-lab/adjustment/index.html" 
     };
   }
 
