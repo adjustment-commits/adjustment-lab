@@ -5,109 +5,142 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LITEトレーニング管理｜adjustment-lab</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" href="../assets/footer-lite.css">
-<script>
-fetch("../assets/footer-lite.html")
-</script>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@500;700&family=Noto+Sans+JP:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --accent: #00b386;
-  --bg: #f8faf9;
-  --text: #1a1a1a;
-  --sub: #666;
-  font-family: 'Noto Sans JP', sans-serif;
+  --accent:#00b386;
+  --bg:#0d1117;
+  --card:#161b22;
+  --line:#22272e;
+  --text:#e6edf3;
+  --sub:#7d8590;
+  font-family: 'Heebo', 'Noto Sans JP', sans-serif;
 }
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  padding: 20px;
-  line-height: 1.7;
+  margin:0;
+  background:linear-gradient(180deg,#0d1117 0%,#10151c 100%);
+  color:var(--text);
+  padding:20px;
+  line-height:1.8;
 }
+
+/* Header */
 header {
-  text-align: center;
-  padding: 10px 0 20px;
+  text-align:center;
+  padding:40px 10px 30px;
 }
 h1 {
-  font-size: 1.4rem;
-  color: var(--accent);
-  margin-bottom: 4px;
+  font-size:1.6rem;
+  color:var(--accent);
+  letter-spacing:0.05em;
+  margin-bottom:6px;
 }
-p.sub { color: var(--sub); font-size: 0.9rem; }
+p.sub {
+  color:var(--sub);
+  font-size:0.95rem;
+}
 
-/* フォーム */
-form {
-  background: #fff;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  margin-bottom: 24px;
+/* Card Base */
+.card {
+  background:rgba(22,27,34,0.8);
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.3);
+  padding:24px;
+  margin-bottom:32px;
+  backdrop-filter:blur(6px);
+  transition:transform .2s ease, box-shadow .2s ease;
 }
-label {
-  display: block;
-  font-size: 0.9rem;
-  margin-top: 10px;
+.card:hover {
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.4);
 }
-input, select, button {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-  font-size: 1rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-button {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  margin-top: 14px;
-}
-button:hover { opacity: 0.9; }
 
-/* 一覧 */
+/* Form */
+form label {
+  display:block;
+  margin-top:14px;
+  font-size:0.9rem;
+  color:var(--sub);
+}
+form input {
+  width:100%;
+  padding:10px;
+  margin-top:6px;
+  font-size:1rem;
+  border-radius:6px;
+  border:1px solid #30363d;
+  background:#0d1117;
+  color:var(--text);
+}
+form input:focus {
+  outline:none;
+  border-color:var(--accent);
+}
+button.submit {
+  width:100%;
+  margin-top:20px;
+  background:var(--accent);
+  border:none;
+  color:#fff;
+  font-size:1rem;
+  border-radius:6px;
+  padding:10px;
+  cursor:pointer;
+  transition:0.2s;
+}
+button.submit:hover { opacity:0.85; }
+
+/* Records */
 #records {
-  margin-top: 24px;
+  margin-top:10px;
 }
 .record {
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 8px;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-  font-size: 0.9rem;
+  border:1px solid var(--line);
+  background:#0f1319;
+  border-radius:8px;
+  padding:12px 14px;
+  margin-bottom:10px;
+  font-size:0.9rem;
+  position:relative;
 }
-.record small { color: var(--sub); }
+.record strong { color:var(--accent); }
+.record small { color:var(--sub); }
 button.delete {
-  background: none;
-  border: none;
-  color: #c00;
-  font-size: 0.8rem;
-  float: right;
+  position:absolute;
+  right:12px; top:10px;
+  background:none;
+  border:none;
+  color:#ff6b6b;
+  cursor:pointer;
+  font-size:0.8rem;
 }
 
-/* グラフ */
+/* Chart */
 canvas {
-  margin-top: 20px;
-  background: #fff;
-  border-radius: 8px;
-  padding: 10px;
+  margin-top:20px;
+  background:#0f1319;
+  border-radius:8px;
+  padding:10px;
 }
+
+/* Footer */
 footer {
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--sub);
-  margin-top: 50px;
+  text-align:center;
+  color:var(--sub);
+  font-size:0.8rem;
+  margin-top:50px;
 }
 </style>
 </head>
 
-<body>
+  <body>
 <header>
   <h1>LITEトレーニング管理</h1>
-  <p class="sub">目標・強度・時間・回数を記録しよう。</p>
+  <p class="sub">記録で“構造の再現性”を追う。データがあなたの成長曲線を描く。</p>
 </header>
+<div class="card">
 
 <form id="trainingForm">
   <label>日付</label>
@@ -127,99 +160,98 @@ footer {
 
   <label>時間（分）</label>
   <input type="number" id="minutes" min="0" step="1">
+  
+<button type="submit" class="submit">記録を追加</button>
 
-  <button type="submit">記録を追加</button>
 </form>
+</div>
+<div class="card">
+  <h3>📅 記録一覧</h3>
+  <div id="records"></div>
+</div>
+<div class="card">
+  <h3>📊 トレーニンググラフ</h3>
+  <canvas id="trainingChart"></canvas>
+</div>
+    
+<footer>© 2025 adjustment-lab｜Training Tracker</footer>
 
-<h3>📅 記録一覧</h3>
-<div id="records"></div>
-
-<h3>📊 トレーニンググラフ</h3>
-<canvas id="trainingChart"></canvas>
-
-<!-- ✅ LITE共通フッター -->
-<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
-<div id="footer"></div>
-
-<script>
-  fetch("/adjustment-lab/assets/footer-lite.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("footer").innerHTML = data;
-    });
-</script>
 <script>
 const form = document.getElementById('trainingForm');
 const recordsDiv = document.getElementById('records');
 const chartCanvas = document.getElementById('trainingChart');
 let records = JSON.parse(localStorage.getItem('trainingRecords') || '[]');
 
-// グラフ描画
 let chart;
 function updateChart() {
   const labels = [...new Set(records.map(r => r.exercise))];
   const totals = labels.map(ex => {
     const subset = records.filter(r => r.exercise === ex);
-    return subset.reduce((sum, r) => sum + (Number(r.weight || 0) * Number(r.reps || 0)), 0);
+    return subset.reduce((sum, r) => sum + (Number(r.weight||0)*Number(r.reps||0)),0);
   });
-  if (chart) chart.destroy();
-  chart = new Chart(chartCanvas, {
-    type: 'bar',
-    data: {
+  if(chart) chart.destroy();
+  chart = new Chart(chartCanvas,{
+    type:'bar',
+    data:{
       labels,
-      datasets: [{
-        label: '総負荷量 (kg×rep)',
-        data: totals,
-        backgroundColor: '#00b386'
+      datasets:[{
+        label:'総負荷量 (kg×rep)',
+        data:totals,
+        backgroundColor:'#00b386',
+        borderRadius:6
       }]
     },
-    options: { responsive: true, scales: { y: { beginAtZero: true } } }
+    options:{
+      responsive:true,
+      plugins:{
+        legend:{ labels:{ color:'#ccc' } }
+      },
+      scales:{
+        x:{ ticks:{ color:'#aaa' }, grid:{ color:'#222' } },
+        y:{ ticks:{ color:'#aaa' }, grid:{ color:'#222' } }
+      }
+    }
   });
 }
 
-// 記録表示
-function renderRecords() {
-  recordsDiv.innerHTML = '';
-  records.sort((a,b) => new Date(b.date) - new Date(a.date));
-  records.forEach((r, i) => {
-    const div = document.createElement('div');
-    div.className = 'record';
-    div.innerHTML = `
+function renderRecords(){
+  recordsDiv.innerHTML='';
+  records.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  records.forEach((r,i)=>{
+    const div=document.createElement('div');
+    div.className='record';
+    div.innerHTML=`
       <strong>${r.exercise}</strong>　
       <small>${r.date}</small>
       <button class="delete" onclick="deleteRecord(${i})">削除</button><br>
-      ${r.weight || 0}kg × ${r.reps || 0}rep ｜ RPE${r.rpe} ｜ ${r.minutes || 0}分
+      ${r.weight||0}kg × ${r.reps||0}rep ｜ RPE${r.rpe} ｜ ${r.minutes||0}分
     `;
     recordsDiv.appendChild(div);
   });
   updateChart();
 }
-
-// 削除
-function deleteRecord(i) {
-  records.splice(i, 1);
-  localStorage.setItem('trainingRecords', JSON.stringify(records));
+function deleteRecord(i){
+  records.splice(i,1);
+  localStorage.setItem('trainingRecords',JSON.stringify(records));
   renderRecords();
 }
-
-// 追加
-form.addEventListener('submit', e => {
+form.addEventListener('submit',e=>{
   e.preventDefault();
-  const newRecord = {
-    date: date.value,
-    exercise: exercise.value,
-    weight: weight.value,
-    reps: reps.value,
-    rpe: rpe.value,
-    minutes: minutes.value
+  const newRecord={
+    date:date.value,
+    exercise:exercise.value,
+    weight:weight.value,
+    reps:reps.value,
+    rpe:rpe.value,
+    minutes:minutes.value
   };
   records.push(newRecord);
-  localStorage.setItem('trainingRecords', JSON.stringify(records));
+  localStorage.setItem('trainingRecords',JSON.stringify(records));
   form.reset();
   renderRecords();
 });
-
 renderRecords();
 </script>
 </body>
 </html>
+<<<END FILE>>>
