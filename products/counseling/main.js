@@ -15,35 +15,35 @@ document.querySelectorAll('.option').forEach(btn => {
     }
 
     // 最終結果処理
-    if (currentStep === 6) {
-      const result = analyzeAnswers(answers);
-      const resultArea = document.getElementById('resultText');
-      resultArea.innerHTML = `
-        <p>${result.text}</p>
-        <button id="goToLite">▶ 推奨教材へ進む</button>
-        <hr>
-        <p style="color:#666; font-size:0.9rem;">他の教材を選ぶ</p>
-        <div class="other-links">
-          <button class="jump" data-link="../lite/A.html">A｜体を整える基本</button>
-          <button class="jump" data-link="../lite/B.html">B｜姿勢と再現性</button>
-          <button class="jump" data-link="../lite/C.html">C｜出力連鎖と力の順番</button>
-          <button class="jump" data-link="../lite/D.html">D｜ヒップインとリズム</button>
-          <button class="jump" data-link="../lite/E.html">E｜呼吸と回復</button>
-        </div>
-      `;
+if (currentStep === 6) {
+  const result = analyzeAnswers(answers);
+  const resultArea = document.getElementById('resultText');
+  resultArea.innerHTML = `
+    <p>${result.text}</p>
+    <button id="goToLite" class="main-btn">▶ 推奨教材へ進む</button>
+    <hr>
+    <p style="color:#666; font-size:0.9rem;">他の教材を選ぶ</p>
+    <div class="icon-links">
+      <img src="../lite/icons/icon-A.png" alt="A" class="jump" data-link="../lite/A.html">
+      <img src="../lite/icons/icon-B.png" alt="B" class="jump" data-link="../lite/B.html">
+      <img src="../lite/icons/icon-C.png" alt="C" class="jump" data-link="../lite/C.html">
+      <img src="../lite/icons/icon-D.png" alt="D" class="jump" data-link="../lite/D.html">
+      <img src="../lite/icons/icon-E.png" alt="E" class="jump" data-link="../lite/E.html">
+    </div>
+  `;
 
-      // 推奨教材へ
-      document.getElementById('goToLite').onclick = () => {
-        window.location.href = result.link;
-      };
+  // 推奨教材へ
+  document.getElementById('goToLite').onclick = () => {
+    window.location.href = result.link;
+  };
 
-      // 自由選択教材へ
-      document.querySelectorAll('.jump').forEach(b => {
-        b.addEventListener('click', () => {
-          window.location.href = b.dataset.link;
-        });
-      });
-    }
+  // 自由選択教材へ
+  document.querySelectorAll('.jump').forEach(img => {
+    img.addEventListener('click', () => {
+      window.location.href = img.dataset.link;
+    });
+  });
+}
   });
 });
 
