@@ -17,7 +17,6 @@ fetch("../assets/footer-lite.html")
   --sub: #666;
   font-family: 'Noto Sans JP', sans-serif;
 }
-
 body {
   margin: 0;
   background: var(--bg);
@@ -75,7 +74,7 @@ section p {
   font-size: 1rem;
 }
 
-/* ===== Drill ===== */
+/* ===== Drill list ===== */
 .drill {
   margin-top: 1.2em;
   padding-left: 1em;
@@ -90,6 +89,13 @@ section p {
   margin: 0.2em 0;
   color: var(--text);
   font-size: 0.95rem;
+}
+.drill img {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin: 10px 0 18px;
 }
 
 /* ===== Table ===== */
@@ -125,12 +131,11 @@ button {
   transition: 0.3s;
   border: none;
 }
-.buy-btn { background: var(--accent); color: #fff; }
 .upgrade-btn { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
 .back-btn { background: none; color: var(--sub); text-decoration: underline; border: none; }
 button:hover { opacity: 0.85; }
 
-/* ===== Notice ===== */
+/* ===== Info Box ===== */
 .notice {
   background: #f3f8f5;
   border-left: 4px solid var(--accent);
@@ -143,44 +148,43 @@ button:hover { opacity: 0.85; }
 </style>
 </head>
 <body>
-
 <!-- ===== Hero ===== -->
 <section class="hero">
   <img src="./img/thumb-C-metallic.png" alt="出力連鎖と力の順番 サムネイル">
   <div class="hero-content">
     <h1>C｜出力連鎖と力の順番</h1>
-    <p>力を“つなぐ構造”を鍛える。</p>
+    <p>力を“つなぐ”構造を鍛える。</p>
   </div>
 </section>
-
 <!-- ===== 理解パート ===== -->
 <section>
   <h2>勝負を決めるのは「順番」だ</h2>
-  <p>力は一瞬の爆発ではなく、連鎖で伝わる。<br>
-  骨盤 → 胸郭 → 肩甲骨 → 腕の順に流れれば、最小の力で最大の出力を得る。<br>
-  この教材では、<strong>「つなぐ力」</strong>を磨き、無駄のない動作連鎖を再構築する。</p>
+  <p>力は一瞬の爆発ではなく、順序と連鎖で伝わる。<br>
+  骨盤→胸郭→肩甲骨→腕へと、流れるようにエネルギーが伝わることで、<br>
+  無駄のない出力が生まれる。<br>
+  この教材では、「つなぐ力」を再構築し、出力の流れを磨く。</p>
 </section>
-
-<!-- ===== ドリル紹介 ===== -->
+<!-- ===== フィジカル構築ドリル（LITE版） ===== -->
 <section>
-  <h2>体感ドリル（LITE版）</h2>
+  <h2>フィジカル構築ドリル（LITE版）</h2>
   <div class="drill">
     <h3>① グラウンドプレス（足裏反力）</h3>
+    <img src="./img/drill-ground-press.png" alt="グラウンドプレス イメージ">
     <p>足裏で床を押し、その反発で脚と骨盤を連動させる。<br>
-    下半身からの“出力の起点”を体で覚える。</p>
+    下半身から上半身へ“出力をつなぐ”起点を体で覚える。</p>
     <p><strong>意識のキュー：</strong>「足で押した力を“返す”」</p>
   </div>
   <div class="drill">
     <h3>② ヒップドライブ（骨盤始動）</h3>
-    <p>骨盤を前に押し出す動きから上体が遅れて反応する。<br>
-    下半身の推進力を上半身へつなぐ感覚を養う。</p>
+    <img src="./img/drill-hip-drive.png" alt="ヒップドライブ イメージ">
+    <p>骨盤を前に押し出し、上体が遅れて反応する動きを確認。<br>
+    下半身の推進力を上半身へとつなげる感覚を養う。</p>
     <p><strong>意識のキュー：</strong>「骨盤が動きのエンジン」</p>
   </div>
   <div class="notice">
-    ※LITE版ではこの2種目を通して、<br>「力の流れ」を感じる基礎を整えます。
+    ※LITE版ではこの2種目を通して、<br>「力の流れ」と「順番」を感じるための基礎を整えます。
   </div>
 </section>
-
 <!-- ===== STANDARD版案内 ===== -->
 <section>
   <h2>STANDARD版（Program C）</h2>
@@ -200,13 +204,12 @@ button:hover { opacity: 0.85; }
     <tr><td>⑩</td><td>統合ドリル</td><td>全連鎖の統合</td></tr>
   </table>
 </section>
-
 <!-- ===== CTA ===== -->
 <div class="actions">
- <h2>アップグレード</h2>
+  <h2>アップグレード</h2>
   <button class="upgrade-btn" onclick="window.open('https://adjustment-commits.github.io/store/standardC.html', '_blank')">
-🚀 STANDARD版へアップグレード（全10種目＋記録機能）
-</button>
+    🚀 STANDARD版へアップグレード（全10種目＋記録機能）
+  </button>
   <button class="back-btn" onclick="window.location.href='../lite/index.html'">
     ◀ 他の教材を見る
   </button>
