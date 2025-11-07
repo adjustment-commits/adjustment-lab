@@ -17,7 +17,6 @@ fetch("../assets/footer-lite.html")
   --sub: #666;
   font-family: 'Noto Sans JP', sans-serif;
 }
-
 body {
   margin: 0;
   background: var(--bg);
@@ -25,7 +24,6 @@ body {
   line-height: 1.9;
   padding-bottom: 60px;
 }
-
 /* ===== Hero ===== */
 .hero {
   background: linear-gradient(180deg, #f5f7f6 0%, #ffffff 100%);
@@ -91,6 +89,13 @@ section p {
   color: var(--text);
   font-size: 0.95rem;
 }
+.drill img {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin: 10px 0 18px;
+}
 
 /* ===== Table ===== */
 table {
@@ -125,7 +130,6 @@ button {
   transition: 0.3s;
   border: none;
 }
-.buy-btn { background: var(--accent); color: #fff; }
 .upgrade-btn { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
 .back-btn { background: none; color: var(--sub); text-decoration: underline; border: none; }
 button:hover { opacity: 0.85; }
@@ -140,40 +144,39 @@ button:hover { opacity: 0.85; }
   font-size: 0.9rem;
   color: #333;
 }
+
 </style>
 </head>
 <body>
-
 <!-- ===== Hero ===== -->
 <section class="hero">
   <img src="./img/thumb-E-metallic.png" alt="呼吸と回復 サムネイル">
   <div class="hero-content">
     <h1>E｜呼吸と回復</h1>
-    <p>呼吸で戻す。整う身体は“再現できる”構造にある。</p>
+    <p>呼吸で戻す。整う身体は“再現できる構造”にある。</p>
   </div>
 </section>
-
 <!-- ===== 理解パート ===== -->
 <section>
   <h2>回復とは「休む」ではなく「戻る」こと</h2>
-  <p>呼吸は、出力と同じくらい重要な“再現のフェーズ”。<br>
+  <p>呼吸は出力と同じくらい重要な“再現のフェーズ”。<br>
   吐くほどに筋の緊張は抜け、重力に馴染み、姿勢は再構築される。<br>
   呼吸を整えることは、力の通り道を整えることでもある。</p>
 </section>
-
-<!-- ===== 体感ドリル（LITE版） ===== -->
+<!-- ===== フィジカル構築ドリル（LITE版） ===== -->
 <section>
-  <h2>体感ドリル（LITE版）</h2>
+  <h2>フィジカル構築ドリル（LITE版）</h2>
   <div class="drill">
     <h3>① 呼吸リセット</h3>
+    <img src="./img/drill-breath-reset.png" alt="呼吸リセット イメージ">
     <p>鼻から4秒吸って、口から8秒吐く。<br>
-    吐くたびに、身体が床に“沈む”感覚を確かめる。<br>
+    吐くたびに身体が床に“沈む”感覚を確かめる。<br>
     緊張を解き、再現可能な姿勢へ戻していく。</p>
     <p><strong>意識のキュー：</strong>「吐くほど安定する」</p>
   </div>
-
   <div class="drill">
     <h3>② 背面呼吸（寝姿勢）</h3>
+    <img src="./img/drill-back-breath.png" alt="背面呼吸 イメージ">
     <p>仰向けで膝を立て、背中全体に空気を送る。<br>
     吸うと背中が床を押し、吐くと沈むように感じる。<br>
     呼吸を使って“背中で支える”感覚を取り戻す。</p>
@@ -183,7 +186,6 @@ button:hover { opacity: 0.85; }
     ※LITE版ではこの2種目を通して、<br>「呼吸で姿勢を再現する」感覚を育てます。
   </div>
 </section>
-
 <!-- ===== STANDARD版案内 ===== -->
 <section>
   <h2>STANDARD版（Program E）</h2>
@@ -203,15 +205,11 @@ button:hover { opacity: 0.85; }
     <tr><td>⑩</td><td>呼吸統合チェック</td><td>意識と姿勢の再統合</td></tr>
   </table>
 </section>
-
 <!-- ===== CTA ===== -->
 <div class="actions">
-  <h2>購入・アップグレード</h2>
-  <button class="buy-btn" onclick="window.open('https://adjustment-commits.github.io/store/liteE.html', '_blank')">
-    🔰 LITE版を購入（¥550 税込）
-  </button>
-  <button class="upgrade-btn" onclick="window.open('https://adjustment-commits.github.io/store/personal-design.html', '_blank')">
-    🚀 Personal Design（完全個別設計プラン）
+  <h2>アップグレード</h2>
+  <button class="upgrade-btn" onclick="window.open('https://adjustment-commits.github.io/store/standardE.html', '_blank')">
+    🚀 STANDARD版へアップグレード（全10種目＋記録機能）
   </button>
   <button class="back-btn" onclick="window.location.href='../lite/index.html'">
     ◀ 他の教材を見る
@@ -220,6 +218,5 @@ button:hover { opacity: 0.85; }
     ◀ カウンセリングに戻る
   </button>
 </div>
-
 </body>
 </html>
