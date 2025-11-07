@@ -5,20 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>D｜ヒップインとリズム｜adjustment-lab</title>
 <meta name="theme-color" content="#f8faf9">
-<link rel="stylesheet" href="./lite-style.css">
-
 <link rel="stylesheet" href="../assets/footer-lite.css">
 <script>
 fetch("../assets/footer-lite.html")
 </script>
-
-
 <style>
 :root {
-  --bg: #f8faf9;
+  --bg: #ffffff;
   --text: #1a1a1a;
   --accent: #00b386;
-  --sub: #555;
+  --sub: #666;
   font-family: 'Noto Sans JP', sans-serif;
 }
 
@@ -32,32 +28,28 @@ body {
 
 /* ===== Hero ===== */
 .hero {
-  background: #f3f7f5;
+  background: linear-gradient(180deg, #f5f7f6 0%, #ffffff 100%);
   padding: 80px 20px 60px;
   text-align: center;
   border-bottom: 1px solid rgba(0,0,0,0.05);
 }
+.hero img {
+  width: 280px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  margin-bottom: 24px;
+}
 .hero-content {
   max-width: 850px;
   margin: 0 auto;
-  background: #fff;
-  border-radius: 8px;
-  padding: 40px 30px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
 }
 .hero-content h1 {
-  display: inline-block;
-  font-size: clamp(1rem, 4vw, 2rem);
+  font-size: clamp(1.3rem, 4vw, 2rem);
   color: var(--accent);
   margin-bottom: 0.6em;
   line-height: 1.3;
-  white-space: nowrap;   /* 改行禁止 */
-  transform-origin: center;
-  max-width: 90vw;       /* 画面幅に合わせる */
-  overflow: visible;     /* カットしない */
-  text-overflow: unset;  /* 省略しない */
+  white-space: nowrap;
 }
-  
 .hero-content p {
   font-size: clamp(0.95rem, 3.8vw, 1.05rem);
   color: var(--sub);
@@ -83,7 +75,7 @@ section p {
   font-size: 1rem;
 }
 
-/* ===== Drill list ===== */
+/* ===== Drill ===== */
 .drill {
   margin-top: 1.2em;
   padding-left: 1em;
@@ -100,7 +92,7 @@ section p {
   font-size: 0.95rem;
 }
 
-/* ===== Map table ===== */
+/* ===== Table ===== */
 table {
   border-collapse: collapse;
   width: 100%;
@@ -136,79 +128,94 @@ button {
 .buy-btn { background: var(--accent); color: #fff; }
 .upgrade-btn { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
 .back-btn { background: none; color: var(--sub); text-decoration: underline; border: none; }
-
 button:hover { opacity: 0.85; }
+
+/* ===== Notice ===== */
+.notice {
+  background: #f3f8f5;
+  border-left: 4px solid var(--accent);
+  padding: 16px;
+  border-radius: 6px;
+  margin-top: 24px;
+  font-size: 0.9rem;
+  color: #333;
+}
 </style>
 </head>
-
 <body>
 
 <!-- ===== Hero ===== -->
 <section class="hero">
+  <img src="./img/thumb-D-metallic.png" alt="ヒップインとリズム サムネイル">
   <div class="hero-content">
     <h1>D｜ヒップインとリズム</h1>
-    <p>股関節でリズムを生み、力を止めずに流す。</p>
+    <p>リズムで動作をつなぎ、力を止めない構造へ。</p>
   </div>
 </section>
 
 <!-- ===== 理解パート ===== -->
 <section>
-  <h2>リズムは「力の流れ」</h2>
-  <p>速く動くためには「止まらない」ことよりも、「流れを切らない」こと。<br>
-  股関節（ヒップイン）がリズムの起点となり、骨盤から上半身へと連鎖する。<br>
-  このリズムを感じることで、無駄な力みが消え、自然なスピードが生まれる。</p>
+  <h2>リズムは「力をつなぐ構造」</h2>
+  <p>速さは筋力ではなく、リズムの“連鎖”から生まれる。<br>
+  ヒップイン（股関節の内旋）は、動きの始まりでありリズムの心臓部。<br>
+  骨盤の滑らかな回転が上半身へ波のように伝わると、動作は止まらず流れ続ける。</p>
 </section>
 
-<!-- ===== 体感ドリル（LITEで実施する2種目） ===== -->
+<!-- ===== ドリル紹介 ===== -->
 <section>
-  <h2>体感ドリル</h2>
-
+  <h2>体感ドリル（LITE版）</h2>
   <div class="drill">
     <h3>① ヒップインスタンス</h3>
-    <p>立位で片足に軽く体重を乗せ、骨盤を内側（前脚方向）に引き込む。<br>
-    太ももや腰を動かさず、股関節が“吸い込まれる”感覚を掴む。</p>
+    <p>片足立ちで骨盤を内側（前脚方向）に引き込み、股関節の「吸い込み」を体感する。<br>
+    力を入れるのではなく、重心を股関節に落とすイメージ。</p>
     <p><strong>意識のキュー：</strong>「股関節に“落とす”」</p>
   </div>
-
   <div class="drill">
     <h3>② 骨盤リズムスイング</h3>
-    <p>両足を肩幅に開き、骨盤を左右に軽くスイング。<br>
-    力を抜き、骨盤の回転に合わせて胸郭が自然に遅れてついてくる感覚を感じる。</p>
+    <p>骨盤を左右に軽くスイングし、上体が遅れてついてくるリズムを感じる。<br>
+    骨盤をリズムの中心に置くことで、全身の動きが連鎖する。</p>
     <p><strong>意識のキュー：</strong>「骨盤でリズムを刻む」</p>
+  </div>
+  <div class="notice">
+    ※LITE版ではこの2種目を通して、<br>「リズムで動作をつなぐ」感覚を育成します。
   </div>
 </section>
 
-<!-- ===== 全10種目マップ ===== -->
+<!-- ===== STANDARD版案内 ===== -->
 <section>
-  <h2>全10種目マップ（STANDARD版で展開）</h2>
+  <h2>STANDARD版（Program D）</h2>
+  <p>全10種目構成。あなたのリズムタイプと出力傾向をもとに、<br>
+  骨盤主導の動作連鎖を個別最適化します。</p>
   <table>
     <tr><th>No</th><th>種目名</th><th>狙い</th></tr>
     <tr><td>①</td><td>ヒップインスタンス</td><td>股関節の入りを体感</td></tr>
     <tr><td>②</td><td>骨盤リズムスイング</td><td>骨盤の回転リズムを掴む</td></tr>
-    <tr><td>③</td><td>軸脚スイッチ</td><td>支持脚の切り替えリズム</td></tr>
-    <tr><td>④</td><td>骨盤→胸郭リズム連鎖</td><td>上下半身のタイミング合わせ</td></tr>
+    <tr><td>③</td><td>軸脚スイッチ</td><td>支持脚の切り替え</td></tr>
+    <tr><td>④</td><td>骨盤→胸郭連鎖</td><td>上下半身のタイミング同期</td></tr>
     <tr><td>⑤</td><td>クロスステップリズム</td><td>動作中の軸保持</td></tr>
-    <tr><td>⑥</td><td>股関節ドリフト</td><td>股関節で方向転換</td></tr>
-    <tr><td>⑦</td><td>反応ステップ</td><td>瞬時のリズム切り替え</td></tr>
-    <tr><td>⑧</td><td>3拍リズムスロー</td><td>「溜め→開放→残す」の3拍子</td></tr>
-    <tr><td>⑨</td><td>体幹スイング（リズム保持）</td><td>遅れを利用して反動を生む</td></tr>
-    <tr><td>⑩</td><td>ヒップイン統合ドリル</td><td>全体の流れをスムーズに</td></tr>
+    <tr><td>⑥</td><td>股関節ドリフト</td><td>方向転換の滑らかさ</td></tr>
+    <tr><td>⑦</td><td>反応ステップ</td><td>即応的なリズム制御</td></tr>
+    <tr><td>⑧</td><td>3拍リズムスロー</td><td>溜め→開放→残しの三拍子</td></tr>
+    <tr><td>⑨</td><td>体幹スイング</td><td>上体の遅れで反動を生む</td></tr>
+    <tr><td>⑩</td><td>ヒップイン統合ドリル</td><td>リズムの流れを統合</td></tr>
   </table>
 </section>
 
 <!-- ===== CTA ===== -->
-<section class="actions">
+<div class="actions">
   <h2>購入・アップグレード</h2>
   <button class="buy-btn" onclick="window.open('https://adjustment-commits.github.io/store/liteD.html', '_blank')">
-    🔰 LITE版を購入（¥5,000）
+    🔰 LITE版を購入（¥2,200 税込）
   </button>
-  <button class="upgrade-btn" onclick="window.open('https://adjustment-commits.github.io/store/standardD.html', '_blank')">
-    🚀 STANDARD版にアップグレード（全10種目＋記録機能）
+  <button class="upgrade-btn" onclick="window.open('https://adjustment-commits.github.io/store/personal-design.html', '_blank')">
+    🚀 Personal Design（完全個別設計プラン）
+  </button>
+  <button class="back-btn" onclick="window.location.href='../lite/index.html'">
+    ◀ 他の教材を見る
   </button>
   <button class="back-btn" onclick="window.location.href='../counseling/index.html'">
     ◀ カウンセリングに戻る
   </button>
-</section>
-
+</div>
 </body>
 </html>
