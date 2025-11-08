@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>C｜出力連鎖と力の順番｜adjustment-lab</title>
 <meta name="theme-color" content="#f8faf9">
 <link rel="stylesheet" href="../assets/footer-lite.css">
@@ -98,20 +98,47 @@ section p {
   margin: 10px 0 18px;
 }
 
-/* ===== Table ===== */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 1.5em;
+/* ===== Program List (responsive cards) ===== */
+.program-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 1.2em;
+  padding: 0 10px;
 }
-th, td {
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  padding: 0.6em;
+
+.program-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #00b386;
+  border-radius: 6px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   text-align: left;
+  transition: 0.2s;
 }
-th {
-  color: var(--accent);
-  font-weight: 500;
+.program-card:hover {
+  background: #f8fdfb;
+}
+
+.program-card h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  color: #00b386;
+}
+
+.program-card .target {
+  margin: 0;
+  color: #333;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 720px) {
+  .program-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
 }
 
 /* ===== CTA ===== */
@@ -132,8 +159,14 @@ button {
   border: none;
 }
 .upgrade-btn { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
-.back-btn { background: none; color: var(--sub); text-decoration: underline; border: none; }
+.back-btn { background: none; color: var(--sub); text-decoration: underline; border: none;  margin-top: 6px;}
 button:hover { opacity: 0.85; }
+
+.actions h2 {
+  color: var(--accent);
+  font-size: 1.2rem;
+  margin-bottom: 1em;
+}
 
 /* ===== Info Box ===== */
 .notice {
@@ -162,7 +195,7 @@ button:hover { opacity: 0.85; }
   <p>力は一瞬の爆発ではなく、順序と連鎖で伝わる。<br>
   骨盤→胸郭→肩甲骨→腕へと、流れるようにエネルギーが伝わることで、<br>
   無駄のない出力が生まれる。<br>
-  この教材では、「つなぐ力」を再構築し、出力の流れを磨く。</p>
+  このプログラムでは「つなぐ力」を再構築し、出力の流れを磨く。</p>
 </section>
 <!-- ===== フィジカル構築ドリル（LITE版） ===== -->
 <section>
@@ -172,14 +205,14 @@ button:hover { opacity: 0.85; }
     <img src="./img/drill-ground-press.png" alt="グラウンドプレス イメージ">
     <p>足裏で床を押し、その反発で脚と骨盤を連動させる。<br>
     下半身から上半身へ“出力をつなぐ”起点を体で覚える。</p>
-    <p><strong>意識のキュー：</strong>「足で押した力を“返す”」</p>
+    <p><strong>意識のキュー：</strong><br>「足で押した力を“返す”」</p>
   </div>
   <div class="drill">
     <h3>② ヒップドライブ（骨盤始動）</h3>
     <img src="./img/drill-hip-drive.png" alt="ヒップドライブ イメージ">
     <p>骨盤を前に押し出し、上体が遅れて反応する動きを確認。<br>
     下半身の推進力を上半身へとつなげる感覚を養う。</p>
-    <p><strong>意識のキュー：</strong>「骨盤が動きのエンジン」</p>
+    <p><strong>意識のキュー：</strong><br>「骨盤が動きのエンジン」</p>
   </div>
   <div class="notice">
     ※LITE版ではこの2種目を通して、<br>「力の流れ」と「順番」を感じるための基礎を整えます。
@@ -188,21 +221,20 @@ button:hover { opacity: 0.85; }
 <!-- ===== STANDARD版案内 ===== -->
 <section>
   <h2>STANDARD版（Program C）</h2>
-  <p>全10種目構成。あなたの出力傾向に合わせて、<br>
-  力の連鎖を最大化するプログラムを個別設計します。</p>
-  <table>
-    <tr><th>No</th><th>種目名</th><th>狙い</th></tr>
-    <tr><td>①</td><td>グラウンドプレス</td><td>地面反力の感知</td></tr>
-    <tr><td>②</td><td>ヒップドライブ</td><td>骨盤始動の習得</td></tr>
-    <tr><td>③</td><td>骨盤→胸郭連鎖</td><td>下半身と上半身の同期</td></tr>
-    <tr><td>④</td><td>胸郭→肩甲骨連鎖</td><td>出力の中継点を安定</td></tr>
-    <tr><td>⑤</td><td>ショルダードライブ</td><td>肩甲帯から腕へ力を送る</td></tr>
-    <tr><td>⑥</td><td>アームリリース</td><td>力の抜けを作る</td></tr>
-    <tr><td>⑦</td><td>ステップスロー（軽負荷）</td><td>動作中の連鎖確認</td></tr>
-    <tr><td>⑧</td><td>トルクリリース</td><td>回転力の開放</td></tr>
-    <tr><td>⑨</td><td>フィニッシュバランス</td><td>出力後の安定制御</td></tr>
-    <tr><td>⑩</td><td>統合ドリル</td><td>全連鎖の統合</td></tr>
-  </table>
+  <p>全10種目構成。<br>あなたの出力傾向に合わせて力の連鎖を<br>
+  最大化するプログラムを個別設計します。</p>
+   <div class="program-list">
+    <div class="program-card"><h3>① グラウンドプレス</h3><p class="target">地面反力の感知</p></div>
+    <div class="program-card"><h3>② ヒップドライブ</h3><p class="target">骨盤始動の習得</p></div>
+    <div class="program-card"><h3>③ 骨盤→胸郭連鎖</h3><p class="target">下半身と上半身の同期</p></div>
+    <div class="program-card"><h3>④ 胸郭→肩甲骨連鎖</h3><p class="target">出力の中継点を安定</p></div>
+    <div class="program-card"><h3>⑤ ショルダードライブ</h3><p class="target">肩甲帯から腕へ力を送る</p></div>
+    <div class="program-card"><h3>⑥ アームリリース</h3><p class="target">力の抜けを作る</p></div>
+    <div class="program-card"><h3>⑦ ステップスロー（軽負荷）</h3><p class="target">動作中の連鎖確認</p></div>
+    <div class="program-card"><h3>⑧ トルクリリース</h3><p class="target">回転力の開放</p></div>
+    <div class="program-card"><h3>⑨ フィニッシュバランス</h3><p class="target">出力後の安定制御</p></div>
+    <div class="program-card"><h3>⑩ 統合ドリル</h3><p class="target">全連鎖の統合</p></div>
+  </div>
 </section>
 <!-- ===== CTA ===== -->
 <div class="actions">
