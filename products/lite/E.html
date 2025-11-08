@@ -2,14 +2,20 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
 <title>E｜呼吸と回復｜adjustment-lab</title>
 <meta name="theme-color" content="#f8faf9">
 <link rel="stylesheet" href="../assets/footer-lite.css">
 <script>
 fetch("../assets/footer-lite.html")
-</script>
-<style>
+  .then(res => res.text())
+  .then(html => {
+    const footer = document.createElement('footer');
+    footer.innerHTML = html;
+    document.body.appendChild(footer);
+  });
+</script><style>
 :root {
   --bg: #ffffff;
   --text: #1a1a1a;
@@ -24,6 +30,7 @@ body {
   line-height: 1.9;
   padding-bottom: 60px;
 }
+
 /* ===== Hero ===== */
 .hero {
   background: linear-gradient(180deg, #f5f7f6 0%, #ffffff 100%);
@@ -97,20 +104,44 @@ section p {
   margin: 10px 0 18px;
 }
 
-/* ===== Table ===== */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 1.5em;
+/* ===== Program List (responsive cards) ===== */
+.program-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 1.2em;
+  padding: 0 10px;
 }
-th, td {
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  padding: 0.6em;
+
+.program-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #00b386;
+  border-radius: 6px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   text-align: left;
+  transition: 0.2s;
 }
-th {
-  color: var(--accent);
-  font-weight: 500;
+.program-card:hover { background: #f8fdfb; }
+
+.program-card h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  color: #00b386;
+}
+.program-card .target {
+  margin: 0;
+  color: #333;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 720px) {
+  .program-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
 }
 
 /* ===== CTA ===== */
@@ -131,8 +162,14 @@ button {
   border: none;
 }
 .upgrade-btn { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
-.back-btn { background: none; color: var(--sub); text-decoration: underline; border: none; }
+.back-btn { background: none; color: var(--sub); text-decoration: underline; border: none; margin-top: 6px; }
 button:hover { opacity: 0.85; }
+
+.actions h2 {
+  color: var(--accent);
+  font-size: 1.2rem;
+  margin-bottom: 1em;
+}
 
 /* ===== Notice ===== */
 .notice {
@@ -144,7 +181,6 @@ button:hover { opacity: 0.85; }
   font-size: 0.9rem;
   color: #333;
 }
-
 </style>
 </head>
 <body>
@@ -153,12 +189,12 @@ button:hover { opacity: 0.85; }
   <img src="/adjustment-lab/products/lite/images/thumb-E-metallic-v2.png" alt="呼吸と回復 サムネイル">
   <div class="hero-content">
     <h1>E｜呼吸と回復</h1>
-    <p>呼吸で戻す。整う身体は“再現できる構造”にある。</p>
+    <p>呼吸で戻す。<br>整う身体は“再現できる構造”にある。</p>
   </div>
 </section>
 <!-- ===== 理解パート ===== -->
 <section>
-  <h2>回復とは「休む」ではなく「戻る」こと</h2>
+  <h2>回復とは「休む」ではなく「戻る」</h2>
   <p>呼吸は出力と同じくらい重要な“再現のフェーズ”。<br>
   吐くほどに筋の緊張は抜け、重力に馴染み、姿勢は再構築される。<br>
   呼吸を整えることは、力の通り道を整えることでもある。</p>
@@ -172,38 +208,44 @@ button:hover { opacity: 0.85; }
     <p>鼻から4秒吸って、口から8秒吐く。<br>
     吐くたびに身体が床に“沈む”感覚を確かめる。<br>
     緊張を解き、再現可能な姿勢へ戻していく。</p>
-    <p><strong>意識のキュー：</strong>「吐くほど安定する」</p>
+    <p><strong>意識のキュー：</strong><br>「吐くほど安定する」</p>
   </div>
   <div class="drill">
     <h3>② 背面呼吸（寝姿勢）</h3>
     <img src="./img/drill-back-breath.png" alt="背面呼吸 イメージ">
-    <p>仰向けで膝を立て、背中全体に空気を送る。<br>
+    <p>仰向けで膝を立て背中全体に空気を送る。<br>
     吸うと背中が床を押し、吐くと沈むように感じる。<br>
-    呼吸を使って“背中で支える”感覚を取り戻す。</p>
-    <p><strong>意識のキュー：</strong>「背中で呼吸を受ける」</p>
+    呼吸を使って“背中で支える”感覚を戻す。</p>
+    <p><strong>意識のキュー：</strong><br>「背中で呼吸を受ける」</p>
   </div>
   <div class="notice">
-    ※LITE版ではこの2種目を通して、<br>「呼吸で姿勢を再現する」感覚を育てます。
+    ※LITE版ではこの2種目を通して、<br>「呼吸で姿勢を再現する」感覚を育む。
   </div>
 </section>
 <!-- ===== STANDARD版案内 ===== -->
 <section>
   <h2>STANDARD版（Program E）</h2>
-  <p>全10種目構成。あなたの呼吸タイプと回復リズムを分析し、<br>
+  <p>全10種目構成。<br>あなたの呼吸タイプと回復リズムを分析し、<br>
   出力とリカバリーを循環させる個別プログラムを設計します。</p>
-  <table>
-    <tr><th>No</th><th>種目名</th><th>狙い</th></tr>
-    <tr><td>①</td><td>呼吸リセット</td><td>自律神経の安定</td></tr>
-    <tr><td>②</td><td>横隔膜ストレッチ</td><td>呼吸可動域の拡大</td></tr>
-    <tr><td>③</td><td>肋骨モビリティ呼吸</td><td>胸郭の拡張と収縮</td></tr>
-    <tr><td>④</td><td>骨盤呼吸連動</td><td>骨盤と呼吸の同期</td></tr>
-    <tr><td>⑤</td><td>背面呼吸（寝姿勢）</td><td>背中の弾力回復</td></tr>
-    <tr><td>⑥</td><td>立位呼吸スキャン</td><td>姿勢と呼吸の一致</td></tr>
-    <tr><td>⑦</td><td>片側呼吸リリース</td><td>非対称の補正</td></tr>
-    <tr><td>⑧</td><td>呼吸ウォーク</td><td>動作と呼吸の同期</td></tr>
-    <tr><td>⑨</td><td>クールダウンフロー</td><td>呼吸を伴う動的回復</td></tr>
-    <tr><td>⑩</td><td>呼吸統合チェック</td><td>意識と姿勢の再統合</td></tr>
-  </table>
+  <!-- ===== STANDARD版案内 ===== -->
+<section>
+  <h2>STANDARD版（Program E）</h2>
+  <p>全10種目構成。<br>あなたの呼吸タイプと回復リズムを分析し、<br>
+  出力とリカバリーを循環させる個別プログラムを設計します。</p>
+
+  <div class="program-list">
+    <div class="program-card"><h3>① 呼吸リセット</h3><p class="target">自律神経の安定</p></div>
+    <div class="program-card"><h3>② 横隔膜ストレッチ</h3><p class="target">呼吸可動域の拡大</p></div>
+    <div class="program-card"><h3>③ 肋骨モビリティ呼吸</h3><p class="target">胸郭の拡張と収縮</p></div>
+    <div class="program-card"><h3>④ 骨盤呼吸連動</h3><p class="target">骨盤と呼吸の同期</p></div>
+    <div class="program-card"><h3>⑤ 背面呼吸（寝姿勢）</h3><p class="target">背中の弾力回復</p></div>
+    <div class="program-card"><h3>⑥ 立位呼吸スキャン</h3><p class="target">姿勢と呼吸の一致</p></div>
+    <div class="program-card"><h3>⑦ 片側呼吸リリース</h3><p class="target">非対称の補正</p></div>
+    <div class="program-card"><h3>⑧ 呼吸ウォーク</h3><p class="target">動作と呼吸の同期</p></div>
+    <div class="program-card"><h3>⑨ クールダウンフロー</h3><p class="target">呼吸を伴う動的回復</p></div>
+    <div class="program-card"><h3>⑩ 呼吸統合チェック</h3><p class="target">意識と姿勢の再統合</p></div>
+  </div>
+</section>
 </section>
 <!-- ===== CTA ===== -->
 <div class="actions">
