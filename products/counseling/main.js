@@ -21,13 +21,13 @@ if (currentStep === 6) {
 
   // ✅ 対面セッションの場合だけボタン文言と色を変更
   const isSession = result.link.includes('/adjustment/index.html');
-  const mainButtonLabel = isSession ? '▶ 対面セッションページへ' : '▶ 推奨教材へ進む';
+  const mainButtonLabel = isSession ? '▶ 対面セッションページへ' : '▶ 推奨プログラムへ';
 
   resultArea.innerHTML = `
     <p>${result.text}</p>
     <button id="goToLite" class="main-btn">${mainButtonLabel}</button>
     <hr>
-    <p style="color:#666; font-size:0.9rem;">他の教材を選ぶ</p>
+    <p style="color:#666; font-size:0.9rem;">他のプログラムを選ぶ</p>
     <div class="icon-links">
       <img src="../lite/icons/icon-A.png" alt="A" class="jump" data-link="../lite/A.html">
       <img src="../lite/icons/icon-B.png" alt="B" class="jump" data-link="../lite/B.html">
