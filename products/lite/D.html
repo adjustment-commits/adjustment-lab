@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>D｜ヒップインとリズム｜adjustment-lab</title>
 <meta name="theme-color" content="#f8faf9">
 <link rel="stylesheet" href="../assets/footer-lite.css">
@@ -24,6 +24,7 @@ body {
   line-height: 1.9;
   padding-bottom: 60px;
 }
+
 /* ===== Hero ===== */
 .hero {
 background: linear-gradient(180deg, #f5f7f6 0%, #ffffff 100%);
@@ -97,20 +98,41 @@ box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 margin: 10px 0 18px;
 }
 
-/* ===== Table ===== */
-table {
-border-collapse: collapse;
-width: 100%;
-margin-top: 1.5em;
+/* ===== Program List (responsive cards) ===== */
+.program-list {
+display: grid;
+grid-template-columns: 1fr;
+gap: 12px;
+margin-top: 1.2em;
+padding: 0 10px;
 }
-th, td {
-border-bottom: 1px solid rgba(0,0,0,0.05);
-padding: 0.6em;
+.program-card {
+background: #fff;
+border: 1px solid #e0e0e0;
+border-left: 4px solid #00b386;
+border-radius: 6px;
+padding: 12px 14px;
+box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 text-align: left;
+transition: 0.2s;
 }
-th {
-color: var(--accent);
-font-weight: 500;
+.program-card:hover { background: #f8fdfb; }
+.program-card h3 {
+margin: 0 0 4px;
+font-size: 1rem;
+color: #00b386;
+}
+.program-card .target {
+margin: 0;
+color: #333;
+font-size: 0.9rem;
+line-height: 1.6;
+}
+@media (min-width: 720px) {
+.program-list {
+grid-template-columns: repeat(2, 1fr);
+gap: 16px;
+}
 }
 
 /* ===== CTA ===== */
@@ -131,8 +153,14 @@ transition: 0.3s;
 border: none;
 }
 .upgrade-btn { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
-.back-btn { background: none; color: var(--sub); text-decoration: underline; border: none; }
+.back-btn { background: none; color: var(--sub); text-decoration: underline; border: none; margin-top: 6px; }
 button:hover { opacity: 0.85; }
+
+.actions h2 {
+color: var(--accent);
+font-size: 1.2rem;
+margin-bottom: 1em;
+}
 
 /* ===== Notice ===== */
 .notice {
@@ -144,9 +172,8 @@ margin-top: 24px;
 font-size: 0.9rem;
 color: #333;
 }
-
-
 </style>
+
 </head>
 <body>
 <!-- ===== Hero ===== -->
@@ -154,7 +181,7 @@ color: #333;
   <img src="/adjustment-lab/products/lite/images/thumb-D-metallic-v2.png" alt="ヒップインとリズム サムネイル">
   <div class="hero-content">
     <h1>D｜ヒップインとリズム</h1>
-    <p>リズムで動作をつなぎ、力を流す構造を身につける。</p>
+    <p>リズムで動作を繋ぎ、力を流す構造を身につける。</p>
   </div>
 </section>
 <!-- ===== 理解パート ===== -->
@@ -172,14 +199,14 @@ color: #333;
     <img src="./img/drill-hipin-stance.png" alt="ヒップインスタンス イメージ">
     <p>片脚立ちで骨盤を内側（前脚方向）に引き込み、股関節の“吸い込み”を体感する。<br>
     力を入れるのではなく、重心を股関節に落とし込むイメージ。</p>
-    <p><strong>意識のキュー：</strong>「股関節に“落とす”」</p>
+    <p><strong>意識のキュー：</strong><br>「股関節に“落とす”」</p>
   </div>
   <div class="drill">
     <h3>② 骨盤リズムスイング</h3>
     <img src="./img/drill-pelvis-swing.png" alt="骨盤リズムスイング イメージ">
     <p>骨盤を左右に軽くスイングし、上体が遅れてついてくるリズムを感じる。<br>
     骨盤をリズムの中心に置くことで、全身の動きが連鎖する。</p>
-    <p><strong>意識のキュー：</strong>「骨盤でリズムを刻む」</p>
+    <p><strong>意識のキュー：</strong><br>「骨盤でリズムを刻む」</p>
   </div>
   <div class="notice">
     ※LITE版ではこの2種目を通して、<br>「リズムで力をつなぐ」感覚を育てます。
@@ -188,21 +215,19 @@ color: #333;
 <!-- ===== STANDARD版案内 ===== -->
 <section>
   <h2>STANDARD版（Program D）</h2>
-  <p>全10種目構成。あなたのリズムタイプと出力傾向をもとに、<br>
-  骨盤主導の動作連鎖を個別最適化します。</p>
-  <table>
-    <tr><th>No</th><th>種目名</th><th>狙い</th></tr>
-    <tr><td>①</td><td>ヒップインスタンス</td><td>股関節の入りを体感</td></tr>
-    <tr><td>②</td><td>骨盤リズムスイング</td><td>骨盤の回転リズムを掴む</td></tr>
-    <tr><td>③</td><td>軸脚スイッチ</td><td>支持脚の切り替え</td></tr>
-    <tr><td>④</td><td>骨盤→胸郭連鎖</td><td>上下半身のタイミング同期</td></tr>
-    <tr><td>⑤</td><td>クロスステップリズム</td><td>動作中の軸保持</td></tr>
-    <tr><td>⑥</td><td>股関節ドリフト</td><td>方向転換の滑らかさ</td></tr>
-    <tr><td>⑦</td><td>反応ステップ</td><td>即応的なリズム制御</td></tr>
-    <tr><td>⑧</td><td>3拍リズムスロー</td><td>溜め→開放→残しの三拍子</td></tr>
-    <tr><td>⑨</td><td>体幹スイング</td><td>上体の遅れで反動を生む</td></tr>
-    <tr><td>⑩</td><td>ヒップイン統合ドリル</td><td>リズムの流れを統合</td></tr>
-  </table>
+  <p>全10種目構成。<br>あなたのリズムタイプと出力傾向をもとに<br>骨盤主導の動作連鎖を個別最適化します。</p>
+  <div class="program-list">
+    <div class="program-card"><h3>① ヒップインスタンス</h3><p class="target">股関節の入りを体感</p></div>
+    <div class="program-card"><h3>② 骨盤リズムスイング</h3><p class="target">骨盤の回転リズムを掴む</p></div>
+    <div class="program-card"><h3>③ 軸脚スイッチ</h3><p class="target">支持脚の切り替え</p></div>
+    <div class="program-card"><h3>④ 骨盤→胸郭連鎖</h3><p class="target">上下半身のタイミング同期</p></div>
+    <div class="program-card"><h3>⑤ クロスステップリズム</h3><p class="target">動作中の軸保持</p></div>
+    <div class="program-card"><h3>⑥ 股関節ドリフト</h3><p class="target">方向転換の滑らかさ</p></div>
+    <div class="program-card"><h3>⑦ 反応ステップ</h3><p class="target">即応的なリズム制御</p></div>
+    <div class="program-card"><h3>⑧ 3拍リズムスロー</h3><p class="target">溜め→開放→残しの三拍子</p></div>
+    <div class="program-card"><h3>⑨ 体幹スイング</h3><p class="target">上体の遅れで反動を生む</p></div>
+    <div class="program-card"><h3>⑩ ヒップイン統合ドリル</h3><p class="target">リズムの流れを統合</p></div>
+  </div>
 </section>
 <!-- ===== CTA ===== -->
 <div class="actions">
@@ -219,3 +244,4 @@ color: #333;
 </div>
 </body>
 </html>
+
