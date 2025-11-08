@@ -273,7 +273,23 @@ body.lab-mode #purpose-lab {
   body:not(.lab-mode) main { margin-bottom: 0.5em; }
   body.lab-mode #purpose-lab { margin-bottom: 1.8em; }
 }
-  
+/* ===== labモードのフッター強調 ===== */
+body.lab-mode footer {
+  color: #dffcf3 !important;
+text-shadow: 0 0 8px rgba(0, 0, 0, 0.75), 0 0 14px rgba(0,255,200,0.3);
+opacity: 0.9;
+
+}
+
+body.lab-mode footer a {
+  color: #8affdd !important;
+text-shadow: 0 0 8px rgba(0, 0, 0, 0.65), 0 0 14px rgba(0,255,200,0.4);
+}
+
+body.lab-mode footer a:hover {
+   color: #ffffff !important;
+text-shadow: 0 0 18px rgba(0,255,200,0.8), 0 0 30px rgba(0,255,200,0.35);
+}
 </style>
 </head>
 
@@ -301,7 +317,8 @@ body.lab-mode #purpose-lab {
       <p id="intro-lab" style="display:none;">
       トレーニング管理アプリと<br>HTMLトレーニングプログラムを<br>開発・販売するデジタル拠点。<br>
      「整【アジャストメント】」の現場で生まれた<br>理論を学び・使える形に変換します。<br><br>
-      <span style="color:#00b386;font-weight:500;">アプリで記録、プログラムで実践。</span>
+      <span style="color:#6effc9; font-weight:600; text-shadow:0 0 8px rgba(0,0,0,0.5), 0 0 10px rgba(0,255,200,0.4);">
+アプリで記録、プログラムで実践。</span>
 　　　　</p>    
     </section>
 
@@ -313,12 +330,15 @@ body.lab-mode #purpose-lab {
       </p>
       <p style="font-size:1rem; color:#fff;">
         選手の努力を再現できる構造に変える。<br>
-        <span style="color:#00b386; font-weight:500;">adjustment-lab</span>は、<br>
+        <span style="color:#6effc9; font-weight:600; text-shadow:0 0 8px rgba(0,0,0,0.5), 0 0 10px rgba(0,255,200,0.4);">
+adjustment-lab
+</span>は、<br>
         現場の思考を形にしたプログラムです。
       </p>
 
-      <p style="font-size:0.9rem; color:#aaa; margin-top:20px;">
-        これは“情報”ではなく、<br>“再現性”を届けるプロジェクトです。
+     <p style="font-size:0.9rem; color:#e5fff3; margin-top:20px;
+text-shadow:0 0 5px rgba(0,0,0,0.6), 0 0 12px rgba(0,255,200,0.25);">
+これは“情報”ではなく<br>“再現性”を届けるプロジェクトです。
       </p>
     </section>
   </main>
