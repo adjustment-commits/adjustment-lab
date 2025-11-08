@@ -2,12 +2,18 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>B｜姿勢と再現性｜adjustment-lab</title>
 <meta name="theme-color" content="#f8faf9">
 <link rel="stylesheet" href="../assets/footer-lite.css">
 <script>
 fetch("../assets/footer-lite.html")
+  .then(res => res.text())
+  .then(html => {
+    const footer = document.createElement('footer');
+    footer.innerHTML = html;
+    document.body.appendChild(footer);
+  });
 </script>
 <style>
 :root {
@@ -90,21 +96,49 @@ section p {
   font-size: 0.95rem;
 }
 
-/* ===== Table ===== */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 1.5em;
+/* ===== Program List (responsive cards) ===== */
+.program-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 1.2em;
+  padding: 0 10px;
 }
-th, td {
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  padding: 0.6em;
+
+.program-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #00b386;
+  border-radius: 6px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   text-align: left;
+  transition: 0.2s;
 }
-th {
-  color: var(--accent);
-  font-weight: 500;
+.program-card:hover {
+  background: #f8fdfb;
 }
+
+.program-card h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  color: #00b386;
+}
+
+.program-card .target {
+  margin: 0;
+  color: #333;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 720px) {
+  .program-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
 
 /* ===== CTA ===== */
 .actions {
@@ -124,9 +158,15 @@ button {
   border: none;
 }
 .upgrade-btn { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
-.back-btn { background: none; color: var(--sub); text-decoration: underline; border: none; }
+.back-btn { background: none; color: var(--sub); text-decoration: underline; border: none;margin-top: 6px; }
 button:hover { opacity: 0.85; }
 
+ .actions h2 {
+  color: var(--accent);
+  font-size: 1.2rem;
+  margin-bottom: 1em;
+} 
+  
 /* ===== Info Box ===== */
 .notice {
   background: #f3f8f5;
@@ -146,7 +186,7 @@ button:hover { opacity: 0.85; }
   <img src="/adjustment-lab/products/lite/images/thumb-B-metallic-v2.png" alt="姿勢と再現性 サムネイル">
   <div class="hero-content">
     <h1>B｜姿勢と再現性</h1>
-    <p>戦う姿勢を、何度でも再現できる構造へ。</p>
+    <p>戦う姿勢を何度でも再現できる構造へ。</p>
   </div>
 </section>
 <!-- ===== 理解パート ===== -->
@@ -163,13 +203,13 @@ button:hover { opacity: 0.85; }
     <h3>① 姿勢リセット呼吸</h3>
     <p>仰向けで膝を立て、息を吐きながら胸郭と骨盤を近づける。<br>
     呼吸で姿勢をリセットし、体幹の軸を整える。</p>
-    <p><strong>意識のキュー：</strong>「呼吸で骨盤が揺れる」</p>
+    <p><strong>意識のキュー：</strong><br>「呼吸で骨盤が揺れる」</p>
   </div>
   <div class="drill">
     <h3>② 壁立ちニュートラル</h3>
     <p>壁に踵・背中・後頭部を軽く当て、呼吸を止めずに5秒キープ。<br>
     骨盤と胸郭の揃う位置を覚え、“戻れる姿勢”を確立する。</p>
-    <p><strong>意識のキュー：</strong>「壁に“預ける”姿勢を覚える」</p>
+    <p><strong>意識のキュー：</strong><br>「壁に“預ける”姿勢を覚える」</p>
   </div>
   <div class="notice">
     ※LITE版ではこの2種目を通して、<br>「軸の再現」を中心とした姿勢制御能力を育てます。
@@ -178,21 +218,50 @@ button:hover { opacity: 0.85; }
 <!-- ===== STANDARD版案内 ===== -->
 <section>
   <h2>STANDARD版（Program B）</h2>
-  <p>全10種目構成。あなたの動作・体力データをもとに、<br>
+  <p>全10種目構成。<br>あなたの動作・体力データをもとに、<br>
   再現性と安定を高めるトレーニングプランを個別設計します。</p>
-  <table>
-    <tr><th>No</th><th>種目名</th><th>狙い</th></tr>
-    <tr><td>①</td><td>姿勢リセット呼吸</td><td>呼吸で姿勢を整える</td></tr>
-    <tr><td>②</td><td>骨盤・胸郭ラインチェック</td><td>骨盤と胸郭をそろえる</td></tr>
-    <tr><td>③</td><td>壁立ちニュートラル</td><td>中心軸の再現</td></tr>
-    <tr><td>④</td><td>肩甲骨セントリング</td><td>肩の安定と胸の開き</td></tr>
-    <tr><td>⑤</td><td>骨盤前後ロール</td><td>骨盤と脊柱の連動</td></tr>
-    <tr><td>⑥</td><td>胸郭スライド</td><td>胸郭の可動性を保つ</td></tr>
-    <tr><td>⑦</td><td>重心スキャン（前後）</td><td>前後重心の再現</td></tr>
-    <tr><td>⑧</td><td>骨盤安定ランジ</td><td>動きながら姿勢を維持</td></tr>
-    <tr><td>⑨</td><td>姿勢保持スイング</td><td>動作中も軸を保つ</td></tr>
-    <tr><td>⑩</td><td>再現ポジション確認</td><td>初期姿勢を再チェック</td></tr>
-  </table>
+  <div class="program-list">
+    <div class="program-card">
+      <h3>① 姿勢リセット呼吸</h3>
+      <p class="target">呼吸で姿勢を整える</p>
+    </div>
+    <div class="program-card">
+      <h3>② 骨盤・胸郭ラインチェック</h3>
+      <p class="target">骨盤と胸郭をそろえる</p>
+    </div>
+    <div class="program-card">
+      <h3>③ 壁立ちニュートラル</h3>
+      <p class="target">中心軸の再現</p>
+    </div>
+    <div class="program-card">
+     <h3>④ 肩甲骨セントリング</h3>
+      <p class="target">肩の安定と胸の開き</p>
+    </div>
+    <div class="program-card">
+      <h3>⑤ 骨盤前後ロール</h3>
+      <p class="target">骨盤と脊柱の連動</p>
+    </div>
+    <div class="program-card">
+      <h3>⑥ 胸郭スライド</h3>
+      <p class="target">胸郭の可動性を保つ</p>
+    </div>
+    <div class="program-card">
+      <h3>⑦ 重心スキャン（前後）</h3>
+      <p class="target">前後重心の再現</p>
+    </div>
+    <div class="program-card">
+      <h3>⑧ 骨盤安定ランジ</h3>
+      <p class="target">動きながら姿勢を維持</p>
+    </div>
+    <div class="program-card">
+      <h3>⑨ 姿勢保持スイング</h3>
+      <p class="target">動作中も軸を保つ</p>
+    </div>
+    <div class="program-card">
+      <h3>⑩ 再現ポジション確認</h3>
+      <p class="target">初期姿勢を再チェック</p>
+    </div>    
+  </div>
 </section>
 <!-- ===== CTA ===== -->
 <div class="actions">
