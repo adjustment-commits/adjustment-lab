@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A｜体を整える基本｜adjustment-lab</title>
 <meta name="theme-color" content="#f8faf9">
 <link rel="stylesheet" href="../assets/footer-lite.css">
@@ -91,20 +91,46 @@ section p {
   font-size: 0.95rem;
 }
 
-/* ===== Table ===== */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 1.5em;
+.program-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 1.2em;
+  padding: 0 10px;
 }
-th, td {
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  padding: 0.6em;
+
+.program-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #00b386;
+  border-radius: 6px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   text-align: left;
+  transition: 0.2s;
 }
-th {
-  color: var(--accent);
-  font-weight: 500;
+.program-card:hover {
+  background: #f8fdfb;
+}
+
+.program-card h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  color: #00b386;
+}
+
+.program-card .target {
+  margin: 0;
+  color: #333;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 720px) {
+  .program-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
 }
 
 /* ===== CTA ===== */
@@ -126,7 +152,7 @@ button {
 }
 .buy-btn { background: var(--accent); color: #fff; }
 .upgrade-btn { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
-.back-btn { background: none; color: var(--sub); text-decoration: underline; border: none; }
+.back-btn { background: none; color: var(--sub); text-decoration: underline; border: none; margin-top: 4px; }
 button:hover { opacity: 0.85; }
 
 /* ===== Info Box ===== */
@@ -163,13 +189,13 @@ button:hover { opacity: 0.85; }
     <h3>① ニュートラル立位チェック</h3>
     <p>片足立ちになり、骨盤が傾かず呼吸できるかを確認する。<br>
     呼吸が止まる・肩が上がる場合は、重心がズレているサイン。</p>
-    <p><strong>意識のキュー：</strong>「骨盤の真上に頭を乗せる」</p>
+    <p><strong>意識のキュー：</strong><br>「骨盤の真上に頭を乗せる」</p>
   </div>
   <div class="drill">
     <h3>② 骨盤ニュートラル呼吸</h3>
     <p>息を吸うと骨盤前傾、吐くと骨盤が戻る。呼吸のリズムで骨盤をゆるめる。<br>
     反り腰・骨盤後傾の癖をリセットする基礎ドリル。</p>
-    <p><strong>意識のキュー：</strong>「骨盤が呼吸に合わせて“ゆれる”」</p>
+    <p><strong>意識のキュー：</strong><br>「骨盤が呼吸に合わせて“ゆれる”」</p>
   </div>
   <div class="notice">
     ※LITE版ではこの2種目を通して、<br>「出力の基準」を構築するフィジカル基盤を育てます。
@@ -178,21 +204,62 @@ button:hover { opacity: 0.85; }
 <!-- ===== STANDARD版案内 ===== -->
 <section>
   <h2>STANDARD版（Program A）</h2>
-  <p>全10種目構成。あなたの体力測定や課題に基づき、<br>
-  「再現できる出力構造」を設計する個別プログラムを提供します。</p>
-  <table>
-    <tr><th>No</th><th>種目名</th><th>狙い</th></tr>
-    <tr><td>①</td><td>ニュートラル立位チェック</td><td>身体のゼロポジションを知る</td></tr>
-    <tr><td>②</td><td>骨盤ニュートラル呼吸</td><td>呼吸で骨盤の傾きを整える</td></tr>
-    <tr><td>③</td><td>胸郭ニュートラル呼吸</td><td>骨盤と胸郭の同期</td></tr>
-    <tr><td>④</td><td>背骨ローリング</td><td>脊柱の分節と柔軟性</td></tr>
-    <tr><td>⑤</td><td>重心ラインチェック</td><td>力を真下に流す感覚</td></tr>
-    <tr><td>⑥</td><td>骨盤ローテーション</td><td>下半身と上半身の分離</td></tr>
-    <tr><td>⑦</td><td>体幹スイッチ</td><td>骨盤・肋骨の連動を引き出す</td></tr>
-    <tr><td>⑧</td><td>床反力キャッチ</td><td>足裏から反力を拾う</td></tr>
-    <tr><td>⑨</td><td>ニュートラルステップ</td><td>動作中のニュートラル再現</td></tr>
-    <tr><td>⑩</td><td>統合ドリル</td><td>①〜⑨の全体統合</td></tr>
-  </table>
+  <p>全10種目構成。<br>あなたの体力測定や課題に基づき、<br>
+  「再現できる出力構造」を設計する<br>個別プログラムを提供します。</p>
+ <div class="program-list">
+
+    <div class="program-card">
+      <h3>① ニュートラル立位チェック</h3>
+      <p class="target">身体のゼロポジションを知る</p>
+    </div>
+
+    <div class="program-card">
+      <h3>② 骨盤ニュートラル呼吸</h3>
+      <p class="target">呼吸で骨盤の傾きを整える</p>
+    </div>
+
+    <div class="program-card">
+      <h3>③ 胸郭ニュートラル呼吸</h3>
+      <p class="target">骨盤と胸郭の同期</p>
+    </div>
+
+    <div class="program-card">
+      <h3>④ 背骨ローリング</h3>
+      <p class="target">脊柱の分節と柔軟性</p>
+    </div>
+
+    <div class="program-card">
+      <h3>⑤ 重心ラインチェック</h3>
+      <p class="target">力を真下に流す感覚</p>
+    </div>
+
+    <div class="program-card">
+      <h3>⑥ 骨盤ローテーション</h3>
+      <p class="target">下半身と上半身の分離</p>
+    </div>
+
+    <div class="program-card">
+      <h3>⑦ 体幹スイッチ</h3>
+      <p class="target">骨盤・肋骨の連動を引き出す</p>
+    </div>
+
+    <div class="program-card">
+      <h3>⑧ 床反力キャッチ</h3>
+      <p class="target">足裏から反力を拾う</p>
+    </div>
+
+    <div class="program-card">
+      <h3>⑨ ニュートラルステップ</h3>
+      <p class="target">動作中のニュートラル再現</p>
+    </div>
+
+    <div class="program-card">
+      <h3>⑩ 統合ドリル</h3>
+      <p class="target">①〜⑨の全体統合</p>
+    </div>
+
+  </div>
+
 </section>
 <!-- ===== CTA ===== -->
 <div class="actions">
