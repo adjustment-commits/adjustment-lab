@@ -9,18 +9,6 @@
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#f8faf9">
 
-<!-- ===== 共通CSS / フッター読み込み ===== -->
-<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
-
-<script>
-fetch("/adjustment-lab/assets/footer-lite.html")
-  .then(res => res.text())
-  .then(html => {
-    const footer = document.querySelector('footer');
-    if (footer) footer.innerHTML = html;
-  });
-</script>
-
 <!-- ===== Service Worker ===== -->
 <script>
 if ("serviceWorker" in navigator) {
