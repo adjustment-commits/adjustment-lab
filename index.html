@@ -90,6 +90,15 @@ body.lab-mode p.desc {
   color: #e5fff3;
 }
 
+/* === ナビボタン群 === */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 60px;  /* ← ここでトグルとの距離を確保 */
+}
+
 /* === トグルボタン（整モード）=== */
 button.toggle {
   background: none;
@@ -101,14 +110,14 @@ button.toggle {
   cursor: pointer;
   transition: 0.3s ease;
   margin-top: 0.8em;
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;  /* 下余白も広げる */
 }
 button.toggle:hover {
   background: var(--accent);
   color: #fff;
 }
 
-/* === labモード時：ガラス調ボタンに切り替え === */
+/* === labモード：ガラス調トグル === */
 body.lab-mode button.toggle {
   background: rgba(255, 255, 255, 0.85);
   color: #000;
@@ -116,42 +125,12 @@ body.lab-mode button.toggle {
   box-shadow: 0 2px 8px rgba(0,255,200,0.25);
   text-shadow: none;
   backdrop-filter: blur(6px);
+  margin-top: 20px;   /* ← labモード時にも距離維持 */
 }
 body.lab-mode button.toggle:hover {
   background: #fff;
   color: #007a56;
   box-shadow: 0 3px 10px rgba(0,255,200,0.4);
-}
-
-/* === 上ボタン：lab開発商品を見る === */
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-}
-nav a {
-  text-decoration: none;
-  color: #ffffff;
-  border: 1px solid rgba(255,255,255,0.6);
-  border-radius: 8px;
-  padding: 0.75em 1.8em;
-  font-size: 1rem;
-  font-weight: 600;
-  background: rgba(0, 80, 60, 0.3);
-  backdrop-filter: blur(6px);
-  box-shadow:
-    0 0 8px rgba(0,255,180,0.3),
-    inset 0 0 6px rgba(255,255,255,0.2);
-  transition: all 0.25s ease-in-out;
-}
-nav a:hover {
-  background: rgba(0, 120, 85, 0.5);
-  color: #dff;
-  box-shadow:
-    0 0 15px rgba(0,255,200,0.55),
-    inset 0 0 10px rgba(255,255,255,0.3);
-  transform: translateY(-1px);
 }
 
 /* ===== labモード ===== */
