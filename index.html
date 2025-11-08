@@ -1,3 +1,6 @@
+index.htmlの内容は変えずにadjustment-labの背景色を明るいグリーンに変更したいけどどう？
+
+〜既存コード〜
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,6 +11,18 @@
 <!-- ===== Manifest / PWA ===== -->
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#f8faf9">
+
+<!-- ===== 共通CSS / フッター読み込み ===== -->
+<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
+
+<script>
+fetch("/adjustment-lab/assets/footer-lite.html")
+  .then(res => res.text())
+  .then(html => {
+    const footer = document.querySelector('footer');
+    if (footer) footer.innerHTML = html;
+  });
+</script>
 
 <!-- ===== Service Worker ===== -->
 <script>
@@ -90,16 +105,7 @@ body.lab-mode p.desc {
   color: #e5fff3;
 }
 
-/* === ナビボタン群 === */
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 60px;  /* ← ここでトグルとの距離を確保 */
-}
-
-/* ===== トグルボタン（整モード） ===== */
+/* ↓ トグルボタンの上の隙間を減らす */
 button.toggle {
   background: none;
   border: 1px solid var(--accent);
@@ -109,78 +115,58 @@ button.toggle {
   border-radius: 4px;
   cursor: pointer;
   transition: 0.3s ease;
- margin-top: 1.2em;
-+ margin-bottom: 1.8em; /* ← ボタン間を広げて接触感を解消 */}
+  margin-top: 0.8em;    /* ← 追加：ボタン上のスペースを少し */
+  margin-bottom: 1em;   /* ← 1.5em → 1em に調整 */
+}
 button.toggle:hover {
   background: var(--accent);
   color: #fff;
 }
 
-/* ===== labモード（単色＋高コントラスト） ===== */
+/* ===== Nav Buttons ===== */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+nav a {
+  text-decoration: none;
+  color: var(--text);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 0.6em 1.4em;
+  font-size: 0.95rem;
+  transition: 0.3s ease;
+}
+nav a:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ===== labモード ===== */
 body.lab-mode {
-  background: #0f3a31; /* 深緑単色 */
-  color: #f5fffb;
+  background: #0b3d31;
+  color: #f8faf9;
 }
-
-body.lab-mode h1,
-body.lab-mode h2,
-body.lab-mode p,
-body.lab-mode footer {
-  color: #f5fffb !important;
-  text-shadow: none;
-  filter: none;
-}
-
-/* リンクは発光禁止・色で示す */
-body.lab-mode a { color: #bff7e7; }
-body.lab-mode a:hover { color: #ffffff; }
-
-/* ===== labモード：ナビボタン ===== */
+body.lab-mode h1 { color: var(--accent); }
 body.lab-mode nav a {
-  color: #ffffff;
-  border: 1px solid #ffffff;
-  background: transparent;
-  box-shadow: none;
-  backdrop-filter: none;
+  border-color: #fff;
+  color: #fff;
 }
 body.lab-mode nav a:hover {
-  background: #ffffff;
-  color: #0f3a31;
-  border-color: #ffffff;
+  background: #fff;
+  color: #0b3d31;
 }
-
-/* ===== labモード：トグル（← トレーナー事業へ） ===== */
 body.lab-mode button.toggle {
-  background: #ffffff;
-  color: #111;
-  border: 1px solid rgba(255,255,255,0.35);
-  font-weight: 700;
-  border-radius: 6px;
-  box-shadow: none;
-  text-shadow: none;
+  border-color: #fff;
+  color: #fff;
 }
 body.lab-mode button.toggle:hover {
-  background: #f2f2f2;
-  color: #0f3a31;
-  border-color: #ffffff;
+  background: #fff;
+  color: #0b3d31;
 }
 
-/* ===== labモード：フッター ===== */
-body.lab-mode footer {
-  background: transparent;
-  color: #e8f7f2 !important;
-  text-shadow: none;
-  border-top: 1px solid rgba(255,255,255,0.25);
-  backdrop-filter: none;
-}
-body.lab-mode footer a {
-  color: #c8fff0 !important;
-  text-shadow: none;
-}
-body.lab-mode footer a:hover {
-  color: #ffffff !important;
-}
-  
 /* ===== Intro Section ===== */
 main {
   text-align: center;
@@ -253,32 +239,6 @@ body.lab-mode #purpose-lab {
   body:not(.lab-mode) main { margin-bottom: 0.5em; }
   body.lab-mode #purpose-lab { margin-bottom: 1.8em; }
 }
-/* ===== labモード：読みやすいフッター ===== */
-body.lab-mode footer {
-  color: #ffffff !important;
-  text-shadow:
-    0 0 4px rgba(0, 0, 0, 0.6),
-    0 0 10px rgba(0, 0, 0, 0.3);
-  background: rgba(0, 0, 0, 0.25);
-  padding: 20px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(4px);
-}
-
-body.lab-mode footer a {
-  color: #caffef !important;
-  font-weight: 500;
-  text-shadow:
-    0 0 6px rgba(0, 0, 0, 0.6),
-    0 0 10px rgba(0,255,200,0.3);
-}
-
-body.lab-mode footer a:hover {
-  color: #ffffff !important;
-  text-shadow:
-    0 0 12px rgba(0,255,200,0.7),
-    0 0 24px rgba(0,255,200,0.3);
-}
   
 </style>
 </head>
@@ -305,10 +265,9 @@ body.lab-mode footer a:hover {
       </p>
 
       <p id="intro-lab" style="display:none;">
-      トレーニング管理アプリと<br>HTMLトレーニングプログラムを<br>開発・販売するデジタル拠点。<br>
+      トレーニング管理アプリとwebアプリとして<br>閲覧可能なトレーニングプログラムを<br>開発・販売するデジタル拠点。<br>
      「整【アジャストメント】」の現場で生まれた<br>理論を学び・使える形に変換します。<br><br>
-      <span style="color:#6effc9; font-weight:600; text-shadow:0 0 8px rgba(0,0,0,0.5), 0 0 10px rgba(0,255,200,0.4);">
-アプリで記録、プログラムで実践。</span>
+      <span style="color:#00b386;font-weight:500;">アプリで記録、プログラムで実践。</span>
 　　　　</p>    
     </section>
 
@@ -316,19 +275,16 @@ body.lab-mode footer a:hover {
       <p style="font-size:0.95rem; color:#e8e8e8; margin-top:12px;">
         間接的なセッションでもあなたの思考と<br>
         トレーニングをアップデートできる。<br>
-        すべてのプログラムと設計は<br>実際のアスリートとの関わりから。
+        すべてのプログラムは実際の<br>アスリートとの関わりから誕生。
       </p>
       <p style="font-size:1rem; color:#fff;">
-        選手の努力を再現できる構造に変える。<br>
-        <span style="color:#6effc9; font-weight:600; text-shadow:0 0 8px rgba(0,0,0,0.5), 0 0 10px rgba(0,255,200,0.4);">
-adjustment-lab
-</span>は、<br>
-        現場の思考を形にしたプログラムです。
+        あなたの努力を再現できる構造に変える。<br>
+        <span style="color:#00b386; font-weight:500;">adjustment-lab</span>は、<br>
+        現場の思考を形にした“使える教材”です。
       </p>
 
-     <p style="font-size:0.9rem; color:#e5fff3; margin-top:20px;
-text-shadow:0 0 5px rgba(0,0,0,0.6), 0 0 12px rgba(0,255,200,0.25);">
-これは“情報”ではなく<br>“再現性”を届けるプロジェクトです。
+      <p style="font-size:0.9rem; color:#aaa; margin-top:20px;">
+        これは“情報”ではな、<br>“再現性”を届けるプロジェクトです。
       </p>
     </section>
   </main>
@@ -339,7 +295,7 @@ text-shadow:0 0 5px rgba(0,0,0,0.6), 0 0 12px rgba(0,255,200,0.25);">
   </nav>
   
   <!-- ===== 切替ボタン ===== -->
-  <button class="toggle" id="switchBtn">→ アプリ開発事業へ</button>
+  <button class="toggle" id="switchBtn">→ 開発事業へ</button>
 
  
 
@@ -402,8 +358,6 @@ text-shadow:0 0 5px rgba(0,0,0,0.6), 0 0 12px rgba(0,255,200,0.25);">
       if (mode === 'sei') {  // ← 'seii'ではなく'sei'
         mode = 'lab';
         switchLogo('./assets/logo-lab.png');
-        title.textContent = 'adjustment-lab';
-        desc.innerHTML = '再現性を科学し現場へつなぐ。<br>整う思考をデジタルで。';
         btn.textContent = '← トレーナー事業へ';
         fadeSwitch(introSei, introLab); // 
 
