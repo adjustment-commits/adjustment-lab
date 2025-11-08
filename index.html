@@ -116,83 +116,71 @@ button.toggle:hover {
   color: #fff;
 }
 
-/* ===== labモード時のトグルボタン（くっきり黒文字） ===== */
-body.lab-mode button.toggle {
-  background: linear-gradient(180deg, #f8fff9 0%, #d8fff1 100%);
-  color: #0a2e22; /* ← 白背景でも沈まない深緑 */
-  border: 1px solid rgba(255,255,255,0.5);
-  font-weight: 600;
-  border-radius: 6px;
-  box-shadow:
-    0 3px 8px rgba(0,0,0,0.25),
-    inset 0 0 8px rgba(255,255,255,0.5);
-  text-shadow: none;
-  transition: all 0.25s ease;
-}
-body.lab-mode button.toggle:hover {
-  background: linear-gradient(180deg, #ffffff 0%, #e5fff5 100%);
-  color: #007a56; /* ← ホバー時に強めのグリーン */
-  box-shadow:
-    0 4px 10px rgba(0,255,200,0.45),
-    inset 0 0 8px rgba(255,255,255,0.7);
-  transform: translateY(-1px);
-}
-
-/* ===== labモード ===== */
+/* ===== labモード（単色＋高コントラスト） ===== */
 body.lab-mode {
-  background:
-linear-gradient(145deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 40%, transparent 60%),
-linear-gradient(160deg, #00d4a1 0%, #007a56 40%, #00ffb2 100%);background-size: cover;
-background-attachment: fixed;
-box-shadow:
-inset 0 0 80px rgba(255, 255, 255, 0.15),
-inset 0 0 200px rgba(0, 0, 0, 0.3),
-0 0 200px rgba(0, 255, 180, 0.35);
-backdrop-filter: blur(2px) brightness(1.15) contrast(1.1);
-transition: background 1s ease, filter 0.8s ease;
-  color: #f0f8f6;
-text-shadow: 0 0 6px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0,255,200,0.15);
+  background: #0f3a31; /* 深緑単色 */
+  color: #f5fffb;
 }
 
 body.lab-mode h1,
 body.lab-mode h2,
 body.lab-mode p,
-body.lab-mode nav a,
 body.lab-mode footer {
-  color: #eafff9 !important;
-  text-shadow:
-    0 0 6px rgba(0, 0, 0, 0.6),
-    0 0 18px rgba(80, 255, 200, 0.5),
-    0 0 28px rgba(0, 255, 170, 0.35);
-  filter: brightness(1.15) contrast(1.1);}
-
-body.lab-mode a:hover,
-body.lab-mode button.toggle:hover,
-body.lab-mode h1:hover {
-color: #ffffff !important;
-text-shadow: 0 0 16px rgba(0,255,200,0.7),
-0 0 24px rgba(0,255,200,0.3);
-transition: text-shadow 0.3s ease;
+  color: #f5fffb !important;
+  text-shadow: none;
+  filter: none;
 }
 
-body.lab-mode h1 { color: var(--accent); }
+/* リンクは発光禁止・色で示す */
+body.lab-mode a { color: #bff7e7; }
+body.lab-mode a:hover { color: #ffffff; }
+
+/* ===== labモード：ナビボタン ===== */
 body.lab-mode nav a {
-  border-color: #fff;
-  color: #fff;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 body.lab-mode nav a:hover {
-  background: #fff;
-  color: #0b3d31;
-}
-body.lab-mode button.toggle {
-  border-color: #fff;
-  color: #fff;
-}
-body.lab-mode button.toggle:hover {
-  background: #fff;
-  color: #0b3d31;
+  background: #ffffff;
+  color: #0f3a31;
+  border-color: #ffffff;
 }
 
+/* ===== labモード：トグル（← トレーナー事業へ） ===== */
+body.lab-mode button.toggle {
+  background: #ffffff;
+  color: #111;
+  border: 1px solid rgba(255,255,255,0.35);
+  font-weight: 700;
+  border-radius: 6px;
+  box-shadow: none;
+  text-shadow: none;
+}
+body.lab-mode button.toggle:hover {
+  background: #f2f2f2;
+  color: #0f3a31;
+  border-color: #ffffff;
+}
+
+/* ===== labモード：フッター ===== */
+body.lab-mode footer {
+  background: transparent;
+  color: #e8f7f2 !important;
+  text-shadow: none;
+  border-top: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: none;
+}
+body.lab-mode footer a {
+  color: #c8fff0 !important;
+  text-shadow: none;
+}
+body.lab-mode footer a:hover {
+  color: #ffffff !important;
+}
+  
 /* ===== Intro Section ===== */
 main {
   text-align: center;
