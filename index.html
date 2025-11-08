@@ -99,7 +99,7 @@ nav {
   margin-bottom: 60px;  /* ← ここでトグルとの距離を確保 */
 }
 
-/* === トグルボタン（整モード）=== */
+/* ===== トグルボタン（整モード） ===== */
 button.toggle {
   background: none;
   border: 1px solid var(--accent);
@@ -109,28 +109,32 @@ button.toggle {
   border-radius: 4px;
   cursor: pointer;
   transition: 0.3s ease;
-  margin-top: 0.8em;
-  margin-bottom: 1.5em;  /* 下余白も広げる */
+  margin-top: 1.8em; /* ← navとの距離を確保 */
+  margin-bottom: 1em;
 }
 button.toggle:hover {
   background: var(--accent);
   color: #fff;
 }
 
-/* === labモード：ガラス調トグル === */
+/* ===== labモードのトグルボタン ===== */
 body.lab-mode button.toggle {
-  background: rgba(255, 255, 255, 0.85);
-  color: #000;
-  border: 1px solid rgba(255,255,255,0.8);
-  box-shadow: 0 2px 8px rgba(0,255,200,0.25);
-  text-shadow: none;
-  backdrop-filter: blur(6px);
-  margin-top: 20px;   /* ← labモード時にも距離維持 */
+  background: linear-gradient(180deg, #ffffff 0%, #e8fff9 100%);
+  color: #0b3d31;
+  border: 1px solid rgba(255,255,255,0.6);
+  font-weight: 600;
+  box-shadow:
+    0 2px 5px rgba(0,0,0,0.25),
+    inset 0 0 6px rgba(255,255,255,0.6);
+  transition: all 0.25s ease;
 }
 body.lab-mode button.toggle:hover {
   background: #fff;
-  color: #007a56;
-  box-shadow: 0 3px 10px rgba(0,255,200,0.4);
+  color: #00b386;
+  box-shadow:
+    0 0 8px rgba(0,255,200,0.4),
+    inset 0 0 10px rgba(255,255,255,0.8);
+  transform: translateY(-1px);
 }
 
 /* ===== labモード ===== */
