@@ -154,8 +154,27 @@ inset 0 0 80px rgba(255, 255, 255, 0.15),
 inset 0 0 200px rgba(0, 0, 0, 0.3),
 0 0 200px rgba(0, 255, 180, 0.35);
 backdrop-filter: blur(2px) brightness(1.15) contrast(1.1);
-  transition: background 1s ease, filter 0.8s ease;
-   color: #f8faf9;
+transition: background 1s ease, filter 0.8s ease;
+  color: #f0f8f6;
+text-shadow: 0 0 6px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0,255,200,0.15);
+}
+
+body.lab-mode h1,
+body.lab-mode h2,
+body.lab-mode p,
+body.lab-mode nav a,
+body.lab-mode footer {
+  color: #f3fdf8 !important;
+text-shadow: 0 0 8px rgba(0, 0, 0, 0.5), 0 0 12px rgba(0,255,200,0.2);
+}
+
+body.lab-mode a:hover,
+body.lab-mode button.toggle:hover,
+body.lab-mode h1:hover {
+color: #ffffff !important;
+text-shadow: 0 0 16px rgba(0,255,200,0.7),
+0 0 24px rgba(0,255,200,0.3);
+transition: text-shadow 0.3s ease;
 }
 
 @keyframes metalShift {
@@ -280,9 +299,9 @@ body.lab-mode #purpose-lab {
       </p>
 
       <p id="intro-lab" style="display:none;">
-      トレーニング管理アプリとHTML教材を<br>開発・販売するデジタル拠点。<br>
+      トレーニング管理アプリと<br>HTMLトレーニングプログラムを<br>開発・販売するデジタル拠点。<br>
      「整【アジャストメント】」の現場で生まれた<br>理論を学び・使える形に変換します。<br><br>
-      <span style="color:#00b386;font-weight:500;">アプリで記録し、教材で学ぶ。</span>
+      <span style="color:#00b386;font-weight:500;">アプリで記録、プログラムで実践。</span>
 　　　　</p>    
     </section>
 
@@ -290,12 +309,12 @@ body.lab-mode #purpose-lab {
       <p style="font-size:0.95rem; color:#e8e8e8; margin-top:12px;">
         間接的なセッションでもあなたの思考と<br>
         トレーニングをアップデートできる。<br>
-        すべての教材と設計は実際のアスリート<br>との関わりから生まれています。
+        すべてのプログラムと設計は<br>実際のアスリートとの関わりから。
       </p>
       <p style="font-size:1rem; color:#fff;">
-        あなたの努力を再現できる構造に変える。<br>
+        選手の努力を再現できる構造に変える。<br>
         <span style="color:#00b386; font-weight:500;">adjustment-lab</span>は、<br>
-        現場の思考を形にした“使える教材”です。
+        現場の思考を形にしたプログラムです。
       </p>
 
       <p style="font-size:0.9rem; color:#aaa; margin-top:20px;">
