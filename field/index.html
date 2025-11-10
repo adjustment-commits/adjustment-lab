@@ -30,7 +30,7 @@ body {
 /* --- Hero（軽量版）--- */
 .hero {
   position: relative;
-  height: 65vh;
+  height: 45vh;
   background: url("../assets/gallery/adjustment/field-hero.jpg") center/cover no-repeat;
   display: flex;
   justify-content: center;
@@ -196,7 +196,13 @@ footer a:hover {
 }
 .contact-btn:hover { background:#00926f; }
 
-@media (max-width: 768px) {
+/* === 問い合わせセクション中央寄せ === */
+#contact {
+  text-align: center;
+}
+  
+@media (max-width: 768px)  { 
+  
   .hero-content h1 { font-size: 1.6rem; }
   .hero-content p { font-size: 0.95rem; }
 }
