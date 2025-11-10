@@ -3,7 +3,6 @@ const CACHE_NAME = "adjustment-main-v2";
 const urlsToCache = [
   "./index.html",
   "./manifest.json",
-  "./service-worker.js",
   "./assets/logo-sei.png",
   "./assets/icon-field.png",
   "./assets/icon-lab.png",
@@ -13,7 +12,7 @@ const urlsToCache = [
   "./craft/index.html"
 ];
 
-// インストール時にキャッシュ
+// インストール時にキャッシュ登録
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
