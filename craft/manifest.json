@@ -1,24 +1,21 @@
 {
-  "name": "整 -adjustment-｜field・lab・craft",
-  "short_name": "adjustment-lab",
+  "name": "adjustment-craft",
+  "short_name": "craft",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#f8faf9",
-  "theme_color": "#00b386",
-  "description": "現場・研究・制作を一体化した実践型ブランド『整-adjustment-』。トレーニング・測定・回復・Web制作を再現性の構造で結ぶ。",
+  "background_color": "#ffffff",
+  "theme_color": "#007b9e",
   "icons": [
     {
-      "src": "./assets/icon-192.png",
+      "src": "../assets/icon-craft.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./assets/icon-512.png",
+      "src": "../assets/icon-craft.png",
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "scope": "./",
-  "id": "/adjustment-lab/",
-  "orientation": "portrait"
+  ]
 }
