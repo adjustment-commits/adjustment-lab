@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>adjustment-lab｜整・lab・web</title>
+<!-- ✅ PWA -->
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#f8faf9">
+<link rel="apple-touch-icon" sizes="192x192" href="./assets/icon-192.png">
+<style>
+:root {
+  --bg:#f8faf9;
+  --text:#1a1a1a;
+  --accent:#00b386;
+  --card:#fff;
+  --line:rgba(0,0,0,0.08);
+  font-family:'Noto Sans JP',sans-serif;
+}
+body {
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+}
+header {
+  text-align:center;
+  margin:50px 0 30px;
+}
+header img {
+  width:120px;
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-5px);}
+}
+h1 {
+  font-size:1.6rem;
+  margin:0.6em 0 0.3em;
+}
+p.lead {
+  font-size:0.95rem;
+  color:#555;
+}
+
+/* ===== カードレイアウト ===== */
+main {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:24px;
+  padding:20px;
+  max-width:960px;
+}
+.card {
+  width:280px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  text-align:center;
+  padding:32px 20px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+  cursor:pointer;
+}
+.card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 6px 16px rgba(0,0,0,0.08);
+}
+.card img {
+  width:80px;
+  margin-bottom:16px;
+}
+.card h2 {
+  font-size:1.1rem;
+  margin-bottom:10px;
+  color:var(--accent);
+}
+.card p {
+  font-size:0.9rem;
+  color:#444;
+  line-height:1.6;
+}
+
+/* ===== フッター ===== */
+footer {
+  margin-top:auto;
+  padding:30px 0;
+  text-align:center;
+  font-size:0.85rem;
+  color:#888;
+}
+footer a {
+  color:var(--accent);
+  text-decoration:none;
+}
+footer a:hover{text-decoration:underline;}
+
+/* ===== レスポンシブ ===== */
+@media(max-width:600px){
+  .card{width:90%;}
+  header img{width:100px;}
+  h1{font-size:1.4rem;}
+}
+</style>
+</head>
+<body>
+  <header>
+    <img src="./assets/logo-sei.png" alt="整ロゴ">
+    <h1>adjustment-lab</h1>
+    <p class="lead">構築・研究・実践の3本柱でつくる実践型プラットフォーム</p>
+  </header>
+  <main>
+    <div class="card" onclick="location.href='./index.html'">
+      <img src="./assets/icon-sei.png" alt="整アイコン">
+      <h2>整-adjustment-</h2>
+      <p>現場の哲学とトレーナー紹介。<br>パーソナル・チーム指導の中心部門。</p>
+    </div>
+<div class="card" onclick="location.href='./lab/index.html'">
+  <img src="./assets/icon-lab.png" alt="labアイコン">
+  <h2>adjustment-lab</h2>
+  <p>思考を形にするプログラムとアプリ群。<br>研究と開発の実験拠点。</p>
+</div>
+
+<div class="card" onclick="location.href='./web/index.html'">
+  <img src="./assets/icon-web.png" alt="webアイコン">
+  <h2>web制作部門</h2>
+  <p>伝わる構造を設計する制作部門。<br>UI構築・PWA化・ブランドサイト制作。</p>
+</div>  
+</main>
+<footer>
+    <p>
+      <a href="./legal.html">販売・利用規約</a>｜
+      <a href="./contact/index.html">お問い合わせ</a><br>
+      <small>© 2025 adjustment-lab</small>
+    </p>
+  </footer>
+</body>
+</html>
+<<>>
