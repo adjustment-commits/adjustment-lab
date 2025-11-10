@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>整 -adjustment-｜field・lab・craft</title>
+<!-- ✅ PWA設定 -->
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#f8faf9">
+<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
+<style>
+:root {
+  --bg:#f8faf9;
+  --text:#1a1a1a;
+  --accent:#00b386;
+  --sub:#555;
+  font-family:'Noto Sans JP',sans-serif;
+}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  line-height:1.8;
+  overflow-x:hidden;
+}
+/* ===== 背景グリッド ===== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
+}
+
+/* ===== ロゴ ===== */
+#logo {
+  width: 140px;
+  margin-top: 60px;
+  animation: float 4s ease-in-out infinite;
+  z-index: 2;
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* ===== タイトル・説明 ===== */
+h1 {
+  margin: 0.8em 0 0.4em;
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  z-index: 2;
+}
+p.lead {
+  font-size: 1rem;
+  color: var(--sub);
+  z-index: 2;
+  margin-bottom: 1.5em;
+}
+
+/* ===== ナビカード ===== */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin: 40px 0 80px;
+  z-index: 2;
+}
+nav .card {
+  width: 250px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 8px;
+  padding: 24px 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+nav .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+nav img {
+  width: 70px;
+  margin-bottom: 14px;
+}
+nav h2 {
+  color: var(--accent);
+  font-size: 1.05rem;
+  margin: 0.3em 0 0.4em;
+}
+nav p {
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* ===== フッター ===== */
+footer {
+  font-size: 0.85rem;
+  color: #888;
+  text-align: center;
+  margin: 60px 0 40px;
+}
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+footer a:hover { text-decoration: underline; }
+
+@media(max-width:768px){
+  #logo { width: 110px; }
+  h1 { font-size: 1.6rem; }
+  nav .card { width: 85%; }
+}
+</style>
+</head>
+<body>
+  <img id="logo" src="./assets/logo-sei.png" alt="整ロゴ">
+  <h1>整 -adjustment-</h1>
+  <p class="lead">構築・研究・創造の3本柱でつくる実践型ブランド</p>
+  <main>
+    <section style="max-width:720px; margin:0 auto 40px;">
+      <p>
+        「整 -adjustment-」は、現場（field）、研究（lab）、制作（craft）の<br>
+        三位一体で構成されたブランドです。<br>
+        科学と感性を融合し、アスリート・教育・クリエイティブの領域で<br>
+        “再現できる構造”を創造します。
+      </p>
+      <p style="color:#00b386;font-weight:500;margin-top:1.2em;">
+        Structure. Intelligence. Toughness.<br>
+        すべては現場から、再現性のために。
+      </p>
+    </section>
+<!-- ===== 3部門リンク ===== -->
+<nav>
+  <div class="card" onclick="location.href='./field/index.html'">
+    <img src="./assets/icon-field.png" alt="fieldアイコン">
+    <h2>adjustment-field</h2>
+    <p>現場で生まれる実践部門。<br>指導・分析・トレーニングを通して<br>競技力を構築する。</p>
+  </div>
+
+  <div class="card" onclick="location.href='./lab/index.html'">
+    <img src="./assets/icon-lab.png" alt="labアイコン">
+    <h2>adjustment-lab</h2>
+    <p>理論と技術を形にする研究開発部門。<br>アプリ・教材・ドリル設計を行う。</p>
+  </div>
+
+  <div class="card" onclick="location.href='./craft/index.html'">
+    <img src="./assets/icon-craft.png" alt="craftアイコン">
+    <h2>adjustment-craft</h2>
+    <p>伝わる構造を設計するWeb制作部門。<br>UI構築・PWA化・ブランド設計。</p>
+  </div>
+</nav>  </main>
+  <footer>
+    <p>
+      <a href="./legal.html">販売・利用規約</a>｜
+      <a href="./contact/index.html">お問い合わせ</a><br>
+      <small>© 2025 adjustment-lab</small>
+    </p>
+  </footer>
+</body>
+</html>
