@@ -6,8 +6,8 @@
 <title>整【アジャストメント】｜アスリート専門トレーナー</title>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#f8faf9">
-
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
+<meta name="description" content="富山を拠点に活動するアスリート専門トレーナー。社会人野球選手を中心に、動作評価・フィジカルトレーニング・チーム指導を行う『整【アジャストメント】』公式サイト。">
 <script>
 fetch("/adjustment-lab/assets/footer-lite.html")
 </script>
@@ -254,6 +254,90 @@ setInterval(changeBackground, 4500);
   background: #00b386;
   color: #fff;
 }
+</style>
+
+<!-- ===== 料金・トレーナー・お問い合わせセクション ===== -->
+
+<section class="content" id="price">
+  <h2>料金・メニュー</h2>
+  <div class="price-table">
+    <div class="price-card">
+      <h3>パーソナルトレーニング</h3>
+      <p>1回（30〜60分）</p>
+      <strong>￥5,500〜￥8,800（税込）</strong>
+      <p>動作評価・ドリル設計を含む</p>
+    </div>
+    <div class="price-card">
+      <h3>チーム契約</h3>
+      <p>契約形態（単発、年間）、料金など</p>
+      <strong>応相談</strong>
+      <p>トレーニング指導・年間計画・測定サポート・講習など</p>
+    </div>
+    <div class="price-card">
+      <h3>オンライン講習</h3>
+      <p>1回60分（Zoom、Teams、Meetなど）</p>
+      <strong>￥6,600（税込）</strong>
+      <p>テーマ別・選手、指導者向け内容</p>
+    </div>
+  </div>
+</section>
+
+<section class="content" id="trainer">
+  <h2>トレーナー紹介</h2>
+  <div class="profile">
+    <p><b>西本　裕</b>（整-adjustment-／スポーツトレーナー）</p>
+    <p>富山を拠点に、社会人硬式野球選手を中心とした<br>フィジカルトレーニング・動作設計を行う。<br>解剖学・運動学・力学を基盤に<br>現場の再現性を最重視したプログラム設計を行う。</p>
+    <p>選手一人ひとりの思考と身体を“整え”、<br>勝負で力を出し切るための<br>Toughな構造づくりを支援。</p>
+  </div>
+</section>
+
+<section class="content" id="contact" style="text-align:center; background:#f8faf9;">
+  <h2>お問い合わせ</h2>
+  <p>トレーニング依頼・チーム契約・講習会のご相談はこちら。</p>
+  <button class="contact-btn" onclick="window.location.href='../contact/index.html'">
+    お問い合わせフォームへ
+  </button>
+</section>
+
+<style>
+.price-table {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+  margin-top:30px;
+}
+.price-card {
+  background:#fff;
+  border:1px solid rgba(0,0,0,0.06);
+  border-radius:8px;
+  width:250px;
+  padding:24px 16px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.04);
+  text-align:center;
+}
+.price-card h3 { color:#00b386; margin-bottom:0.4em; }
+.price-card p { font-size:0.9rem; color:#555; margin-bottom:0.4em; }
+.price-card strong { font-size:1.2rem; color:#1a1a1a; }
+
+.profile {
+  background:#f8faf9;
+  border:1px solid rgba(0,0,0,0.05);
+  border-radius:8px;
+  padding:20px;
+}
+
+.contact-btn {
+  background:#00b386;
+  color:#fff;
+  border:none;
+  border-radius:4px;
+  padding:0.8em 1.8em;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
+}
+.contact-btn:hover { background:#00926f; }
 </style>
   
 <!-- ===== 共通フッター ===== -->
