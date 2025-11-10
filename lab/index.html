@@ -51,6 +51,20 @@ body {
   margin-bottom: 2em;
   line-height: 1.8;
 }
+.hero-icon {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 12px;
+  opacity: 0.9;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+@media (max-width: 768px) {
+  .hero-icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 8px;
+  }
+}
 .cta {
   display: flex;
   justify-content: center;
@@ -209,6 +223,7 @@ section p {
 <body>
 <!-- HERO -->
 <section class="hero">
+   <img src="../assets/icon-field.png" alt="field icon" class="hero-icon">
   <h1>adjustment-lab</h1>
   <p>思考を形にして再現を科学する。<br>
   トレーニング・リカバリー・測定を<br>
