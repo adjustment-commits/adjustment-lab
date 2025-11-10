@@ -3,223 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>販売・利用規約と特定商取引法に基づく表記｜adjustment-lab</title>
-<script>
-fetch("/adjustment-lab/assets/footer-lite.html")
+<title>販売・利用規約と特定商取引法に基づく表記｜整 -adjustment-｜field・lab・craft</title>
 <meta name="theme-color" content="#f8faf9">
-</script>
-
 <style>
 :root {
-  --bg: #f8faf9;
-  --text: #1a1a1a;
-  --accent: #00b386;
-  --sub: #555;
-  --line: rgba(0,0,0,0.06);
-  font-family: 'Noto Sans JP', sans-serif;
+  --bg:#f8faf9;
+  --text:#1a1a1a;
+  --accent:#00b386;
+  --sub:#555;
+  --line:rgba(0,0,0,0.06);
+  font-family:'Noto Sans JP',sans-serif;
 }
-
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.9;
-  padding: 40px 20px 100px;
-  text-wrap: pretty;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.9;
+  padding:40px 20px 100px;
+  text-wrap:pretty;
 }
-
-/* ===== 見出し ===== */
-h1, h2 {
-  text-align: center;
-  color: var(--accent);
+h1,h2{text-align:center;color:var(--accent);}
+h1{font-size:1.6rem;margin-bottom:40px;line-height:1.5;}
+h2{font-size:1.2rem;margin:60px 0 20px;border-left:4px solid var(--accent);padding-left:10px;text-align:left;}
+section{
+  max-width:850px;margin:0 auto 60px;background:#fff;
+  border:1px solid var(--line);border-radius:8px;padding:30px 28px 20px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.03);
 }
-h1 {
-  font-size: 1.6rem;
-  margin-bottom: 40px;
-  line-height: 1.5;
+p,li{font-size:0.96rem;}
+ul{padding-left:1.4em;}
+table{width:100%;border-collapse:collapse;margin-top:20px;}
+th,td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+th{width:35%;color:var(--accent);background:#f3f7f5;font-weight:600;}
+tr:last-child td,tr:last-child th{border-bottom:none;}
+@media(max-width:768px){
+  body{font-size:0.95rem;padding:24px 14px 80px;}
+  section{padding:22px 18px;}
+  h1{font-size:1.4rem;}
+  h2{font-size:1.05rem;margin:40px 0 16px;}
+  table,thead,tbody,th,td,tr{display:block;width:100%;}
+  th{background:none;color:var(--accent);font-weight:bold;padding:8px 0 2px;border:none;}
+  td{padding:0 0 14px;border:none;border-bottom:1px solid var(--line);}
+  tr{margin-bottom:18px;}
+  tr:last-child td{border-bottom:none;}
 }
-h2 {
-  font-size: 1.2rem;
-  margin: 60px 0 20px;
-  border-left: 4px solid var(--accent);
-  padding-left: 10px;
-  text-align: left;
+footer{text-align:center;color:var(--sub);font-size:0.9rem;margin-top:80px;}
+footer a{color:var(--accent);text-decoration:none;}
+footer a:hover{text-decoration:underline;}
+.back-home{text-align:center;margin:80px 0 40px;}
+.back-home button{
+  background:none;border:1px solid #00b386;color:#00b386;
+  padding:0.7em 1.6em;border-radius:4px;font-size:1rem;cursor:pointer;transition:0.3s;
 }
-
-/* ===== コンテナ ===== */
-section {
-  max-width: 850px;
-  margin: 0 auto 60px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 30px 28px 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-}
-
-p, li {
-  font-size: 0.96rem;
-}
-ul {
-  padding-left: 1.4em;
-}
-
-/* ===== テーブル ===== */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-th, td {
-  padding: 14px 18px;
-  text-align: left;
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
-}
-th {
-  width: 35%;
-  color: var(--accent);
-  background: #f3f7f5;
-  font-weight: 600;
-}
-tr:last-child td, tr:last-child th {
-  border-bottom: none;
-}
-
-/* ===== スマホ最適化 ===== */
-@media (max-width: 768px) {
-  body {
-    font-size: 0.95rem;
-    padding: 24px 14px 80px;
-  }
-  section {
-    padding: 22px 18px;
-  }
-  h1 {
-    font-size: 1.4rem;
-  }
-  h2 {
-    font-size: 1.05rem;
-    margin: 40px 0 16px;
-  }
-  table, thead, tbody, th, td, tr {
-    display: block;
-    width: 100%;
-  }
-  th {
-    background: none;
-    color: var(--accent);
-    font-weight: bold;
-    padding: 8px 0 2px;
-    border: none;
-  }
-  td {
-    padding: 0 0 14px;
-    border: none;
-    border-bottom: 1px solid var(--line);
-  }
-  tr {
-    margin-bottom: 18px;
-  }
-  tr:last-child td {
-    border-bottom: none;
-  }
-}
-
-/* ===== フッター ===== */
-footer {
-  text-align: center;
-  color: var(--sub);
-  font-size: 0.9rem;
-  margin-top: 80px;
-}
-footer a {
-  color: var(--accent);
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
-}
+.back-home button:hover{background:#00b386;color:#fff;}
 </style>
 </head>
-
 <body>
 <h1>販売・利用規約 および 特定商取引法に基づく表記</h1>
-
 <section>
   <h2>第1条｜目的</h2>
-  <p>本規約は「整 − adjustment」および「adjustment-lab」（以下「当サイト」）が提供するデジタル教材・トレーニングプログラムの利用条件を定めるものです。</p>
-
+  <p>本規約は「整 -adjustment-」および「field・lab・craft」（以下「当サイト」）が提供する教材・プログラム等の利用条件を定めるものです。</p>
   <h2>第2条｜利用対象と範囲</h2>
-  <p>当サイトは、身体教育・運動理解・再現性育成を目的としたコンテンツを提供します。<br>医療行為、治療、診断、処方を目的としたものではありません。</p>
-
+  <p>当サイトは、身体教育・運動理解・再現性育成・ウェブ構築支援を目的としたコンテンツを提供します。<br>医療行為や治療・診断を目的とするものではありません。</p>
   <h2>第3条｜著作権および知的財産権</h2>
-  <p>当サイトで提供される教材・画像・動画・プログラム等の著作権は当方または正当な権利者に帰属します。<br>許可なく複製・再配布・転載することを禁止します。</p>
-
+  <p>当サイトで提供される教材・画像・動画・プログラム・ウェブ構成等の著作権は当方または正当な権利者に帰属します。<br>許可なく複製・再配布・転載することを禁止します。</p>
   <h2>第4条｜禁止事項</h2>
   <ul>
-    <li>購入教材の無断共有・転売・スクリーンショット配布</li>
-    <li>虚偽の情報を用いた登録や決済</li>
+    <li>購入教材・プログラムの無断共有・転売・スクリーンショット配布</li>
+    <li>虚偽情報を用いた登録や不正決済</li>
     <li>当方または第三者の信用を損なう行為</li>
   </ul>
-
   <h2>第5条｜免責事項</h2>
-  <p>当サイトは、提供する教材・プログラムの利用によって生じたいかなる損害・障害についても責任を負いません。<br>自己責任のもと安全にご利用ください。</p>
-
-  <h2>第6条｜利用環境・推奨端末</h2>
-  <p>Google Chrome または Safari（最新版）にて動作確認済みです。<br>通信環境や端末の不具合により正常に表示されない場合、当方は責任を負いません。</p>
-
+  <p>当サイトは、提供する教材・プログラム・制作物の利用によって生じたいかなる損害についても責任を負いません。<br>利用は自己責任のもと行ってください。</p>
+  <h2>第6条｜動作・利用環境</h2>
+  <p>Google Chrome または Safari（最新版）にて動作確認済み。通信環境・端末に起因する不具合には責任を負いません。</p>
   <h2>第7条｜キャンセル・返金</h2>
-  <p>デジタル教材の特性上、購入後の返品・返金は原則お受けしておりません。<br>ただし、重大な不具合や誤配信が確認された場合は迅速に対応いたします。</p>
-
+  <p>デジタル教材・Web制作物の性質上、購入後の返品・返金は原則お受けしておりません。重大な不具合・誤配信等は迅速に対応します。</p>
   <h2>第8条｜規約の改定</h2>
-  <p>当方は必要に応じて本規約を改定することがあります。<br>最新の内容は本ページにて告知します。</p>
+  <p>必要に応じ本規約を改定します。改定後は本ページに掲載された内容が最新となります。</p>
 </section>
-
 <section>
   <h2>特定商取引法に基づく表記</h2>
-
   <table>
-    <tr><th>販売事業者名</th><td>整 − adjustment / adjustment-lab（代表：西本 裕）</td></tr>
-    <tr><th>所在地</th><td>富山県射水市（詳細はご請求時に開示します）</td></tr>
-    <tr><th>連絡先</th><td>メール：contact@adjustment-lab.jp（仮）<br>※迅速な対応のため、お問い合わせはフォームよりお願いいたします。</td></tr>
-    <tr><th>販売価格</th><td>各ページに税込価格を明記しています。<br>例：LITE教材 5,000円、STANDARD教材 50,000円 等。</td></tr>
-    <tr><th>商品代金以外の必要料金</th><td>インターネット接続費・通信費などの実費はお客様負担となります。</td></tr>
-    <tr><th>お支払い方法</th><td>クレジットカード決済、銀行振込（法人契約のみ対応）。</td></tr>
-    <tr><th>お支払い時期</th><td>各決済画面に記載の時期に準じます。</td></tr>
-    <tr><th>引き渡し時期</th><td>決済完了後、即時またはメールにて教材URLをお送りします。</td></tr>
-    <tr><th>返品・キャンセルについて</th><td>デジタルコンテンツの特性上、購入後の返品・返金は原則お受けしておりません。<br>ただし、重大な不具合・誤配信などの場合は速やかに対応いたします。</td></tr>
-    <tr><th>動作環境</th><td>スマートフォンまたはPCのブラウザ（最新版）で動作確認済み。<br>推奨環境：Google Chrome, Safari。</td></tr>
-    <tr><th>表現及び商品に関する注意書き</th><td>本教材は、身体教育・運動理解を目的とした学習プログラムです。<br>医療行為や治療を目的とするものではなく、効果を保証するものではありません。</td></tr>
+    <tr><th>販売事業者名</th><td>整 -adjustment-（代表：西本 裕）</td></tr>
+    <tr><th>運営部門</th><td>field｜トレーニング・分析<br>lab｜教材・アプリ開発<br>craft｜Web制作・デザイン</td></tr>
+    <tr><th>所在地</th><td>富山県射水市（詳細はご請求時に開示）</td></tr>
+    <tr><th>連絡先</th><td>メール：contact@adjustment-lab.jp（仮）<br>※お問い合わせはフォームよりお願いいたします。</td></tr>
+    <tr><th>販売価格</th><td>各ページに税込価格を明記。例：LITE教材 5,000円、Web制作 100,000円〜 等。</td></tr>
+    <tr><th>商品代金以外の必要料金</th><td>通信費・決済手数料等はお客様負担。</td></tr>
+    <tr><th>支払方法</th><td>クレジットカード決済、銀行振込（法人のみ）。</td></tr>
+    <tr><th>引き渡し時期</th><td>デジタル教材は決済後即時。Web制作は契約書記載納期に準ずる。</td></tr>
+    <tr><th>返品・キャンセル</th><td>デジタル・制作物の性質上、返品・返金は原則不可。ただし誤配信や重大不具合は対応。</td></tr>
+    <tr><th>動作環境</th><td>スマートフォン・PCの最新ブラウザ。推奨環境：Google Chrome, Safari。</td></tr>
   </table>
 </section>
-
-<!-- ===== ホームへ戻るボタン ===== -->
 <div class="back-home">
   <button onclick="window.location.href='/adjustment-lab/index.html'">← ホームへ戻る</button>
 </div>
-
-<style>
-.back-home {
-  text-align: center;
-  margin: 80px 0 40px;
-}
-.back-home button {
-  background: none;
-  border: 1px solid #00b386;
-  color: #00b386;
-  padding: 0.7em 1.6em;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.back-home button:hover {
-  background: #00b386;
-  color: #fff;
-}
-</style>
-<!-- ✅ 共通フッター -->
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
 <div id="footer-area"></div>
 <script>
@@ -227,6 +107,5 @@ fetch("/adjustment-lab/assets/footer-lite.html")
   .then(r => r.text())
   .then(d => document.getElementById("footer-area").innerHTML = d);
 </script>
-
 </body>
 </html>
