@@ -1,20 +1,49 @@
 {
-  "name": "整 × adjustment-lab",
-  "short_name": "adjustment-lab",
+  "name": "整 -adjustment-｜field・lab・craft",
+  "short_name": "adjustment",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#0b3d31",
-  "theme_color": "#00ff99",
+  "orientation": "portrait",
+  "background_color": "#f8faf9",
+  "theme_color": "#00b386",
+  "description": "現場(field)・研究(lab)・制作(craft)の3本柱で構築する実践型ブランド。",
   "icons": [
     {
-      "src": "./icons/icon-192.png",
+      "src": "./assets/icon-field.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "./icons/icon-512.png",
+      "src": "./assets/icon-lab.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icon-craft.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icon-field.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./assets/icon-lab.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./assets/icon-craft.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
