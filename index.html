@@ -154,52 +154,53 @@ footer a:hover{text-decoration:underline;}
       <small>© 2025 adjustment-lab</small>
     </p>
   </footer>
-  ＜!– ✅ PWA導線スクリプト開始 –＞
-＜div id＝”pwa-banner” style＝”display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#00b386; color:#fff; padding:12px 18px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.2); font-size:0.95rem; z-index:1000; cursor:pointer;“＞
-　ホーム画面に追加できます 📱
-＜/div＞
+<!-- ✅ PWA導線スクリプト開始 -->
+<div id="pwa-banner" style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#00b386; color:#fff; padding:12px 18px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.2); font-size:0.95rem; z-index:1000; cursor:pointer;">
+  ホーム画面に追加できます 📱
+</div>
 
-＜div id＝”ios-modal” style＝”display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000;“＞
-　＜div style＝”background:#fff; padding:30px; border-radius:10px; max-width:320px; margin:100px auto; text-align:center;“＞
-　　＜h2 style＝”color:#00b386; font-size:1.2rem; margin-bottom:10px;“＞ホーム画面に追加する方法＜/h2＞
-　　＜p style＝”font-size:0.95rem; line-height:1.7; color:#333;“＞
-　　　Safariの共有ボタン（□↑）を押して、「ホーム画面に追加」を選択してください。
-　　＜/p＞
-　　＜button onclick＝”document.getElementById(‘ios-modal’).style.display=‘none’; localStorage.setItem(‘iosModalShown’,‘true’);” style＝”margin-top:16px; padding:8px 18px; border:1px solid #00b386; background:none; color:#00b386; border-radius:4px;“＞閉じる＜/button＞
-　＜/div＞
-＜/div＞
+<div id="ios-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000;">
+  <div style="background:#fff; padding:30px; border-radius:10px; max-width:320px; margin:100px auto; text-align:center;">
+    <h2 style="color:#00b386; font-size:1.2rem; margin-bottom:10px;">ホーム画面に追加する方法</h2>
+    <p style="font-size:0.95rem; line-height:1.7; color:#333;">
+      Safariの共有ボタン（□↑）を押して、「ホーム画面に追加」を選択してください。
+    </p>
+    <button onclick="document.getElementById('ios-modal').style.display='none'; localStorage.setItem('iosModalShown','true');"
+      style="margin-top:16px; padding:8px 18px; border:1px solid #00b386; background:none; color:#00b386; border-radius:4px;">閉じる</button>
+  </div>
+</div>
 
-＜script＞
-let deferredPrompt；
-window.addEventListener（‘beforeinstallprompt’，（e）⇒{
-　e.preventDefault（）；
-　deferredPrompt＝e；
-　if（！localStorage.getItem（‘pwaInstalled’））{
-　　document.getElementById（‘pwa-banner’）.style.display＝’block’；
-　}
-}）；
+<script>
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (!localStorage.getItem('pwaInstalled')) {
+    document.getElementById('pwa-banner').style.display = 'block';
+  }
+});
 
-document.getElementById（‘pwa-banner’）.addEventListener（‘click’，async（）⇒{
-　if（deferredPrompt）{
-　　deferredPrompt.prompt（）；
-　　const result＝await deferredPrompt.userChoice；
-　　if（result.outcome===‘accepted’）{
-　　　localStorage.setItem（‘pwaInstalled’，‘true’）；
-　　　document.getElementById（‘pwa-banner’）.style.display＝’none’；
-　　}
-　}
-}）；
+document.getElementById('pwa-banner').addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const result = await deferredPrompt.userChoice;
+    if (result.outcome === 'accepted') {
+      localStorage.setItem('pwaInstalled', 'true');
+      document.getElementById('pwa-banner').style.display = 'none';
+    }
+  }
+});
 
 // ✅ iOSモーダル表示
-const ua＝window.navigator.userAgent.toLowerCase（）；
-const isIOS＝/iphone|ipad|ipod/.test（ua）；
-const isInStandaloneMode＝（‘standalone’ in window.navigator）&&window.navigator.standalone；
-if（isIOS && ！isInStandaloneMode && ！localStorage.getItem（‘iosModalShown’））{
-　setTimeout（（）⇒{
-　　document.getElementById（‘ios-modal’）.style.display＝’block’；
-　}，3000）；
+const ua = window.navigator.userAgent.toLowerCase();
+const isIOS = /iphone|ipad|ipod/.test(ua);
+const isInStandaloneMode = ('standalone' in window.navigator) && window.navigator.standalone;
+if (isIOS && !isInStandaloneMode && !localStorage.getItem('iosModalShown')) {
+  setTimeout(() => {
+    document.getElementById('ios-modal').style.display = 'block';
+  }, 3000);
 }
-＜/script＞
-＜!– ✅ PWA導線スクリプト終了 –＞
+</script>
+<!-- ✅ PWA導線スクリプト終了 -->
 </body>
 </html>
