@@ -58,6 +58,20 @@ body {
 .hero-content p {
   text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
+.hero-icon {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 12px;
+  opacity: 0.9;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+@media (max-width: 768px) {
+  .hero-icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 8px;
+  }
+}
 
 .cta {
   display: flex;
@@ -210,15 +224,16 @@ footer a:hover {
 </head>
 <body>
 <section class="hero">
-  <div class="hero-content">
-    <h1>adjustment-field</h1>
-    <p>整【-adjustment-】 現場部門</p>
-    <p>野球選手・アスリート専門トレーナー</p>
-    <p class="lead">勝負で力を出し切るための身体を構築する。</p>
-    <div class="cta">
-      <button onclick="window.location.href='../contact/index.html'">パーソナル依頼</button>
-      <button onclick="window.location.href='../application/index.html'">チーム契約</button>
-    </div>
+ <div class="hero-content">
+  <img src="../assets/icons/icon-field.png" alt="field icon" class="hero-icon">
+  <h1>adjustment-field</h1>
+  <p>整【-adjustment-】 現場部門</p>
+  <p>野球選手・アスリート専門トレーナー</p>
+  <p class="lead">勝負で力を出し切るための身体を構築する。</p>
+  <div class="cta">
+    <button onclick="window.location.href='../contact/index.html'">パーソナル依頼</button>
+    <button onclick="window.location.href='../application/index.html'">チーム契約</button>
+  </div>
   </div>
 </section>
 <section class="content">
