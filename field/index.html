@@ -11,7 +11,6 @@
 <script>
 fetch("/adjustment-lab/assets/footer-lite.html")
 </script>
-
 <style>
 :root {
   --bg: #f8faf9;
@@ -28,39 +27,34 @@ body {
   line-height: 1.9;
 }
 
-/* --- Hero (スライド背景) --- */
+/* --- Hero（軽量版）--- */
 .hero {
-  filter: brightness(1.05) contrast(0.95) saturate(0.9);
   position: relative;
-  height: 75vh;
-  overflow: hidden;
+  height: 65vh;
+  background: url("../assets/gallery/adjustment/field-hero.jpg") center/cover no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   color: #fff;
 }
-  
-.overlay {
+.hero::after {
+  content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.35); /* ← 元の0.55から0.35に変更 */
-  z-index: 1;
-  transition: background 0.8s ease;
+  background: rgba(0,0,0,0.35);
 }
-
 .hero-content {
   position: relative;
-  z-index: 2;
-  background: rgba(0, 0, 0, 0.55); /* ← ここは少し濃く（帯の方でコントラスト確保） */
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
   padding: 30px 40px;
   border-radius: 8px;
-  max-width: 80%;
-  max-width: 600px; 
+  max-width: 600px;
 }
-
-
-.hero-content h1,
+.hero-content h1 {
+  margin-bottom: 0.4em;
+}
 .hero-content p {
   text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
@@ -70,25 +64,24 @@ body {
   justify-content: center;
   gap: 16px;
   flex-wrap: wrap;
+  margin-top: 20px;
 }
 .cta button {
-  background: var(--accent);       /* ← 縁だけではなく中も塗る */
+  background: var(--accent);
   border: 1px solid var(--accent);
-  color: #fff;                     /* ← 白文字に変更 */
+  color: #fff;
   padding: 0.7em 1.6em;
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s;
 }
-
 .cta button:nth-child(2) {
-  background: #008c6b; /* var(--accent)より少し濃い */
+  background: #008c6b;
   border-color: #008c6b;
 }
-
 .cta button:hover {
-  background: transparent;         /* ← ホバーで透けるように反転 */
+  background: transparent;
   color: var(--accent);
 }
 
@@ -105,10 +98,12 @@ section.content h2 {
   color: var(--accent);
   font-weight: 500;
   margin-bottom: 1em;
+  text-align: center;
 }
 section.content p {
   color: var(--text);
   font-size: 1rem;
+  text-align: center;
 }
 
 /* --- Gallery --- */
@@ -127,7 +122,7 @@ section.content p {
   transform: scale(1.02);
 }
 
-/* --- Footer --- */
+/* --- Footer / Buttons --- */
 footer {
   text-align: center;
   color: var(--sub);
@@ -142,94 +137,6 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .hero-content h1 { font-size: 1.6rem; }
-  .hero-content p { font-size: 0.95rem; }
-}
-</style>
-</head>
-
-<body>
-
-<section class="hero" id="hero">
-   <div class="overlay"></div>
-  <div class="hero-content">
-    <h1>adjustment-field</h1>
-<p>整【-adjustment-】 現場部門</p>
-    <p>野球選手・アスリート専門トレーナー</p>
-    <p class="lead">勝負で力を出し切るための身体を構築する。</p>
-    <div class="cta">
-      <button onclick="window.location.href='../contact/index.html'">パーソナル依頼</button>
-      <button onclick="window.location.href='../application/index.html'">チーム契約</button>
-    </div>
-  </div>
-</section>
-
-<script>
-// スライドショー設定
-const hero = document.getElementById('hero');
-const slides = [
-  "../assets/gallery/adjustment/treadmill-tr.jpg",
-  "../assets/gallery/adjustment/band.jpg",
-  "../assets/gallery/adjustment/team.jpg",
-  "../assets/gallery/adjustment/rc-pitcher.jpg",
-  "../assets/gallery/adjustment/rc-batter.jpg",
-  "../assets/gallery/adjustment/cmj.jpg",
-  "../assets/gallery/adjustment/sprint.jpg",
-  "../assets/gallery/adjustment/enode.jpg",
-  "../assets/gallery/adjustment/rapsodo.jpg",
-  "../assets/gallery/adjustment/sprint-time.jpg",
-  "../assets/gallery/adjustment/k-o-h.jpg",
-];
-
-let index = 0;
-function changeBackground() {
-  hero.style.background = `url('${slides[index]}') center/cover no-repeat`;
-  hero.style.transition = "background 1s ease-in-out";
-  index = (index + 1) % slides.length;
-}
-changeBackground();
-setInterval(changeBackground, 4500);
-</script>
-
-<section class="content" style="text-align:center;">
-  <h2>Toughnessを構造から創る。</h2>
-  <p>
-    ここは競技現場のためのトレーニング設計所。<br>
-    データも感覚も使いこなし、<br>
-    動きを再現できる構造をつくる。<br>
-    すべては勝ち続ける身体を築くために。
-  </p>
-</section>
-
-<section class="content" style="text-align:center;">
-  <h2>現場に再現性を。</h2>
-  <p>
-    社会人野球・学生アスリートを中心に<br>
-    トレーニング・測定・分析を実施。<br>
-    現場で試され更新され続ける<br>
-    実践型のトレーニングプログラムです。
-  </p>
-  <div class="gallery">
-    <img src="../assets/gallery/adjustment/manual.jpg" alt="徒手調整">
-    <img src="../assets/gallery/adjustment/treadmill-tr.jpg" alt="トレッドミル調整">
-    <img src="../assets/gallery/adjustment/band.jpg" alt="リリースドリル">
-  </div>
-</section>
-
-<section class="content" style="text-align:center;">
-  <h2>構築する。<br>再現する。<br>勝ち抜く。</h2>
-  <p>Toughnessを構造から創る。<br>
-     どの体力要素もどの動きも、<br>
-     パフォーマンスを発揮する条件を構築する。<br><br>
-     アスリートの可能性を構造から磨き、<br>
-　　　現場で積み重ねた知と技術で競技力の構造を整える。<br>
-　　　その先にあるのは、勝負で力を出し切るための身体。
-  </p>
-</section>
-
-<style>
 .back-home {
   text-align: center;
   margin: 80px 0 40px;
@@ -248,69 +155,7 @@ setInterval(changeBackground, 4500);
   background: #00b386;
   color: #fff;
 }
-</style>
 
-<!-- ===== 料金・トレーナー・お問い合わせセクション ===== -->
-
-<section class="content" id="price">
-  <h2>料金・メニュー</h2>
-  <div class="price-table">
-    <div class="price-card">
-      <h3>パーソナルトレーニング</h3>
-      <p>1回/30分</p>
-      <strong>￥5,500（税込）</strong>
-      <p>1回/60分</p>
-      <strong>￥8,800（税込）</strong>
-      <p>動作評価・ドリル設計を含む</p>
-    </div>
-    <div class="price-card">
-      <h3>チーム契約</h3>
-      <p>契約形態、料金など</p>
-      <strong>応相談</strong>
-      <p>トレーニング指導・年間計画・<br>測定サポート・講習など</p>
-    </div>
-    <div class="price-card">
-      <h3>オンライン講習</h3>
-      <p>1回60分（Zoom、Teams、Meetなど）</p>
-      <strong>￥6,600（税込）</strong>
-      <p>テーマ別・選手、指導者向け内容</p>
-    </div>
-  </div>
-  
-  <div class="cta">
-    <button onclick="window.location.href='../contact/index.html'">相談する</button>
-  </div>
-</section>
-
-<section class="content" id="trainer">
-  <h2>トレーナー紹介</h2>
-  <div class="profile">
-    <p><b>西本　裕</b>（整-adjustment-／スポーツトレーナー）</p>
-    <p>富山を拠点に、社会人硬式野球選手を中心とした<br>フィジカルトレーニング・動作設計を行う。<br>解剖学・運動学・力学を基盤に<br>現場の再現性を最重視したプログラム設計を行う。</p>
-    <p>選手一人ひとりの思考と身体を“整え”、<br>勝負で力を出し切るための<br>Toughな構造づくりを支援。</p>
-  </div>
-  
-</section>
-
-<section class="content" id="contact" style="text-align:center; background:#f8faf9;">
-  <h2>お問い合わせ</h2>
-  <p>トレーニング依頼・チーム契約・講習会のご相談はこちら。</p>
-  <button class="contact-btn" onclick="window.location.href='../contact/index.html'">
-    お問い合わせフォームへ
-  </button>
-</section>
-
-  <div class="cta">
-    <button onclick="window.location.href='../lab/index.html'">adjustment-labを見る</button>
-     <button onclick="window.location.href='../craft/index.html'">adjustment-craftを見る</button>
-  </div>
-
- <!-- ===== ホームへ戻るボタン ===== -->
-<div class="back-home">
-  <button onclick="window.location.href='/adjustment-lab/index.html'">← ホームへ戻る</button>
-</div>
-  
-<style>
 .price-table {
   display:flex;
   flex-wrap:wrap;
@@ -336,6 +181,7 @@ setInterval(changeBackground, 4500);
   border:1px solid rgba(0,0,0,0.05);
   border-radius:8px;
   padding:20px;
+  text-align:center;
 }
 
 .contact-btn {
@@ -349,24 +195,114 @@ setInterval(changeBackground, 4500);
   transition:0.3s;
 }
 .contact-btn:hover { background:#00926f; }
-#price { text-align: center; }
-  #price .cta {
-		margin-top: 40px; }
-#contact { padding-bottom: 80px; }
-</style>
-  
-<!-- ===== 共通フッター ===== -->
-<link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
-<div id="footer"></div>
 
+@media (max-width: 768px) {
+  .hero-content h1 { font-size: 1.6rem; }
+  .hero-content p { font-size: 0.95rem; }
+}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="hero-content">
+    <h1>adjustment-field</h1>
+    <p>整【-adjustment-】 現場部門</p>
+    <p>野球選手・アスリート専門トレーナー</p>
+    <p class="lead">勝負で力を出し切るための身体を構築する。</p>
+    <div class="cta">
+      <button onclick="window.location.href='../contact/index.html'">パーソナル依頼</button>
+      <button onclick="window.location.href='../application/index.html'">チーム契約</button>
+    </div>
+  </div>
+</section>
+<section class="content">
+  <h2>Toughnessを構造から創る。</h2>
+  <p>
+    ここは競技現場のためのトレーニング設計所。<br>
+    データも感覚も使いこなし、動きを再現できる構造をつくる。<br>
+    すべては勝ち続ける身体を築くために。
+  </p>
+</section>
+<section class="content">
+  <h2>現場に再現性を。</h2>
+  <p>
+    社会人野球・学生アスリートを中心に<br>
+    トレーニング・測定・分析を実施。<br>
+    現場で試され更新され続ける<br>
+    実践型のトレーニングプログラムです。
+  </p>
+  <div class="gallery">
+    <img src="../assets/gallery/adjustment/manual.jpg" alt="徒手調整">
+    <img src="../assets/gallery/adjustment/treadmill-tr.jpg" alt="トレッドミル調整">
+    <img src="../assets/gallery/adjustment/band.jpg" alt="リリースドリル">
+  </div>
+</section>
+<section class="content">
+  <h2>構築する。<br>再現する。<br>勝ち抜く。</h2>
+  <p>
+    Toughnessを構造から創る。<br>
+    どの体力要素もどの動きも、<br>
+    パフォーマンスを発揮する条件を構築する。<br><br>
+    アスリートの可能性を構造から磨き、<br>
+    現場で積み重ねた知と技術で競技力の構造を整える。<br>
+    その先にあるのは、勝負で力を出し切るための身体。
+  </p>
+</section>
+<section class="content" id="price">
+  <h2>料金・メニュー</h2>
+  <div class="price-table">
+    <div class="price-card">
+      <h3>パーソナルトレーニング</h3>
+      <p>1回/30分</p>
+      <strong>￥5,500（税込）</strong>
+      <p>1回/60分</p>
+      <strong>￥8,800（税込）</strong>
+      <p>動作評価・ドリル設計を含む</p>
+    </div>
+    <div class="price-card">
+      <h3>チーム契約</h3>
+      <p>契約形態、料金など</p>
+      <strong>応相談</strong>
+      <p>トレーニング指導・年間計画・<br>測定サポート・講習など</p>
+    </div>
+    <div class="price-card">
+      <h3>オンライン講習</h3>
+      <p>1回60分（Zoom、Teams、Meetなど）</p>
+      <strong>￥6,600（税込）</strong>
+      <p>テーマ別・選手、指導者向け内容</p>
+    </div>
+  </div>
+  <div class="cta">
+    <button onclick="window.location.href='../contact/index.html'">相談する</button>
+  </div>
+</section>
+<section class="content" id="trainer">
+  <h2>トレーナー紹介</h2>
+  <div class="profile">
+    <p><b>西本　裕</b>（整-adjustment-／スポーツトレーナー）</p>
+    <p>富山を拠点に、社会人硬式野球選手を中心とした<br>フィジカルトレーニング・動作設計を行う。<br>解剖学・運動学・力学を基盤に<br>現場の再現性を最重視したプログラム設計を行う。</p>
+    <p>選手一人ひとりの思考と身体を“整え”、<br>勝負で力を出し切るための<br>Toughな構造づくりを支援。</p>
+  </div>
+</section>
+<section class="content" id="contact" style="background:#f8faf9;">
+  <h2>お問い合わせ</h2>
+  <p>トレーニング依頼・チーム契約・講習会のご相談はこちら。</p>
+  <button class="contact-btn" onclick="window.location.href='../contact/index.html'">
+    お問い合わせフォームへ
+  </button>
+</section>
+<div class="cta">
+  <button onclick="window.location.href='../lab/index.html'">adjustment-labを見る</button>
+  <button onclick="window.location.href='../craft/index.html'">adjustment-craftを見る</button>
+</div>
+<div class="back-home">
+  <button onclick="window.location.href='/adjustment-lab/index.html'">← ホームへ戻る</button>
+</div>
+<div id="footer"></div>
 <script>
 fetch("/adjustment-lab/assets/footer-lite.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("footer").innerHTML = data;
-    });
+  .then(r=>r.text())
+  .then(h=>{document.getElementById("footer").innerHTML=h;});
 </script>
-
-  
 </body>
 </html>
