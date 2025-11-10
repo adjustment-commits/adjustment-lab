@@ -1,49 +1,45 @@
 {
   "name": "整 -adjustment-｜field・lab・craft",
-  "short_name": "adjustment",
-  "start_url": "./index.html",
-  "scope": "./",
+  "short_name": "adjustment-lab",
+  "start_url": "/adjustment-lab/index.html",
+  "scope": "/adjustment-lab/",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#f8faf9",
   "theme_color": "#00b386",
-  "description": "現場(field)・研究(lab)・制作(craft)の3本柱で構築する実践型ブランド。",
+  "orientation": "portrait",
+  "lang": "ja",
+  "description": "現場・研究・制作の3部門で構成された実践ブランド。adjustment-field・lab・craftが連携し、再現性を科学する。",
   "icons": [
     {
-      "src": "./assets/icon-field.png",
+      "src": "/adjustment-lab/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/adjustment-lab/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/adjustment-lab/assets/icon-field.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./assets/icon-lab.png",
+      "src": "/adjustment-lab/assets/icon-lab.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./assets/icon-craft.png",
+      "src": "/adjustment-lab/assets/icon-craft.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
-    },
-    {
-      "src": "./assets/icon-field.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-lab.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-craft.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
     }
-  ]
+  ],
+  "categories": ["education", "fitness", "productivity"],
+  "related_applications": [],
+  "prefer_related_applications": false
 }
