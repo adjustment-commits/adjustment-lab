@@ -116,18 +116,80 @@ footer a:hover{text-decoration:underline;}
     <img src="./assets/logo-sei.png" alt="整ロゴ"> 
     <p class="lead">構築・研究・創造の3本柱でつくる実践型ブランド</p>
   <main>
-    <section style="max-width:720px; margin:0 auto 10px;">
-      <p>
-        「整 -adjustment-」は現場（field）、<br>研究（lab）、制作（craft）の<br>
-        三位一体で構成されたブランドです。<br>
-        科学と感性を融合し、アスリート・教育・<br>クリエイティブの領域で<br>
-        “再現できる構造”を創造します。
-      </p>
-      <p style="color:#00b386;font-weight:500;margin-top:1.2em;">
-        Structure. Intelligence. Toughness.<br>
-        すべては現場から、再現性のために。
-      </p>
-    </section>
+   <section class="brand-intro">
+  <div class="intro-inner">
+    <p class="intro-text">
+      「整 -adjustment-」は<br>
+      現場（field）・研究（lab）・制作（craft）の<br>
+      三位一体で構成されたブランドです。<br><br>
+      科学と感性を融合し、アスリート・教育・クリエイティブの領域で<br>
+      “再現できる構造”を創造します。
+    </p>
+    <hr class="intro-divider">
+    <p class="intro-phrase">
+      <span>Structure.</span> <span>Intelligence.</span> <span>Toughness.</span><br>
+      すべては現場から、再現性のために。
+    </p>
+  </div>
+</section>
+
+<style>
+.brand-intro {
+  max-width: 760px;
+  margin: 0 auto 40px;
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  animation: fadein 1.2s ease;
+}
+
+.intro-inner {
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9f8 100%);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+  padding: 40px 30px 50px;
+}
+
+.intro-text {
+  color: #222;
+  line-height: 1.9;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.intro-divider {
+  width: 40%;
+  height: 1px;
+  background: #00b386;
+  border: none;
+  margin: 28px auto;
+  opacity: 0.6;
+}
+
+.intro-phrase {
+  font-size: 1rem;
+  color: #00b386;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.intro-phrase span {
+  display: inline-block;
+  margin: 0 4px;
+  opacity: 0;
+  animation: phraseFade 2.5s ease forwards;
+}
+
+.intro-phrase span:nth-child(1){ animation-delay: 0.3s; }
+.intro-phrase span:nth-child(2){ animation-delay: 0.6s; }
+.intro-phrase span:nth-child(3){ animation-delay: 0.9s; }
+
+@keyframes phraseFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
   </header>
   <main>
     <div class="card" onclick="location.href='./field/index.html'">
