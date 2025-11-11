@@ -198,11 +198,14 @@ footer {
   background: radial-gradient(circle at 30% 20%, #00b386 0%, #004f3a 100%);
   color: #fff;
   display: flex;
-  align-items: center;
   justify-content: center;
+  overflow-y: auto;        /* ← あなたの追記OK */
+  align-items: flex-start; /* ← あなたの追記OK */
+  padding: 40px 0;         /* ← あなたの追記OK */
   z-index: 999;
   animation: fadeIn .6s ease forwards;
 }
+  
 @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
 
 .splash-card {
@@ -399,8 +402,7 @@ footer {
 <script>
 if (!localStorage.getItem("trainingLiteVisited")) {
   document.getElementById("splash").style.display = "flex";
-  document.body.style.overflow = "hidden";
-} else {
+  } else {
   document.getElementById("splash").style.display = "none";
 }
 document.getElementById("startBtn").onclick = () => {
