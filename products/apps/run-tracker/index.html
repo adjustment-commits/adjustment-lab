@@ -65,27 +65,26 @@ button {
   background:var(--accent);
   color:#fff;
 }
+/* ===== Splash fix ===== */
 #splash {
   position: fixed;
   inset: 0;
   background: radial-gradient(circle at 30% 20%, #00b386 0%, #004f3a 100%);
   color: #fff;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  z-index: 999;
+  overflow-y: auto;
+  padding: 40px 0;
+  z-index: 99999;             /* ← 強制的に最前面へ */
+  isolation: isolate;         /* ← Safariの合成バグ防止 */
+  will-change: transform;     /* ← 描画優先度向上 */
 }
-.splash-card {
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  padding: 36px 28px;
-  text-align: center;
-  max-width: 360px;
-  width: 90%;
-  box-shadow: 0 0 40px rgba(0,0,0,0.4);
-}
-</style>
+.splash-card img {
+  display: block;
+  z-index: 2;
+  position: relative;
+}</style>
 </head>
 <body>
 <!-- ===== スプラッシュ ===== -->
