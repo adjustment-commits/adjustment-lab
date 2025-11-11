@@ -90,13 +90,23 @@ line-height:1.6;
 
 /* craft強調 */
 .card:nth-child(3) {
-transform:scale(1.05);
-border:2px solid #00b386;
+  transform:scale(1.05);
+  border:2px solid #00b386;
 }
 .card:nth-child(3):hover {
-transform:scale(1.08);
+  transform:scale(1.08);
 }
 
+@media(max-width:600px){
+  .card:nth-child(3){
+    transform:none;
+    border:1px solid var(--line);
+  }
+  .card:nth-child(3):hover{
+    transform:translateY(-4px);
+  }
+}
+  
 /* ===== フッター ===== */
 footer a {
   color:var(--accent);
@@ -121,10 +131,12 @@ h1{font-size:1.4rem;}
   <div class="intro-inner">
     <p class="intro-text">
       「整 -adjustment-」は、<br>
-      構造を“形”に変える〈craft〉を中核に、<br>
-      現場（field）と研究（lab）が融合するブランド。<br><br>
-      科学を感性で翻訳し、感性を科学で支える。<br>
-      その交点に、“再現できる構造”を創造する。
+      構造を“形”に変える〈craft〉を<br>
+      中核に現場（field）と<br>
+      研究（lab）の融合ブランド。<br><br>
+      科学を感性で翻訳し、<br>
+      感性を科学で支える。<br>
+      その交点に“再現できる構造”を<br>創造する。
     </p>
     <hr class="intro-divider">
     <p class="intro-phrase">
