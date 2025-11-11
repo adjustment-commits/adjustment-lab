@@ -151,39 +151,44 @@ button:hover {opacity:0.9;}
 .splash-card .howto,.splash-card .purpose,.splash-card .pro{text-align:left;}
 .splash-card ul,.splash-card ol{text-align:left;margin-left:1.2em;}
 
-/* ===== PROリンク ===== */
+/* ===== PROリンク（改良版） ===== */
 .pro-link {
-  background:#111;
-  color:#e5e5e5;
+  background:#f8f8f8;              /* 黒からライトグレーへ */
+  color:#333;                      /* 本文を濃いグレーに */
   text-align:center;
-  padding:40px 24px;
+  padding:48px 24px;
   border-radius:12px;
   max-width:480px;
   margin:60px auto;
-  box-shadow:0 2px 12px rgba(0,0,0,0.25);
+  box-shadow:0 2px 12px rgba(0,0,0,0.08);
+  border:1px solid #ddd;
 }
 .pro-link h2 {
-  color:var(--accent);
-  font-size:1.3rem;
+  color:#8b0029;                   /* ワインレッド維持 */
+  font-size:1.4rem;
+  font-weight:700;
   margin-bottom:12px;
 }
 .pro-link p {
-  line-height:1.7;
+  line-height:1.8;
   font-size:0.95rem;
-  color:#ddd;
+  color:#444;                      /* 白ではなく中間グレー */
   margin-bottom:20px;
 }
 .pro-link .cta button {
-  background:none;
-  border:1px solid var(--accent);
-  color:var(--accent);
+  background:#8b0029;              /* 実ボタンをワインレッドに */
+  color:#fff;
+  border:none;
   padding:10px 22px;
   border-radius:6px;
   font-size:1rem;
   cursor:pointer;
   transition:0.3s;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
 }
-.pro-link .cta button:hover {background:var(--accent);color:#fff;}
+.pro-link .cta button:hover {
+  opacity:0.9;
+}
 
 /* ===== footer ===== */
 footer {
