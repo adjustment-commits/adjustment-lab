@@ -1,0 +1,22 @@
+{
+  "name": "Recovery Tracker｜adjustment-lab",
+  "short_name": "Recovery",
+  "start_url": "./index.html",
+  "scope": "/products/apps/recovery-tracker/",
+  "display": "standalone",
+  "background_color": "#00b386",
+  "theme_color": "#00b386",
+  "description": "疲労・睡眠・RPEを記録し、コンディションの回復傾向を見える化するトラッカー。",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
