@@ -11,50 +11,81 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Run Tracker">
+
 <style>
 :root {
-  --accent: #00b386;
+  --accent: #007b5f;  /* 落ち着いたモスグリーン */
   --bg: #f8faf9;
   --text: #1a1a1a;
   font-family: 'Noto Sans JP', sans-serif;
 }
+
+/* ===== 全体設定 ===== */
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
   line-height: 1.8;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
 }
 
-/* ===== ヘッダー ===== */
+/* ===== header：Recovery Tracker風 ===== */
 header {
-  background: linear-gradient(135deg, #00b386 0%, #009270 100%);
+  background: #00b386;
   color: #fff;
   text-align: center;
-  padding: 70px 20px 60px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  padding: 48px 20px 36px;
+  box-shadow: none;
 }
-header h1 { font-size: 2rem; margin-bottom: 6px; }
-header p { opacity: 0.9; font-size: 1rem; }
 
-/* ===== メイン領域 ===== */
-main {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 60px 24px 100px;
+header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 6px;
 }
-section {
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  padding: 28px 24px;
-  margin-bottom: 40px;
+
+header p {
+  opacity: 0.95;
+  font-size: 1rem;
 }
+
+/* ===== 共通テキスト設定 ===== */
 h2 {
   color: var(--accent);
   font-size: 1.2rem;
   margin-top: 0;
+}
+
+/* ===== フォーム・カードレイアウト ===== */
+main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 40px 20px 20px;
+}
+
+section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px 20px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+label {
+  display: inline-block;
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+input[type="number"],
+input[type="text"] {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin: 6px 4px;
+  font-size: 1rem;
+  width: 100px;
+  max-width: 160px;
 }
 
 /* ===== ボタン ===== */
@@ -69,7 +100,21 @@ button {
   cursor: pointer;
   transition: 0.3s;
 }
-button:hover { background: #009270; }
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* ===== 記録リスト ===== */
+#logList li {
+  list-style: none;
+  background: #fff;
+  margin: 6px 0;
+  border-left: 4px solid var(--accent);
+  padding: 8px 10px;
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+}
 
 /* ===== 削除ボタン ===== */
 .del {
@@ -83,7 +128,11 @@ button:hover { background: #009270; }
   margin-left: 8px;
   transition: 0.3s;
 }
-.del:hover { background: var(--accent); color: #fff; }
+
+.del:hover {
+  background: var(--accent);
+  color: #fff;
+}
 
 /* ===== スプラッシュ画面 ===== */
 #splash {
@@ -97,9 +146,13 @@ button:hover { background: #009270; }
   overflow-y: auto;
   padding: 40px 0;
   z-index: 999;
-  animation: fadeIn 0.6s ease forwards;
+  animation: fadeIn .6s ease forwards;
 }
-@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 .splash-card {
   background: rgba(255,255,255,0.06);
@@ -112,62 +165,83 @@ button:hover { background: #009270; }
   width: 90%;
   box-shadow: 0 0 40px rgba(0,0,0,0.4);
 }
-.splash-card img { width: 96px; height: 96px; margin-bottom: 10px; }
-.splash-card h1 { color: #fff; margin-bottom: 6px; }
+
+.splash-card img {
+  width: 96px;
+  height: 96px;
+  margin-bottom: 10px;
+}
+
+.splash-card h1 {
+  color: #fff;
+  margin-bottom: 6px;
+}
+
 .splash-card p.desc {
   color: #e5fff5;
   line-height: 1.6;
   font-size: 0.95rem;
   margin-bottom: 18px;
 }
+
 .splash-card .howto,
 .splash-card .purpose,
-.splash-card .pro { text-align: left; }
-.splash-card ul, .splash-card ol {
+.splash-card .pro {
+  text-align: left;
+}
+
+.splash-card ul,
+.splash-card ol {
   text-align: left;
   margin-left: 1.2em;
 }
 
-/* ===== フッター ===== */
-footer {
+/* ===== PROリンクセクション ===== */
+.pro-link {
+  background: #111;
+  color: #e5e5e5;
   text-align: center;
-  font-size: 0.85rem;
-  color: #777;
-  margin: 40px 0 20px;
+  padding: 48px 20px;
+  margin-top: 48px;
 }
 
-.pro-link {
-  text-align: center;
-  background: linear-gradient(180deg, #0b0b0b 0%, #111 100%);
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding: 80px 20px;
-  color: #ddd;
-}
 .pro-link h2 {
-  color: var(--accent, #00b386);
+  color: #00b386;
   font-size: 1.4rem;
-  margin-bottom: 0.8em;
+  margin-bottom: 12px;
 }
+
 .pro-link p {
-  color: #aaa;
+  margin-bottom: 20px;
   line-height: 1.8;
-  margin-bottom: 1.5em;
 }
+
 .pro-link .cta button {
   background: none;
-  border: 1px solid var(--accent, #00b386);
-  color: var(--accent, #00b386);
-  padding: 0.7em 1.6em;
-  border-radius: 4px;
+  border: 1px solid #00b386;
+  color: #00b386;
+  padding: 10px 20px;
+  border-radius: 6px;
   font-size: 1rem;
-  cursor: pointer;
   transition: 0.3s;
 }
+
 .pro-link .cta button:hover {
-  background: var(--accent, #00b386);
+  background: #00b386;
   color: #fff;
 }
+
+/* ===== footer ===== */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.85rem;
+  color: #666;
+  background: #f8faf9;
+  margin-top: 20px;
+}
 </style>
+  
 </head>
 <body>
 <!-- ===== スプラッシュ ===== -->
