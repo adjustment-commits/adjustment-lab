@@ -109,6 +109,18 @@ section p {
   font-size: 0.9rem;
   line-height: 1.7;
 }
+.work-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+.work-card:hover img {
+  transform: scale(1.03);
+}
 
 /* ===== SERVICE ===== */
 .services {
@@ -196,23 +208,48 @@ section p {
   <p>構造をデザインし、伝える。<br>
   理論を“使える形”に変換し、PWA・UI・Web制作で再現性を設計する。</p>
 </section>
-<section>
+
+ <section>
   <h2>WORKS｜制作実績</h2>
   <p>adjustment-craftは、labで生まれた理論を“形”に変換します。<br>
-  各種トレーニング教材・アプリ・Web構築を一貫してデザインしています。</p>
+  トレーニング教材・診断ツール・教育PWAを一貫してデザインしています。</p>
+
   <div class="works">
     <div class="work-card">
-      <img src="../products/apps/run-tracker/icon-192.png" alt="Run Tracker">
+      <img src="../products/highschool-training/preview.jpg" alt="高校野球トレーニング2025">
+      <h3>高校野球トレーニング2025</h3>
+      <p>中学3年生向けに構成された、全16回＋番外編の教育PWA。<br>
+      思考と体の成長をつなぐインタラクティブ教材。</p>
+    </div>
+
+    <div class="work-card">
+      <img src="../products/selfcheck-lite/preview.jpg" alt="セルフチェックLITE">
+      <h3>セルフチェック LITE</h3>
+      <p>腰・肩・肘・足首を即時判定。<br>
+      医療知識×UXを融合した野球選手向けPWA。</p>
+    </div>
+
+    <div class="work-card">
+      <img src="../products/alti-drink-check/preview.jpg" alt="ALTI飲酒タイプ診断">
+      <h3>ALTI飲酒タイプ診断</h3>
+      <p>体質と行動心理を判定するHTML診断ツール。<br>
+      “遊び×科学”の融合でユーザー体験を設計。</p>
+    </div>
+
+    <div class="work-card">
+      <img src="../products/apps/run-tracker/preview.jpg" alt="Run Tracker">
       <h3>Run Tracker</h3>
-      <p>距離・主観強度・心拍を入力し、走行を可視化するPWAアプリ。</p>
+      <p>距離・主観強度・心拍を入力し、走行を可視化するPWA。</p>
     </div>
+
     <div class="work-card">
-      <img src="../products/apps/recovery-tracker/icon-192.png" alt="Recovery Tracker">
+      <img src="../products/apps/recovery-tracker/preview.jpg" alt="Recovery Tracker">
       <h3>Recovery Tracker</h3>
-      <p>睡眠・疲労・筋肉痛・メンタルを記録。<br>自己回復を数値で理解できるツール。</p>
+      <p>疲労・睡眠・メンタルを記録。<br>自己回復を構造化して理解できるツール。</p>
     </div>
+
     <div class="work-card">
-      <img src="../assets/logo-sei.png" alt="整ロゴ">
+      <img src="../assets/preview-sei-site.jpg" alt="整公式サイト">
       <h3>整公式サイト</h3>
       <p>「整」「lab」「craft」の3本構造を持つブランドサイト。<br>PWA対応・モバイル最適化。</p>
     </div>
