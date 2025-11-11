@@ -239,18 +239,27 @@ footer {
 </header>
 <main>
   <section>
+   <main>
+  <section>
     <h2>記録入力</h2>
     <form id="runForm">
-      <label>距離 (km)</label>
-      <input type="number" id="distance" placeholder="例：3.5" required>
-      <label>RPE（主観的強度）</label>
-      <input type="number" id="rpe" min="1" max="10" placeholder="1〜10" required>
-      <label>VO₂max（任意）</label>
-      <input type="number" id="vo2" placeholder="例：45">
+      <div class="form-row">
+        <label>距離 (km)</label>
+        <input type="number" id="distance" placeholder="例：3.5" required>
+      </div>
+      <div class="form-row">
+        <label>RPE（主観的強度）</label>
+        <input type="number" id="rpe" min="1" max="10" placeholder="1〜10" required>
+      </div>
+      <div class="form-row">
+        <label>VO₂max（任意）</label>
+        <input type="number" id="vo2" placeholder="例：45">
+      </div>
       <button type="submit">記録する</button>
     </form>
   </section>
-  <section>
+
+     <section>
     <h2>記録一覧</h2>
     <ul id="logList"></ul>
   </section>
