@@ -2,234 +2,158 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Run Tracker View｜adjustment-lab</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>Run Tracker｜adjustment-lab</title>
 <meta name="theme-color" content="#00b386">
-
-<!-- ✅ PWA統合：manifest / service-worker動的生成 -->
-<script>
-const manifestData = {
-  name: "Run Tracker View",
-  short_name: "RunView",
-  start_url: "./view.html",
-  display: "standalone",
-  background_color: "#00b386",
-  theme_color: "#00b386",
-  icons: [
-    { src: "icon-192.png", sizes: "192x192", type: "image/png" },
-    { src: "icon-512.png", sizes: "512x512", type: "image/png" }
-  ]
-};
-const blob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
-const manifestURL = URL.createObjectURL(blob);
-const link = document.createElement('link');
-link.rel = 'manifest';
-link.href = manifestURL;
-document.head.appendChild(link);
-
-const swCode = `
-const CACHE_NAME = "run-view-v1";
-const FILES_TO_CACHE = ["./", "./view.html"];
-self.addEventListener("install", e => {
-  e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(FILES_TO_CACHE)));
-});
-self.addEventListener("fetch", e => {
-  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
-});
-self.addEventListener("activate", e => {
-  e.waitUntil(caches.keys().then(keys =>
-    Promise.all(keys.map(k => k !== CACHE_NAME && caches.delete(k)))
-  ));
-});`;
-const swBlob = new Blob([swCode], {type: "text/javascript"});
-const swURL = URL.createObjectURL(swBlob);
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => navigator.serviceWorker.register(swURL));
-}
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Run Tracker">
 <style>
 :root {
   --accent:#00b386; --bg:#f8faf9; --text:#1a1a1a;
-}
-html, body {
-  overflow:auto;
-  -webkit-overflow-scrolling:touch;
+  font-family:'Noto Sans JP',sans-serif;
 }
 body {
-  font-family:'Noto Sans JP',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  margin:0;
-  padding:20px;
-  max-width:700px;
-  margin-inline:auto;
+  margin:0; background:var(--bg); color:var(--text);
+  line-height:1.8; text-rendering:optimizeLegibility;
 }
-h1 {
-  text-align:center;
-  color:var(--accent);
-  margin-top:30px;
-  margin-bottom:14px;
+h2 { color:var(--accent); font-size:1.2rem; margin-top:0; }
+button {
+  background:var(--accent); color:#fff; border:none;
+  border-radius:6px; padding:12px 22px; margin-top:20px;
+  font-size:1rem; cursor:pointer; transition:0.3s;
 }
-.toggle-role {
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin:8px 0 18px;
+#logList li {
+  list-style:none; background:#fff; margin:6px 0;
+  border-left:4px solid var(--accent); padding:8px 10px;
+  border-radius:6px; box-shadow:0 1px 6px rgba(0,0,0,0.05);
 }
-.toggle-role button {
-  border:1px solid var(--accent);
-  background:none;
-  color:var(--accent);
-  padding:8px 18px;
-  border-radius:6px;
-  font-size:1rem;
-  cursor:pointer;
-  transition:.25s;
+.del {
+  background:none; border:1px solid var(--accent); color:var(--accent);
+  padding:4px 10px; border-radius:4px; cursor:pointer; font-size:0.85rem;
+  margin-left:8px; transition:0.3s;
 }
-.toggle-role button.active {
-  background:var(--accent);
-  color:#fff;
+.del:hover { background:var(--accent); color:#fff; }
+.pro-link h2 { color:var(--accent); font-size:1.4rem; margin-bottom:0.8em; }
+.pro-link .cta button {
+  background:none; border:1px solid var(--accent); color:var(--accent);
+  padding:0.7em 1.6em; border-radius:4px; font-size:1rem; cursor:pointer; transition:0.3s;
 }
-canvas {
-  margin-top:8px;
-  width:100%;
-  height:320px;
-}
-p.comment {
-  background:#fff;
-  border-left:4px solid var(--accent);
-  padding:16px;
-  border-radius:6px;
-  box-shadow:0 1px 8px rgba(0,0,0,.05);
-  line-height:1.7;
-  margin-top:18px;
-}
-p.stage {
-  text-align:center;
-  color:#333;
-  font-size:1rem;
-  font-weight:500;
-  margin-top:12px;
-}
-button.nav {
-  display:block;
-  width:100%;
-  margin-top:28px;
-  background:#00b386;
-  color:#fff;
-  border:none;
-  padding:12px;
-  border-radius:6px;
-  font-size:1rem;
-  cursor:pointer;
-}
-button.nav:hover {
-  opacity:.9;
-}
-footer {
-  text-align:center;
-  color:#777;
-  font-size:13px;
-  margin:40px 0 10px;
-}
+.pro-link .cta button:hover { background:var(--accent); color:#fff; }
 </style>
 </head>
-
 <body>
-<h1>Run Tracker View</h1>
-
-<div class="toggle-role">
-  <button id="batterBtn">野手</button>
-  <button id="pitcherBtn">投手</button>
+<!-- ===== スプラッシュ画面 ===== -->
+<div id="splash">
+  <div class="splash-card">
+    <img src="icon-192.png" alt="Run Tracker アイコン">
+    <h1>Run Tracker</h1>
+    <p class="desc">走ることを「見える化」する。<br>記録し、分析し、走力と回復を整える。</p>
+    <div class="howto">
+      <p>📘 <b>使い方</b></p>
+      <ol>
+        <li>① 距離・RPE・VO₂maxを入力。</li>
+        <li>② データを保存して走力を可視化。</li>
+        <li>③ viewページで傾向を分析。</li>
+      </ol>
+    </div>
+    <div class="buttons">
+      <button id="startBtn">はじめる</button>
+      <button id="proBtn" onclick="location.href='/adjustment-lab/products/index.html'">PRO版を見る</button>
+    </div>
+  </div>
 </div>
-
-<canvas id="runChart"></canvas>
-<p id="comment" class="comment"></p>
-<p id="stage" class="stage"></p>
-<button class="nav" onclick="location.href='index.html'">← 記録入力へ戻る</button>
-
-<footer>© 2025 adjustment-lab｜Run Tracker View</footer>
-
+<header>
+  <h1>Run Tracker</h1>
+  <p>走ることで思考を整える。<br>記録で「自分の走り」を可視化しよう。</p>
+</header>
+<main>
+  <section>
+    <h2>記録入力</h2>
+    <form id="runForm">
+      <label>距離 (km)</label>
+      <input type="number" id="distance" placeholder="例：3.5" required>
+      <label>RPE（主観的強度）</label>
+      <input type="number" id="rpe" min="1" max="10" placeholder="1〜10" required>
+      <label>VO₂max（任意）</label>
+      <input type="number" id="vo2" placeholder="例：45">
+      <button type="submit">記録する</button>
+      <button type="button" onclick="location.href='view.html'">📊 グラフを見る</button>
+    </form>
+  </section>
+  <section>
+    <h2>記録一覧</h2>
+    <ul id="logList"></ul>
+  </section>
+</main>
+<section class="pro-link">
+  <h2>律動 PRO ― 統合と再現の世界へ</h2>
+  <p>このアプリで得たデータは律動 PROで統合解析できます。</p>
+  <div class="cta">
+    <button onclick="window.location.href='/adjustment-lab/products/apps/pro/index.html'">律動 PRO を見る</button>
+  </div>
+</section>
+<footer>© 2025 adjustment-lab｜Run Tracker</footer>
 <script>
-const ctx = document.getElementById("runChart").getContext("2d");
-let chart = null;
-let role = localStorage.getItem("playerRole") || "batter";
-const batterBtn = document.getElementById("batterBtn");
-const pitcherBtn = document.getElementById("pitcherBtn");
-batterBtn.onclick = () => { role="batter"; localStorage.setItem("playerRole","batter"); updateRole(); render(); };
-pitcherBtn.onclick = () => { role="pitcher"; localStorage.setItem("playerRole","pitcher"); updateRole(); render(); };
-function updateRole(){
-  batterBtn.classList.toggle("active", role==="batter");
-  pitcherBtn.classList.toggle("active", role==="pitcher");
+// ===== スプラッシュ制御 =====
+if (!localStorage.getItem("runTrackerVisited")) {
+  document.getElementById("splash").style.display = "flex";
+  document.documentElement.style.overflow = "hidden";
+} else {
+  document.getElementById("splash").style.display = "none";
 }
-updateRole();
+document.getElementById("startBtn").onclick = () => {
+  localStorage.setItem("runTrackerVisited", "true");
+  document.getElementById("splash").style.opacity = "0";
+  setTimeout(() => {
+    document.getElementById("splash").remove();
+    document.documentElement.style.overflow = "";
+  }, 600);
+};
 
-function render(){
-  const data = JSON.parse(localStorage.getItem("runLogs") || "[]");
-  if(!data.length){
-    document.getElementById("comment").textContent = "まだ記録がありません。";
-    document.getElementById("stage").textContent = "";
-    if(chart) chart.destroy();
-    return;
-  }
-  const sorted = [...data].sort((a,b)=> new Date(a.date)-new Date(b.date));
-  const dates = sorted.map(r=>r.date);
-  const rpe = sorted.map(r=>r.rpe || null);
-  const dist = sorted.map(r=>r.distance || null);
-  const vo2 = sorted.map(r=>r.vo2 || null);
+// ===== 記録処理 =====
+const form=document.getElementById("runForm");
+const logList=document.getElementById("logList");
+let logs=JSON.parse(localStorage.getItem("runLogs")||"[]");
 
-  if(chart) chart.destroy();
-  chart = new Chart(ctx, {
-    type:"line",
-    data:{
-      labels:dates,
-      datasets:[
-        {label:"距離(km)", data:dist, borderColor:"#1e90ff", backgroundColor:"rgba(30,144,255,0.2)", yAxisID:"y1"},
-        {label:"RPE", data:rpe, borderColor:"#00b386", backgroundColor:"rgba(0,179,134,0.2)", yAxisID:"y"},
-        {label:"VO₂max", data:vo2, borderColor:"#8a2be2", backgroundColor:"rgba(138,43,226,0.15)", yAxisID:"y2"}
-      ]
-    },
-    options:{
-      responsive:true,
-      plugins:{legend:{position:"bottom"}},
-      interaction:{mode:"index",intersect:false},
-      scales:{
-        y:{title:{display:true,text:"RPE"},min:0,max:10},
-        y1:{position:"right",grid:{drawOnChartArea:false},title:{display:true,text:"距離"}},
-        y2:{position:"right",grid:{drawOnChartArea:false},title:{display:true,text:"VO₂max"}}
+function saveLog(log){
+  logs.push(log);
+  localStorage.setItem("runLogs",JSON.stringify(logs));
+}
+function updateLogs(){
+  logList.innerHTML = "";
+  const sorted = [...logs].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  sorted.forEach((l, i) => {
+    const li = document.createElement("li");
+    li.textContent = `${l.date}｜距離:${l.distance}km｜RPE:${l.rpe}｜VO₂max:${l.vo2}`;
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "削除";
+    delBtn.className = "del";
+    delBtn.onclick = () => {
+      if (confirm("この記録を削除しますか？")) {
+        logs.splice(i, 1);
+        localStorage.setItem("runLogs", JSON.stringify(logs));
+        updateLogs();
       }
-    }
+    };
+    li.appendChild(delBtn);
+    logList.appendChild(li);
   });
-
-  const rpeValid = rpe.filter(v=>typeof v==="number" && !isNaN(v));
-  const avgRPE = rpeValid.length ? rpeValid.reduce((a,b)=>a+b,0)/rpeValid.length : 0;
-  const trendUp = rpeValid.slice(-3).length===3 && (rpeValid.slice(-3)[2]>rpeValid.slice(-3)[0]);
-
-  let text="";
-  if(role==="pitcher"){
-    if(avgRPE>=8) text="高強度の投げ込みが続いています。疲労蓄積に注意。";
-    else if(avgRPE<=4) text="リカバリー期。フォーム再現と脱力を意識。";
-    else if(trendUp) text="負荷が上昇傾向。タフネス強化が進行中。";
-    else text="安定した強度。好調を維持しています。";
-  }else{
-    if(avgRPE>=8) text="高負荷トレーニングが継続。疲労を抜くリズムを意識。";
-    else if(avgRPE<=4) text="軽めの強度。動きのキレ維持を意識。";
-    else if(trendUp) text="負荷が上昇。出力系が高まっています。";
-    else text="安定した強度推移。リズム良好。";
-  }
-
-  let stage="";
-  if(avgRPE<4) stage="段階：整える期（リカバリー）";
-  else if(avgRPE<7) stage="段階：積み上げ期（発展）";
-  else stage="段階：突破期（タフネス構築）";
-
-  document.getElementById("comment").textContent = text;
-  document.getElementById("stage").textContent = `あなたの現在地：${stage}`;
 }
-render();
+form.addEventListener("submit",e=>{
+  e.preventDefault();
+  const newLog={
+    distance:distance.value,
+    rpe:rpe.value,
+    vo2:vo2.value||"-",
+    date:new Date().toISOString().slice(0,10)
+  };
+  saveLog(newLog); updateLogs(); form.reset();
+});
+updateLogs();
 </script>
 </body>
 </html>
