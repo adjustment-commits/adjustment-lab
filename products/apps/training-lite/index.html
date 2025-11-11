@@ -4,330 +4,268 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 <title>Training LITE｜adjustment-lab</title>
-<meta name="theme-color" content="#00b386">
+<meta name="theme-color" content="#8b0029">
 <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
+<link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Training LITE">
-<link rel="manifest" href="manifest.json">
 <style>
 :root {
-  --accent: #8b0029;  /* 濃いワインレッド */
-  --bg: #f8faf9;
-  --text: #1a1a1a;
-  font-family: 'Noto Sans JP', sans-serif;
+  --accent:#8b0029; /* 濃いワインレッド */
+  --bg:#f8faf9;
+  --text:#1a1a1a;
+  font-family:'Noto Sans JP',sans-serif;
 }
-  /* ===== 全体設定 ===== */
+
+/* ===== 全体設定 ===== */
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.8;
-  text-rendering: optimizeLegibility;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.8;
+  text-rendering:optimizeLegibility;
 }
 
-/* ===== header：Recovery Tracker風 ===== */
+/* ===== header ===== */
 header {
-  background: #00b386;
-  color: #fff;
-  text-align: center;
-  padding: 48px 20px 36px;
-  box-shadow: none;
+  text-align:center;
+  padding:48px 20px 24px;
 }
-
 header h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 6px;
+  font-size:2rem;
+  font-weight:700;
+  color:var(--accent);
+  margin-bottom:6px;
 }
-
 header p {
-  opacity: 0.95;
-  font-size: 1rem;
+  color:#555;
+  opacity:0.9;
+  font-size:1rem;
 }
 
-/* ===== 共通テキスト設定 ===== */
-h2 {
-  color: var(--accent);
-  font-size: 1.2rem;
-  margin-top: 0;
-}
-
-/* ===== フォーム・カードレイアウト ===== */
+/* ===== main・カード ===== */
 main {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 40px 20px 20px;
+  max-width:480px;
+  margin:0 auto;
+  padding:20px;
 }
-
 section {
-  background: #fff;
-  border-radius: 12px;
-  padding: 24px 20px;
-  margin-bottom: 32px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  background:#fff;
+  border-radius:12px;
+  padding:24px 20px;
+  margin-bottom:32px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+h2 {
+  color:var(--accent);
+  font-size:1.2rem;
+  margin-top:0;
 }
 
+/* ===== 入力フォーム ===== */
 label {
-  display: inline-block;
-  margin-right: 8px;
-  font-weight: 600;
+  display:inline-block;
+  margin-right:8px;
+  font-weight:600;
 }
-
-input[type="number"],
-input[type="text"] {
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 8px 10px;
-  margin: 6px 4px;
-  font-size: 1rem;
-  width: 100px;
-  max-width: 160px;
+input[type="number"],input[type="text"] {
+  border:1px solid #ccc;
+  border-radius:6px;
+  padding:8px 10px;
+  margin:6px 4px;
+  font-size:1rem;
+  width:100%;
+  box-sizing:border-box;
 }
 
 /* ===== ボタン ===== */
 button {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 12px 22px;
-  margin-top: 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.3s;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  padding:12px 22px;
+  margin-top:20px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
 }
-
-button:hover {
-  opacity: 0.9;
-}
+button:hover {opacity:0.9;}
 
 /* ===== 記録リスト ===== */
 #logList li {
-  list-style: none;
-  background: #fff;
-  margin: 6px 0;
-  border-left: 4px solid var(--accent);
-  padding: 8px 10px;
-  border-radius: 6px;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  list-style:none;
+  background:#fff;
+  margin:6px 0;
+  border-left:4px solid var(--accent);
+  padding:8px 10px;
+  border-radius:6px;
+  box-shadow:0 1px 6px rgba(0,0,0,0.05);
 }
 
 /* ===== 削除ボタン ===== */
 .del {
-  background: none;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 4px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  margin-left: 8px;
-  transition: 0.3s;
+  background:none;
+  border:1px solid var(--accent);
+  color:var(--accent);
+  padding:4px 10px;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:0.85rem;
+  margin-left:8px;
+  transition:0.3s;
 }
+.del:hover {background:var(--accent);color:#fff;}
 
-.del:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-/* ===== スプラッシュ画面 ===== */
+/* ===== スプラッシュ ===== */
 #splash {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at 30% 20%, #00b386 0%, #004f3a 100%);
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  overflow-y: auto;
-  padding: 40px 0;
-  z-index: 999;
-  animation: fadeIn .6s ease forwards;
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at 30% 20%, #8b0029 0%, #3f0015 100%);
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  overflow-y:auto;
+  padding:40px 0;
+  z-index:999;
+  animation:fadeIn .6s ease forwards;
 }
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
+@keyframes fadeIn {from{opacity:0;}to{opacity:1;}}
 .splash-card {
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 16px;
-  padding: 36px 28px;
-  text-align: center;
-  max-width: 360px;
-  width: 90%;
-  box-shadow: 0 0 40px rgba(0,0,0,0.4);
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:16px;
+  padding:36px 28px;
+  text-align:center;
+  max-width:360px;
+  width:90%;
+  box-shadow:0 0 40px rgba(0,0,0,0.4);
 }
+.splash-card img {width:96px;height:96px;margin-bottom:10px;}
+.splash-card h1 {color:#fff;margin-bottom:6px;}
+.splash-card p.desc {color:#ffe6ec;line-height:1.6;font-size:0.95rem;margin-bottom:18px;}
+.splash-card .howto,.splash-card .purpose,.splash-card .pro{text-align:left;}
+.splash-card ul,.splash-card ol{text-align:left;margin-left:1.2em;}
 
-.splash-card img {
-  width: 96px;
-  height: 96px;
-  margin-bottom: 10px;
-}
-
-.splash-card h1 {
-  color: #fff;
-  margin-bottom: 6px;
-}
-
-.splash-card p.desc {
-  color: #e5fff5;
-  line-height: 1.6;
-  font-size: 0.95rem;
-  margin-bottom: 18px;
-}
-
-.splash-card .howto,
-.splash-card .purpose,
-.splash-card .pro {
-  text-align: left;
-}
-
-.splash-card ul,
-.splash-card ol {
-  text-align: left;
-  margin-left: 1.2em;
-}
-
-/* ===== PROリンクセクション ===== */
+/* ===== PROリンク ===== */
 .pro-link {
-  background: #111;
-  color: #e5e5e5;
-  text-align: center;
-  padding: 48px 20px;
-  margin-top: 48px;
+  background:#111;
+  color:#e5e5e5;
+  text-align:center;
+  padding:40px 24px;
+  border-radius:12px;
+  max-width:480px;
+  margin:60px auto;
+  box-shadow:0 2px 12px rgba(0,0,0,0.25);
 }
-
 .pro-link h2 {
-  color: #00b386;
-  font-size: 1.4rem;
-  margin-bottom: 12px;
+  color:var(--accent);
+  font-size:1.3rem;
+  margin-bottom:12px;
 }
-
 .pro-link p {
-  margin-bottom: 20px;
-  line-height: 1.8;
+  line-height:1.7;
+  font-size:0.95rem;
+  color:#ddd;
+  margin-bottom:20px;
 }
-
 .pro-link .cta button {
-  background: none;
-  border: 1px solid #00b386;
-  color: #00b386;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition: 0.3s;
+  background:none;
+  border:1px solid var(--accent);
+  color:var(--accent);
+  padding:10px 22px;
+  border-radius:6px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
 }
-
-.pro-link .cta button:hover {
-  background: #00b386;
-  color: #fff;
-}
+.pro-link .cta button:hover {background:var(--accent);color:#fff;}
 
 /* ===== footer ===== */
 footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 0.85rem;
-  color: #666;
-  background: #f8faf9;
-  margin-top: 20px;
+  text-align:center;
+  padding:20px;
+  font-size:0.85rem;
+  color:#666;
 }
 </style>
 </head>
 <body>
-
-<!-- ===== スプラッシュ（起動画面） ===== -->
+<!-- ===== スプラッシュ ===== -->
 <div id="splash">
   <div class="splash-card">
     <img src="icon-192.png" alt="Training Lite アイコン">
     <h1>Training Lite</h1>
-    <p class="desc">
-      毎日のトレーニングを“設計”するアプリ。<br>
-      目的を設定し、行動を記録して、<br>
-      あなたの成長を構造的に積み上げる。
-    </p>
+    <p class="desc">毎日のトレーニングを“設計”するアプリ。<br>目的を設定し、行動を記録して、成長を構造的に積み上げる。</p>
+<div class="howto">
+  <p>📘 <b>使い方</b></p>
+  <ol>
+    <li>トレーニング前に「目標」を設定する。</li>
+    <li>種目・強度・時間を入力して記録する。</li>
+    <li>記録が積み重なると“達成率”が進む。</li>
+    <li>週ごとにフォームと出力を見直す。</li>
+  </ol>
+</div>
 
-    <div class="howto">
-      <p>📘 <b>使い方</b></p>
-      <ol>
-        <li>トレーニング前に「目標」を設定する。</li>
-        <li>種目・強度・時間を入力して記録する。</li>
-        <li>記録が積み重なると“達成率”が進む。</li>
-        <li>1週間ごとにフォームや出力を見直す。</li>
-      </ol>
-    </div>
+<div class="purpose">
+  <p>🎯 <b>Training Liteでできること</b></p>
+  <ul>
+    <li>「なぜやるか」を明確にして継続を習慣化</li>
+    <li>記録を“再現可能な構造”として可視化</li>
+    <li>強度とボリュームの自己管理を育てる</li>
+  </ul>
+</div>
 
-    <div class="purpose">
-      <p>🎯 <b>Training Liteでできること</b></p>
-      <ul>
-        <li>「なぜやるか」を明確にして継続を習慣化</li>
-        <li>記録を“再現可能な構造”として可視化</li>
-        <li>強度とボリュームの自己管理を育てる</li>
-      </ul>
-    </div>
+<div class="pro">
+  <p>🚀 <b>PRO版でさらにできること</b></p>
+  <ul>
+    <li>RPE・VO₂maxとの連動分析</li>
+    <li>トレーナーとの共有・フィードバック機能</li>
+    <li>クラウドバックアップ・複数選手モード</li>
+  </ul>
+</div>
 
-    <div class="pro">
-      <p>🚀 <b>PRO版でさらにできること</b></p>
-      <ul>
-        <li>RPE・VO₂maxとの連動分析</li>
-        <li>トレーナーとの共有・フィードバック機能</li>
-        <li>クラウドバックアップ・複数選手モード</li>
-      </ul>
-    </div>
-
-    <div class="buttons">
-      <button id="startBtn">はじめる</button>
-      <button id="proBtn" onclick="location.href='/adjustment-lab/products/index.html'">PRO版を見る</button>
-    </div>
-  </div>
-</div>  
-  
+<div class="buttons">
+  <button id="startBtn">はじめる</button>
+  <button id="proBtn" onclick="location.href='/adjustment-lab/products/index.html'">PRO版を見る</button>
+</div>  </div>
+</div>
 <header>
   <h1>Training LITE</h1>
-  <p>自分で設定し、実行し、記録する。<br>思考を形にする、無料トレーニングログ。</p>
+  <p>自分で設定し、実行し、記録する。思考を形にするトレーニングログ。</p>
 </header>
 <main>
-  <section class="form-section">
+  <section>
     <h2>トレーニング入力</h2>
     <form id="trainingForm">
       <label>目標名</label>
       <input type="text" id="goal" placeholder="例：下半身の安定性を高める" required>
-  <label>種目</label>
-  <input type="text" id="exercise" placeholder="例：スクワット" required>
-
-  <label>強度（kg / 回数）</label>
-  <input type="text" id="intensity" placeholder="例：80kg × 8回">
-
-  <label>時間（秒 / 分）</label>
-  <input type="text" id="duration" placeholder="例：45秒 × 3セット">
+      <label>種目</label>
+      <input type="text" id="exercise" placeholder="例：スクワット" required>
+      <label>強度（kg / 回数）</label>
+      <input type="text" id="intensity" placeholder="例：80kg × 8回">
+      <label>時間（秒 / 分）</label>
+      <input type="text" id="duration" placeholder="例：45秒 × 3セット">
+      <button type="submit">記録する</button>
+      <span id="checkArea"></span>
+    </form>
   </section>
-
-  <button type="submit">記録する</button>
-  <span id="checkArea"></span>
-</form>
-  <section class="log-section">
+  <section>
     <h2>記録一覧</h2>
     <ul id="logList"></ul>
   </section>
-  <section class="progress-section">
+  <section>
     <h2>達成状況</h2>
     <div class="progress-container">
       <div id="progressBar"></div>
     </div>
     <p id="progressText">達成率：0%</p>
   </section>
-  <section class="calendar-section">
-    <h2>カレンダー</h2>
-    <div id="calendar"></div>
-  </section>
 </main>
-<!-- PRO 導線 -->
 <section class="pro-link">
   <h2>律動 PRO ― 統合と再現の世界へ</h2>
   <p>このアプリで得たデータは、律動 PRO で統合解析できます。<br>
@@ -336,32 +274,27 @@ footer {
     <button onclick="window.location.href='../pro/index.html'">律動 PRO を見る</button>
   </div>
 </section>
-<footer>
-  <p>© 2025 adjustment-lab｜Training LITE</p>
-</footer>
-
+<footer>© 2025 adjustment-lab｜Training LITE</footer>
 <script>
 if (!localStorage.getItem("trainingLiteVisited")) {
-  document.getElementById("splash").style.display = "flex";
-  } else {
-  document.getElementById("splash").style.display = "none";
+  document.getElementById("splash").style.display="flex";
+  document.body.style.overflow="hidden";
+} else {
+  document.getElementById("splash").style.display="none";
 }
-document.getElementById("startBtn").onclick = () => {
-  localStorage.setItem("trainingLiteVisited", "true");
-  document.getElementById("splash").style.opacity = "0";
-  setTimeout(() => {
+document.getElementById("startBtn").onclick=()=>{
+  localStorage.setItem("trainingLiteVisited","true");
+  document.getElementById("splash").style.opacity="0";
+  setTimeout(()=>{
     document.getElementById("splash").remove();
-    document.body.style.overflow = "";
-  }, 600);
+    document.body.style.overflow="";
+  },600);
 };
-</script>
-  
-<script>
+
 const form=document.getElementById("trainingForm");
 const logList=document.getElementById("logList");
 const progressBar=document.getElementById("progressBar");
 const progressText=document.getElementById("progressText");
-const calendar=document.getElementById("calendar");
 const checkArea=document.getElementById("checkArea");
 
 let logs=JSON.parse(localStorage.getItem("trainingLogs")||"[]");
@@ -370,14 +303,11 @@ function saveLog(log){
   logs.push(log);
   localStorage.setItem("trainingLogs",JSON.stringify(logs));
 }
-
 function updateLogs(){
   logList.innerHTML="";
   logs.forEach((l,i)=>{
     const li=document.createElement("li");
     li.textContent=`${l.date}｜${l.goal}｜${l.exercise}｜${l.intensity}｜${l.duration}`;
-
-    // 🔽 この3行を追加
     const delBtn=document.createElement("button");
     delBtn.textContent="削除";
     delBtn.className="del";
@@ -388,31 +318,15 @@ function updateLogs(){
         updateLogs();
       }
     };
-
-    li.appendChild(delBtn); // ここでボタンをliに追加
+    li.appendChild(delBtn);
     logList.appendChild(li);
   });
 }
-
 function updateProgress(){
   const rate=Math.min((logs.length/10)*100,100);
   progressBar.style.width=rate+"%";
   progressText.textContent=`達成率：${Math.round(rate)}%`;
 }
-
-function updateCalendar(){
-  calendar.innerHTML="";
-  const today=new Date();
-  const daysInMonth=new Date(today.getFullYear(),today.getMonth()+1,0).getDate();
-  for(let d=1;d<=daysInMonth;d++){
-    const cell=document.createElement("div");
-    cell.textContent=d;
-    const recorded=logs.some(l=>new Date(l.date).getDate()===d);
-    if(recorded) cell.classList.add("active");
-    calendar.appendChild(cell);
-  }
-}
-
 form.addEventListener("submit",e=>{
   e.preventDefault();
   const newLog={
@@ -422,18 +336,20 @@ form.addEventListener("submit",e=>{
     duration:duration.value.trim(),
     date:new Date().toLocaleDateString("ja-JP")
   };
-  saveLog(newLog);
-  updateLogs();
-  updateProgress();
-  updateCalendar();
+  saveLog(newLog);updateLogs();updateProgress();
   checkArea.innerHTML='<span class="checkmark">✓</span>';
   setTimeout(()=>checkArea.innerHTML="",1000);
   form.reset();
 });
-
-updateLogs();
-updateProgress();
-updateCalendar();
+updateLogs();updateProgress();
+</script>
+<script>
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./service-worker.js")
+    .catch(err=>console.error("SW registration failed:",err));
+  });
+}
 </script>
 </body>
 </html>
