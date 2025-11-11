@@ -65,6 +65,26 @@ button {
   background:var(--accent);
   color:#fff;
 }
+#splash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, #00b386 0%, #004f3a 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+.splash-card {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 36px 28px;
+  text-align: center;
+  max-width: 360px;
+  width: 90%;
+  box-shadow: 0 0 40px rgba(0,0,0,0.4);
+}
 </style>
 </head>
 <body>
@@ -165,7 +185,7 @@ function updateLogs(){
   logList.innerHTML = "";
   logs.forEach((l, i) => {
     const li = document.createElement("li");
-    li.textContent = `${l.date}｜距離:${l.distance}km｜RPE:${l.rpe}｜VO₂max:${l.vo2}`;
+    li.textContent = `${l.date}｜距離:${l.distance}km｜RPE:${l.rpe}｜VO2max:${l.vo2}`;
     const delBtn = document.createElement("button");
     delBtn.textContent = "削除";
     delBtn.className = "del";
@@ -192,5 +212,14 @@ form.addEventListener("submit",e=>{
 });
 updateLogs();
 </script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js")
+      .catch(err => console.error("SW registration failed:", err));
+  });
+}
+</script>  
 </body>
 </html>
