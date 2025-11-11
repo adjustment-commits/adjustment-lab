@@ -44,9 +44,9 @@ section {
   margin-bottom:20px;
   box-shadow:0 2px 10px rgba(0,0,0,0.08);
 }
-ul, ol {  margin-left:0;       /* 外側余白を消す */
-+  padding-left:1em;    /* マーカー分だけ少し残す（必要に応じて0でも可） */
-+  list-style-position: inside;  /* マーカーを内側に入れる */
+ul, ol {
+  margin-left: -1em;  /* マーカーごと全体を1文字ぶん左へ */
+  padding-left: 1em;  /* マーカーの視認性を確保 */
 }
 .notice {
   background:#fffbe5;
