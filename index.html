@@ -8,7 +8,6 @@
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#f8faf9">
 <link rel="apple-touch-icon" sizes="192x192" href="./assets/icon-192.png">
-
 <style>
 :root {
   --bg:#f8faf9;
@@ -20,29 +19,74 @@
 }
 body {
   margin:0;
-  padding:0;
   background:var(--bg);
   color:var(--text);
   display:flex;
   flex-direction:column;
   align-items:center;
   min-height:100vh;
+  text-rendering:optimizeLegibility;
+}
+
+/* ===== Header（ロゴのみ） ===== */
+header {
+  text-align:center;
+  padding:30px 0 10px;
+}
+header img {
+  width:120px;
+  max-width:20vw;
+  height:auto;
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-5px);}
+}
+
+/* ===== Hero（イントロ） ===== */
+.hero {
+  width:100%;
+  background:linear-gradient(180deg,#ffffff 0%,#eef6f5 100%);
+  text-align:center;
+  padding:40px 20px 50px;
+  box-sizing:border-box;
+}
+.hero p {
+  font-size:1.05rem;
+  line-height:1.9;
+  color:#222;
+  max-width:720px;
+  margin:0 auto;
+}
+.hero hr {
+  width:40%;
+  height:1px;
+  background:#00b386;
+  border:none;
+  margin:28px auto;
+  opacity:0.6;
+}
+.hero .phrase {
+  font-size:1rem;
+  color:#00b386;
+  font-weight:600;
+  letter-spacing:0.03em;
 }
 
 /* ===== カードレイアウト（PC） ===== */
 main {
   display:grid;
-  grid-template-columns: repeat(2, 280px);
+  grid-template-columns:repeat(2,280px);
   grid-template-areas:
     "craft craft"
     "field lab";
-  gap:24px 32px;
+  gap:28px 32px;
   justify-content:center;
-  padding:0 10px;
+  padding:50px 10px 40px;
   max-width:960px;
-  margin-top:20px;
+  box-sizing:border-box;
 }
-
 .card {
   background:var(--card);
   border:1px solid var(--line);
@@ -72,10 +116,10 @@ main {
   line-height:1.6;
 }
 
-/* ===== 個別ポジション設定 ===== */
-.card.craft { grid-area: craft; width: 600px; justify-self:center; }
-.card.field { grid-area: field; }
-.card.lab   { grid-area: lab; }
+/* ===== 個別配置 ===== */
+.card.craft { grid-area:craft; width:600px; justify-self:center; }
+.card.field { grid-area:field; }
+.card.lab   { grid-area:lab; }
 
 /* craft強調 */
 .card.craft {
@@ -86,181 +130,87 @@ main {
   transform:scale(1.08);
 }
 
-/* ===== スマホ（縦1列＋隙間拡大） ===== */
-@media(max-width:600px){
+/* ===== スマホ ===== */
+@media(max-width:700px){
   main {
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:22px;
+    gap:26px;
   }
   .card {
     width:90%;
-    margin-bottom:16px;
+    margin-bottom:10px;
   }
   .card.craft {
     transform:none;
     border:1px solid var(--line);
   }
+  header img {
+    width:100px;
+  }
+  .hero {
+    padding:30px 16px 40px;
+  }
+  .hero p {
+    font-size:0.95rem;
+  }
 }
-  
+
 /* ===== フッター ===== */
+footer {
+  text-align:center;
+  padding:40px 0;
+  font-size:0.85rem;
+  color:#888;
+}
 footer a {
   color:var(--accent);
   text-decoration:none;
 }
 footer a:hover{text-decoration:underline;}
-
-/* ===== レスポンシブ ===== */
-@media(max-width:600px){
-.card{width:90%;}
-header img{width:100px;}
-h1{font-size:1.4rem;}
-}
-
 </style>
 </head>
 <body>
-  <header>
-    <img src="./assets/logo-sei.png" alt="整ロゴ"> 
-  <main>
-   <section class="brand-intro">
-  <div class="intro-inner">
-    <p class="intro-text">
-      「整 -adjustment-」は、<br>
-      構造を“形”に変える〈craft〉を<br>
-      中核に現場（field）と<br>
-      研究（lab）の融合ブランド。<br><br>
-      科学を感性で翻訳し、<br>
-      感性を科学で支える。<br>
-      その交点に“再現できる構造”を<br>創造する。
-    </p>
-    <hr class="intro-divider">
-    <p class="intro-phrase">
-      <span>Structure.</span> <span>Intelligence.</span> <span>Toughness.</span><br>
-      全ては現場から再現性のために。
-    </p>
-  </div>
+<header>
+  <img src="./assets/logo-sei.png" alt="整ロゴ">
+</header>
+<section class="hero">
+  <p>
+    「整 -adjustment-」は、<br>
+    構造を“形”に変える〈craft〉を中核に、<br>
+    現場（field）と研究（lab）の融合で<br>
+    “再現できる構造”を創造するブランド。
+  </p>
+  <hr>
+  <p class="phrase">
+    Structure. Intelligence. Toughness.<br>
+    すべては現場から、再現性のために。
+  </p>
 </section>
-<style>
-.brand-intro {
-  max-width:760px;
-  margin:0 auto 10px;
-  padding:20px 20px 30px;
-  text-align:center;
-  position:relative;
-  animation:fadein 1.2s ease;
-}
-.intro-inner {
-  background:linear-gradient(180deg,#ffffff 0%,#f7f9f8 100%);
-  border:1px solid rgba(0,0,0,0.05);
-  border-radius:12px;
-  box-shadow:0 4px 18px rgba(0,0,0,0.04);
-  padding:40px 30px 50px;
-}
-.intro-text {
-  color:#222;
-  line-height:1.9;
-  font-size:1.05rem;
-  letter-spacing:0.02em;
-}
-.intro-divider {
-  width:40%;
-  height:1px;
-  background:#00b386;
-  border:none;
-  margin:28px auto;
-  opacity:0.6;
-}
-.intro-phrase {
-  font-size:1rem;
-  color:#00b386;
-  font-weight:600;
-  letter-spacing:0.03em;
-}
-.intro-phrase span {
-  display:inline-block;
-  margin:0 4px;
-  opacity:0;
-  animation:phraseFade 2.5s ease forwards;
-}
-.intro-phrase span:nth-child(1){animation-delay:0.3s;}
-.intro-phrase span:nth-child(2){animation-delay:0.6s;}
-.intro-phrase span:nth-child(3){animation-delay:0.9s;}
-@keyframes phraseFade {
-  from {opacity:0;transform:translateY(10px);}
-  to {opacity:1;transform:translateY(0);}
-}
-</style>
-  </header>
-  <main>
-    <div class="card" onclick="location.href='./craft/index.html'">
-  <img src="./assets/icon-craft.png" alt="craftアイコン" style="transform:scale(1.15);filter:drop-shadow(0 4px 6px rgba(0,179,134,0.4));">
-  <h2 style="color:#00b386;">adjustment-craft</h2>
-  <p>web制作事業<br>構造をデザインして伝える制作部門。<br>Web・UI・PWAを通して再現性を設計。</p>
-</div>
-    
-    <div class="card" onclick="location.href='./field/index.html'">
-      <img src="./assets/icon-field.png" alt="fieldアイコン" style="opacity:0.8;filter:grayscale(0.2);">
-      <h2 style="color:#00b38699;">adjustment-field</h2>
-      <p>トレーナー事業<br>アスリートへtoughな構造を。<br>現場で磨き、再現を確かめる実践拠点。</p>
-    </div>
-    
-  <div class="card" onclick="location.href='./lab/index.html'">
-  <img src="./assets/icon-lab.png" alt="labアイコン" style="opacity:0.8;filter:grayscale(0.2);">
-  <h2 style="color:#00b38699;">adjustment-lab</h2>
-  <p>開発事業<br>アプリケーションやツールを開発。<br>理論を探究してcraftの構造を支える研究部門。</p>
-</div>
-
-  </main>
-  <footer>
-    <p>
-      <a href="./legal.html">販売・利用規約</a>｜
-      <a href="./contact/index.html">お問い合わせ</a><br>
-      <small>© 2025 adjustment-lab</small>
-    </p>
-  </footer>
-<!-- ✅ PWA導線スクリプト -->
-<div id="pwa-banner" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#00b386;color:#fff;padding:12px 18px;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.2);font-size:0.95rem;z-index:1000;cursor:pointer;">
-  ホーム画面に追加できます 📱
-</div>
-<div id="ios-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:2000;">
-  <div style="background:#fff;padding:30px;border-radius:10px;max-width:320px;margin:100px auto;text-align:center;">
-    <h2 style="color:#00b386;font-size:1.2rem;margin-bottom:10px;">ホーム画面に追加する方法</h2>
-    <p style="font-size:0.95rem;line-height:1.7;color:#333;">
-      Safariの共有ボタン（□↑）を押して、「ホーム画面に追加」を選択してください。
-    </p>
-    <button onclick="document.getElementById('ios-modal').style.display='none';localStorage.setItem('iosModalShown','true');"
-      style="margin-top:16px;padding:8px 18px;border:1px solid #00b386;background:none;color:#00b386;border-radius:4px;">閉じる</button>
+<main>
+  <div class="card craft" onclick="location.href='./craft/index.html'">
+    <img src="./assets/icon-craft.png" alt="craftアイコン" style="transform:scale(1.15);filter:drop-shadow(0 4px 6px rgba(0,179,134,0.4));">
+    <h2 style="color:#00b386;">adjustment-craft</h2>
+    <p>web制作事業<br>構造をデザインして伝える制作部門。<br>Web・UI・PWAを通して再現性を設計。</p>
   </div>
-</div>
-<script>
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if (!localStorage.getItem('pwaInstalled')) {
-    document.getElementById('pwa-banner').style.display = 'block';
-  }
-});
-document.getElementById('pwa-banner').addEventListener('click', async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const result = await deferredPrompt.userChoice;
-    if (result.outcome === 'accepted') {
-      localStorage.setItem('pwaInstalled', 'true');
-      document.getElementById('pwa-banner').style.display = 'none';
-    }
-  }
-});
-const ua = window.navigator.userAgent.toLowerCase();
-const isIOS = /iphone|ipad|ipod/.test(ua);
-const isInStandaloneMode = ('standalone' in window.navigator) && window.navigator.standalone;
-if (isIOS && !isInStandaloneMode && !localStorage.getItem('iosModalShown')) {
-  setTimeout(() => {
-    document.getElementById('ios-modal').style.display = 'block';
-  }, 3000);
-}
-</script>
+  <div class="card field" onclick="location.href='./field/index.html'">
+    <img src="./assets/icon-field.png" alt="fieldアイコン" style="opacity:0.8;filter:grayscale(0.2);">
+    <h2 style="color:#00b38699;">adjustment-field</h2>
+    <p>トレーナー事業<br>アスリートへtoughな構造を。<br>現場で磨き、再現を確かめる実践拠点。</p>
+  </div>
+  <div class="card lab" onclick="location.href='./lab/index.html'">
+    <img src="./assets/icon-lab.png" alt="labアイコン" style="opacity:0.8;filter:grayscale(0.2);">
+    <h2 style="color:#00b38699;">adjustment-lab</h2>
+    <p>開発事業<br>アプリやツールを開発。<br>理論を探究してcraftの構造を支える研究部門。</p>
+  </div>
+</main>
+<footer>
+  <p>
+    <a href="./legal.html">販売・利用規約</a>｜
+    <a href="./contact/index.html">お問い合わせ</a><br>
+    <small>© 2025 adjustment-lab</small>
+  </p>
+</footer>
 </body>
 </html>
