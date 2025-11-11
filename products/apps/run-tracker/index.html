@@ -11,237 +11,188 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Run Tracker">
-
 <style>
 :root {
-  --accent: #007b5f;  /* 落ち着いたモスグリーン */
-  --bg: #f8faf9;
-  --text: #1a1a1a;
-  font-family: 'Noto Sans JP', sans-serif;
+  --accent:#007b5f; /* モスグリーン */
+  --bg:#f8faf9;
+  --text:#1a1a1a;
+  font-family:'Noto Sans JP',sans-serif;
 }
 
 /* ===== 全体設定 ===== */
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.8;
-  text-rendering: optimizeLegibility;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.8;
+  text-rendering:optimizeLegibility;
 }
 
-/* ===== header：Recovery Tracker風 ===== */
+/* ===== header ===== */
 header {
-  background: #00b386;
-  color: #fff;
-  text-align: center;
-  padding: 48px 20px 36px;
-  box-shadow: none;
+  text-align:center;
+  padding:48px 20px 24px;
 }
-
 header h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 6px;
+  font-size:2rem;
+  font-weight:700;
+  color:var(--accent);
+  margin-bottom:6px;
 }
-
 header p {
-  opacity: 0.95;
-  font-size: 1rem;
+  color:#555;
+  opacity:0.9;
+  font-size:1rem;
 }
 
-/* ===== 共通テキスト設定 ===== */
-h2 {
-  color: var(--accent);
-  font-size: 1.2rem;
-  margin-top: 0;
-}
-
-/* ===== フォーム・カードレイアウト ===== */
+/* ===== main・カード ===== */
 main {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 40px 20px 20px;
+  max-width:480px;
+  margin:0 auto;
+  padding:20px;
 }
-
 section {
-  background: #fff;
-  border-radius: 12px;
-  padding: 24px 20px;
-  margin-bottom: 32px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  background:#fff;
+  border-radius:12px;
+  padding:24px 20px;
+  margin-bottom:32px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+h2 {
+  color:var(--accent);
+  font-size:1.2rem;
+  margin-top:0;
 }
 
+/* ===== 入力フォーム ===== */
 label {
-  display: inline-block;
-  margin-right: 8px;
-  font-weight: 600;
+  display:inline-block;
+  margin-right:8px;
+  font-weight:600;
 }
-
-input[type="number"],
-input[type="text"] {
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 8px 10px;
-  margin: 6px 4px;
-  font-size: 1rem;
-  width: 100px;
-  max-width: 160px;
+input[type="number"],input[type="text"] {
+  border:1px solid #ccc;
+  border-radius:6px;
+  padding:8px 10px;
+  margin:6px 4px;
+  font-size:1rem;
+  width:100px;
+  max-width:160px;
 }
 
 /* ===== ボタン ===== */
 button {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 12px 22px;
-  margin-top: 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.3s;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  padding:12px 22px;
+  margin-top:20px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
 }
-
-button:hover {
-  opacity: 0.9;
-}
+button:hover {opacity:0.9;}
 
 /* ===== 記録リスト ===== */
 #logList li {
-  list-style: none;
-  background: #fff;
-  margin: 6px 0;
-  border-left: 4px solid var(--accent);
-  padding: 8px 10px;
-  border-radius: 6px;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  list-style:none;
+  background:#fff;
+  margin:6px 0;
+  border-left:4px solid var(--accent);
+  padding:8px 10px;
+  border-radius:6px;
+  box-shadow:0 1px 6px rgba(0,0,0,0.05);
 }
 
 /* ===== 削除ボタン ===== */
 .del {
-  background: none;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 4px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  margin-left: 8px;
-  transition: 0.3s;
+  background:none;
+  border:1px solid var(--accent);
+  color:var(--accent);
+  padding:4px 10px;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:0.85rem;
+  margin-left:8px;
+  transition:0.3s;
 }
+.del:hover {background:var(--accent);color:#fff;}
 
-.del:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-/* ===== スプラッシュ画面 ===== */
+/* ===== スプラッシュ ===== */
 #splash {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at 30% 20%, #00b386 0%, #004f3a 100%);
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  overflow-y: auto;
-  padding: 40px 0;
-  z-index: 999;
-  animation: fadeIn .6s ease forwards;
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at 30% 20%, #00b386 0%, #004f3a 100%);
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  overflow-y:auto;
+  padding:40px 0;
+  z-index:999;
+  animation:fadeIn .6s ease forwards;
 }
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
+@keyframes fadeIn {from{opacity:0;}to{opacity:1;}}
 .splash-card {
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 16px;
-  padding: 36px 28px;
-  text-align: center;
-  max-width: 360px;
-  width: 90%;
-  box-shadow: 0 0 40px rgba(0,0,0,0.4);
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:16px;
+  padding:36px 28px;
+  text-align:center;
+  max-width:360px;
+  width:90%;
+  box-shadow:0 0 40px rgba(0,0,0,0.4);
 }
+.splash-card img {width:96px;height:96px;margin-bottom:10px;}
+.splash-card h1 {color:#fff;margin-bottom:6px;}
+.splash-card p.desc {color:#e5fff5;line-height:1.6;font-size:0.95rem;margin-bottom:18px;}
+.splash-card .howto,.splash-card .purpose,.splash-card .pro{text-align:left;}
+.splash-card ul,.splash-card ol{text-align:left;margin-left:1.2em;}
 
-.splash-card img {
-  width: 96px;
-  height: 96px;
-  margin-bottom: 10px;
-}
-
-.splash-card h1 {
-  color: #fff;
-  margin-bottom: 6px;
-}
-
-.splash-card p.desc {
-  color: #e5fff5;
-  line-height: 1.6;
-  font-size: 0.95rem;
-  margin-bottom: 18px;
-}
-
-.splash-card .howto,
-.splash-card .purpose,
-.splash-card .pro {
-  text-align: left;
-}
-
-.splash-card ul,
-.splash-card ol {
-  text-align: left;
-  margin-left: 1.2em;
-}
-
-/* ===== PROリンクセクション ===== */
+/* ===== PROリンク（Recovery風） ===== */
 .pro-link {
-  background: #111;
-  color: #e5e5e5;
-  text-align: center;
-  padding: 48px 20px;
-  margin-top: 48px;
+  background:#111;
+  color:#e5e5e5;
+  text-align:center;
+  padding:40px 24px;
+  border-radius:12px;
+  max-width:480px;
+  margin:60px auto;
+  box-shadow:0 2px 12px rgba(0,0,0,0.25);
 }
-
 .pro-link h2 {
-  color: #00b386;
-  font-size: 1.4rem;
-  margin-bottom: 12px;
+  color:var(--accent);
+  font-size:1.3rem;
+  margin-bottom:12px;
 }
-
 .pro-link p {
-  margin-bottom: 20px;
-  line-height: 1.8;
+  line-height:1.7;
+  font-size:0.95rem;
+  color:#ddd;
+  margin-bottom:20px;
 }
-
 .pro-link .cta button {
-  background: none;
-  border: 1px solid #00b386;
-  color: #00b386;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition: 0.3s;
+  background:none;
+  border:1px solid var(--accent);
+  color:var(--accent);
+  padding:10px 22px;
+  border-radius:6px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
 }
-
-.pro-link .cta button:hover {
-  background: #00b386;
-  color: #fff;
-}
+.pro-link .cta button:hover {background:var(--accent);color:#fff;}
 
 /* ===== footer ===== */
 footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 0.85rem;
-  color: #666;
-  background: #f8faf9;
-  margin-top: 20px;
+  text-align:center;
+  padding:20px;
+  font-size:0.85rem;
+  color:#666;
 }
 </style>
-  
 </head>
 <body>
 <!-- ===== スプラッシュ ===== -->
@@ -284,7 +235,7 @@ footer {
 </div>
 <header>
   <h1>Run Tracker</h1>
-  <p>走ることで思考を整える。<br>記録で「自分の走り」を可視化しよう。</p>
+  <p>走ることで思考を整える。記録で「自分の走り」を可視化しよう。</p>
 </header>
 <main>
   <section>
@@ -304,54 +255,51 @@ footer {
     <ul id="logList"></ul>
   </section>
 </main>
-  
-<!-- PRO 導線 -->
 <section class="pro-link">
   <h2>律動 PRO ― 統合と再現の世界へ</h2>
   <p>このアプリで得たデータは、律動 PRO で統合解析できます。<br>
   出力と回復、テンポと精度をひとつの画面で確認しよう。</p>
   <div class="cta">
-   <button onclick="window.location.href='../pro/index.html'">律動 PRO を見る</button>
+    <button onclick="window.location.href='../pro/index.html'">律動 PRO を見る</button>
   </div>
 </section>
-  
 <footer>© 2025 adjustment-lab｜Run Tracker</footer>
 <script>
 if (!localStorage.getItem("runTrackerVisited")) {
-  document.getElementById("splash").style.display = "flex";
-  document.body.style.overflow = "hidden";
+  document.getElementById("splash").style.display="flex";
+  document.body.style.overflow="hidden";
 } else {
-  document.getElementById("splash").style.display = "none";
+  document.getElementById("splash").style.display="none";
 }
-document.getElementById("startBtn").onclick = () => {
-  localStorage.setItem("runTrackerVisited", "true");
-  document.getElementById("splash").style.opacity = "0";
-  setTimeout(() => {
+document.getElementById("startBtn").onclick=()=>{
+  localStorage.setItem("runTrackerVisited","true");
+  document.getElementById("splash").style.opacity="0";
+  setTimeout(()=>{
     document.getElementById("splash").remove();
-    document.body.style.overflow = "";
-  }, 600);
+    document.body.style.overflow="";
+  },600);
 };
 
-const form = document.getElementById("runForm");
-const logList = document.getElementById("logList");
-let logs = JSON.parse(localStorage.getItem("runLogs") || "[]");
+const form=document.getElementById("runForm");
+const logList=document.getElementById("logList");
+let logs=JSON.parse(localStorage.getItem("runLogs")||"[]");
 
 function saveLog(log){
   logs.push(log);
-  localStorage.setItem("runLogs", JSON.stringify(logs));
+  localStorage.setItem("runLogs",JSON.stringify(logs));
 }
 function updateLogs(){
-  logList.innerHTML = "";
-  logs.forEach((l, i) => {
-    const li = document.createElement("li");
-    li.textContent = `${l.date}｜距離:${l.distance}km｜RPE:${l.rpe}｜VO2max:${l.vo2}`;
-    const delBtn = document.createElement("button");
-    delBtn.textContent = "削除";
-    delBtn.className = "del";
-    delBtn.onclick = () => {
-      if (confirm("この記録を削除しますか？")) {
-        logs.splice(i, 1);
-        localStorage.setItem("runLogs", JSON.stringify(logs));
+  logList.innerHTML="";
+  logs.forEach((l,i)=>{
+    const li=document.createElement("li");
+    li.textContent=`${l.date}｜距離:${l.distance}km｜RPE:${l.rpe}｜VO2max:${l.vo2}`;
+    const delBtn=document.createElement("button");
+    delBtn.textContent="削除";
+    delBtn.className="del";
+    delBtn.onclick=()=>{
+      if(confirm("この記録を削除しますか？")){
+        logs.splice(i,1);
+        localStorage.setItem("runLogs",JSON.stringify(logs));
         updateLogs();
       }
     };
@@ -359,25 +307,26 @@ function updateLogs(){
     logList.appendChild(li);
   });
 }
-form.addEventListener("submit", e => {
+form.addEventListener("submit",e=>{
   e.preventDefault();
-  const newLog = {
-    distance: distance.value,
-    rpe: rpe.value,
-    vo2: vo2.value || "-",
-    date: new Date().toLocaleDateString("ja-JP")
+  const newLog={
+    distance:distance.value,
+    rpe:rpe.value,
+    vo2:vo2.value||"-",
+    date:new Date().toLocaleDateString("ja-JP")
   };
-  saveLog(newLog); updateLogs(); form.reset();
+  saveLog(newLog);updateLogs();form.reset();
 });
 updateLogs();
 </script>
 <script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
     navigator.serviceWorker.register("./service-worker.js")
-      .catch(err => console.error("SW registration failed:", err));
+    .catch(err=>console.error("SW registration failed:",err));
   });
 }
 </script>
 </body>
 </html>
+
