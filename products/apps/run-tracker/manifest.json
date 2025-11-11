@@ -1,0 +1,23 @@
+
+{
+  "name": "Run Tracker｜adjustment-lab",
+  "short_name": "Run",
+  "start_url": "./index.html",
+  "scope": "/products/apps/run-tracker/",
+  "display": "standalone",
+  "background_color": "#00b386",
+  "theme_color": "#00b386",
+  "description": "走力・RPE・VO2maxを記録し、走行パフォーマンスを可視化するトラッカー。",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
