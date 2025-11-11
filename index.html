@@ -27,37 +27,36 @@ body {
   align-items:center;
   min-height:100vh;
 }
-
 /* ===== Header ===== */
 header {
-  text-align:center;
-   margin:20px 0 0;
+text-align:center;
+margin:20px 0 0;
 }
 header img {
-  width:120px;
-  animation:float 4s ease-in-out infinite;
+width:120px;
+animation:float 4s ease-in-out infinite;
 }
 @keyframes float {
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-5px);}
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-5px);}
 }
 h1 {
-  font-size:1.6rem;
-  margin:0.6em 0 0.3em;
+font-size:1.6rem;
+margin:0.6em 0 0.3em;
 }
 p.lead {
-  font-size:0.95rem;
-  color:#555;
+font-size:0.95rem;
+color:#555;
 }
 
 /* ===== カードレイアウト ===== */
 main {
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:12px;
-  padding:0 10px;
-  max-width:960px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:12px;
+padding:0 10px;
+max-width:960px;
 }
 .card {
   width:280px;
@@ -71,12 +70,12 @@ main {
   cursor:pointer;
 }
 .card:hover {
-  transform:translateY(-4px);
-  box-shadow:0 6px 16px rgba(0,0,0,0.08);
+transform:translateY(-4px);
+box-shadow:0 6px 16px rgba(0,0,0,0.08);
 }
 .card img {
-  width:80px;
-  margin-bottom:16px;
+width:80px;
+margin-bottom:16px;
 }
 .card h2 {
   font-size:1.1rem;
@@ -84,19 +83,21 @@ main {
   color:var(--accent);
 }
 .card p {
-  font-size:0.9rem;
-  color:#444;
-  line-height:1.6;
+font-size:0.9rem;
+color:#444;
+line-height:1.6;
+}
+
+/* craft強調 */
+.card:nth-child(3) {
+transform:scale(1.05);
+border:2px solid #00b386;
+}
+.card:nth-child(3):hover {
+transform:scale(1.08);
 }
 
 /* ===== フッター ===== */
-footer {
-  margin-top:auto;
-  padding:30px 0;
-  text-align:center;
-  font-size:0.85rem;
-  color:#888;
-}
 footer a {
   color:var(--accent);
   text-decoration:none;
@@ -105,10 +106,11 @@ footer a:hover{text-decoration:underline;}
 
 /* ===== レスポンシブ ===== */
 @media(max-width:600px){
-  .card{width:90%;}
-  header img{width:100px;}
-  h1{font-size:1.4rem;}
+.card{width:90%;}
+header img{width:100px;}
+h1{font-size:1.4rem;}
 }
+
 </style>
 </head>
 <body>
@@ -118,14 +120,11 @@ footer a:hover{text-decoration:underline;}
    <section class="brand-intro">
   <div class="intro-inner">
     <p class="intro-text">
-      「整 -adjustment-」は<br>
-      現場（field）・研究（lab）・<br>
-      制作（craft）の三位一体で<br>
-      構成されたブラン。<br><br>
-      科学と感性を融合し、<br>
-      アスリート・教育・<br>
-      クリエイティブの領域で<br>
-      “再現できる構造”を創造。
+      「整 -adjustment-」は、<br>
+      構造を“形”に変える〈craft〉を中核に、<br>
+      現場（field）と研究（lab）が融合するブランド。<br><br>
+      科学を感性で翻訳し、感性を科学で支える。<br>
+      その交点に、“再現できる構造”を創造する。
     </p>
     <hr class="intro-divider">
     <p class="intro-phrase">
@@ -134,81 +133,72 @@ footer a:hover{text-decoration:underline;}
     </p>
   </div>
 </section>
-
 <style>
 .brand-intro {
-  max-width: 760px;
-  margin: 0 auto 10px;
-   padding: 20px 20px 30px;
-  text-align: center;
-  position: relative;
-  animation: fadein 1.2s ease;
+  max-width:760px;
+  margin:0 auto 10px;
+  padding:20px 20px 30px;
+  text-align:center;
+  position:relative;
+  animation:fadein 1.2s ease;
 }
-
 .intro-inner {
-  background: linear-gradient(180deg, #ffffff 0%, #f7f9f8 100%);
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 12px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.04);
-  padding: 40px 30px 50px;
+  background:linear-gradient(180deg,#ffffff 0%,#f7f9f8 100%);
+  border:1px solid rgba(0,0,0,0.05);
+  border-radius:12px;
+  box-shadow:0 4px 18px rgba(0,0,0,0.04);
+  padding:40px 30px 50px;
 }
-
 .intro-text {
-  color: #222;
-  line-height: 1.9;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
+  color:#222;
+  line-height:1.9;
+  font-size:1.05rem;
+  letter-spacing:0.02em;
 }
-
 .intro-divider {
-  width: 40%;
-  height: 1px;
-  background: #00b386;
-  border: none;
-  margin: 28px auto;
-  opacity: 0.6;
+  width:40%;
+  height:1px;
+  background:#00b386;
+  border:none;
+  margin:28px auto;
+  opacity:0.6;
 }
-
 .intro-phrase {
-  font-size: 1rem;
-  color: #00b386;
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  font-size:1rem;
+  color:#00b386;
+  font-weight:600;
+  letter-spacing:0.03em;
 }
-
 .intro-phrase span {
-  display: inline-block;
-  margin: 0 4px;
-  opacity: 0;
-  animation: phraseFade 2.5s ease forwards;
+  display:inline-block;
+  margin:0 4px;
+  opacity:0;
+  animation:phraseFade 2.5s ease forwards;
 }
-
-.intro-phrase span:nth-child(1){ animation-delay: 0.3s; }
-.intro-phrase span:nth-child(2){ animation-delay: 0.6s; }
-.intro-phrase span:nth-child(3){ animation-delay: 0.9s; }
-
+.intro-phrase span:nth-child(1){animation-delay:0.3s;}
+.intro-phrase span:nth-child(2){animation-delay:0.6s;}
+.intro-phrase span:nth-child(3){animation-delay:0.9s;}
 @keyframes phraseFade {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {opacity:0;transform:translateY(10px);}
+  to {opacity:1;transform:translateY(0);}
 }
 </style>
   </header>
   <main>
     <div class="card" onclick="location.href='./field/index.html'">
-      <img src="./assets/icon-field.png" alt="fieldアイコン">
-      <h2>adjustment-field</h2>
-      <p>現場から生まれる実践部門。<br>指導・分析・トレーニングの現地拠点。</p>
+      <img src="./assets/icon-field.png" alt="fieldアイコン" style="opacity:0.8;filter:grayscale(0.2);">
+      <h2 style="color:#00b38699;">adjustment-field</h2>
+      <p>現場で磨き、再現を確かめる実践拠点。</p>
     </div>
   <div class="card" onclick="location.href='./lab/index.html'">
-  <img src="./assets/icon-lab.png" alt="labアイコン">
-  <h2>adjustment-lab</h2>
-  <p>理論と技術を形にする研究開発部門。<br>アプリ・教材・ドリル設計を行う。</p>
+  <img src="./assets/icon-lab.png" alt="labアイコン" style="opacity:0.8;filter:grayscale(0.2);">
+  <h2 style="color:#00b38699;">adjustment-lab</h2>
+  <p>理論を探究し、craftの構造を支える研究部門。</p>
 </div>
-
 <div class="card" onclick="location.href='./craft/index.html'">
-  <img src="./assets/icon-craft.png" alt="craftアイコン">
-  <h2>adjustment-craft</h2>
-  <p>伝わる構造を設計するWeb制作部門。<br>UI構築・PWA化・ブランド設計。</p>
+  <img src="./assets/icon-craft.png" alt="craftアイコン" style="transform:scale(1.15);filter:drop-shadow(0 4px 6px rgba(0,179,134,0.4));">
+  <h2 style="color:#00b386;">adjustment-craft</h2>
+  <p>思想を形にし、構造で伝える制作部門。<br>Web・UI・PWAを通して再現性を設計する。</p>
 </div>
   </main>
   <footer>
@@ -218,22 +208,20 @@ footer a:hover{text-decoration:underline;}
       <small>© 2025 adjustment-lab</small>
     </p>
   </footer>
-<!-- ✅ PWA導線スクリプト開始 -->
-<div id="pwa-banner" style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#00b386; color:#fff; padding:12px 18px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.2); font-size:0.95rem; z-index:1000; cursor:pointer;">
+<!-- ✅ PWA導線スクリプト -->
+<div id="pwa-banner" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#00b386;color:#fff;padding:12px 18px;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.2);font-size:0.95rem;z-index:1000;cursor:pointer;">
   ホーム画面に追加できます 📱
 </div>
-
-<div id="ios-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000;">
-  <div style="background:#fff; padding:30px; border-radius:10px; max-width:320px; margin:100px auto; text-align:center;">
-    <h2 style="color:#00b386; font-size:1.2rem; margin-bottom:10px;">ホーム画面に追加する方法</h2>
-    <p style="font-size:0.95rem; line-height:1.7; color:#333;">
+<div id="ios-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:2000;">
+  <div style="background:#fff;padding:30px;border-radius:10px;max-width:320px;margin:100px auto;text-align:center;">
+    <h2 style="color:#00b386;font-size:1.2rem;margin-bottom:10px;">ホーム画面に追加する方法</h2>
+    <p style="font-size:0.95rem;line-height:1.7;color:#333;">
       Safariの共有ボタン（□↑）を押して、「ホーム画面に追加」を選択してください。
     </p>
-    <button onclick="document.getElementById('ios-modal').style.display='none'; localStorage.setItem('iosModalShown','true');"
-      style="margin-top:16px; padding:8px 18px; border:1px solid #00b386; background:none; color:#00b386; border-radius:4px;">閉じる</button>
+    <button onclick="document.getElementById('ios-modal').style.display='none';localStorage.setItem('iosModalShown','true');"
+      style="margin-top:16px;padding:8px 18px;border:1px solid #00b386;background:none;color:#00b386;border-radius:4px;">閉じる</button>
   </div>
 </div>
-
 <script>
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -243,7 +231,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
     document.getElementById('pwa-banner').style.display = 'block';
   }
 });
-
 document.getElementById('pwa-banner').addEventListener('click', async () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
@@ -254,8 +241,6 @@ document.getElementById('pwa-banner').addEventListener('click', async () => {
     }
   }
 });
-
-// ✅ iOSモーダル表示
 const ua = window.navigator.userAgent.toLowerCase();
 const isIOS = /iphone|ipad|ipod/.test(ua);
 const isInStandaloneMode = ('standalone' in window.navigator) && window.navigator.standalone;
@@ -265,6 +250,5 @@ if (isIOS && !isInStandaloneMode && !localStorage.getItem('iosModalShown')) {
   }, 3000);
 }
 </script>
-<!-- ✅ PWA導線スクリプト終了 -->
 </body>
 </html>
