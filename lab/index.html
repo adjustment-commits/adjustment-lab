@@ -13,239 +13,244 @@ fetch("/adjustment-lab/assets/footer-lite.html")
 </script>
 <style>
 :root {
-  --bg: #ffffff;
-  --text: #1a1a1a;
-  --sub: #666;
-  --accent: #00b386;
-  --line: rgba(0,0,0,0.05);
-  font-family: 'Noto Sans JP', sans-serif;
+  --bg:#ffffff;
+  --text:#1a1a1a;
+  --sub:#666;
+  --accent:#00b386;
+  --line:rgba(0,0,0,0.05);
+  font-family:'Noto Sans JP',sans-serif;
 }
 
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.9;
-  overflow-x: hidden;
-  animation: fadein 1.2s ease-in;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.9;
+  overflow-x:hidden;
+  animation:fadein 1.2s ease-in;
 }
 @keyframes fadein {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
-/* ---------- Hero ---------- */
+/* ----- Hero ----- */
 .hero {
-  text-align: center;
+  text-align:center;
   padding:5px 20px 5px;
-  background: linear-gradient(180deg, #ffffff 0%, #f5f7f6 100%);
+  background:linear-gradient(180deg,#ffffff 0%,#f5f7f6 100%);
 }
 .hero h1 {
-  font-size: 2rem;
-  color: var(--accent);
-  margin-bottom: 0.4em;
+  font-size:2rem;
+  color:var(--accent);
+  margin-bottom:0.4em;
 }
 .hero p {
-  color: var(--sub);
-  font-size: 1.05rem;
-  margin-bottom: 2em;
-  line-height: 1.8;
+  color:var(--sub);
+  font-size:1.05rem;
+  margin-bottom:2em;
+  line-height:1.8;
 }
 .hero-icon {
-  width: 70px;
-  height: 70px;
-  margin-bottom: 12px;
-  opacity: 0.9;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  width:70px;
+  height:70px;
+  margin-bottom:12px;
+  opacity:0.9;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
-@media (max-width: 768px) {
-  .hero-icon {
-    width: 56px;
-    height: 56px;
-    margin-bottom: 8px;
-  }
+@media(max-width:768px){
+  .hero-icon{width:56px;height:56px;margin-bottom:8px;}
 }
 .cta {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 14px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:14px;
 }
 .cta button {
-  background: none;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 0.7em 1.8em;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.3s;
+  background:none;
+  border:1px solid var(--accent);
+  color:var(--accent);
+  padding:0.7em 1.8em;
+  border-radius:4px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
 }
 .cta button:hover {
-  background: var(--accent);
-  color: #fff;
+  background:var(--accent);
+  color:#fff;
 }
 
-/* ---------- Section ---------- */
+/* ----- Section ----- */
 section {
-  max-width: 1000px;
-  margin: 60px auto;
-  padding: 0 24px;
+  max-width:1000px;
+  margin:60px auto;
+  padding:0 24px;
 }
 section h2 {
-  color: var(--accent);
-  font-size: 1.4rem;
-  margin-bottom: 0.8em;
-  border-left: 4px solid var(--accent);
-  padding-left: 10px;
+  color:var(--accent);
+  font-size:1.4rem;
+  margin-bottom:0.8em;
+  border-left:4px solid var(--accent);
+  padding-left:10px;
 }
 section p {
-  color: var(--text);
-  opacity: 0.9;
+  color:var(--text);
+  opacity:0.9;
 }
-/* === センター寄せ指定 === */
 section:nth-of-type(2) h2,
 section:nth-of-type(2) p,
 section:nth-of-type(3) h2,
 section:nth-of-type(3) p {
-  text-align: center;
-  border-left: none;
-  padding-left: 0;
-  margin-left: auto;
-  margin-right: auto;
+  text-align:center;
+  border-left:none;
+  padding-left:0;
+  margin-left:auto;
+  margin-right:auto;
 }
 
-/* ---------- App Cards ---------- */
+/* ----- App Cards ----- */
 .apps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-  margin-top: 40px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+  margin-top:40px;
 }
 .app-card {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 26px;
-  text-align: center;
-  transition: 0.3s;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:26px;
+  text-align:center;
+  transition:0.3s;
+  position:relative;
 }
 .app-card:hover {
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-  transform: translateY(-4px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.06);
+  transform:translateY(-4px);
 }
 .app-card img {
-  width: 100px;
-  height: 100px;
-  margin-bottom: 10px;
+  width:100px;
+  height:100px;
+  margin-bottom:10px;
 }
 .app-card h3 {
-  color: var(--accent);
-  font-size: 1.1rem;
-  margin-bottom: 0.6em;
+  color:var(--accent);
+  font-size:1.1rem;
+  margin-bottom:0.6em;
 }
 .app-card p {
-  color: var(--sub);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  margin-bottom: 1em;
+  color:var(--sub);
+  font-size:0.95rem;
+  line-height:1.7;
+  margin-bottom:1em;
 }
 .app-card a {
-  display: inline-block;
-  color: #fff;
-  background: var(--accent);
-  padding: 8px 16px;
-  border-radius: 4px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: 0.3s;
+  display:inline-block;
+  color:#fff;
+  background:var(--accent);
+  padding:8px 16px;
+  border-radius:4px;
+  text-decoration:none;
+  font-size:0.9rem;
+  transition:0.3s;
 }
-.app-card a:hover {
-  opacity: 0.8;
+.app-card a:hover {opacity:0.8;}
+
+/* ----- 開発中カード ----- */
+.app-card.disabled {
+  opacity:0.55;
+  pointer-events:none;
+}
+.app-card.disabled::after {
+  content:"開発中";
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:#ff9800;
+  color:#fff;
+  font-size:0.75rem;
+  padding:4px 8px;
+  border-radius:4px;
 }
 
-/* ---------- Message ---------- */
+/* ----- Message ----- */
 .message {
-  text-align: center;
-  background: #f5f7f6;
-  padding: 100px 20px;
+  text-align:center;
+  background:#f5f7f6;
+  padding:100px 20px;
 }
 .message h2 {
-  color: var(--accent);
-  font-weight: 500;
+  color:var(--accent);
+  font-weight:500;
 }
 .message p {
-  color: var(--text);
-  opacity: 0.85;
-  margin-top: 16px;
-  line-height: 1.9;
+  color:var(--text);
+  opacity:0.85;
+  margin-top:16px;
+  line-height:1.9;
 }
 
-/* ---------- Back Button ---------- */
+/* ----- Back Button ----- */
 .back-home {
-  text-align: center;
-  margin: 80px 0 40px;
+  text-align:center;
+  margin:80px 0 40px;
 }
 .back-home button {
-  background: none;
-  border: 1px solid #00b386;
-  color: #00b386;
-  padding: 0.7em 1.6em;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.3s;
+  background:none;
+  border:1px solid #00b386;
+  color:#00b386;
+  padding:0.7em 1.6em;
+  border-radius:4px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
 }
 .back-home button:hover {
-  background: #00b386;
-  color: #fff;
+  background:#00b386;
+  color:#fff;
 }
 
-@media (max-width: 768px) {
-  .hero h1 { font-size: 1.8rem; }
-  .hero p { font-size: 0.95rem; }
-  section { margin: 60px 16px; }
+@media(max-width:768px){
+  .hero h1{font-size:1.8rem;}
+  .hero p{font-size:0.95rem;}
+  section{margin:60px 16px;}
 }
 
-/* ---------- Concept（律動） ---------- */
+/* ----- Concept ----- */
 .concept {
-  background: #f0f3f1;
-  text-align: center;
-  padding: 10px 10px;
-  border-top: 2px solid var(--accent);
-  border-bottom: 2px solid var(--accent);
+  background:#f0f3f1;
+  text-align:center;
+  padding:10px 10px;
+  border-top:2px solid var(--accent);
+  border-bottom:2px solid var(--accent);
 }
 .concept h2 {
-  color: var(--accent);
-  font-size: 1.6rem;
-  letter-spacing: 0.05em;
-  margin-bottom: 1em;
+  color:var(--accent);
+  font-size:1.6rem;
+  letter-spacing:0.05em;
+  margin-bottom:1em;
 }
 .concept p {
-  color: var(--text);
-  font-weight: 500;
-  line-height: 2;
-  font-size: 1rem;
-  white-space: pre-line;
+  color:var(--text);
+  font-weight:500;
+  line-height:2;
+  font-size:1rem;
+  white-space:pre-line;
 }
-  
 </style>
+
 </head>
 <body>
-<!-- HERO -->
 <section class="hero">
-   <img src="../assets/icon-lab.png" alt="lab icon" class="hero-icon">
+  <img src="../assets/icon-lab.png" alt="lab icon" class="hero-icon">
   <h1>adjustment-lab</h1>
-  <p>思考を形にして再現を科学する。<br>
-  トレーニング・リカバリー・測定を<br>
-    可視化するアプリ群。</p>
-
+  <p>思考を形にして再現を科学する。<br>トレーニング・リカバリー・測定を<br>可視化するアプリ群。</p>
 </section>
- 
-<!-- SECTION 1：主要アプリ -->
 <section>
-  <h2>無料アプリ一覧</h2>
-  <p>adjustment-labが提供する<br>現場で使えるBASICトラッカーアプリ。</p>
+  <h2>BASICトラッカーアプリ</h2>
+  <p>現場で使える無料アプリ。走力・回復・トレーニング・測定を一体管理。</p>
   <div class="apps">
     <div class="app-card">
       <img src="../products/apps/run-tracker/icon-192.png" alt="Run Tracker">
@@ -262,7 +267,7 @@ section:nth-of-type(3) p {
     <div class="app-card">
       <img src="../products/apps/training-lite/icon-192.png" alt="Training Lite">
       <h3>Training Lite</h3>
-      <p>目標・種目・時間を記録。<br>自分の成長を追える<br>ベーシックアプリ。</p>
+      <p>目標・種目・時間を記録。自分の成長を追えるベーシックアプリ。</p>
       <a href="../products/apps/training-lite/index.html">開く</a>
     </div>
     <div class="app-card">
@@ -272,72 +277,60 @@ section:nth-of-type(3) p {
       <a href="../products/apps/vo2max-lite/index.html">開く</a>
     </div>
     <div class="app-card">
-  <img src="../products/icons/icon-guide.png" alt="Guide Icon">
-  <h3>BASICトラッカーシリーズの使い方</h3>
-  <p>Run／Recovery／Training／VO₂max 各アプリの基本操作と<br>
-  スプラッシュ画面の解説をまとめたガイド。</p>
-  <a href="../products/apps/guide.html">見る</a>
-</div>
+      <img src="../products/icons/icon-guide.png" alt="Guide Icon">
+      <h3>BASICトラッカーシリーズの使い方</h3>
+      <p>Run／Recovery／Training／VO₂max 各アプリの基本操作ガイド。</p>
+      <a href="../products/apps/guide.html">見る</a>
+    </div>
   </div>
 </section>
-
-<!-- SECTION 2：教材 -->
 <section>
   <h2>有料プログラム一覧</h2>
-  <p>トレーニングの理論と実践を結ぶ。<br>段階的な学びと実践のプログラム。</p>
-  
+  <p>トレーニングの理論と実践を結ぶ、段階的な学びと実践の体系。</p>
   <div class="apps">
-    <div class="app-card">
+    <div class="app-card disabled">
       <img src="../products/icons/icon-lite-192.png" alt="Lite Series">
       <h3>Liteシリーズ</h3>
-      <p>基礎10種目を軸に構成された<br>再現性トレーニングプログラム。</p>
-      <a href="../products/lite/index.html">見る</a>
+      <p>基礎10種目を軸に構成された再現性トレーニングプログラム。</p>
+      <a href="#">開発中</a>
     </div>
-
-    <div class="app-card">
+    <div class="app-card disabled">
       <img src="../products/icons/icon-standard-192.png" alt="Standard教材">
       <h3>Standard</h3>
-      <p>個別カウンセリングを経て<br>作成される発展型プログラム。</p>
-      <a href="../products/standard.html">見る</a>
+      <p>個別カウンセリングを経て作成される発展型プログラム。</p>
+      <a href="#">開発中</a>
     </div>
-
-    <!-- ✅ Liteトレーニング管理アプリ -->
-    <div class="app-card">
+    <div class="app-card disabled">
       <img src="../products/icons/icon-tracker.png" alt="Lite Tracker">
       <h3>Liteトレーニング管理</h3>
       <p>学んだ内容を実践・記録・定着。</p>
-      <a href="../products/lite/tracker.html">使う</a>
+      <a href="#">開発中</a>
     </div>
   </div>
 </section>
-
- <!-- SECTION 0：律動（Rhythm of Structure） -->
 <section class="concept">
   <h2>律動 ― Rhythm of Structure</h2>
   <p>
-    「整」で生まれた理論を「lab」で検証
-    再現性あるトレーニングへ進化させる。<br>
-    強さは偶然ではなく構造で作る。<br>
-    体の律動（リズム）は、<br>闘う者の再現性を決める。<br>
-    adjustment-labは<br>トレーニング・測定・回復のすべてを<br>
-    「構造のリズム」として設計し<br>勝ち抜く身体を創る場である。
+    「整」で生まれた理論を「lab」で検証  
+    再現性あるトレーニングへ進化させる。  
+    強さは偶然ではなく構造で作る。  
+    体の律動（リズム）は、闘う者の再現性を決める。  
+    adjustment-labはトレーニング・測定・回復のすべてを  
+    「構造のリズム」として設計し、勝ち抜く身体を創る場である。
   </p>
 </section>
 <div class="cta">
-    <button onclick="window.location.href='../field/index.html'">adjustment-fieldを見る</button>
-     <button onclick="window.location.href='../craft/index.html'">adjustment-craftを見る</button>
-  </div>
-<!-- ===== ホームへ戻るボタン ===== -->
+  <button onclick="window.location.href='../field/index.html'">adjustment-fieldを見る</button>
+  <button onclick="window.location.href='../craft/index.html'">adjustment-craftを見る</button>
+</div>
 <div class="back-home">
   <button onclick="window.location.href='/adjustment-lab/index.html'">← ホームへ戻る</button>
- </div>
-
-<!-- ✅ フッター -->
+</div>
 <div id="footer"></div>
 <script>
-  fetch("../assets/footer-lite.html")
-    .then(response => response.text())
-    .then(data => { document.getElementById("footer").innerHTML = data; });
+fetch("../assets/footer-lite.html")
+  .then(r=>r.text())
+  .then(d=>{document.getElementById("footer").innerHTML=d;});
 </script>
 </body>
 </html>
