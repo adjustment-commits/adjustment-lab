@@ -37,6 +37,19 @@ animation:fadeIn .6s ease forwards;
 }
 @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
 
+#splash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 20% 30%, #009ed0 0%, #003f5a 100%);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;  /* ← 中央→上寄せに変更 */
+  overflow-y: auto;         /* ← スクロール許可 */
+  padding: 40px 0;          /* ← 上下余白を確保 */
+  z-index: 999;
+  animation: fadeIn .6s ease forwards;
+}
 .splash-card {
 background:rgba(255,255,255,0.08);
 backdrop-filter:blur(10px);
@@ -248,7 +261,6 @@ color:#fff;
 <script>
 if (!localStorage.getItem("vo2maxLiteVisited")) {
   document.getElementById("splash").style.display = "flex";
-  document.body.style.overflow = "hidden";
 } else {
   document.getElementById("splash").style.display = "none";
 }
@@ -384,6 +396,13 @@ function check(){
   updateLogs();
 }
 updateLogs();
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js");
+  });
+}
+</script>
 </script>
 
 </body>
