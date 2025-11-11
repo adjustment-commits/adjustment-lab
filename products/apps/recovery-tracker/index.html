@@ -221,9 +221,30 @@ footer {
 
 <footer>© 2025 adjustment-lab｜Recovery Tracker</footer>
 <script>
+
+const swCode = `
+const CACHE_NAME = "recovery-v1";
+const FILES_TO_CACHE = ["./", "./icon-192.png", "./icon-512.png", "./manifest.json", "./index.html"];
+self.addEventListener("install", e => {
+  e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(FILES_TO_CACHE)));
+});
+self.addEventListener("fetch", e => {
+  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
+});
+self.addEventListener("activate", e => {
+  e.waitUntil(caches.keys().then(keys =>
+    Promise.all(keys.map(k => k !== CACHE_NAME && caches.delete(k)))
+  ));
+});`;
+const swBlob = new Blob([swCode], {type: "text/javascript"});
+const swURL = URL.createObjectURL(swBlob);
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register(swURL));
+}
+  
 if (!localStorage.getItem("recoveryVisited")) {
   document.getElementById("splash").style.display = "flex";
-  document.body.style.overflow = "hidden";
+   document.documentElement.style.overflow = "hidden";
 } else {
   document.getElementById("splash").style.display = "none";
 }
@@ -232,7 +253,7 @@ document.getElementById("startBtn").onclick = () => {
   document.getElementById("splash").style.opacity = "0";
   setTimeout(() => {
     document.getElementById("splash").remove();
-    document.body.style.overflow = "";
+    document.documentElement.style.overflow = ""
   }, 600);
 };
 
