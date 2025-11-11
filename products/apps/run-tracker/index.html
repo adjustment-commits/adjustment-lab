@@ -72,19 +72,28 @@ button {
   background: radial-gradient(circle at 30% 20%, #00b386 0%, #004f3a 100%);
   color: #fff;
   display: flex;
-  align-items: flex-start;
   justify-content: center;
-  overflow-y: auto;
-  padding: 40px 0;
-  z-index: 99999;             /* ← 強制的に最前面へ */
-  isolation: isolate;         /* ← Safariの合成バグ防止 */
-  will-change: transform;     /* ← 描画優先度向上 */
+  align-items: flex-start;  /* ← 上寄せ */
+  overflow-y: auto;         /* ← スクロール許可 */
+  padding: 40px 0;          /* ← 上下余白確保 */
+  z-index: 999;
+  animation: fadeIn .6s ease forwards;
 }
-.splash-card img {
-  display: block;
-  z-index: 2;
-  position: relative;
-}</style>
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+.splash-card {
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:16px; padding:36px 28px;
+  text-align:center; max-width:360px; width:90%;
+  box-shadow:0 0 40px rgba(0,0,0,0.4);
+}
+.splash-card img { width:96px; height:96px; margin-bottom:10px; }
+.splash-card h1 { color:#fff; margin-bottom:6px; }
+.splash-card p.desc { color:#e5fff5; line-height:1.6; font-size:0.95rem; margin-bottom:18px; }
+
+</style>
 </head>
 <body>
 <!-- ===== スプラッシュ ===== -->
