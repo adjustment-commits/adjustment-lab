@@ -13,231 +13,76 @@
 <meta name="apple-mobile-web-app-title" content="Training LITE">
 <style>
 :root {
-  --accent:#8b0029; /* 濃いワインレッド */
+  --accent:#8b0029;
   --bg:#f8faf9;
   --text:#1a1a1a;
   font-family:'Noto Sans JP',sans-serif;
 }
-
-/* ===== 全体設定 ===== */
 body {
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.8;
-  text-rendering:optimizeLegibility;
+  margin:0;background:var(--bg);color:var(--text);line-height:1.8;text-rendering:optimizeLegibility;
 }
-
-/* ===== header ===== */
-header {
-  text-align:center;
-  padding:48px 20px 24px;
+header{text-align:center;padding:48px 20px 24px;}
+header h1{font-size:2rem;font-weight:700;color:var(--accent);margin-bottom:6px;}
+header p{color:#555;opacity:0.9;font-size:1rem;}
+main{max-width:480px;margin:0 auto;padding:20px;}
+section{background:#fff;border-radius:12px;padding:24px 20px;margin-bottom:32px;box-shadow:0 2px 10px rgba(0,0,0,0.08);}
+h2{color:var(--accent);font-size:1.2rem;margin-top:0;}
+label{display:inline-block;margin-right:8px;font-weight:600;}
+input[type="number"],input[type="text"],select{
+  border:1px solid #ccc;border-radius:6px;padding:8px 10px;margin:6px 4px;
+  font-size:1rem;width:100%;box-sizing:border-box;
 }
-header h1 {
-  font-size:2rem;
-  font-weight:700;
-  color:var(--accent);
-  margin-bottom:6px;
-}
-header p {
-  color:#555;
-  opacity:0.9;
-  font-size:1rem;
-}
-
-/* ===== main・カード ===== */
-main {
-  max-width:480px;
-  margin:0 auto;
-  padding:20px;
-}
-section {
-  background:#fff;
-  border-radius:12px;
-  padding:24px 20px;
-  margin-bottom:32px;
-  box-shadow:0 2px 10px rgba(0,0,0,0.08);
-}
-h2 {
-  color:var(--accent);
-  font-size:1.2rem;
-  margin-top:0;
-}
-
-/* ===== 入力フォーム ===== */
-label {
-  display:inline-block;
-  margin-right:8px;
-  font-weight:600;
-}
-input[type="number"],input[type="text"] {
-  border:1px solid #ccc;
-  border-radius:6px;
-  padding:8px 10px;
-  margin:6px 4px;
-  font-size:1rem;
-  width:100%;
-  box-sizing:border-box;
-}
-
-/* ===== ボタン ===== */
-button {
-  background:var(--accent);
-  color:#fff;
-  border:none;
-  border-radius:6px;
-  padding:12px 22px;
-  margin-top:20px;
-  font-size:1rem;
-  cursor:pointer;
-  transition:0.3s;
-}
-button:hover {opacity:0.9;}
-
-/* ===== 記録リスト ===== */
-#logList li {
-  list-style:none;
-  background:#fff;
-  margin:6px 0;
-  border-left:4px solid var(--accent);
-  padding:8px 10px;
-  border-radius:6px;
-  box-shadow:0 1px 6px rgba(0,0,0,0.05);
-}
-
-/* ===== 削除ボタン ===== */
-.del {
-  background:none;
-  border:1px solid var(--accent);
-  color:var(--accent);
-  padding:4px 10px;
-  border-radius:4px;
-  cursor:pointer;
-  font-size:0.85rem;
-  margin-left:8px;
-  transition:0.3s;
-}
-.del:hover {background:var(--accent);color:#fff;}
-
-/* ===== スプラッシュ ===== */
-#splash {
-  position:fixed;
-  inset:0;
-  background:radial-gradient(circle at 30% 20%, #8b0029 0%, #3f0015 100%);
-  color:#fff;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  overflow-y:auto;
-  padding:40px 0;
-  z-index:999;
-  animation:fadeIn .6s ease forwards;
-}
-@keyframes fadeIn {from{opacity:0;}to{opacity:1;}}
-.splash-card {
-  background:rgba(255,255,255,0.06);
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:16px;
-  padding:36px 28px;
-  text-align:center;
-  max-width:360px;
-  width:90%;
-  box-shadow:0 0 40px rgba(0,0,0,0.4);
-}
-.splash-card img {width:96px;height:96px;margin-bottom:10px;}
-.splash-card h1 {color:#fff;margin-bottom:6px;}
-.splash-card p.desc {color:#ffe6ec;line-height:1.6;font-size:0.95rem;margin-bottom:18px;}
+button{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:12px 22px;
+  margin-top:20px;font-size:1rem;cursor:pointer;transition:0.3s;}
+button:hover{opacity:0.9;}
+#logList li{list-style:none;background:#fff;margin:6px 0;border-left:4px solid var(--accent);
+  padding:8px 10px;border-radius:6px;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+.del{background:none;border:1px solid var(--accent);color:var(--accent);
+  padding:4px 10px;border-radius:4px;cursor:pointer;font-size:0.85rem;margin-left:8px;transition:0.3s;}
+.del:hover{background:var(--accent);color:#fff;}
+#splash{position:fixed;inset:0;background:radial-gradient(circle at 30% 20%,#8b0029 0%,#3f0015 100%);
+  color:#fff;display:flex;justify-content:center;align-items:flex-start;overflow-y:auto;
+  padding:40px 0;z-index:999;animation:fadeIn .6s ease forwards;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.splash-card{background:rgba(255,255,255,0.06);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:36px 28px;
+  text-align:center;max-width:360px;width:90%;box-shadow:0 0 40px rgba(0,0,0,0.4);}
+.splash-card img{width:96px;height:96px;margin-bottom:10px;}
+.splash-card h1{color:#fff;margin-bottom:6px;}
+.splash-card p.desc{color:#ffe6ec;line-height:1.6;font-size:0.95rem;margin-bottom:18px;}
 .splash-card .howto,.splash-card .purpose,.splash-card .pro{text-align:left;}
 .splash-card ul,.splash-card ol{text-align:left;margin-left:1.2em;}
-
-/* ===== PROリンク（改良版） ===== */
-.pro-link {
-  background:#f8f8f8;              /* 黒からライトグレーへ */
-  color:#333;                      /* 本文を濃いグレーに */
-  text-align:center;
-  padding:48px 24px;
-  border-radius:12px;
-  max-width:480px;
-  margin:60px auto;
-  box-shadow:0 2px 12px rgba(0,0,0,0.08);
-  border:1px solid #ddd;
-}
-.pro-link h2 {
-  color:#8b0029;                   /* ワインレッド維持 */
-  font-size:1.4rem;
-  font-weight:700;
-  margin-bottom:12px;
-}
-.pro-link p {
-  line-height:1.8;
-  font-size:0.95rem;
-  color:#444;                      /* 白ではなく中間グレー */
-  margin-bottom:20px;
-}
-.pro-link .cta button {
-  background:#8b0029;              /* 実ボタンをワインレッドに */
-  color:#fff;
-  border:none;
-  padding:10px 22px;
-  border-radius:6px;
-  font-size:1rem;
-  cursor:pointer;
-  transition:0.3s;
-  box-shadow:0 2px 8px rgba(0,0,0,0.15);
-}
-.pro-link .cta button:hover {
-  opacity:0.9;
-}
-
-/* ===== footer ===== */
-footer {
-  text-align:center;
-  padding:20px;
-  font-size:0.85rem;
-  color:#666;
-}
+.pro-link{background:#f8f8f8;color:#333;text-align:center;padding:48px 24px;border-radius:12px;
+  max-width:480px;margin:60px auto;box-shadow:0 2px 12px rgba(0,0,0,0.08);border:1px solid #ddd;}
+.pro-link h2{color:#8b0029;font-size:1.4rem;font-weight:700;margin-bottom:12px;}
+.pro-link p{line-height:1.8;font-size:0.95rem;color:#444;margin-bottom:20px;}
+.pro-link .cta button{background:#8b0029;color:#fff;border:none;padding:10px 22px;border-radius:6px;
+  font-size:1rem;cursor:pointer;transition:0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.15);}
+.pro-link .cta button:hover{opacity:0.9;}
+footer{text-align:center;padding:20px;font-size:0.85rem;color:#666;}
+.progress-container{background:#eee;border-radius:6px;height:16px;margin-top:12px;overflow:hidden;}
+#progressBar{background:var(--accent);height:100%;width:0;transition:width .4s ease;}
+select#modeSelect{margin-top:8px;border:1px solid #aaa;background:#fff;}
 </style>
 </head>
 <body>
-<!-- ===== スプラッシュ ===== -->
 <div id="splash">
   <div class="splash-card">
     <img src="icon-192.png" alt="Training Lite アイコン">
     <h1>Training Lite</h1>
     <p class="desc">毎日のトレーニングを“設計”するアプリ。<br>目的を設定し、行動を記録して、成長を構造的に積み上げる。</p>
-<div class="howto">
-  <p>📘 <b>使い方</b></p>
-  <ol>
-    <li>トレーニング前に「目標」を設定する。</li>
-    <li>種目・強度・時間を入力して記録する。</li>
-    <li>記録が積み重なると“達成率”が進む。</li>
-    <li>週ごとにフォームと出力を見直す。</li>
-  </ol>
-</div>
-
-<div class="purpose">
-  <p>🎯 <b>Training Liteでできること</b></p>
-  <ul>
-    <li>「なぜやるか」を明確にして継続を習慣化</li>
-    <li>記録を“再現可能な構造”として可視化</li>
-    <li>強度とボリュームの自己管理を育てる</li>
-  </ul>
-</div>
-
-<div class="pro">
-  <p>🚀 <b>PRO版でさらにできること</b></p>
-  <ul>
-    <li>RPE・VO₂maxとの連動分析</li>
-    <li>トレーナーとの共有・フィードバック機能</li>
-    <li>クラウドバックアップ・複数選手モード</li>
-  </ul>
-</div>
-
-<div class="buttons">
-  <button id="startBtn">はじめる</button>
-  <button id="proBtn" onclick="location.href='/adjustment-lab/products/index.html'">PRO版を見る</button>
-</div>  </div>
+    <div class="howto">
+      <p>📘 <b>使い方</b></p>
+      <ol>
+        <li>トレーニング前に「目標」を設定する。</li>
+        <li>種目・強度・時間を入力して記録する。</li>
+        <li>記録が積み重なると“達成率”が進む。</li>
+      </ol>
+    </div>
+    <div class="buttons">
+      <button id="startBtn">はじめる</button>
+    </div>
+  </div>
 </div>
 <header>
   <h1>Training LITE</h1>
@@ -265,6 +110,13 @@ footer {
   </section>
   <section>
     <h2>達成状況</h2>
+    <label for="modeSelect">達成基準：</label>
+    <select id="modeSelect">
+      <option value="count">頻度（週◯回）</option>
+      <option value="time">総時間（分）</option>
+      <option value="load">総重量（kg）</option>
+      <option value="score">負荷スコア（RPE×時間）</option>
+    </select>
     <div class="progress-container">
       <div id="progressBar"></div>
     </div>
@@ -283,55 +135,75 @@ footer {
 <script>
 if (!localStorage.getItem("trainingLiteVisited")) {
   document.getElementById("splash").style.display="flex";
-  document.body.style.overflow="hidden";
 } else {
   document.getElementById("splash").style.display="none";
 }
 document.getElementById("startBtn").onclick=()=>{
   localStorage.setItem("trainingLiteVisited","true");
   document.getElementById("splash").style.opacity="0";
-  setTimeout(()=>{
-    document.getElementById("splash").remove();
-    document.body.style.overflow="";
-  },600);
+  setTimeout(()=>{document.getElementById("splash").remove();},600);
 };
 
 const form=document.getElementById("trainingForm");
 const logList=document.getElementById("logList");
 const progressBar=document.getElementById("progressBar");
 const progressText=document.getElementById("progressText");
-const checkArea=document.getElementById("checkArea");
+const modeSelect=document.getElementById("modeSelect");
 
 let logs=JSON.parse(localStorage.getItem("trainingLogs")||"[]");
 
-function saveLog(log){
-  logs.push(log);
-  localStorage.setItem("trainingLogs",JSON.stringify(logs));
-}
+function saveLog(log){logs.push(log);localStorage.setItem("trainingLogs",JSON.stringify(logs));}
+
 function updateLogs(){
   logList.innerHTML="";
   logs.forEach((l,i)=>{
     const li=document.createElement("li");
     li.textContent=`${l.date}｜${l.goal}｜${l.exercise}｜${l.intensity}｜${l.duration}`;
     const delBtn=document.createElement("button");
-    delBtn.textContent="削除";
-    delBtn.className="del";
-    delBtn.onclick=()=>{
-      if(confirm("この記録を削除しますか？")){
-        logs.splice(i,1);
-        localStorage.setItem("trainingLogs",JSON.stringify(logs));
-        updateLogs();
-      }
-    };
-    li.appendChild(delBtn);
-    logList.appendChild(li);
+    delBtn.textContent="削除";delBtn.className="del";
+    delBtn.onclick=()=>{if(confirm("削除しますか？")){logs.splice(i,1);
+      localStorage.setItem("trainingLogs",JSON.stringify(logs));updateLogs();updateProgress();}};
+    li.appendChild(delBtn);logList.appendChild(li);
   });
 }
+
 function updateProgress(){
-  const rate=Math.min((logs.length/10)*100,100);
+  const mode=modeSelect.value;
+  const now=new Date();
+  const thisWeekLogs=logs.filter(l=>{
+    const d=new Date(l.date);
+    return (now-d)/(1000*60*60*24)<=7;
+  });
+  let rate=0;
+  if(mode==="count"){
+    const target=3;rate=Math.min((thisWeekLogs.length/target)*100,100);
+  }else if(mode==="time"){
+    const target=150;
+    const total=thisWeekLogs.reduce((sum,l)=>{
+      const m=l.duration?l.duration.match(/\d+/g):[];
+      const mins=m?m.map(Number).reduce((a,b)=>a+b,0)/60:0;
+      return sum+mins;},0);
+    rate=Math.min((total/target)*100,100);
+  }else if(mode==="load"){
+    const target=10000;
+    const total=thisWeekLogs.reduce((sum,l)=>{
+      const m=l.intensity?l.intensity.match(/\d+/g):[];
+      if(m.length>=2){const [w,r]=m.map(Number);return sum+(w*r);}
+      return sum;},0);
+    rate=Math.min((total/target)*100,100);
+  }else if(mode==="score"){
+    const target=1000;
+    const total=thisWeekLogs.reduce((sum,l)=>{
+      const t=l.duration?parseInt(l.duration.match(/\d+/)?.[0]||0):0;
+      const r=l.rpe?parseInt(l.rpe):5;
+      return sum+(t*r);},0);
+    rate=Math.min((total/target)*100,100);
+  }
   progressBar.style.width=rate+"%";
   progressText.textContent=`達成率：${Math.round(rate)}%`;
 }
+modeSelect.addEventListener("change",updateProgress);
+
 form.addEventListener("submit",e=>{
   e.preventDefault();
   const newLog={
@@ -341,20 +213,10 @@ form.addEventListener("submit",e=>{
     duration:duration.value.trim(),
     date:new Date().toLocaleDateString("ja-JP")
   };
-  saveLog(newLog);updateLogs();updateProgress();
-  checkArea.innerHTML='<span class="checkmark">✓</span>';
-  setTimeout(()=>checkArea.innerHTML="",1000);
-  form.reset();
+  saveLog(newLog);updateLogs();updateProgress();form.reset();
 });
+
 updateLogs();updateProgress();
-</script>
-<script>
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("./service-worker.js")
-    .catch(err=>console.error("SW registration failed:",err));
-  });
-}
 </script>
 </body>
 </html>
