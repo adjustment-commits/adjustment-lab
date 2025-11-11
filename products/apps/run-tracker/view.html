@@ -54,6 +54,10 @@ if ("serviceWorker" in navigator) {
 :root {
   --accent:#00b386; --bg:#f8faf9; --text:#1a1a1a;
 }
+html, body {
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+}
 body {
   font-family:'Noto Sans JP',sans-serif;
   background:var(--bg);
@@ -164,7 +168,7 @@ function updateRole(){
 updateRole();
 
 function render(){
-  const data = JSON.parse(localStorage.getItem("runRecords") || "[]");
+  const data = JSON.parse(localStorage.getItem("runLogs") || "[]");
   if(!data.length){
     document.getElementById("comment").textContent = "まだ記録がありません。";
     document.getElementById("stage").textContent = "";
