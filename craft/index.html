@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>adjustment-craft｜構造をデザインし、伝える。</title>
+<!-- ✅ PWA設定 -->
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#007b9e">
 <link rel="apple-touch-icon" sizes="192x192" href="../assets/icon-craft.png">
@@ -11,100 +12,336 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="/adjustment-lab/assets/footer-lite.css">
+<script>
+fetch("/adjustment-lab/assets/footer-lite.html")
+</script>
 <style>
 :root {
-  --bg:#ffffff; --text:#1a1a1a; --sub:#555;
-  --accent:#007b9e; --line:rgba(0,0,0,0.06);
+  --bg:#ffffff;
+  --text:#1a1a1a;
+  --sub:#555;
+  --accent:#007b9e;
+  --line:rgba(0,0,0,0.06);
   font-family:'Noto Sans JP',sans-serif;
 }
-body{margin:0;background:var(--bg);color:var(--text);line-height:1.9;animation:fadein 1s ease-in;}
-@keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.hero{text-align:center;padding:10px 20px 10px;background:linear-gradient(180deg,#ffffff 0%,#eef5f8 100%);}
-.hero h1{font-size:2rem;color:var(--accent);}
-.hero p{color:var(--sub);font-size:1rem;line-height:1.8;}
-section{max-width:1000px;margin:80px auto;padding:0 24px;}
-section h2{color:var(--accent);font-size:1.5rem;border-left:4px solid var(--accent);padding-left:10px;margin-bottom:0.6em;}
-section p{opacity:0.9;margin-bottom:1.4em;}
-.works{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:40px;}
-.work-card{background:#fff;border:1px solid var(--line);border-radius:10px;text-align:center;padding:20px;transition:.3s;cursor:pointer;}
-.work-card:hover{box-shadow:0 6px 14px rgba(0,0,0,0.06);transform:translateY(-3px);}
-.work-card img.icon{width:80px;height:80px;object-fit:contain;margin-bottom:12px;}
-.work-card h3{color:var(--accent);font-size:1.1rem;margin-bottom:.5em;}
-.work-card p{color:var(--sub);font-size:.9rem;line-height:1.6;}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:100;}
-.modal-content{background:#fff;padding:20px;border-radius:8px;max-width:600px;width:90%;box-shadow:0 6px 16px rgba(0,0,0,0.2);}
-.modal-content img{width:100%;height:auto;border-radius:6px;}
-.modal-content .close{float:right;font-size:20px;color:#999;cursor:pointer;}
-@media(max-width:768px){.hero h1{font-size:1.8rem;}section{margin:60px 16px;}}
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.9;
+  overflow-x:hidden;
+  animation:fadein 1s ease-in;
+}
+@keyframes fadein {
+  from {opacity:0;transform:translateY(8px);}
+  to {opacity:1;transform:translateY(0);}
+}
+
+/* ===== HERO ===== */
+.hero {
+  text-align:center;
+  padding:10px 20px 10px;
+  background:linear-gradient(180deg,#ffffff 0%,#eef5f8 100%);
+}
+.hero h1 {
+  font-size:2rem;
+  color:var(--accent);
+  margin-bottom:0.6em;
+}
+.hero p {
+  color:var(--sub);
+  font-size:1.05rem;
+  line-height:1.8;
+  margin-bottom:2em;
+}
+
+/* ===== SECTION ===== */
+section {
+  max-width:1000px;
+  margin:80px auto;
+  padding:0 24px;
+}
+section h2 {
+  color:var(--accent);
+  font-size:1.5rem;
+  margin-bottom:0.6em;
+  border-left:4px solid var(--accent);
+  padding-left:10px;
+}
+section p {
+  color:var(--text);
+  opacity:0.9;
+  margin-bottom:1.4em;
+}
+
+/* ===== WORKS ===== */
+.works {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+  margin-top:40px;
+}
+.work-card {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  text-align:center;
+  padding:26px 20px;
+  transition:0.3s;
+  cursor:pointer;
+}
+.work-card:hover {
+  box-shadow:0 8px 20px rgba(0,0,0,0.06);
+  transform:translateY(-4px);
+}
+.work-card img {
+  width:96px;
+  height:96px;
+  margin-bottom:12px;
+  object-fit:contain;
+}
+.work-card h3 {
+  color:var(--accent);
+  font-size:1.1rem;
+  margin-bottom:0.5em;
+}
+.work-card p {
+  color:var(--sub);
+  font-size:0.9rem;
+  line-height:1.7;
+}
+
+/* ===== MODAL ===== */
+#previewModal {
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,.8);
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+#previewModal img {
+  max-width:90%;
+  max-height:90%;
+  border-radius:8px;
+  box-shadow:0 0 20px rgba(0,0,0,.4);
+}
+
+/* ===== SERVICE ===== */
+.services {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;
+  margin-top:40px;
+}
+.service-box {
+  background:#f5f9fa;
+  border:1px solid rgba(0,0,0,0.04);
+  border-left:4px solid var(--accent);
+  border-radius:8px;
+  padding:26px 20px;
+  text-align:left;
+  transition:0.3s;
+}
+.service-box:hover {background:#e8f3f7;}
+.service-box h3 {color:var(--accent);font-size:1.1rem;margin-bottom:0.4em;}
+.service-box p {color:var(--text);font-size:0.95rem;line-height:1.7;}
+
+/* ===== CONCEPT ===== */
+.concept {
+  background:#f0f5f7;
+  padding:100px 20px;
+  text-align:center;
+  border-top:2px solid var(--accent);
+  border-bottom:2px solid var(--accent);
+}
+.concept h2 {
+  color:var(--accent);
+  font-size:1.6rem;
+  margin-bottom:1em;
+  letter-spacing:0.05em;
+}
+.concept p {
+  color:var(--text);
+  font-weight:500;
+  line-height:2;
+  white-space:pre-line;
+  font-size:1rem;
+}
+
+/* ===== PLAN ===== */
+.plan-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;
+  margin-top:40px;
+}
+.plan-card {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  text-align:center;
+  padding:24px 20px;
+  transition:0.3s;
+}
+.plan-card:hover {
+  box-shadow:0 8px 20px rgba(0,0,0,0.06);
+  transform:translateY(-4px);
+}
+.plan-card h3 {
+  color:var(--accent);
+  font-size:1.1rem;
+  margin-bottom:0.5em;
+}
+.plan-card p {
+  color:var(--sub);
+  font-size:0.95rem;
+  line-height:1.7;
+}
+
+/* ===== CTA ===== */
+.cta {
+  text-align:center;
+  margin:80px 0 40px;
+}
+.cta button {
+  background:none;
+  border:1px solid var(--accent);
+  color:var(--accent);
+  padding:0.8em 1.8em;
+  border-radius:5px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
+  margin:6px;
+}
+.cta button:hover {background:var(--accent);color:#fff;}
+
+@media(max-width:768px){
+  .hero h1{font-size:1.8rem;}
+  .hero p{font-size:0.95rem;}
+  section{margin:60px 16px;}
+}
 </style>
 </head>
 <body>
 <section class="hero">
   <h1>adjustment-craft</h1>
-  <p>構造をデザインし、伝える。<br>理論を“使える形”に変換し、PWA・UI・Web制作で再現性を設計する。</p>
+  <p>構造をデザインし、伝える。<br>
+  理論を“使える形”に変換し、PWA・UI・Web制作で再現性を設計する。</p>
 </section>
 <section>
   <h2>WORKS｜制作実績</h2>
   <p>adjustment-craftは、labで生まれた理論を“形”に変換します。<br>
   トレーニング教材・診断ツール・教育PWAを一貫してデザインしています。</p>
   <div class="works">
-    <div class="work-card" data-img="../products/highschool-training/preview.jpg">
-      <img class="icon" src="../assets/icon-education.png" alt="">
+    <div class="work-card" onclick="showPreview('../products/highschool-training/preview.jpg')">
+      <img src="../products/highschool-training/icon-192.png" alt="高校野球トレーニング2025">
       <h3>高校野球トレーニング2025</h3>
-      <p>中学3年生向けに構成された教育PWA。<br>思考と体の成長をつなぐ教材。</p>
+      <p>全16回＋番外編の教育PWA。<br>思考と体の成長をつなぐ教材。</p>
     </div>
-    <div class="work-card" data-img="../products/selfcheck-lite/preview.jpg">
-      <img class="icon" src="../assets/icon-medical.png" alt="">
-      <h3>セルフチェック LITE</h3>
-      <p>腰・肩・肘・足首を即時判定。<br>医療知識×UXを融合した選手向けPWA。</p>
+<div class="work-card" onclick="showPreview('../products/selfcheck-lite/preview.jpg')">
+  <img src="../products/selfcheck-lite/icon-192.png" alt="セルフチェックLITE">
+  <h3>セルフチェック LITE</h3>
+  <p>腰・肩・肘・足首を即時判定。<br>医療知識×UXのセルフ評価PWA。</p>
+</div>
+
+<div class="work-card" onclick="showPreview('../products/alti-drink-check/preview.jpg')">
+  <img src="../products/alti-drink-check/icon-192.png" alt="ALTI飲酒タイプ診断">
+  <h3>ALTI飲酒タイプ診断</h3>
+  <p>体質と行動心理を融合。<br>“遊び×科学”の診断ツール。</p>
+</div>
+
+<div class="work-card" onclick="showPreview('../products/apps/run-tracker/preview.jpg')">
+  <img src="../products/apps/run-tracker/icon-192.png" alt="Run Tracker">
+  <h3>Run Tracker</h3>
+  <p>距離・強度・心拍を記録。<br>ランニングを数値で見える化。</p>
+</div>
+
+<div class="work-card" onclick="showPreview('../products/apps/recovery-tracker/preview.jpg')">
+  <img src="../products/apps/recovery-tracker/icon-192.png" alt="Recovery Tracker">
+  <h3>Recovery Tracker</h3>
+  <p>疲労・睡眠・メンタルを管理。<br>自己回復を構造化するPWA。</p>
+</div>
+
+<div class="work-card" onclick="showPreview('../assets/preview-sei-site.jpg')">
+  <img src="../assets/icon-craft.png" alt="整公式サイト">
+  <h3>整公式サイト</h3>
+  <p>「整」「lab」「craft」の3構造で展開。<br>PWA対応・モバイル最適化。</p>
+</div>  </div>
+</section>
+<div id="previewModal">
+  <img id="previewImg" src="">
+</div>
+<script>
+function showPreview(src){
+  const m=document.getElementById("previewModal");
+  const i=document.getElementById("previewImg");
+  i.src=src; m.style.display="flex";
+  m.onclick=()=>m.style.display="none";
+}
+</script>
+<section>
+  <h2>SERVICE｜提供領域</h2>
+  <div class="services">
+    <div class="service-box">
+      <h3>UI/UX設計</h3>
+      <p>スマートフォンを主軸とした操作性の高いUI。<br>
+      現場利用を前提としたUXデザイン。</p>
     </div>
-    <div class="work-card" data-img="../products/alti-drink-check/preview.jpg">
-      <img class="icon" src="../assets/icon-test.png" alt="">
-      <h3>ALTI飲酒タイプ診断</h3>
-      <p>体質と心理を診断するHTMLツール。<br>遊び×科学の体験設計。</p>
+    <div class="service-box">
+      <h3>Web制作・PWA構築</h3>
+      <p>HTMLベースの軽量設計。<br>manifest・SWによる完全オフライン対応。</p>
     </div>
-    <div class="work-card" data-img="../products/apps/run-tracker/preview.jpg">
-      <img class="icon" src="../assets/icon-run.png" alt="">
-      <h3>Run Tracker</h3>
-      <p>距離・主観強度・心拍を可視化。<br>ランニングPWA。</p>
-    </div>
-    <div class="work-card" data-img="../products/apps/recovery-tracker/preview.jpg">
-      <img class="icon" src="../assets/icon-recovery.png" alt="">
-      <h3>Recovery Tracker</h3>
-      <p>疲労・睡眠・メンタルを記録。<br>回復を“構造化”して理解。</p>
-    </div>
-    <div class="work-card" data-img="../assets/preview-sei-site.jpg">
-      <img class="icon" src="../assets/icon-site.png" alt="">
-      <h3>整公式サイト</h3>
-      <p>「整」「lab」「craft」三位一体のブランドサイト。<br>PWA対応・モバイル最適化。</p>
+    <div class="service-box">
+      <h3>ブランドデザイン</h3>
+      <p>教材・アプリ・SNSに共通する統一トーン。<br>
+      ロゴ・資料テンプレートも制作。</p>
     </div>
   </div>
 </section>
-<!-- モーダル -->
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="close" id="closeModal">×</span>
-    <img id="modalImg" src="" alt="preview">
+<section class="concept">
+  <h2>CONCEPT｜構造を伝えるデザイン</h2>
+  <p>
+    構造を伝える。  
+    デザインは飾りではなく、意味の再構成である。  
+    adjustment-craftは、「整」の思想を“形”で届ける制作部門。  
+    技術と感性の交差点で、再現性のある表現を創る。
+  </p>
+</section>
+<section>
+  <h2>PLAN｜制作プランと料金</h2>
+  <p>目的や規模に合わせた3つの制作プランをご用意。<br>
+  打ち合わせから納品まで一貫対応。</p>
+  <div class="plan-grid">
+    <div class="plan-card">
+      <h3>Mini Plan｜ライト制作</h3>
+      <p>単ページまたはLP構成。<br>納期目安：1〜2週間<br><strong>¥50,000〜</strong></p>
+    </div>
+    <div class="plan-card">
+      <h3>Standard Plan｜構造設計型</h3>
+      <p>UI設計＋PWA構築＋SEO最適化。<br>納期目安：2〜4週間<br><strong>¥120,000〜</strong></p>
+    </div>
+    <div class="plan-card">
+      <h3>Pro Plan｜ブランド統合</h3>
+      <p>Web＋教材＋UI全体を統合設計。<br>
+      ロゴ・資料テンプレート含む。<br><strong>¥250,000〜</strong></p>
+    </div>
   </div>
+</section>
+<div class="cta">
+  <button onclick="window.location.href='../lab/index.html'">adjustment-labを見る</button>
+  <button onclick="window.location.href='../field/index.html'">adjustment-fieldを見る</button>
 </div>
-<script>
-document.querySelectorAll(".work-card").forEach(card=>{
-  card.addEventListener("click",()=>{
-    const img = card.dataset.img;
-    if(img){
-      document.getElementById("modalImg").src = img;
-      document.getElementById("modal").style.display="flex";
-    }
-  });
-});
-document.getElementById("closeModal").onclick=()=>{document.getElementById("modal").style.display="none";}
-document.getElementById("modal").onclick=e=>{if(e.target.id==="modal"){e.currentTarget.style.display="none";}}
-</script>
+<!-- ✅ フッター -->
 <div id="footer"></div>
 <script>
 fetch("../assets/footer-lite.html")
-.then(res=>res.text())
-.then(data=>{document.getElementById("footer").innerHTML=data;});
+  .then(res=>res.text())
+  .then(data=>{document.getElementById("footer").innerHTML=data;});
 </script>
 </body>
 </html>
