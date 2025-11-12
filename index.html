@@ -162,8 +162,13 @@ main {
    text-align:center;
   }
   .card.craft {
-    transform:none;
-    border:1px solid var(--line);
+  width:100%;
+  max-width:420px;
+  border:1px solid var(--line);
+  transform:none;
+  justify-self:center; /* ✅ 追加 */
+  margin:0 auto;       /* ✅ 追加 */
+}
   }
   header img {
     width:100px;
