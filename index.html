@@ -218,6 +218,70 @@ footer a:hover{text-decoration:underline;}
     すべては現場から、再現性のために。
   </p>
 </section>
+
+<section class="selector">
+  <div class="selector-inner">
+    <p>トレーナー指導・チームサポートをご希望の方は → 
+      <span class="link field" onclick="location.href='./field/index.html'">field</span>
+    </p>
+    <p>Webサイト・資料デザインをご希望の方は → 
+      <span class="link craft" onclick="location.href='./craft/index.html'">craft</span>
+    </p>
+    <p>現場の課題をデジタルで解決したい方は → 
+      <span class="link lab" onclick="location.href='./lab/index.html'">lab</span>
+    </p>
+  </div>
+</section>
+
+<style>
+.selector {
+  width:100%;
+  background:linear-gradient(180deg,#f8faf9 0%,#eef5f3 100%);
+  padding:30px 20px 40px;
+  text-align:center;
+  box-sizing:border-box;
+}
+.selector-inner {
+  max-width:720px;
+  margin:0 auto;
+}
+.selector p {
+  font-size:0.95rem;
+  line-height:2;
+  color:#222;
+  margin:10px 0;
+}
+.link {
+  font-weight:600;
+  cursor:pointer;
+  position:relative;
+  transition:color 0.3s ease, text-shadow 0.3s ease;
+}
+.link.craft:hover {
+  color:#00b386;
+  text-shadow:0 0 8px rgba(0,179,134,0.5);
+}
+.link.field:hover {
+  color:#00a0b3;
+  text-shadow:0 0 8px rgba(0,160,179,0.5);
+}
+.link.lab:hover {
+  color:#00806f;
+  text-shadow:0 0 8px rgba(0,128,111,0.5);
+}
+
+/* スマホ */
+@media(max-width:700px){
+  .selector {
+    padding:24px 10px 32px;
+  }
+  .selector p {
+    font-size:0.9rem;
+    line-height:1.9;
+  }
+}
+</style>
+
 <main>
   <div class="card craft" onclick="location.href='./craft/index.html'">
     <img src="./assets/icon-craft.png" alt="craftアイコン" style="transform:scale(1.15);filter:drop-shadow(0 4px 6px rgba(0,179,134,0.4));">
